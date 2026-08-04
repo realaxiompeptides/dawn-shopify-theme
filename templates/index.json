@@ -131,170 +131,290 @@
         "button_link": ""
       }
     },
-    "bojax_course_curriculum_nXN9cR": {
+    "bojax_course_curriculum_C6bCDw": {
       "type": "bojax-course-curriculum",
       "blocks": {
-        "module_TFrD8i": {
-          "type": "module",
+        "topic_xdWKJV": {
+          "type": "topic",
           "settings": {
-            "badge": "Core module",
-            "lesson_count": "5 lessons",
-            "title": "Face and presentation",
-            "description": "<p>Learn how grooming, posture, facial presentation and visual balance affect your appearance.</p>",
-            "point_1": "Facial presentation fundamentals",
-            "point_2": "Profile, posture and photo angles",
-            "point_3": "Bonesmashing myths and injury risks",
-            "point_4": "Building a repeatable daily routine",
+            "category": "Foundation",
+            "lesson_count": "3 lessons",
+            "title": "Softmaxxing fundamentals",
+            "description": "<p>Build the highest-impact non-invasive improvements before moving into advanced options.</p>",
+            "point_1": "Complete appearance assessment",
+            "point_2": "Identify your highest-impact priorities",
+            "point_3": "Build daily and weekly routines",
             "featured": true
           }
         },
-        "module_UHXmk6": {
-          "type": "module",
+        "topic_LEFagp": {
+          "type": "topic",
           "settings": {
-            "badge": "Core module",
-            "lesson_count": "6 lessons",
-            "title": "Hair and grooming",
-            "description": "<p>Build a grooming system based on your features, hair type and desired style.</p>",
-            "point_1": "Choosing a flattering hairstyle",
-            "point_2": "Hair maintenance and styling",
-            "point_3": "Facial hair and grooming details",
-            "point_4": "Building a repeatable daily routine",
-            "featured": false
-          }
-        },
-        "module_bwB6BM": {
-          "type": "module",
-          "settings": {
-            "badge": "Core module",
-            "lesson_count": "7 lessons",
-            "title": "Evidence-based skincare",
-            "description": "<p>Create a consistent routine for cleaner, healthier-looking skin without chasing every trend.</p>",
+            "category": "Skincare",
+            "lesson_count": "4 lessons",
+            "title": "Advanced skin protocols",
+            "description": "<p>Understand acne, texture, pigmentation, oil control and professional skincare options.</p>",
             "point_1": "Cleanser, moisturizer and sunscreen",
-            "point_2": "Acne and irritation basics",
-            "point_3": "When to see a dermatologist",
-            "point_4": "Building a repeatable daily routine",
+            "point_2": "Retinoids and acne-treatment education",
+            "point_3": "Microneedling and professional procedures",
             "featured": false
           }
         },
-        "module_bfGb6C": {
-          "type": "module",
+        "topic_kWUmhi": {
+          "type": "topic",
           "settings": {
-            "badge": "Core module",
-            "lesson_count": "5 lessons",
-            "title": "Physique and posture",
-            "description": "<p>Improve the way your frame, posture and proportions contribute to your overall presence.</p>",
-            "point_1": "Posture and body language",
-            "point_2": "Building balanced proportions",
-            "point_3": "Sustainable fitness habits",
-            "point_4": "Building a repeatable daily routine",
+            "category": "Hair",
+            "lesson_count": "3 lessons",
+            "title": "Hairline and hair-growth protocols",
+            "description": "<p>Improve hairstyle, scalp care and hair presentation while understanding professional options.</p>",
+            "point_1": "Choosing haircuts for your features",
+            "point_2": "Styling and scalp-care routines",
+            "point_3": "Hair-loss treatment education",
             "featured": false
           }
         },
-        "module_LWcAmJ": {
-          "type": "module",
+        "topic_tJ7cJT": {
+          "type": "topic",
           "settings": {
-            "badge": "Core module",
-            "lesson_count": "5 lessons",
-            "title": "Style and clothing",
-            "description": "<p>Build a wardrobe that fits properly, complements your features and feels intentional.</p>",
-            "point_1": "Fit and proportions",
-            "point_2": "Color and outfit coordination",
-            "point_3": "Building a personal style",
-            "point_4": "Building a repeatable daily routine",
+            "category": "Face",
+            "lesson_count": "3 lessons",
+            "title": "Jawline, hyoid and mandibular appearance",
+            "description": "<p>Understand the visual factors that influence the jawline, neck and lower-face presentation.</p>",
+            "point_1": "Posture and neck positioning",
+            "point_2": "Body composition and jaw visibility",
+            "point_3": "Bite and orthodontic considerations",
             "featured": false
           }
         },
-        "module_X4Hh9n": {
-          "type": "module",
+        "topic_eAjdBF": {
+          "type": "topic",
           "settings": {
-            "badge": "Advanced",
+            "category": "Facial structure",
+            "lesson_count": "3 lessons",
+            "title": "Bone growth and forward-growth claims",
+            "description": "<p>Learn what influences facial development and separate realistic options from dangerous myths.</p>",
+            "point_1": "Genetics and facial development",
+            "point_2": "Posture, bite and orthodontics",
+            "point_3": "Bonesmashing myths and injury risks",
+            "featured": false
+          }
+        },
+        "topic_VDxAMJ": {
+          "type": "topic",
+          "settings": {
+            "category": "Eye area",
+            "lesson_count": "2 lessons",
+            "title": "Eye-area improvements",
+            "description": "<p>Improve the appearance of the under-eye area, brows and surrounding facial presentation.</p>",
+            "point_1": "Sleep, allergies and puffiness",
+            "point_2": "Under-eye skincare",
+            "point_3": "Brow shape and grooming",
+            "featured": false
+          }
+        },
+        "topic_Xpt8QW": {
+          "type": "topic",
+          "settings": {
+            "category": "Facial details",
+            "lesson_count": "2 lessons",
+            "title": "Lashes, brows and lips",
+            "description": "<p>Refine smaller facial details that can noticeably improve overall appearance.</p>",
+            "point_1": "Eyebrow shaping and density",
+            "point_2": "Lash and eye-area grooming",
+            "point_3": "Lip care and presentation",
+            "featured": false
+          }
+        },
+        "topic_GbWHcg": {
+          "type": "topic",
+          "settings": {
+            "category": "Facial presentation",
+            "lesson_count": "2 lessons",
+            "title": "Nose appearance and facial balance",
+            "description": "<p>Understand styling, photography and professional options that influence perceived nose balance.</p>",
+            "point_1": "Camera distortion and photo angles",
+            "point_2": "Hair and facial-balance strategies",
+            "point_3": "Contouring and presentation",
+            "featured": false
+          }
+        },
+        "topic_eNCmXK": {
+          "type": "topic",
+          "settings": {
+            "category": "Symmetry",
+            "lesson_count": "2 lessons",
+            "title": "Facial symmetry, exercises and posture",
+            "description": "<p>Understand realistic effects of expression habits, posture and facial movement.</p>",
+            "point_1": "Head, neck and shoulder posture",
+            "point_2": "Expression and tension habits",
+            "point_3": "Photo positioning and angles",
+            "featured": false
+          }
+        },
+        "topic_nfgrtk": {
+          "type": "topic",
+          "settings": {
+            "category": "Presentation",
+            "lesson_count": "2 lessons",
+            "title": "Feature balancing and facial masking",
+            "description": "<p>Use hairstyle, facial hair, glasses and styling to complement your strongest features.</p>",
+            "point_1": "Hair and face-shape balance",
+            "point_2": "Facial-hair placement",
+            "point_3": "Glasses and accessory selection",
+            "featured": false
+          }
+        },
+        "topic_MVPWrw": {
+          "type": "topic",
+          "settings": {
+            "category": "Physique",
             "lesson_count": "4 lessons",
-            "title": "Lifestyle and facial puffiness",
-            "description": "<p>Understand how sleep, hydration, nutrition and daily habits can affect your appearance.</p>",
-            "point_1": "Sleep and recovery",
-            "point_2": "Hydration and dietary consistency",
-            "point_3": "Avoiding extreme anti-bloat claims",
-            "point_4": "Building a repeatable daily routine",
+            "title": "Physique and proportion development",
+            "description": "<p>Build a stronger frame, improve body composition and develop balanced proportions.</p>",
+            "point_1": "Training structure and exercise selection",
+            "point_2": "Shoulder-to-waist proportions",
+            "point_3": "Body composition and nutrition",
+            "featured": true
+          }
+        },
+        "topic_T4KQYQ": {
+          "type": "topic",
+          "settings": {
+            "category": "Nutrition",
+            "lesson_count": "3 lessons",
+            "title": "Debloating, fasting and dietary structure",
+            "description": "<p>Understand how hydration, sodium, digestion, sleep and meal timing affect appearance.</p>",
+            "point_1": "Facial puffiness and water retention",
+            "point_2": "Hydration and sodium consistency",
+            "point_3": "Intermittent-fasting education",
             "featured": false
           }
         },
-        "module_69rm4m": {
-          "type": "module",
+        "topic_Ex99cg": {
+          "type": "topic",
           "settings": {
-            "badge": "Advanced",
+            "category": "Growth",
+            "lesson_count": "3 lessons",
+            "title": "Height potential and posture",
+            "description": "<p>Understand growth plates, genetics, puberty, sleep, nutrition and posture.</p>",
+            "point_1": "Remaining growth potential",
+            "point_2": "Sleep and nutrition fundamentals",
+            "point_3": "Posture and measured height",
+            "featured": false
+          }
+        },
+        "topic_ydKeaQ": {
+          "type": "topic",
+          "settings": {
+            "category": "Advanced education",
+            "lesson_count": "3 lessons",
+            "title": "Peptide and performance-enhancement education",
+            "description": "<p>Understand common enhancement claims, potential risks and the importance of professional supervision.</p>",
+            "point_1": "Approved treatments versus experimental compounds",
+            "point_2": "Purity and contamination concerns",
+            "point_3": "Hormonal and cardiovascular risks",
+            "featured": false
+          }
+        },
+        "topic_Yy4gFc": {
+          "type": "topic",
+          "settings": {
+            "category": "Advanced education",
+            "lesson_count": "3 lessons",
+            "title": "Hormones, nootropics and diuretics",
+            "description": "<p>An educational overview of commonly discussed compounds and their possible consequences.</p>",
+            "point_1": "Hormone-related claims and risks",
+            "point_2": "Nootropic benefits and limitations",
+            "point_3": "Diuretics, dehydration and electrolyte risk",
+            "featured": false
+          }
+        },
+        "topic_3hchdb": {
+          "type": "topic",
+          "settings": {
+            "category": "Supplements",
+            "lesson_count": "2 lessons",
+            "title": "Supplements and product resources",
+            "description": "<p>Learn how to evaluate supplement evidence, labels, quality and marketing claims.</p>",
+            "point_1": "Evidence and ingredient evaluation",
+            "point_2": "Label and dosage review",
+            "point_3": "Quality and sourcing considerations",
+            "featured": false
+          }
+        },
+        "topic_cjMwnN": {
+          "type": "topic",
+          "settings": {
+            "category": "Hardmaxxing",
             "lesson_count": "4 lessons",
-            "title": "Dental and cosmetic options",
-            "description": "<p>Learn what professional options exist, what they can realistically change and who to consult.</p>",
-            "point_1": "Dental appearance and orthodontics",
-            "point_2": "Dermatology and cosmetic procedures",
-            "point_3": "Realistic expectations and risks",
-            "point_4": "Building a repeatable daily routine",
+            "title": "Professional and cosmetic options",
+            "description": "<p>A realistic overview of dentistry, dermatology, hair restoration and cosmetic procedures.</p>",
+            "point_1": "Dental and orthodontic procedures",
+            "point_2": "Dermatology and cosmetic treatments",
+            "point_3": "Hair-restoration options",
             "featured": false
           }
         },
-        "module_ACqmAX": {
-          "type": "module",
+        "topic_R7yRVx": {
+          "type": "topic",
           "settings": {
-            "badge": "Advanced",
-            "lesson_count": "4 lessons",
-            "title": "Peptides and enhancement claims",
-            "description": "<p>Separate approved treatments from experimental compounds and misleading online claims.</p>",
-            "point_1": "Approved versus experimental products",
-            "point_2": "Quality, contamination and side effects",
-            "point_3": "Why professional supervision matters",
-            "point_4": "Building a repeatable daily routine",
-            "featured": false
-          }
-        },
-        "module_cBAWzG": {
-          "type": "module",
-          "settings": {
-            "badge": "Action plan",
+            "category": "Action plan",
             "lesson_count": "3 lessons",
             "title": "Your personal ascension plan",
-            "description": "<p>Turn the entire course into a realistic routine based on your current priorities.</p>",
-            "point_1": "Personal appearance assessment",
-            "point_2": "30-day improvement plan",
-            "point_3": "Tracking progress over time",
-            "point_4": "Building a repeatable daily routine",
-            "featured": false
+            "description": "<p>Turn the curriculum into a focused plan based on your age, priorities, budget and starting point.</p>",
+            "point_1": "Choose your highest-impact priorities",
+            "point_2": "Create a realistic 30-day plan",
+            "point_3": "Track progress consistently",
+            "featured": true
           }
         }
       },
       "block_order": [
-        "module_TFrD8i",
-        "module_UHXmk6",
-        "module_bwB6BM",
-        "module_bfGb6C",
-        "module_LWcAmJ",
-        "module_X4Hh9n",
-        "module_69rm4m",
-        "module_ACqmAX",
-        "module_cBAWzG"
+        "topic_xdWKJV",
+        "topic_LEFagp",
+        "topic_kWUmhi",
+        "topic_tJ7cJT",
+        "topic_eAjdBF",
+        "topic_VDxAMJ",
+        "topic_Xpt8QW",
+        "topic_GbWHcg",
+        "topic_eNCmXK",
+        "topic_nfgrtk",
+        "topic_MVPWrw",
+        "topic_T4KQYQ",
+        "topic_Ex99cg",
+        "topic_ydKeaQ",
+        "topic_Yy4gFc",
+        "topic_3hchdb",
+        "topic_cjMwnN",
+        "topic_R7yRVx"
       ],
       "name": "Bojax course curriculum",
       "settings": {
         "eyebrow": "WHAT YOU GET",
-        "heading": "The complete Bojax method",
-        "description": "<p>A complete appearance-improvement system that shows you what to focus on, what to avoid, and how to build your personal plan.</p>",
-        "show_summary": true,
-        "lesson_count": "40+",
-        "included_eyebrow": "THE COMPLETE SYSTEM",
-        "included_heading": "Everything included",
-        "included_description": "The most important areas of appearance improvement organized into one practical system.",
-        "included_1": "Softmaxxing fundamentals and daily appearance routines",
-        "included_2": "Advanced skincare and dermatologist-guided treatment education",
-        "included_3": "Hair, grooming, facial hair and personal styling",
-        "included_4": "Physique, posture, proportions and body presentation",
-        "included_5": "Remaining height potential, posture and medical evaluation",
-        "included_6": "Facial structure, dental options and professional treatments",
-        "included_7": "Hardmaxxing procedures, risks, recovery and provider selection",
-        "included_8": "Peptides, pharmaceuticals and enhancement-claim education",
-        "lessons_eyebrow": "EXPLORE THE CURRICULUM",
-        "lessons_heading": "Inside every module",
-        "autoplay": true,
-        "autoplay_speed": 6,
-        "footer_text": "Everything is organized into one clear system so you can stop piecing together contradictory advice.",
+        "heading": "Everything inside the Bojax method",
+        "description": "<p>A detailed looksmaxxing system covering foundational improvements, advanced appearance strategies, physique development, skincare and professional options.</p>",
+        "module_count": 15,
+        "module_suffix": "+",
+        "module_label": "Detailed modules",
+        "module_note": "Organized by improvement category",
+        "lesson_count": 40,
+        "lesson_suffix": "+",
+        "lesson_label": "Video lessons",
+        "lesson_note": "Detailed step-by-step explanations",
+        "access_value": "Instant",
+        "access_label": "Digital access",
+        "access_note": "Start immediately after purchase",
+        "updates_value": "Lifetime",
+        "updates_label": "Future updates",
+        "updates_note": "Receive newly added course material",
+        "curriculum_eyebrow": "THE COMPLETE CURRICULUM",
+        "curriculum_heading": "Every topic covered",
+        "curriculum_description": "<p>Every major looksmaxxing category is organized into focused lessons so students can understand what matters and build a practical improvement plan.</p>",
+        "closing_eyebrow": "ONE COMPLETE SYSTEM",
+        "closing_heading": "Everything organized in one place",
+        "closing_text": "<p>No more piecing together random advice from hundreds of videos. The course organizes the full system into clear categories and lessons.</p>",
+        "disclaimer": "Educational information only. Individual results vary. Medical, pharmaceutical and cosmetic treatments should be discussed with qualified professionals.",
         "button_text": "Get instant access",
         "button_link": ""
       }
@@ -304,6 +424,6 @@
     "bojax_hero",
     "featured_collection",
     "bojax_transformations_CPURm7",
-    "bojax_course_curriculum_nXN9cR"
+    "bojax_course_curriculum_C6bCDw"
   ]
 }

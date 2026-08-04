@@ -40,6 +40,7 @@
         "trust_updates"
       ],
       "settings": {
+        "product": "",
         "desktop_image": "shopify://shop_images/IMG_3327.jpg",
         "mobile_image": "shopify://shop_images/IMG_3327.jpg",
         "desktop_image_position": "center center",
@@ -125,8 +126,8 @@
         "likes_label": "Likes",
         "views": "10M+",
         "views_label": "Video views",
-        "social_note": "Viral appearance-improvement videos across TikTok.",
-        "disclaimer": "Individual results vary. Images do not guarantee that every customer will achieve the same outcome.",
+        "social_note": "",
+        "disclaimer": "",
         "button_text": "Get instant access",
         "button_link": ""
       }
@@ -441,13 +442,6 @@
         "feature_5": "Future course updates included",
         "button_text": "Get instant access",
         "non_recurring_text": "$29.99 one-time purchase • Non-recurring • No subscription",
-        "assurance_eyebrow": "SECURE CHECKOUT",
-        "assurance_heading": "Purchase with confidence",
-        "assurance_text": "<p>Your payment is processed through Shopify’s secure checkout.</p>",
-        "assurance_1": "Secure encrypted Shopify checkout",
-        "assurance_2": "Multiple payment methods accepted",
-        "assurance_3": "Lifetime access with one purchase",
-        "assurance_4": "No automatic monthly renewal",
         "payment_heading": "Accepted payment methods",
         "payment_note": "Available payment options may vary by location, currency and checkout eligibility.",
         "legal_note": "<p>By completing your purchase, you agree to the store’s terms and refund policy. Individual results vary.</p>"

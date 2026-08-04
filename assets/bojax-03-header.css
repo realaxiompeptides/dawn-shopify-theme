@@ -1,387 +1,257 @@
-
 /* =========================================================
-   BOJAX COURSE — PREMIUM HEADER
-   Keeps Dawn's mobile menu, cart, search and account logic.
+   BOJAX — PREMIUM HEADER
+   Black, white and gold styling
    ========================================================= */
 
-/* Header background */
+:root {
+  --bojax-header-gold: #d8b86a;
+  --bojax-header-gold-light: #f2d995;
+  --bojax-header-border: rgba(216, 184, 106, 0.22);
+}
 
+/* Hide Dawn's original static announcement bar */
+.announcement-bar-section,
+.shopify-section-group-header-group
+  > .shopify-section:not(.bojax-announcement-section):has(.announcement-bar) {
+  display: none !important;
+}
+
+/* Header group */
+.shopify-section-group-header-group {
+  position: relative;
+  z-index: 9998 !important;
+}
+
+/* Header container */
+.section-header {
+  position: relative;
+  z-index: 9998 !important;
+}
+
+.section-header.shopify-section-header-sticky {
+  position: sticky;
+  top: 0;
+}
+
+/* Main black header */
 .header-wrapper {
-  border-bottom:
-    1px solid rgba(255, 255, 255, 0.1) !important;
-
+  border-bottom: 1px solid var(--bojax-header-border) !important;
   background:
-    rgba(0, 0, 0, 0.8) !important;
-
+    radial-gradient(
+      circle at 50% 0,
+      rgba(216, 184, 106, 0.08),
+      transparent 48%
+    ),
+    #030303 !important;
   box-shadow:
-    0 16px 50px rgba(0, 0, 0, 0.28);
-
-  backdrop-filter:
-    blur(22px);
-
-  -webkit-backdrop-filter:
-    blur(22px);
-
-  transition:
-    background var(--bojax-transition),
-    box-shadow var(--bojax-transition);
+    0 12px 35px rgba(0, 0, 0, 0.42),
+    inset 0 -1px rgba(255, 255, 255, 0.02);
 }
-
-/* Stronger background after scrolling */
-
-.shopify-section-header-sticky .header-wrapper {
-  background:
-    rgba(0, 0, 0, 0.96) !important;
-
-  box-shadow:
-    0 18px 60px rgba(0, 0, 0, 0.5);
-}
-
-/* Header height */
 
 .header {
-  min-height:
-    78px;
-
-  padding-top:
-    11px;
-
-  padding-bottom:
-    11px;
+  min-height: 9.2rem;
+  padding-top: 1.1rem !important;
+  padding-bottom: 1.1rem !important;
+  align-items: center;
 }
 
-/* Logo */
+/* Logo area */
+.header__heading,
+.header__heading-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
 .header__heading-link {
-  color:
-    var(--bojax-white) !important;
-
-  font-weight:
-    900;
-
-  letter-spacing:
-    -0.05em;
-
-  text-decoration:
-    none;
-
-  text-transform:
-    uppercase;
+  padding: 0.45rem !important;
+  border: 1px solid rgba(216, 184, 106, 0.38);
+  border-radius: 1.2rem;
+  background:
+    linear-gradient(
+      145deg,
+      #ffffff,
+      #f7f0df
+    );
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.07),
+    0 8px 26px rgba(0, 0, 0, 0.32),
+    0 0 25px rgba(216, 184, 106, 0.1);
 }
 
 .header__heading-logo-wrapper {
-  transition:
-    transform var(--bojax-transition),
-    opacity var(--bojax-transition);
+  display: flex;
+  overflow: hidden;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.75rem;
+  background: #ffffff;
 }
 
-.header__heading-link:hover .header__heading-logo-wrapper {
-  opacity:
-    0.86;
-
-  transform:
-    scale(1.02);
+.header__heading-logo {
+  display: block;
+  width: auto !important;
+  max-width: 14rem !important;
+  max-height: 5.8rem !important;
+  object-fit: contain;
 }
 
-/* Desktop navigation */
-
-.header__inline-menu {
-  margin-left:
-    2rem;
+/* Store name when no logo is present */
+.header__heading-link .h2 {
+  color: var(--bojax-header-gold-light) !important;
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 700;
+  letter-spacing: 0.08em;
 }
 
-.header__menu-item {
-  position:
-    relative;
-
-  padding-top:
-    1.3rem;
-
-  padding-bottom:
-    1.3rem;
-
-  color:
-    rgba(255, 255, 255, 0.68) !important;
-
-  font-size:
-    1.35rem;
-
-  font-weight:
-    700;
-
-  letter-spacing:
-    0.01em;
-
-  text-decoration:
-    none;
-
-  transition:
-    color var(--bojax-transition);
+/* Header icons */
+.header__icon,
+.header__icon span,
+.header__icon svg,
+.header__icon .icon {
+  color: #ffffff !important;
 }
-
-.header__menu-item span {
-  text-decoration:
-    none !important;
-}
-
-.header__menu-item:hover,
-.header__active-menu-item {
-  color:
-    var(--bojax-white) !important;
-
-  text-decoration:
-    none !important;
-}
-
-/* Animated navigation line */
-
-.header__menu-item::after {
-  position:
-    absolute;
-
-  right:
-    1.2rem;
-
-  bottom:
-    0.55rem;
-
-  left:
-    1.2rem;
-
-  height:
-    1px;
-
-  background:
-    var(--bojax-white);
-
-  content:
-    "";
-
-  opacity:
-    0;
-
-  transform:
-    scaleX(0);
-
-  transform-origin:
-    center;
-
-  transition:
-    opacity var(--bojax-transition),
-    transform var(--bojax-transition);
-}
-
-.header__menu-item:hover::after,
-.header__active-menu-item::after {
-  opacity:
-    1;
-
-  transform:
-    scaleX(1);
-}
-
-/* Search, account and cart */
 
 .header__icon {
-  color:
-    var(--bojax-white) !important;
-
   transition:
-    opacity var(--bojax-transition),
-    transform var(--bojax-transition);
+    color 180ms ease,
+    transform 180ms ease;
 }
 
 .header__icon:hover {
-  color:
-    var(--bojax-white) !important;
-
-  opacity:
-    0.7;
-
-  transform:
-    translateY(-1px);
+  color: var(--bojax-header-gold-light) !important;
+  transform: translateY(-1px);
 }
 
-.header__icon .icon {
-  width:
-    2.15rem;
-
-  height:
-    2.15rem;
+.header__icon:hover svg,
+.header__icon:hover .icon {
+  color: var(--bojax-header-gold-light) !important;
 }
 
-/* Cart number */
+/* Hamburger lines */
+.header__icon--menu .icon-hamburger path,
+.header__icon--menu .icon-close path {
+  stroke: currentColor !important;
+}
 
+/* Cart count bubble */
 .cart-count-bubble {
-  min-width:
-    18px;
-
-  min-height:
-    18px;
-
-  border:
-    1px solid var(--bojax-black);
-
+  border: 1px solid #030303 !important;
   background:
-    var(--bojax-white) !important;
-
-  color:
-    var(--bojax-black) !important;
-
-  font-size:
-    0.95rem;
-
-  font-weight:
-    900;
+    linear-gradient(
+      145deg,
+      var(--bojax-header-gold-light),
+      var(--bojax-header-gold)
+    ) !important;
+  color: #050505 !important;
+  font-weight: 900 !important;
+  box-shadow: 0 0 16px rgba(216, 184, 106, 0.22);
 }
 
-/* Desktop dropdown */
-
-.header__submenu,
-.mega-menu__content {
-  border:
-    1px solid var(--bojax-border) !important;
-
-  border-radius:
-    0 0 var(--bojax-radius-medium)
-    var(--bojax-radius-medium);
-
-  background:
-    rgba(8, 8, 8, 0.98) !important;
-
-  box-shadow:
-    var(--bojax-shadow-large);
-
-  backdrop-filter:
-    blur(24px);
-
-  -webkit-backdrop-filter:
-    blur(24px);
+.cart-count-bubble span {
+  color: #050505 !important;
 }
 
-.header__submenu .header__menu-item {
-  color:
-    rgba(255, 255, 255, 0.72) !important;
+/* Desktop menu */
+.header__inline-menu {
+  margin-top: 0 !important;
 }
 
-.header__submenu .header__menu-item:hover {
-  color:
-    var(--bojax-white) !important;
+.header__menu-item,
+.header__menu-item span {
+  color: rgba(255, 255, 255, 0.78) !important;
+  font-weight: 750;
+  letter-spacing: 0.04em;
 }
 
-/* Dawn's old announcement bar — black and white fallback */
-
-.announcement-bar {
-  background:
-    var(--bojax-white) !important;
-
-  color:
-    var(--bojax-black) !important;
-}
-
-.announcement-bar__message {
-  color:
-    var(--bojax-black) !important;
-
-  font-weight:
-    850;
-
-  letter-spacing:
-    0.04em;
-}
-
-/* Mobile menu */
-
-.header__icon--menu {
-  color:
-    var(--bojax-white) !important;
-}
-
-.menu-drawer {
-  border-right:
-    1px solid var(--bojax-border);
-
-  background:
-    var(--bojax-black-soft) !important;
-
-  color:
-    var(--bojax-white);
-}
-
-.menu-drawer__navigation {
-  padding-top:
-    2rem;
-}
-
-.menu-drawer__menu-item {
-  color:
-    var(--bojax-white) !important;
-
-  font-size:
-    1.8rem;
-
-  font-weight:
-    800;
-
-  letter-spacing:
-    -0.02em;
-}
-
-.menu-drawer__menu-item:hover,
-.menu-drawer__menu-item--active {
-  background:
-    rgba(255, 255, 255, 0.07) !important;
-
-  color:
-    var(--bojax-white) !important;
-}
-
-.menu-drawer__utility-links {
-  border-top:
-    1px solid var(--bojax-border);
-
-  background:
-    var(--bojax-black) !important;
+.header__menu-item:hover,
+.header__menu-item:hover span,
+.header__active-menu-item {
+  color: var(--bojax-header-gold-light) !important;
 }
 
 /* Search modal */
-
 .search-modal,
-.predictive-search {
-  border-color:
-    var(--bojax-border) !important;
+.menu-drawer,
+.header__submenu {
+  border-color: var(--bojax-header-border) !important;
+  background: #070707 !important;
+  color: #ffffff !important;
+}
 
-  background:
-    rgba(8, 8, 8, 0.98) !important;
+.search-modal__content,
+.menu-drawer__inner-container,
+.menu-drawer__navigation-container {
+  background: #070707 !important;
+}
 
-  color:
-    var(--bojax-white);
+.menu-drawer__menu-item,
+.menu-drawer__menu-item span,
+.menu-drawer__close-button,
+.header__submenu .header__menu-item {
+  color: #ffffff !important;
+}
+
+.menu-drawer__menu-item:hover,
+.menu-drawer__close-button:hover,
+.header__submenu .header__menu-item:hover {
+  color: var(--bojax-header-gold-light) !important;
+}
+
+/* Search input */
+.search__input.field__input {
+  border-color: rgba(216, 184, 106, 0.3) !important;
+  background: rgba(255, 255, 255, 0.04) !important;
+  color: #ffffff !important;
+}
+
+.search__input.field__input::placeholder {
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.search-modal__form .field::before,
+.search-modal__form .field::after {
+  box-shadow: none !important;
+}
+
+/* Remove unexpected white header backgrounds */
+.shopify-section-header-sticky,
+.shopify-section-header-hidden,
+.section-header,
+.header-wrapper.gradient {
+  background-color: #030303 !important;
 }
 
 /* Mobile */
-
 @media screen and (max-width: 749px) {
   .header {
-    min-height:
-      70px;
+    min-height: 8.1rem;
+    padding-right: 1.5rem !important;
+    padding-left: 1.5rem !important;
+  }
 
-    padding-top:
-      8px;
+  .header__heading-link {
+    padding: 0.35rem !important;
+    border-radius: 0.95rem;
+  }
 
-    padding-bottom:
-      8px;
+  .header__heading-logo-wrapper {
+    border-radius: 0.6rem;
   }
 
   .header__heading-logo {
-    max-height:
-      40px;
+    max-width: 11.5rem !important;
+    max-height: 4.8rem !important;
   }
 
-  .header__icon .icon {
-    width:
-      2.3rem;
+  .header__icon {
+    width: 4.4rem;
+    height: 4.4rem;
+  }
 
-    height:
-      2.3rem;
+  .header__icon .svg-wrapper,
+  .header__icon svg {
+    width: 2.5rem;
+    height: 2.5rem;
   }
 }

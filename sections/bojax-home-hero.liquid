@@ -1,3 +1,9 @@
+<script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
+
+{%- assign hero_product = all_products['bojax-course'] -%}
+{%- assign hero_variant = hero_product.selected_or_first_available_variant -%}
+{%- assign hero_form_id = 'BojaxHeroProductForm-' | append: section.id -%}
+
 <section
   id="BojaxHero-{{ section.id }}"
   class="bojax-course-hero"
@@ -46,6 +52,7 @@
           }}
         {% endif %}
       </picture>
+
     {% elsif section.settings.desktop_image != blank %}
       {{
         section.settings.desktop_image
@@ -58,6 +65,7 @@
           sizes: '100vw',
           alt: section.settings.desktop_image.alt
       }}
+
     {% else %}
       <div class="bojax-course-hero__placeholder">
         {{ 'lifestyle-1' | placeholder_svg_tag }}
@@ -87,19 +95,97 @@
         </div>
       {% endif %}
 
-      {% if section.settings.button_text != blank %}
+      {% if hero_product != blank and section.settings.button_text != blank %}
+        <product-form
+          class="bojax-course-hero__product-form"
+          data-section-id="{{ section.id }}"
+          data-hide-errors="false"
+        >
+          {%- form 'product',
+            hero_product,
+            id: hero_form_id,
+            class: 'bojax-course-hero__form',
+            novalidate: 'novalidate',
+            data-type: 'add-to-cart-form'
+          -%}
+            <input
+              type="hidden"
+              name="id"
+              value="{{ hero_variant.id }}"
+              class="product-variant-id"
+              {% unless hero_variant.available %}
+                disabled
+              {% endunless %}
+            >
+
+            <input
+              type="hidden"
+              name="quantity"
+              value="1"
+            >
+
+            <div
+              class="product-form__error-message-wrapper"
+              role="alert"
+              hidden
+            >
+              <span class="product-form__error-message"></span>
+            </div>
+
+            <button
+              id="{{ hero_form_id }}-submit"
+              type="submit"
+              name="add"
+              class="bojax-course-hero__button"
+              aria-live="polite"
+              data-sold-out-message="true"
+              {% unless hero_variant.available %}
+                disabled
+              {% endunless %}
+            >
+              <span>
+                {% if hero_variant.available %}
+                  {{ section.settings.button_text }}
+                {% else %}
+                  Sold out
+                {% endif %}
+              </span>
+
+              <span class="sold-out-message hidden">
+                Sold out
+              </span>
+
+              <svg
+                class="bojax-course-hero__button-arrow"
+                aria-hidden="true"
+                viewBox="0 0 20 20"
+                width="20"
+                height="20"
+              >
+                <path
+                  d="M4 10h11M11 5l5 5-5 5"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+
+              {% render 'loading-spinner' %}
+            </button>
+          {%- endform -%}
+        </product-form>
+
+      {% elsif section.settings.button_text != blank %}
         <a
           class="bojax-course-hero__button"
-          {% if section.settings.button_link != blank %}
-            href="{{ section.settings.button_link }}"
-          {% else %}
-            role="link"
-            aria-disabled="true"
-          {% endif %}
+          href="/products/bojax-course"
         >
           <span>{{ section.settings.button_text }}</span>
 
           <svg
+            class="bojax-course-hero__button-arrow"
             aria-hidden="true"
             viewBox="0 0 20 20"
             width="20"
@@ -157,6 +243,7 @@
                         stroke-linejoin="round"
                       />
                     </svg>
+
                   {% when 'lock' %}
                     <svg viewBox="0 0 24 24" aria-hidden="true">
                       <rect
@@ -169,6 +256,7 @@
                         stroke="currentColor"
                         stroke-width="1.7"
                       />
+
                       <path
                         d="M8 10V7a4 4 0 0 1 8 0v3"
                         fill="none"
@@ -177,6 +265,7 @@
                         stroke-linecap="round"
                       />
                     </svg>
+
                   {% when 'infinity' %}
                     <svg viewBox="0 0 24 24" aria-hidden="true">
                       <path
@@ -188,6 +277,7 @@
                         stroke-linejoin="round"
                       />
                     </svg>
+
                   {% when 'play' %}
                     <svg viewBox="0 0 24 24" aria-hidden="true">
                       <circle
@@ -198,6 +288,7 @@
                         stroke="currentColor"
                         stroke-width="1.7"
                       />
+
                       <path
                         d="m10 8 6 4-6 4V8Z"
                         fill="none"
@@ -206,6 +297,7 @@
                         stroke-linejoin="round"
                       />
                     </svg>
+
                   {% when 'star' %}
                     <svg viewBox="0 0 24 24" aria-hidden="true">
                       <path
@@ -216,6 +308,7 @@
                         stroke-linejoin="round"
                       />
                     </svg>
+
                   {% else %}
                     <svg viewBox="0 0 24 24" aria-hidden="true">
                       <circle
@@ -226,6 +319,7 @@
                         stroke="currentColor"
                         stroke-width="1.7"
                       />
+
                       <path
                         d="m8 12 2.5 2.5L16 9"
                         fill="none"
@@ -364,7 +458,18 @@
     margin: 0;
   }
 
+  .bojax-course-hero__product-form,
+  .bojax-course-hero__form {
+    width: min(100%, 600px);
+    margin-inline: auto;
+  }
+
+  .bojax-course-hero__form {
+    margin-top: 30px;
+  }
+
   .bojax-course-hero__button {
+    position: relative;
     display: inline-flex;
     width: min(100%, 600px);
     min-height: 64px;
@@ -377,16 +482,25 @@
     border-radius: 14px;
     background: #fff;
     color: #000;
+    font-family: inherit;
     font-size: 1.55rem;
     font-weight: 850;
     letter-spacing: 0.01em;
     line-height: 1;
     text-decoration: none;
     box-shadow: 0 18px 55px rgba(255, 255, 255, 0.12);
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
     transition:
       background 180ms ease,
       transform 180ms ease,
       box-shadow 180ms ease;
+  }
+
+  .bojax-course-hero__form .bojax-course-hero__button {
+    width: 100%;
+    margin-top: 0;
   }
 
   .bojax-course-hero__button:hover {
@@ -396,13 +510,40 @@
     transform: translateY(-2px);
   }
 
-  .bojax-course-hero__button svg {
+  .bojax-course-hero__button-arrow {
     flex: 0 0 auto;
     transition: transform 180ms ease;
   }
 
-  .bojax-course-hero__button:hover svg {
+  .bojax-course-hero__button:hover .bojax-course-hero__button-arrow {
     transform: translateX(4px);
+  }
+
+  .bojax-course-hero__button .loading__spinner {
+    position: absolute;
+    inset: 50% auto auto 50%;
+    width: 22px;
+    height: 22px;
+    transform: translate(-50%, -50%);
+  }
+
+  .bojax-course-hero__button.loading > span,
+  .bojax-course-hero__button.loading > .bojax-course-hero__button-arrow {
+    opacity: 0;
+  }
+
+  .bojax-course-hero__button:disabled,
+  .bojax-course-hero__button[aria-disabled='true'] {
+    opacity: 0.55;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  .bojax-course-hero__form .product-form__error-message-wrapper {
+    margin: 10px 0 0;
+    color: #fff;
+    font-size: 1.25rem;
+    text-align: center;
   }
 
   .bojax-course-hero__payment-note {
@@ -512,12 +653,20 @@
       font-size: 1.48rem;
     }
 
+    .bojax-course-hero__form {
+      margin-top: 26px;
+    }
+
     .bojax-course-hero__button {
       width: 100%;
       min-height: 60px;
       margin-top: 26px;
       border-radius: 13px;
       font-size: 1.45rem;
+    }
+
+    .bojax-course-hero__form .bojax-course-hero__button {
+      margin-top: 0;
     }
 
     .bojax-course-hero__payment-note {
@@ -591,11 +740,26 @@
       "label": "Desktop image position",
       "default": "center center",
       "options": [
-        { "value": "center top", "label": "Top" },
-        { "value": "center center", "label": "Center" },
-        { "value": "center bottom", "label": "Bottom" },
-        { "value": "left center", "label": "Left" },
-        { "value": "right center", "label": "Right" }
+        {
+          "value": "center top",
+          "label": "Top"
+        },
+        {
+          "value": "center center",
+          "label": "Center"
+        },
+        {
+          "value": "center bottom",
+          "label": "Bottom"
+        },
+        {
+          "value": "left center",
+          "label": "Left"
+        },
+        {
+          "value": "right center",
+          "label": "Right"
+        }
       ]
     },
     {
@@ -604,11 +768,26 @@
       "label": "Mobile image position",
       "default": "center center",
       "options": [
-        { "value": "center top", "label": "Top" },
-        { "value": "center center", "label": "Center" },
-        { "value": "center bottom", "label": "Bottom" },
-        { "value": "left center", "label": "Left" },
-        { "value": "right center", "label": "Right" }
+        {
+          "value": "center top",
+          "label": "Top"
+        },
+        {
+          "value": "center center",
+          "label": "Center"
+        },
+        {
+          "value": "center bottom",
+          "label": "Bottom"
+        },
+        {
+          "value": "left center",
+          "label": "Left"
+        },
+        {
+          "value": "right center",
+          "label": "Right"
+        }
       ]
     },
     {
@@ -648,7 +827,8 @@
     {
       "type": "url",
       "id": "button_link",
-      "label": "Button link"
+      "label": "Fallback button link",
+      "info": "Used only if the Bojax Course product cannot be loaded."
     },
     {
       "type": "text",
@@ -681,12 +861,30 @@
           "label": "Icon",
           "default": "bolt",
           "options": [
-            { "value": "bolt", "label": "Instant access" },
-            { "value": "lock", "label": "Secure" },
-            { "value": "infinity", "label": "Lifetime" },
-            { "value": "play", "label": "Video" },
-            { "value": "star", "label": "Star" },
-            { "value": "check", "label": "Checkmark" }
+            {
+              "value": "bolt",
+              "label": "Instant access"
+            },
+            {
+              "value": "lock",
+              "label": "Secure"
+            },
+            {
+              "value": "infinity",
+              "label": "Lifetime"
+            },
+            {
+              "value": "play",
+              "label": "Video"
+            },
+            {
+              "value": "star",
+              "label": "Star"
+            },
+            {
+              "value": "check",
+              "label": "Checkmark"
+            }
           ]
         },
         {

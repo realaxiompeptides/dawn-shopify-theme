@@ -1,0 +1,570 @@
+<section
+  class="bojax-hero"
+  style="
+    --bojax-overlay-opacity:
+      {{ section.settings.overlay_opacity | divided_by: 100.0 }};
+    --bojax-image-position:
+      {{ section.settings.image_position }};
+  "
+>
+  <div class="bojax-hero__media">
+    {% if section.settings.background_image != blank %}
+      {{
+        section.settings.background_image
+        | image_url: width: 2400
+        | image_tag:
+          class: 'bojax-hero__image',
+          loading: 'eager',
+          fetchpriority: 'high',
+          widths: '500, 750, 1100, 1500, 2000, 2400',
+          sizes: '100vw',
+          alt: section.settings.background_image.alt
+      }}
+    {% else %}
+      <div class="bojax-hero__placeholder">
+        {{ 'lifestyle-1' | placeholder_svg_tag }}
+      </div>
+    {% endif %}
+  </div>
+
+  <div class="bojax-hero__overlay"></div>
+  <div class="bojax-hero__glow"></div>
+
+  <div class="bojax-container">
+    <div class="bojax-hero__content">
+
+      {% if section.settings.badge_text != blank %}
+        <div class="bojax-hero__badge">
+          <span class="bojax-badge">
+            {{ section.settings.badge_text }}
+          </span>
+        </div>
+      {% endif %}
+
+      {% if section.settings.heading != blank %}
+        <h1 class="bojax-hero__heading">
+          {{ section.settings.heading }}
+        </h1>
+      {% endif %}
+
+      {% if section.settings.description != blank %}
+        <div class="bojax-hero__description">
+          {{ section.settings.description }}
+        </div>
+      {% endif %}
+
+      <div class="bojax-hero__actions">
+        {% if section.settings.primary_button_text != blank %}
+          <a
+            class="bojax-button"
+            {% if section.settings.primary_button_link != blank %}
+              href="{{ section.settings.primary_button_link }}"
+            {% else %}
+              role="link"
+              aria-disabled="true"
+            {% endif %}
+          >
+            {{ section.settings.primary_button_text }}
+
+            <span aria-hidden="true">
+              →
+            </span>
+          </a>
+        {% endif %}
+
+        {% if section.settings.secondary_button_text != blank %}
+          <a
+            class="bojax-button bojax-button--secondary"
+            {% if section.settings.secondary_button_link != blank %}
+              href="{{ section.settings.secondary_button_link }}"
+            {% else %}
+              role="link"
+              aria-disabled="true"
+            {% endif %}
+          >
+            {{ section.settings.secondary_button_text }}
+          </a>
+        {% endif %}
+      </div>
+
+      {% if section.settings.microcopy != blank %}
+        <p class="bojax-hero__microcopy">
+          {{ section.settings.microcopy }}
+        </p>
+      {% endif %}
+
+      {% if section.settings.show_stats %}
+        <div class="bojax-hero__stats">
+
+          <div class="bojax-hero__stat">
+            <strong>
+              {{ section.settings.stat_one_number }}
+            </strong>
+
+            <span>
+              {{ section.settings.stat_one_label }}
+            </span>
+          </div>
+
+          <div class="bojax-hero__stat">
+            <strong>
+              {{ section.settings.stat_two_number }}
+            </strong>
+
+            <span>
+              {{ section.settings.stat_two_label }}
+            </span>
+          </div>
+
+          <div class="bojax-hero__stat">
+            <strong>
+              {{ section.settings.stat_three_number }}
+            </strong>
+
+            <span>
+              {{ section.settings.stat_three_label }}
+            </span>
+          </div>
+
+        </div>
+      {% endif %}
+
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  .bojax-hero {
+    position: relative;
+    display: flex;
+    min-height: min(920px, 100svh);
+    padding: 120px 0 70px;
+    align-items: center;
+    overflow: hidden;
+    background: var(--bojax-black);
+    isolation: isolate;
+  }
+
+  .bojax-hero__media,
+  .bojax-hero__overlay {
+    position: absolute;
+    inset: 0;
+  }
+
+  .bojax-hero__media {
+    z-index: -3;
+    background: var(--bojax-black-soft);
+  }
+
+  .bojax-hero__image,
+  .bojax-hero__placeholder,
+  .bojax-hero__placeholder svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .bojax-hero__image {
+    object-fit: cover;
+    object-position:
+      var(--bojax-image-position, center 20%);
+  }
+
+  .bojax-hero__placeholder svg {
+    object-fit: cover;
+  }
+
+  .bojax-hero__overlay {
+    z-index: -2;
+
+    background:
+      linear-gradient(
+        90deg,
+        rgba(5, 5, 5, 0.98) 0%,
+        rgba(5, 5, 5, 0.9) 42%,
+        rgba(5, 5, 5, 0.35) 70%,
+        rgba(5, 5, 5, 0.12) 100%
+      );
+  }
+
+  .bojax-hero__overlay::after {
+    position: absolute;
+    inset: 0;
+
+    background:
+      rgba(
+        0,
+        0,
+        0,
+        var(--bojax-overlay-opacity, 0.1)
+      );
+
+    content: "";
+  }
+
+  .bojax-hero__glow {
+    position: absolute;
+    top: 18%;
+    left: 10%;
+    z-index: -1;
+
+    width: 520px;
+    height: 520px;
+
+    border-radius: 50%;
+
+    background:
+      rgba(232, 255, 61, 0.11);
+
+    filter:
+      blur(140px);
+
+    pointer-events:
+      none;
+  }
+
+  .bojax-hero__content {
+    width: min(730px, 100%);
+  }
+
+  .bojax-hero__badge {
+    margin-bottom: 24px;
+  }
+
+  .bojax-hero__heading {
+    max-width: 760px;
+    margin: 0;
+
+    color:
+      var(--bojax-white);
+
+    font-size:
+      clamp(5.2rem, 8vw, 10rem);
+
+    font-weight:
+      900;
+
+    letter-spacing:
+      -0.075em;
+
+    line-height:
+      0.87;
+
+    text-wrap:
+      balance;
+  }
+
+  .bojax-hero__description {
+    max-width: 620px;
+    margin-top: 28px;
+
+    color:
+      rgba(255, 255, 255, 0.76);
+
+    font-size:
+      clamp(1.7rem, 2vw, 2.1rem);
+
+    line-height:
+      1.6;
+  }
+
+  .bojax-hero__description p {
+    margin:
+      0;
+  }
+
+  .bojax-hero__actions {
+    display: flex;
+    margin-top: 34px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .bojax-hero__microcopy {
+    margin: 16px 0 0;
+
+    color:
+      rgba(255, 255, 255, 0.54);
+
+    font-size:
+      1.25rem;
+  }
+
+  .bojax-hero__stats {
+    display: flex;
+    max-width: 620px;
+    margin-top: 38px;
+    padding-top: 26px;
+    gap: 0;
+
+    border-top:
+      1px solid rgba(255, 255, 255, 0.14);
+  }
+
+  .bojax-hero__stat {
+    flex: 1;
+    padding-right: 20px;
+  }
+
+  .bojax-hero__stat + .bojax-hero__stat {
+    padding-left: 20px;
+
+    border-left:
+      1px solid rgba(255, 255, 255, 0.14);
+  }
+
+  .bojax-hero__stat strong {
+    display: block;
+
+    color:
+      var(--bojax-white);
+
+    font-size:
+      clamp(2.4rem, 4vw, 3.8rem);
+
+    font-weight:
+      900;
+
+    letter-spacing:
+      -0.05em;
+
+    line-height:
+      1;
+  }
+
+  .bojax-hero__stat span {
+    display: block;
+    margin-top: 7px;
+
+    color:
+      rgba(255, 255, 255, 0.55);
+
+    font-size:
+      1.15rem;
+
+    line-height:
+      1.3;
+  }
+
+  @media screen and (max-width: 749px) {
+    .bojax-hero {
+      min-height: 830px;
+      padding: 110px 0 50px;
+      align-items: flex-end;
+    }
+
+    .bojax-hero__overlay {
+      background:
+        linear-gradient(
+          180deg,
+          rgba(5, 5, 5, 0.04) 0%,
+          rgba(5, 5, 5, 0.13) 32%,
+          rgba(5, 5, 5, 0.9) 70%,
+          #050505 100%
+        );
+    }
+
+    .bojax-hero__glow {
+      top: 45%;
+      left: -40%;
+
+      width: 480px;
+      height: 480px;
+    }
+
+    .bojax-hero__heading {
+      font-size:
+        clamp(4.9rem, 17vw, 7.2rem);
+    }
+
+    .bojax-hero__description {
+      margin-top:
+        22px;
+
+      font-size:
+        1.55rem;
+    }
+
+    .bojax-hero__actions {
+      display:
+        grid;
+
+      grid-template-columns:
+        1fr;
+
+      margin-top:
+        28px;
+    }
+
+    .bojax-hero__stats {
+      margin-top:
+        30px;
+    }
+
+    .bojax-hero__stat {
+      padding-right:
+        11px;
+    }
+
+    .bojax-hero__stat +
+    .bojax-hero__stat {
+      padding-left:
+        11px;
+    }
+
+    .bojax-hero__stat strong {
+      font-size:
+        2.35rem;
+    }
+
+    .bojax-hero__stat span {
+      font-size:
+        1rem;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Bojax course hero",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Bojax background image"
+    },
+    {
+      "type": "select",
+      "id": "image_position",
+      "label": "Image position",
+      "default": "center 20%",
+      "options": [
+        {
+          "value": "center top",
+          "label": "Top"
+        },
+        {
+          "value": "center 20%",
+          "label": "Upper center"
+        },
+        {
+          "value": "center center",
+          "label": "Center"
+        },
+        {
+          "value": "left center",
+          "label": "Left"
+        },
+        {
+          "value": "right center",
+          "label": "Right"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "min": 0,
+      "max": 60,
+      "step": 5,
+      "unit": "%",
+      "label": "Dark overlay",
+      "default": 10
+    },
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Small badge",
+      "default": "The complete appearance course"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Main heading",
+      "default": "Build your most attractive self."
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>A straightforward system covering grooming, style, presentation, confidence and the habits that improve how you look and feel.</p>"
+    },
+    {
+      "type": "text",
+      "id": "primary_button_text",
+      "label": "Main button text",
+      "default": "Get the course"
+    },
+    {
+      "type": "url",
+      "id": "primary_button_link",
+      "label": "Main button link"
+    },
+    {
+      "type": "text",
+      "id": "secondary_button_text",
+      "label": "Second button text",
+      "default": "See what is included"
+    },
+    {
+      "type": "url",
+      "id": "secondary_button_link",
+      "label": "Second button link"
+    },
+    {
+      "type": "text",
+      "id": "microcopy",
+      "label": "Text under buttons",
+      "default": "Instant access after purchase."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_stats",
+      "label": "Show social statistics",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "stat_one_number",
+      "label": "First statistic",
+      "default": "15.3K"
+    },
+    {
+      "type": "text",
+      "id": "stat_one_label",
+      "label": "First statistic label",
+      "default": "TikTok followers"
+    },
+    {
+      "type": "text",
+      "id": "stat_two_number",
+      "label": "Second statistic",
+      "default": "869K+"
+    },
+    {
+      "type": "text",
+      "id": "stat_two_label",
+      "label": "Second statistic label",
+      "default": "TikTok likes"
+    },
+    {
+      "type": "text",
+      "id": "stat_three_number",
+      "label": "Third statistic",
+      "default": "1.6M+"
+    },
+    {
+      "type": "text",
+      "id": "stat_three_label",
+      "label": "Pinned video views"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Bojax course hero"
+    }
+  ]
+}
+{% endschema %}

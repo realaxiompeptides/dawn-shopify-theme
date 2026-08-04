@@ -57,6 +57,7 @@
     },
     "featured_collection": {
       "type": "featured-collection",
+      "disabled": true,
       "settings": {
         "collection": "all",
         "products_to_show": 8,
@@ -96,6 +97,7 @@
             "point_1": "Facial presentation fundamentals",
             "point_2": "Profile, posture and photo angles",
             "point_3": "Bonesmashing myths and injury risks",
+            "point_4": "Building a repeatable daily routine",
             "featured": true
           }
         },
@@ -109,6 +111,7 @@
             "point_1": "Choosing a flattering hairstyle",
             "point_2": "Hair maintenance and styling",
             "point_3": "Facial hair and grooming details",
+            "point_4": "Building a repeatable daily routine",
             "featured": false
           }
         },
@@ -122,6 +125,7 @@
             "point_1": "Cleanser, moisturizer and sunscreen",
             "point_2": "Acne and irritation basics",
             "point_3": "When to see a dermatologist",
+            "point_4": "Building a repeatable daily routine",
             "featured": false
           }
         },
@@ -135,6 +139,7 @@
             "point_1": "Posture and body language",
             "point_2": "Building balanced proportions",
             "point_3": "Sustainable fitness habits",
+            "point_4": "Building a repeatable daily routine",
             "featured": false
           }
         },
@@ -148,6 +153,7 @@
             "point_1": "Fit and proportions",
             "point_2": "Color and outfit coordination",
             "point_3": "Building a personal style",
+            "point_4": "Building a repeatable daily routine",
             "featured": false
           }
         },
@@ -161,6 +167,7 @@
             "point_1": "Sleep and recovery",
             "point_2": "Hydration and dietary consistency",
             "point_3": "Avoiding extreme anti-bloat claims",
+            "point_4": "Building a repeatable daily routine",
             "featured": false
           }
         },
@@ -174,6 +181,7 @@
             "point_1": "Dental appearance and orthodontics",
             "point_2": "Dermatology and cosmetic procedures",
             "point_3": "Realistic expectations and risks",
+            "point_4": "Building a repeatable daily routine",
             "featured": false
           }
         },
@@ -187,6 +195,7 @@
             "point_1": "Approved versus experimental products",
             "point_2": "Quality, contamination and side effects",
             "point_3": "Why professional supervision matters",
+            "point_4": "Building a repeatable daily routine",
             "featured": false
           }
         },
@@ -200,6 +209,7 @@
             "point_1": "Personal appearance assessment",
             "point_2": "30-day improvement plan",
             "point_3": "Tracking progress over time",
+            "point_4": "Building a repeatable daily routine",
             "featured": false
           }
         }
@@ -222,6 +232,21 @@
         "description": "<p>A complete appearance-improvement system that shows you what to focus on, what to avoid, and how to build your personal plan.</p>",
         "show_summary": true,
         "lesson_count": "40+",
+        "included_eyebrow": "THE COMPLETE SYSTEM",
+        "included_heading": "Everything included",
+        "included_description": "The most important areas of appearance improvement organized into one practical system.",
+        "included_1": "Softmaxxing fundamentals and daily appearance routines",
+        "included_2": "Advanced skincare and dermatologist-guided treatment education",
+        "included_3": "Hair, grooming, facial hair and personal styling",
+        "included_4": "Physique, posture, proportions and body presentation",
+        "included_5": "Remaining height potential, posture and medical evaluation",
+        "included_6": "Facial structure, dental options and professional treatments",
+        "included_7": "Hardmaxxing procedures, risks, recovery and provider selection",
+        "included_8": "Peptides, pharmaceuticals and enhancement-claim education",
+        "lessons_eyebrow": "EXPLORE THE CURRICULUM",
+        "lessons_heading": "Inside every module",
+        "autoplay": true,
+        "autoplay_speed": 6,
         "footer_text": "Everything is organized into one clear system so you can stop piecing together contradictory advice.",
         "button_text": "Get instant access",
         "button_link": ""

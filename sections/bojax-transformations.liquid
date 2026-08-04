@@ -1,6 +1,11 @@
-<section id="BojaxTransformations-{{ section.id }}" class="bojax-transformations">
-  <div class="page-width">
-    <div class="bojax-transformations__header">
+<section
+  id="BojaxTransformations-{{ section.id }}"
+  class="bojax-transformations"
+  data-bojax-transformations
+  data-autoplay-speed="{{ section.settings.autoplay_speed | times: 1000 }}"
+>
+  <div class="bojax-transformations__container">
+    <header class="bojax-transformations__header">
       {% if section.settings.eyebrow != blank %}
         <p class="bojax-transformations__eyebrow">
           {{ section.settings.eyebrow }}
@@ -18,236 +23,250 @@
           {{ section.settings.description }}
         </div>
       {% endif %}
-    </div>
+    </header>
 
-    {% if section.blocks.size > 0 %}
-      <div class="bojax-transformations__slider-wrap">
-        <div class="bojax-transformations__slider" id="BojaxTransformationsSlider-{{ section.id }}">
-          {% for block in section.blocks %}
-            <article class="bojax-transformations__card" {{ block.shopify_attributes }}>
-              <div class="bojax-transformations__images">
-                <div class="bojax-transformations__image-col">
-                  {% if block.settings.before_image != blank %}
-                    {{
-                      block.settings.before_image
-                      | image_url: width: 900
-                      | image_tag:
-                        class: 'bojax-transformations__image',
-                        loading: 'lazy',
-                        widths: '400, 550, 750, 900',
-                        sizes: '(max-width: 749px) 75vw, 38vw',
-                        alt: block.settings.title
-                    }}
-                  {% else %}
-                    <div class="bojax-transformations__placeholder">
-                      {{ 'image' | placeholder_svg_tag }}
-                    </div>
-                  {% endif %}
-
-                  <span class="bojax-transformations__badge bojax-transformations__badge--dark">
-                    {{ block.settings.before_label | default: 'Before' }}
-                  </span>
-                </div>
-
-                <div class="bojax-transformations__image-col">
-                  {% if block.settings.after_image != blank %}
-                    {{
-                      block.settings.after_image
-                      | image_url: width: 900
-                      | image_tag:
-                        class: 'bojax-transformations__image',
-                        loading: 'lazy',
-                        widths: '400, 550, 750, 900',
-                        sizes: '(max-width: 749px) 75vw, 38vw',
-                        alt: block.settings.title
-                    }}
-                  {% else %}
-                    <div class="bojax-transformations__placeholder">
-                      {{ 'image' | placeholder_svg_tag }}
-                    </div>
-                  {% endif %}
-
-                  <span class="bojax-transformations__badge bojax-transformations__badge--light">
-                    {{ block.settings.after_label | default: 'After' }}
-                  </span>
-                </div>
-              </div>
-
-              <div class="bojax-transformations__card-content">
-                {% if block.settings.overline != blank %}
-                  <p class="bojax-transformations__overline">
-                    {{ block.settings.overline }}
-                  </p>
-                {% endif %}
-
-                {% if block.settings.title != blank %}
-                  <h3 class="bojax-transformations__card-title">
-                    {{ block.settings.title }}
-                  </h3>
-                {% endif %}
-
-                {% if block.settings.text != blank %}
-                  <div class="bojax-transformations__card-text">
-                    {{ block.settings.text }}
+    <div class="bojax-transformations__carousel-wrap">
+      <div
+        class="bojax-transformations__carousel"
+        data-transformations-carousel
+        aria-label="Bojax transformations"
+      >
+        {% for block in section.blocks limit: 2 %}
+          <article
+            class="bojax-transformation-card"
+            data-transformation-slide
+            {{ block.shopify_attributes }}
+          >
+            <div class="bojax-transformation-card__images">
+              <div class="bojax-transformation-card__image-wrap">
+                {% if block.settings.before_image != blank %}
+                  {{
+                    block.settings.before_image
+                    | image_url: width: 1000
+                    | image_tag:
+                      class: 'bojax-transformation-card__image',
+                      loading: 'lazy',
+                      widths: '400, 600, 800, 1000',
+                      sizes: '(max-width: 749px) 43vw, 24vw',
+                      alt: block.settings.before_image.alt
+                  }}
+                {% else %}
+                  <div class="bojax-transformation-card__placeholder">
+                    {{ 'image' | placeholder_svg_tag }}
                   </div>
                 {% endif %}
+
+                <span class="bojax-transformation-card__label bojax-transformation-card__label--before">
+                  Before
+                </span>
               </div>
-            </article>
+
+              <div class="bojax-transformation-card__image-wrap">
+                {% if block.settings.after_image != blank %}
+                  {{
+                    block.settings.after_image
+                    | image_url: width: 1000
+                    | image_tag:
+                      class: 'bojax-transformation-card__image',
+                      loading: 'lazy',
+                      widths: '400, 600, 800, 1000',
+                      sizes: '(max-width: 749px) 43vw, 24vw',
+                      alt: block.settings.after_image.alt
+                  }}
+                {% else %}
+                  <div class="bojax-transformation-card__placeholder">
+                    {{ 'image' | placeholder_svg_tag }}
+                  </div>
+                {% endif %}
+
+                <span class="bojax-transformation-card__label bojax-transformation-card__label--after">
+                  After
+                </span>
+              </div>
+            </div>
+
+            <div class="bojax-transformation-card__content">
+              {% if block.settings.overline != blank %}
+                <p class="bojax-transformation-card__overline">
+                  {{ block.settings.overline }}
+                </p>
+              {% endif %}
+
+              {% if block.settings.title != blank %}
+                <h3 class="bojax-transformation-card__title">
+                  {{ block.settings.title }}
+                </h3>
+              {% endif %}
+
+              {% if block.settings.description != blank %}
+                <div class="bojax-transformation-card__description">
+                  {{ block.settings.description }}
+                </div>
+              {% endif %}
+            </div>
+          </article>
+        {% endfor %}
+      </div>
+
+      <div class="bojax-transformations__navigation">
+        <button
+          type="button"
+          class="bojax-transformations__arrow"
+          data-transformation-previous
+          aria-label="Previous transformation"
+        >
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path
+              d="m15 5-7 7 7 7"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </button>
+
+        <div class="bojax-transformations__dots">
+          {% for block in section.blocks limit: 2 %}
+            <button
+              type="button"
+              class="bojax-transformations__dot{% if forloop.first %} is-active{% endif %}"
+              data-transformation-dot="{{ forloop.index0 }}"
+              aria-label="Show transformation {{ forloop.index }}"
+              aria-current="{% if forloop.first %}true{% else %}false{% endif %}"
+            ></button>
           {% endfor %}
         </div>
 
-        <div class="bojax-transformations__footer-row">
-          {% if section.settings.swipe_text != blank %}
-            <p class="bojax-transformations__swipe-text">
-              {{ section.settings.swipe_text }}
-            </p>
-          {% endif %}
-
-          <div class="bojax-transformations__dots" id="BojaxTransformationsDots-{{ section.id }}">
-            {% for block in section.blocks %}
-              <button
-                type="button"
-                class="bojax-transformations__dot{% if forloop.first %} is-active{% endif %}"
-                data-index="{{ forloop.index0 }}"
-                aria-label="Go to slide {{ forloop.index }}"
-              ></button>
-            {% endfor %}
-          </div>
-        </div>
+        <button
+          type="button"
+          class="bojax-transformations__arrow"
+          data-transformation-next
+          aria-label="Next transformation"
+        >
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path
+              d="m9 5 7 7-7 7"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </button>
       </div>
-    {% endif %}
 
-    <div class="bojax-transformations__stats">
-      {% if section.settings.stat_1_number != blank %}
-        <div class="bojax-transformations__stat">
-          <div class="bojax-transformations__stat-number">
-            {{ section.settings.stat_1_number }}
-          </div>
-          <div class="bojax-transformations__stat-label">
-            {{ section.settings.stat_1_label }}
-          </div>
-        </div>
-      {% endif %}
-
-      {% if section.settings.stat_2_number != blank %}
-        <div class="bojax-transformations__stat">
-          <div class="bojax-transformations__stat-number">
-            {{ section.settings.stat_2_number }}
-          </div>
-          <div class="bojax-transformations__stat-label">
-            {{ section.settings.stat_2_label }}
-          </div>
-        </div>
-      {% endif %}
-
-      {% if section.settings.stat_3_number != blank %}
-        <div class="bojax-transformations__stat">
-          <div class="bojax-transformations__stat-number">
-            {{ section.settings.stat_3_number }}
-          </div>
-          <div class="bojax-transformations__stat-label">
-            {{ section.settings.stat_3_label }}
-          </div>
-        </div>
+      {% if section.settings.swipe_text != blank %}
+        <p class="bojax-transformations__swipe-text">
+          {{ section.settings.swipe_text }}
+        </p>
       {% endif %}
     </div>
 
-    {% if section.settings.bottom_note != blank %}
-      <p class="bojax-transformations__bottom-note">
-        {{ section.settings.bottom_note }}
+    <div class="bojax-social-proof">
+      <div class="bojax-social-proof__item">
+        <strong>{{ section.settings.followers }}</strong>
+        <span>{{ section.settings.followers_label }}</span>
+      </div>
+
+      <div class="bojax-social-proof__item">
+        <strong>{{ section.settings.likes }}</strong>
+        <span>{{ section.settings.likes_label }}</span>
+      </div>
+
+      <div class="bojax-social-proof__item">
+        <strong>{{ section.settings.views }}</strong>
+        <span>{{ section.settings.views_label }}</span>
+      </div>
+    </div>
+
+    {% if section.settings.social_note != blank %}
+      <p class="bojax-social-proof__note">
+        {{ section.settings.social_note }}
+      </p>
+    {% endif %}
+
+    {% if section.settings.disclaimer != blank %}
+      <p class="bojax-transformations__disclaimer">
+        {{ section.settings.disclaimer }}
       </p>
     {% endif %}
 
     {% if section.settings.button_text != blank %}
-      <div class="bojax-transformations__cta">
+      <div class="bojax-transformations__actions">
         <a
           class="bojax-transformations__button"
-          {% if section.settings.button_link != blank %}
-            href="{{ section.settings.button_link }}"
-          {% else %}
-            role="link"
-            aria-disabled="true"
-          {% endif %}
+          href="{% if section.settings.button_link != blank %}{{ section.settings.button_link }}{% else %}/products/bojax-course{% endif %}"
         >
-          {{ section.settings.button_text }}
+          <span>{{ section.settings.button_text }}</span>
+
+          <svg viewBox="0 0 20 20" aria-hidden="true">
+            <path
+              d="M4 10h11M11 5l5 5-5 5"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
         </a>
       </div>
     {% endif %}
   </div>
 </section>
 
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    var slider = document.getElementById('BojaxTransformationsSlider-{{ section.id }}');
-    var dotsWrap = document.getElementById('BojaxTransformationsDots-{{ section.id }}');
-
-    if (!slider || !dotsWrap) return;
-
-    var dots = dotsWrap.querySelectorAll('.bojax-transformations__dot');
-    var cards = slider.querySelectorAll('.bojax-transformations__card');
-
-    function setActiveDot(index) {
-      dots.forEach(function (dot, i) {
-        dot.classList.toggle('is-active', i === index);
-      });
-    }
-
-    dots.forEach(function (dot) {
-      dot.addEventListener('click', function () {
-        var index = parseInt(dot.getAttribute('data-index'), 10);
-        if (!cards[index]) return;
-
-        slider.scrollTo({
-          left: cards[index].offsetLeft - slider.offsetLeft,
-          behavior: 'smooth'
-        });
-
-        setActiveDot(index);
-      });
-    });
-
-    slider.addEventListener('scroll', function () {
-      var sliderLeft = slider.scrollLeft;
-      var activeIndex = 0;
-      var minDiff = Infinity;
-
-      cards.forEach(function (card, index) {
-        var diff = Math.abs(card.offsetLeft - slider.offsetLeft - sliderLeft);
-        if (diff < minDiff) {
-          minDiff = diff;
-          activeIndex = index;
-        }
-      });
-
-      setActiveDot(activeIndex);
-    });
-  });
-</script>
-
 {% stylesheet %}
   .bojax-transformations {
-    padding: 7rem 0 3rem;
+    position: relative;
+    overflow: hidden;
+    padding: 8rem 0;
     background:
-      radial-gradient(circle at top center, rgba(255,255,255,0.035), transparent 42%),
-      #050505;
+      radial-gradient(
+        circle at 50% 0,
+        rgba(255, 255, 255, 0.05),
+        transparent 32rem
+      ),
+      #030303;
     color: #ffffff;
   }
 
-  .bojax-transformations .page-width {
-    max-width: 130rem;
+  .bojax-transformations::before {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    height: 1px;
+    background:
+      linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.18),
+        transparent
+      );
+    content: "";
+  }
+
+  .bojax-transformations__container {
+    width: min(calc(100% - 4rem), 120rem);
+    margin: 0 auto;
   }
 
   .bojax-transformations__header {
-    max-width: 82rem;
-    margin: 0 0 3rem;
+    max-width: 78rem;
+    margin: 0 auto;
+    text-align: center;
   }
 
   .bojax-transformations__eyebrow {
-    margin: 0 0 1.8rem;
-    color: rgba(255,255,255,0.68);
-    font-size: 1.25rem;
-    font-weight: 800;
-    letter-spacing: 0.34em;
+    margin: 0 0 1.7rem;
+    color: rgba(255, 255, 255, 0.58);
+    font-size: 1.05rem;
+    font-weight: 850;
+    letter-spacing: 0.32em;
+    line-height: 1;
     text-transform: uppercase;
   }
 
@@ -255,382 +274,698 @@
     margin: 0;
     color: #ffffff;
     font-family: Georgia, "Times New Roman", serif;
-    font-size: clamp(3.6rem, 5.6vw, 6.2rem);
-    line-height: 1.04;
-    letter-spacing: -0.04em;
+    font-size: clamp(4rem, 6vw, 6.6rem);
+    font-weight: 500;
+    letter-spacing: -0.055em;
+    line-height: 1;
     text-wrap: balance;
   }
 
   .bojax-transformations__description {
-    max-width: 70rem;
-    margin-top: 1.8rem;
-    color: rgba(255,255,255,0.72);
-    font-size: 1.95rem;
-    line-height: 1.6;
+    max-width: 66rem;
+    margin: 2rem auto 0;
+    color: rgba(255, 255, 255, 0.64);
+    font-size: 1.65rem;
+    line-height: 1.65;
   }
 
   .bojax-transformations__description p {
     margin: 0;
   }
 
-  .bojax-transformations__slider-wrap {
-    margin-top: 3rem;
+  .bojax-transformations__carousel-wrap {
+    margin-top: 4.5rem;
   }
 
-  .bojax-transformations__slider {
-    display: grid;
-    grid-auto-flow: column;
-    grid-auto-columns: minmax(32rem, 44rem);
-    gap: 2rem;
+  .bojax-transformations__carousel {
+    display: flex;
+    gap: 1.8rem;
     overflow-x: auto;
-    overflow-y: hidden;
-    padding-bottom: 0.6rem;
+    padding: 0.6rem 0 1.8rem;
+    scroll-behavior: smooth;
     scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
+    overscroll-behavior-inline: contain;
+    -webkit-overflow-scrolling: touch;
   }
 
-  .bojax-transformations__slider::-webkit-scrollbar {
+  .bojax-transformations__carousel::-webkit-scrollbar {
     display: none;
   }
 
-  .bojax-transformations__card {
+  .bojax-transformation-card {
+    flex: 0 0 calc(50% - 0.9rem);
+    min-width: 0;
     overflow: hidden;
-    border: 1px solid rgba(255,255,255,0.12);
-    border-radius: 2.2rem;
-    background: linear-gradient(180deg, rgba(18,18,18,0.98), rgba(8,8,8,0.98));
-    box-shadow: 0 20px 60px rgba(0,0,0,0.38);
     scroll-snap-align: start;
+    scroll-snap-stop: always;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 2.4rem;
+    background:
+      linear-gradient(
+        145deg,
+        rgba(255, 255, 255, 0.065),
+        rgba(255, 255, 255, 0.018)
+      );
+    box-shadow: 0 2.4rem 7rem rgba(0, 0, 0, 0.32);
   }
 
-  .bojax-transformations__images {
+  .bojax-transformation-card__images {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .bojax-transformations__image-col {
+  .bojax-transformation-card__image-wrap {
     position: relative;
-    aspect-ratio: 0.8 / 1;
+    aspect-ratio: 4 / 5;
     overflow: hidden;
     background: #111111;
   }
 
-  .bojax-transformations__image {
+  .bojax-transformation-card__image-wrap + .bojax-transformation-card__image-wrap {
+    border-left: 1px solid rgba(255, 255, 255, 0.12);
+  }
+
+  .bojax-transformation-card__image {
     display: block;
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: center;
   }
 
-  .bojax-transformations__placeholder,
-  .bojax-transformations__placeholder svg {
+  .bojax-transformation-card__placeholder,
+  .bojax-transformation-card__placeholder svg {
     display: block;
     width: 100%;
     height: 100%;
   }
 
-  .bojax-transformations__badge {
+  .bojax-transformation-card__label {
     position: absolute;
-    top: 1.4rem;
-    left: 1.4rem;
+    top: 1.3rem;
+    left: 1.3rem;
     display: inline-flex;
-    min-height: 3.6rem;
-    padding: 0.8rem 1.5rem;
+    min-height: 3.3rem;
+    padding: 0.7rem 1.3rem;
     align-items: center;
     justify-content: center;
-    border-radius: 999px;
-    font-size: 1.15rem;
-    font-weight: 800;
-    letter-spacing: 0.24em;
+    border-radius: 99rem;
+    font-size: 0.95rem;
+    font-weight: 850;
+    letter-spacing: 0.18em;
+    line-height: 1;
     text-transform: uppercase;
-    z-index: 2;
   }
 
-  .bojax-transformations__badge--dark {
-    background: rgba(17,17,17,0.88);
+  .bojax-transformation-card__label--before {
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    background: rgba(0, 0, 0, 0.72);
     color: #ffffff;
-    border: 1px solid rgba(255,255,255,0.12);
   }
 
-  .bojax-transformations__badge--light {
-    background: rgba(255,255,255,0.92);
-    color: #111111;
-    border: 1px solid rgba(255,255,255,0.8);
+  .bojax-transformation-card__label--after {
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.94);
+    color: #080808;
   }
 
-  .bojax-transformations__card-content {
-    padding: 2.2rem 2.2rem 2.4rem;
+  .bojax-transformation-card__content {
+    padding: 2.4rem;
   }
 
-  .bojax-transformations__overline {
-    margin: 0 0 1rem;
-    color: rgba(255,255,255,0.58);
-    font-size: 1.15rem;
-    font-weight: 700;
-    letter-spacing: 0.22em;
+  .bojax-transformation-card__overline {
+    margin: 0 0 1.1rem;
+    color: rgba(255, 255, 255, 0.46);
+    font-size: 0.95rem;
+    font-weight: 800;
+    letter-spacing: 0.2em;
+    line-height: 1.4;
     text-transform: uppercase;
   }
 
-  .bojax-transformations__card-title {
+  .bojax-transformation-card__title {
     margin: 0;
     color: #ffffff;
     font-family: Georgia, "Times New Roman", serif;
-    font-size: 2.25rem;
-    line-height: 1.1;
-    letter-spacing: -0.03em;
+    font-size: clamp(2.5rem, 3vw, 3.5rem);
+    font-weight: 500;
+    letter-spacing: -0.04em;
+    line-height: 1.05;
   }
 
-  .bojax-transformations__card-text {
-    margin-top: 1.2rem;
-    color: rgba(255,255,255,0.74);
-    font-size: 1.8rem;
-    line-height: 1.55;
+  .bojax-transformation-card__description {
+    margin-top: 1.3rem;
+    color: rgba(255, 255, 255, 0.62);
+    font-size: 1.42rem;
+    line-height: 1.6;
   }
 
-  .bojax-transformations__card-text p {
+  .bojax-transformation-card__description p {
     margin: 0;
   }
 
-  .bojax-transformations__footer-row {
+  .bojax-transformations__navigation {
     display: flex;
-    margin-top: 1.8rem;
+    margin-top: 1rem;
     align-items: center;
-    justify-content: space-between;
-    gap: 1.6rem;
-    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.4rem;
   }
 
-  .bojax-transformations__swipe-text {
-    margin: 0;
-    color: rgba(255,255,255,0.7);
-    font-size: 1.7rem;
-    line-height: 1.4;
-  }
-
-  .bojax-transformations__dots {
-    display: inline-flex;
-    gap: 0.8rem;
-    align-items: center;
-  }
-
-  .bojax-transformations__dot {
-    width: 0.95rem;
-    height: 0.95rem;
+  .bojax-transformations__arrow {
+    display: grid;
+    width: 4.4rem;
+    height: 4.4rem;
     padding: 0;
-    border: 0;
-    border-radius: 999px;
-    background: rgba(255,255,255,0.24);
+    place-items: center;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.035);
+    color: #ffffff;
     cursor: pointer;
   }
 
+  .bojax-transformations__arrow svg {
+    width: 2rem;
+    height: 2rem;
+  }
+
+  .bojax-transformations__dots {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+  }
+
+  .bojax-transformations__dot {
+    width: 0.8rem;
+    height: 0.8rem;
+    padding: 0;
+    border: 0;
+    border-radius: 99rem;
+    background: rgba(255, 255, 255, 0.22);
+    cursor: pointer;
+    transition:
+      width 180ms ease,
+      background 180ms ease;
+  }
+
   .bojax-transformations__dot.is-active {
-    width: 2.6rem;
+    width: 2.8rem;
     background: #ffffff;
   }
 
-  .bojax-transformations__stats {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 1.6rem;
-    margin-top: 3.2rem;
-  }
-
-  .bojax-transformations__stat {
-    padding: 2.2rem 1.4rem;
-    border: 1px solid rgba(255,255,255,0.12);
-    border-radius: 1.8rem;
-    background: rgba(255,255,255,0.02);
+  .bojax-transformations__swipe-text {
+    margin: 1.4rem 0 0;
+    color: rgba(255, 255, 255, 0.42);
+    font-size: 1.15rem;
     text-align: center;
   }
 
-  .bojax-transformations__stat-number {
-    color: #ffffff;
-    font-family: Georgia, "Times New Roman", serif;
-    font-size: clamp(2.7rem, 4vw, 4rem);
-    font-weight: 700;
-    line-height: 1;
+  .bojax-social-proof {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    margin-top: 4rem;
+    gap: 1.4rem;
   }
 
-  .bojax-transformations__stat-label {
-    margin-top: 0.8rem;
-    color: rgba(255,255,255,0.65);
-    font-size: 1.3rem;
+  .bojax-social-proof__item {
+    display: grid;
+    min-width: 0;
+    min-height: 12rem;
+    padding: 2rem 1rem;
+    place-content: center;
+    gap: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 1.8rem;
+    background: rgba(255, 255, 255, 0.025);
+    text-align: center;
+  }
+
+  .bojax-social-proof__item strong {
+    color: #ffffff;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(2.6rem, 4vw, 4rem);
     font-weight: 700;
-    letter-spacing: 0.24em;
+    letter-spacing: -0.04em;
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  .bojax-social-proof__item span {
+    color: rgba(255, 255, 255, 0.48);
+    font-size: 1rem;
+    font-weight: 800;
+    letter-spacing: 0.19em;
+    line-height: 1.3;
     text-transform: uppercase;
   }
 
-  .bojax-transformations__bottom-note {
+  .bojax-social-proof__note {
     margin: 1.8rem 0 0;
-    color: rgba(255,255,255,0.64);
-    font-size: 1.65rem;
+    color: rgba(255, 255, 255, 0.52);
+    font-size: 1.3rem;
     line-height: 1.5;
     text-align: center;
   }
 
-  .bojax-transformations__cta {
+  .bojax-transformations__disclaimer {
+    max-width: 76rem;
+    margin: 2rem auto 0;
+    color: rgba(255, 255, 255, 0.34);
+    font-size: 1.1rem;
+    line-height: 1.55;
+    text-align: center;
+  }
+
+  .bojax-transformations__actions {
+    display: flex;
     margin-top: 2.8rem;
+    justify-content: center;
   }
 
   .bojax-transformations__button {
     display: inline-flex;
-    width: 100%;
-    min-height: 6.2rem;
-    padding: 1.4rem 2.4rem;
+    width: min(100%, 44rem);
+    min-height: 6rem;
+    padding: 1.4rem 2.8rem;
     align-items: center;
     justify-content: center;
+    gap: 1rem;
     border: 1px solid #ffffff;
-    border-radius: 1.6rem;
-    background: #f6f3ee;
-    color: #111111;
-    font-size: 1.95rem;
-    font-weight: 800;
+    border-radius: 1.5rem;
+    background: #ffffff;
+    color: #000000;
+    font-size: 1.45rem;
+    font-weight: 850;
     line-height: 1;
-    text-align: center;
     text-decoration: none;
-    transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
+    transition:
+      background 180ms ease,
+      transform 180ms ease;
   }
 
   .bojax-transformations__button:hover {
-    background: #ffffff;
-    color: #111111;
-    transform: translateY(-1px);
-    box-shadow: 0 14px 35px rgba(255,255,255,0.08);
+    background: #e9e9e9;
+    color: #000000;
+    transform: translateY(-0.2rem);
+  }
+
+  .bojax-transformations__button svg {
+    width: 2rem;
+    height: 2rem;
   }
 
   @media screen and (max-width: 749px) {
     .bojax-transformations {
-      padding: 5.5rem 0 2.5rem;
+      padding: 6rem 0;
+    }
+
+    .bojax-transformations__container {
+      width: calc(100% - 2.8rem);
     }
 
     .bojax-transformations__heading {
-      font-size: clamp(3.2rem, 10vw, 4.8rem);
+      font-size: clamp(3.8rem, 11vw, 5rem);
     }
 
     .bojax-transformations__description {
-      font-size: 1.75rem;
-    }
-
-    .bojax-transformations__slider {
-      grid-auto-columns: 87%;
-      gap: 1.4rem;
-    }
-
-    .bojax-transformations__card-content {
-      padding: 1.8rem 1.6rem 2rem;
-    }
-
-    .bojax-transformations__card-title {
-      font-size: 1.95rem;
-    }
-
-    .bojax-transformations__card-text {
-      font-size: 1.6rem;
-    }
-
-    .bojax-transformations__footer-row {
-      justify-content: center;
-      text-align: center;
-    }
-
-    .bojax-transformations__swipe-text {
-      width: 100%;
-      font-size: 1.55rem;
-    }
-
-    .bojax-transformations__stats {
-      grid-template-columns: 1fr;
-      gap: 1rem;
-      margin-top: 2.6rem;
-    }
-
-    .bojax-transformations__stat {
-      padding: 1.8rem 1.2rem;
-    }
-
-    .bojax-transformations__bottom-note {
       font-size: 1.45rem;
     }
 
+    .bojax-transformations__carousel-wrap {
+      margin-top: 3.5rem;
+    }
+
+    .bojax-transformations__carousel {
+      margin-inline: -1.4rem;
+      padding-inline: 1.4rem;
+      scroll-padding-inline: 1.4rem;
+      gap: 1.3rem;
+    }
+
+    .bojax-transformation-card {
+      flex: 0 0 91%;
+      border-radius: 2rem;
+    }
+
+    .bojax-transformation-card__image-wrap {
+      aspect-ratio: 4 / 5;
+    }
+
+    .bojax-transformation-card__content {
+      padding: 2rem 1.8rem;
+    }
+
+    .bojax-transformation-card__title {
+      font-size: 2.6rem;
+    }
+
+    .bojax-transformation-card__description {
+      font-size: 1.35rem;
+    }
+
+    .bojax-social-proof {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      margin-top: 3rem;
+      gap: 0.7rem;
+    }
+
+    .bojax-social-proof__item {
+      min-height: 9.7rem;
+      padding: 1.5rem 0.4rem;
+      border-radius: 1.3rem;
+    }
+
+    .bojax-social-proof__item strong {
+      font-size: clamp(2rem, 7vw, 2.8rem);
+    }
+
+    .bojax-social-proof__item span {
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+    }
+
     .bojax-transformations__button {
-      min-height: 5.8rem;
-      font-size: 1.75rem;
-      border-radius: 1.4rem;
+      width: 100%;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .bojax-transformations__carousel {
+      scroll-behavior: auto;
     }
   }
 {% endstylesheet %}
+
+<script>
+  (() => {
+    const initializeTransformations = (section) => {
+      if (!section || section.dataset.transformationsReady === 'true') return;
+
+      const carousel = section.querySelector('[data-transformations-carousel]');
+      const slides = Array.from(
+        section.querySelectorAll('[data-transformation-slide]')
+      );
+      const previousButton = section.querySelector(
+        '[data-transformation-previous]'
+      );
+      const nextButton = section.querySelector(
+        '[data-transformation-next]'
+      );
+      const dots = Array.from(
+        section.querySelectorAll('[data-transformation-dot]')
+      );
+
+      if (!carousel || slides.length < 1) return;
+
+      section.dataset.transformationsReady = 'true';
+
+      const autoplaySpeed =
+        Number(section.dataset.autoplaySpeed) || 4000;
+
+      const reducedMotion = window
+        .matchMedia('(prefers-reduced-motion: reduce)')
+        .matches;
+
+      let activeIndex = 0;
+      let autoplayTimer = null;
+      let scrollTimer = null;
+      let userInteracting = false;
+
+      const getSlidePosition = (index) => {
+        const slide = slides[index];
+
+        if (!slide) return 0;
+
+        return slide.offsetLeft - carousel.offsetLeft;
+      };
+
+      const updateDots = (index) => {
+        activeIndex = Math.max(
+          0,
+          Math.min(index, slides.length - 1)
+        );
+
+        dots.forEach((dot, dotIndex) => {
+          const isActive = dotIndex === activeIndex;
+
+          dot.classList.toggle('is-active', isActive);
+          dot.setAttribute(
+            'aria-current',
+            isActive ? 'true' : 'false'
+          );
+        });
+      };
+
+      const goToSlide = (index, behavior = 'smooth') => {
+        const normalizedIndex =
+          ((index % slides.length) + slides.length) % slides.length;
+
+        carousel.scrollTo({
+          left: getSlidePosition(normalizedIndex),
+          behavior
+        });
+
+        updateDots(normalizedIndex);
+      };
+
+      const findClosestSlide = () => {
+        let closestIndex = 0;
+        let closestDistance = Infinity;
+
+        slides.forEach((slide, index) => {
+          const position =
+            slide.offsetLeft - carousel.offsetLeft;
+
+          const distance = Math.abs(
+            position - carousel.scrollLeft
+          );
+
+          if (distance < closestDistance) {
+            closestDistance = distance;
+            closestIndex = index;
+          }
+        });
+
+        return closestIndex;
+      };
+
+      const stopAutoplay = () => {
+        if (!autoplayTimer) return;
+
+        window.clearInterval(autoplayTimer);
+        autoplayTimer = null;
+      };
+
+      const startAutoplay = () => {
+        stopAutoplay();
+
+        if (
+          reducedMotion ||
+          userInteracting ||
+          slides.length < 2
+        ) {
+          return;
+        }
+
+        autoplayTimer = window.setInterval(() => {
+          goToSlide(activeIndex + 1);
+        }, autoplaySpeed);
+      };
+
+      previousButton?.addEventListener('click', () => {
+        goToSlide(activeIndex - 1);
+        startAutoplay();
+      });
+
+      nextButton?.addEventListener('click', () => {
+        goToSlide(activeIndex + 1);
+        startAutoplay();
+      });
+
+      dots.forEach((dot) => {
+        dot.addEventListener('click', () => {
+          const index = Number(
+            dot.dataset.transformationDot
+          );
+
+          goToSlide(index);
+          startAutoplay();
+        });
+      });
+
+      carousel.addEventListener(
+        'scroll',
+        () => {
+          window.clearTimeout(scrollTimer);
+
+          scrollTimer = window.setTimeout(() => {
+            updateDots(findClosestSlide());
+          }, 100);
+        },
+        { passive: true }
+      );
+
+      const pauseAutoplay = () => {
+        userInteracting = true;
+        stopAutoplay();
+      };
+
+      const resumeAutoplay = () => {
+        userInteracting = false;
+        startAutoplay();
+      };
+
+      carousel.addEventListener(
+        'touchstart',
+        pauseAutoplay,
+        { passive: true }
+      );
+
+      carousel.addEventListener(
+        'touchend',
+        resumeAutoplay,
+        { passive: true }
+      );
+
+      carousel.addEventListener(
+        'pointerdown',
+        pauseAutoplay
+      );
+
+      carousel.addEventListener(
+        'pointerup',
+        resumeAutoplay
+      );
+
+      carousel.addEventListener(
+        'pointercancel',
+        resumeAutoplay
+      );
+
+      window.addEventListener('resize', () => {
+        goToSlide(activeIndex, 'auto');
+      });
+
+      updateDots(0);
+      startAutoplay();
+    };
+
+    const initializeAll = (root = document) => {
+      root
+        .querySelectorAll('[data-bojax-transformations]')
+        .forEach(initializeTransformations);
+    };
+
+    if (document.readyState === 'loading') {
+      document.addEventListener(
+        'DOMContentLoaded',
+        () => initializeAll()
+      );
+    } else {
+      initializeAll();
+    }
+
+    document.addEventListener(
+      'shopify:section:load',
+      (event) => initializeAll(event.target)
+    );
+  })();
+</script>
 
 {% schema %}
 {
   "name": "Bojax transformations",
   "tag": "section",
   "class": "bojax-transformations-section",
+  "max_blocks": 2,
   "settings": [
     {
       "type": "text",
       "id": "eyebrow",
-      "label": "Eyebrow",
-      "default": "Social proof"
+      "label": "Small heading",
+      "default": "SOCIAL PROOF"
     },
     {
       "type": "inline_richtext",
       "id": "heading",
       "label": "Heading",
-      "default": "The same system Bojax ran for his own face."
+      "default": "The same system Bojax used on himself."
     },
     {
       "type": "richtext",
       "id": "description",
       "label": "Description",
-      "default": "<p>Bojax ran the method on himself first. The proof is in his own face.</p>"
+      "default": "<p>See the changes in his face, physique and overall presentation.</p>"
+    },
+    {
+      "type": "range",
+      "id": "autoplay_speed",
+      "min": 3,
+      "max": 10,
+      "step": 1,
+      "unit": "s",
+      "label": "Time before changing slides",
+      "default": 4
     },
     {
       "type": "text",
       "id": "swipe_text",
-      "label": "Swipe text",
-      "default": "Swipe to see the transformation →"
+      "label": "Swipe message",
+      "default": "Automatically moving • Swipe anytime"
+    },
+    {
+      "type": "header",
+      "content": "Social proof"
     },
     {
       "type": "text",
-      "id": "stat_1_number",
-      "label": "Stat 1 number",
+      "id": "followers",
+      "label": "Followers",
       "default": "15.3K"
     },
     {
       "type": "text",
-      "id": "stat_1_label",
-      "label": "Stat 1 label",
+      "id": "followers_label",
+      "label": "Followers label",
       "default": "Followers"
     },
     {
       "type": "text",
-      "id": "stat_2_number",
-      "label": "Stat 2 number",
+      "id": "likes",
+      "label": "Likes",
       "default": "869.6K"
     },
     {
       "type": "text",
-      "id": "stat_2_label",
-      "label": "Stat 2 label",
+      "id": "likes_label",
+      "label": "Likes label",
       "default": "Likes"
     },
     {
       "type": "text",
-      "id": "stat_3_number",
-      "label": "Stat 3 number",
-      "default": "300K+"
+      "id": "views",
+      "label": "Views",
+      "default": "10M+"
     },
     {
       "type": "text",
-      "id": "stat_3_label",
-      "label": "Stat 3 label",
+      "id": "views_label",
+      "label": "Views label",
       "default": "Video views"
     },
     {
       "type": "text",
-      "id": "bottom_note",
-      "label": "Bottom note",
-      "default": "Use real and accurate numbers only."
+      "id": "social_note",
+      "label": "Social proof note",
+      "default": "Viral appearance-improvement videos across TikTok."
+    },
+    {
+      "type": "text",
+      "id": "disclaimer",
+      "label": "Disclaimer",
+      "default": "Individual results vary. Images do not guarantee that every customer will achieve the same outcome."
     },
     {
       "type": "text",
@@ -661,33 +996,21 @@
         },
         {
           "type": "text",
-          "id": "before_label",
-          "label": "Before badge",
-          "default": "Before"
-        },
-        {
-          "type": "text",
-          "id": "after_label",
-          "label": "After badge",
-          "default": "After"
-        },
-        {
-          "type": "text",
           "id": "overline",
-          "label": "Overline",
-          "default": "The Bojax Method • Before — After"
+          "label": "Small card heading",
+          "default": "THE BOJAX METHOD • BEFORE — AFTER"
         },
         {
           "type": "text",
           "id": "title",
-          "label": "Card title",
+          "label": "Transformation title",
           "default": "Face Ascension"
         },
         {
           "type": "richtext",
-          "id": "text",
-          "label": "Card description",
-          "default": "<p>Average features → sharper jaw, better skin, improved grooming, stronger overall presence.</p>"
+          "id": "description",
+          "label": "Description",
+          "default": "<p>Improved skin, hair, grooming, facial presentation and overall appearance.</p>"
         }
       ]
     }
@@ -699,19 +1022,17 @@
         {
           "type": "transformation",
           "settings": {
-            "title": "Face Ascension"
+            "overline": "THE BOJAX METHOD • BEFORE — AFTER",
+            "title": "Face Ascension",
+            "description": "<p>Clearer skin, improved hair, stronger grooming and a more refined overall facial presentation.</p>"
           }
         },
         {
           "type": "transformation",
           "settings": {
-            "title": "Profile Ascension"
-          }
-        },
-        {
-          "type": "transformation",
-          "settings": {
-            "title": "Style + Presence"
+            "overline": "THE BOJAX METHOD • BEFORE — AFTER",
+            "title": "Physique Ascension",
+            "description": "<p>A stronger frame, improved proportions, better posture and a more confident physical presence.</p>"
           }
         }
       ]

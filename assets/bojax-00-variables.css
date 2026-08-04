@@ -1,31 +1,31 @@
 /* =========================================================
-   BOJAX COURSE — DESIGN SETTINGS
-   Change the main colors and sizing here.
+   BOJAX COURSE — BLACK & WHITE DESIGN SYSTEM
    ========================================================= */
 
 :root {
   /* Backgrounds */
-  --bojax-black: #050505;
-  --bojax-black-soft: #0b0b0d;
-  --bojax-surface: #111114;
-  --bojax-surface-light: #18181d;
+  --bojax-black: #000000;
+  --bojax-black-soft: #080808;
+  --bojax-surface: #111111;
+  --bojax-surface-light: #181818;
 
   /* Text */
   --bojax-white: #ffffff;
-  --bojax-text: #f6f6f7;
-  --bojax-muted: #a5a5ad;
+  --bojax-text: #f5f5f5;
+  --bojax-muted: #a1a1a1;
+  --bojax-dark-text: #0a0a0a;
 
-  /* Main accent */
-  --bojax-accent: #e8ff3d;
-  --bojax-accent-hover: #f3ff83;
+  /* Black-and-white accent system */
+  --bojax-accent: #ffffff;
+  --bojax-accent-hover: #e7e7e7;
 
   /* Borders */
-  --bojax-border: rgba(255, 255, 255, 0.11);
-  --bojax-border-bright: rgba(255, 255, 255, 0.2);
+  --bojax-border: rgba(255, 255, 255, 0.12);
+  --bojax-border-bright: rgba(255, 255, 255, 0.28);
 
   /* Layout */
   --bojax-container: 1200px;
-  --bojax-container-small: 820px;
+  --bojax-container-small: 840px;
 
   /* Corners */
   --bojax-radius-small: 10px;
@@ -33,25 +33,43 @@
   --bojax-radius-large: 28px;
   --bojax-radius-pill: 999px;
 
-  /* Effects */
-  --bojax-shadow:
-    0 25px 80px rgba(0, 0, 0, 0.48);
+  /* Shadows */
+  --bojax-shadow-small:
+    0 10px 30px rgba(0, 0, 0, 0.3);
 
-  --bojax-glow:
-    0 20px 60px rgba(232, 255, 61, 0.2);
+  --bojax-shadow-large:
+    0 30px 90px rgba(0, 0, 0, 0.6);
 
+  /* Motion */
   --bojax-transition:
     180ms cubic-bezier(0.2, 0.7, 0.3, 1);
 }
 
-/* Custom content containers */
+/* Main storefront background */
+
+body.bojax-theme {
+  background:
+    radial-gradient(
+      circle at 50% 0%,
+      rgba(255, 255, 255, 0.055),
+      transparent 34rem
+    ),
+    var(--bojax-black);
+
+  color:
+    var(--bojax-text);
+}
+
+/* Containers */
 
 .bojax-container {
   width: min(
     calc(100% - 40px),
     var(--bojax-container)
   );
-  margin-inline: auto;
+
+  margin-inline:
+    auto;
 }
 
 .bojax-container--small {
@@ -59,102 +77,219 @@
     calc(100% - 40px),
     var(--bojax-container-small)
   );
-  margin-inline: auto;
+
+  margin-inline:
+    auto;
 }
 
-/* Reusable button */
+/* Primary course button */
 
 .bojax-button {
-  display: inline-flex;
-  min-height: 58px;
-  padding: 15px 30px;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
+  display:
+    inline-flex;
 
-  border: 1px solid transparent;
-  border-radius: var(--bojax-radius-pill);
+  min-height:
+    58px;
 
-  background: var(--bojax-accent);
-  color: #111111;
+  padding:
+    15px 30px;
 
-  font-size: 1.6rem;
-  font-weight: 850;
-  letter-spacing: -0.02em;
-  line-height: 1;
-  text-align: center;
-  text-decoration: none;
+  align-items:
+    center;
 
-  box-shadow: var(--bojax-glow);
+  justify-content:
+    center;
 
-  cursor: pointer;
+  gap:
+    10px;
+
+  border:
+    1px solid var(--bojax-white);
+
+  border-radius:
+    var(--bojax-radius-pill);
+
+  background:
+    var(--bojax-white);
+
+  color:
+    var(--bojax-dark-text);
+
+  font-size:
+    1.55rem;
+
+  font-weight:
+    850;
+
+  letter-spacing:
+    -0.02em;
+
+  line-height:
+    1;
+
+  text-align:
+    center;
+
+  text-decoration:
+    none;
+
+  box-shadow:
+    0 18px 50px rgba(255, 255, 255, 0.13);
+
+  cursor:
+    pointer;
 
   transition:
     background var(--bojax-transition),
-    box-shadow var(--bojax-transition),
-    transform var(--bojax-transition);
+    color var(--bojax-transition),
+    transform var(--bojax-transition),
+    box-shadow var(--bojax-transition);
 }
 
 .bojax-button:hover {
-  background: var(--bojax-accent-hover);
-  color: #111111;
+  background:
+    var(--bojax-accent-hover);
+
+  color:
+    var(--bojax-dark-text);
+
+  transform:
+    translateY(-2px);
+
   box-shadow:
-    0 24px 70px rgba(232, 255, 61, 0.3);
-  transform: translateY(-2px);
+    0 24px 65px rgba(255, 255, 255, 0.2);
 }
 
 .bojax-button:active {
-  transform: translateY(0) scale(0.985);
+  transform:
+    translateY(0) scale(0.985);
 }
 
+/* Secondary button */
+
 .bojax-button--secondary {
-  border-color: var(--bojax-border-bright);
-  background: rgba(255, 255, 255, 0.07);
-  color: var(--bojax-white);
-  box-shadow: none;
-  backdrop-filter: blur(16px);
+  border-color:
+    var(--bojax-border-bright);
+
+  background:
+    rgba(255, 255, 255, 0.055);
+
+  color:
+    var(--bojax-white);
+
+  box-shadow:
+    none;
+
+  backdrop-filter:
+    blur(16px);
+
+  -webkit-backdrop-filter:
+    blur(16px);
 }
 
 .bojax-button--secondary:hover {
-  background: rgba(255, 255, 255, 0.13);
-  color: var(--bojax-white);
-  box-shadow: none;
+  border-color:
+    rgba(255, 255, 255, 0.55);
+
+  background:
+    rgba(255, 255, 255, 0.11);
+
+  color:
+    var(--bojax-white);
+
+  box-shadow:
+    none;
 }
 
-/* Reusable pill label */
+/* Badge */
 
 .bojax-badge {
-  display: inline-flex;
-  min-height: 34px;
-  padding: 8px 14px;
-  align-items: center;
-  gap: 8px;
+  display:
+    inline-flex;
 
-  border: 1px solid rgba(232, 255, 61, 0.3);
-  border-radius: var(--bojax-radius-pill);
+  min-height:
+    34px;
 
-  background: rgba(232, 255, 61, 0.1);
-  color: var(--bojax-accent);
+  padding:
+    8px 14px;
 
-  font-size: 1.15rem;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  line-height: 1;
-  text-transform: uppercase;
+  align-items:
+    center;
 
-  backdrop-filter: blur(14px);
+  gap:
+    8px;
+
+  border:
+    1px solid var(--bojax-border-bright);
+
+  border-radius:
+    var(--bojax-radius-pill);
+
+  background:
+    rgba(255, 255, 255, 0.06);
+
+  color:
+    var(--bojax-white);
+
+  font-size:
+    1.1rem;
+
+  font-weight:
+    800;
+
+  letter-spacing:
+    0.1em;
+
+  line-height:
+    1;
+
+  text-transform:
+    uppercase;
+
+  backdrop-filter:
+    blur(14px);
+
+  -webkit-backdrop-filter:
+    blur(14px);
 }
+
+/* Reusable glass card */
+
+.bojax-card {
+  border:
+    1px solid var(--bojax-border);
+
+  border-radius:
+    var(--bojax-radius-large);
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.075),
+      rgba(255, 255, 255, 0.025)
+    );
+
+  box-shadow:
+    var(--bojax-shadow-small);
+
+  backdrop-filter:
+    blur(20px);
+
+  -webkit-backdrop-filter:
+    blur(20px);
+}
+
+/* Mobile */
 
 @media screen and (max-width: 749px) {
   .bojax-container,
   .bojax-container--small {
-    width: min(
-      calc(100% - 28px),
-      100%
-    );
+    width:
+      min(calc(100% - 28px), 100%);
   }
 
   .bojax-button {
-    width: 100%;
+    width:
+      100%;
   }
 }

@@ -3,13 +3,19 @@
   class="bojax-curriculum"
   data-bojax-curriculum
 >
-  <div class="bojax-curriculum__glow" aria-hidden="true"></div>
+  <div class="bojax-curriculum__ambient" aria-hidden="true">
+    <span class="bojax-curriculum__ambient-orb bojax-curriculum__ambient-orb--left"></span>
+    <span class="bojax-curriculum__ambient-orb bojax-curriculum__ambient-orb--right"></span>
+    <span class="bojax-curriculum__ambient-lines"></span>
+  </div>
 
   <div class="bojax-curriculum__container">
     <header class="bojax-curriculum__header">
       {% if section.settings.eyebrow != blank %}
         <p class="bojax-curriculum__eyebrow">
+          <span></span>
           {{ section.settings.eyebrow }}
+          <span></span>
         </p>
       {% endif %}
 
@@ -24,62 +30,83 @@
           {{ section.settings.description }}
         </div>
       {% endif %}
+
+      {% if section.settings.badge_text != blank %}
+        <div class="bojax-curriculum__badge">
+          <span class="bojax-curriculum__badge-check" aria-hidden="true">
+            <svg viewBox="0 0 20 20">
+              <path
+                d="M5 10.5 8.2 13.7 15.5 6.2"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.3"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </span>
+
+          <span>{{ section.settings.badge_text }}</span>
+        </div>
+      {% endif %}
     </header>
 
-    <div
-      class="bojax-curriculum__stats"
-      data-bojax-stats
-    >
-      <div class="bojax-curriculum__stat">
-        <strong
-          class="bojax-curriculum__counter"
-          data-counter-target="{{ section.settings.module_count }}"
-          data-counter-suffix="{{ section.settings.module_suffix }}"
-        >
-          0{{ section.settings.module_suffix }}
-        </strong>
+    {% if section.settings.show_stats %}
+      <div
+        class="bojax-curriculum__stats"
+        data-bojax-curriculum-stats
+      >
+        <div class="bojax-curriculum__stat">
+          <strong
+            class="bojax-curriculum__counter"
+            data-counter-target="{{ section.settings.module_count }}"
+            data-counter-suffix="{{ section.settings.module_suffix }}"
+          >
+            0{{ section.settings.module_suffix }}
+          </strong>
 
-        <span>{{ section.settings.module_label }}</span>
+          <span>{{ section.settings.module_label }}</span>
 
-        {% if section.settings.module_note != blank %}
-          <small>{{ section.settings.module_note }}</small>
-        {% endif %}
+          {% if section.settings.module_note != blank %}
+            <small>{{ section.settings.module_note }}</small>
+          {% endif %}
+        </div>
+
+        <div class="bojax-curriculum__stat">
+          <strong
+            class="bojax-curriculum__counter"
+            data-counter-target="{{ section.settings.lesson_count }}"
+            data-counter-suffix="{{ section.settings.lesson_suffix }}"
+          >
+            0{{ section.settings.lesson_suffix }}
+          </strong>
+
+          <span>{{ section.settings.lesson_label }}</span>
+
+          {% if section.settings.lesson_note != blank %}
+            <small>{{ section.settings.lesson_note }}</small>
+          {% endif %}
+        </div>
+
+        <div class="bojax-curriculum__stat">
+          <strong>{{ section.settings.access_value }}</strong>
+          <span>{{ section.settings.access_label }}</span>
+
+          {% if section.settings.access_note != blank %}
+            <small>{{ section.settings.access_note }}</small>
+          {% endif %}
+        </div>
+
+        <div class="bojax-curriculum__stat">
+          <strong>{{ section.settings.updates_value }}</strong>
+          <span>{{ section.settings.updates_label }}</span>
+
+          {% if section.settings.updates_note != blank %}
+            <small>{{ section.settings.updates_note }}</small>
+          {% endif %}
+        </div>
       </div>
-
-      <div class="bojax-curriculum__stat">
-        <strong
-          class="bojax-curriculum__counter"
-          data-counter-target="{{ section.settings.lesson_count }}"
-          data-counter-suffix="{{ section.settings.lesson_suffix }}"
-        >
-          0{{ section.settings.lesson_suffix }}
-        </strong>
-
-        <span>{{ section.settings.lesson_label }}</span>
-
-        {% if section.settings.lesson_note != blank %}
-          <small>{{ section.settings.lesson_note }}</small>
-        {% endif %}
-      </div>
-
-      <div class="bojax-curriculum__stat">
-        <strong>{{ section.settings.access_value }}</strong>
-        <span>{{ section.settings.access_label }}</span>
-
-        {% if section.settings.access_note != blank %}
-          <small>{{ section.settings.access_note }}</small>
-        {% endif %}
-      </div>
-
-      <div class="bojax-curriculum__stat">
-        <strong>{{ section.settings.updates_value }}</strong>
-        <span>{{ section.settings.updates_label }}</span>
-
-        {% if section.settings.updates_note != blank %}
-          <small>{{ section.settings.updates_note }}</small>
-        {% endif %}
-      </div>
-    </div>
+    {% endif %}
 
     <div class="bojax-curriculum__intro">
       <div class="bojax-curriculum__intro-copy">
@@ -102,21 +129,21 @@
         {% endif %}
       </div>
 
-      <div class="bojax-curriculum__topic-total">
-        <span>{{ section.blocks.size }}</span>
-        <small>Detailed topics</small>
+      <div class="bojax-curriculum__topic-count">
+        <strong>{{ section.blocks.size }}</strong>
+        <span>Detailed topics</span>
       </div>
     </div>
 
     {% if section.blocks.size > 0 %}
-      <div class="bojax-curriculum__topics">
+      <div class="bojax-curriculum__grid">
         {% for block in section.blocks %}
           <article
             class="bojax-topic-card{% if block.settings.featured %} bojax-topic-card--featured{% endif %}"
             {{ block.shopify_attributes }}
           >
-            <div class="bojax-topic-card__header">
-              <span class="bojax-topic-card__check" aria-hidden="true">
+            <div class="bojax-topic-card__top">
+              <span class="bojax-topic-card__main-check" aria-hidden="true">
                 <svg viewBox="0 0 20 20">
                   <path
                     d="M5 10.5 8.2 13.7 15.5 6.2"
@@ -156,110 +183,101 @@
               </div>
             {% endif %}
 
-            <div class="bojax-topic-card__lessons">
-              {% if block.settings.point_1 != blank %}
-                <div class="bojax-topic-card__lesson">
-                  <span class="bojax-topic-card__small-check">
-                    <svg viewBox="0 0 20 20" aria-hidden="true">
-                      <path
-                        d="M5 10.5 8.2 13.7 15.5 6.2"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2.2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      />
-                    </svg>
-                  </span>
+            {% if block.settings.point_1 != blank
+              or block.settings.point_2 != blank
+              or block.settings.point_3 != blank
+            %}
+              <div class="bojax-topic-card__included">
+                {% if block.settings.point_1 != blank %}
+                  <div class="bojax-topic-card__included-item">
+                    <span class="bojax-topic-card__small-check" aria-hidden="true">
+                      <svg viewBox="0 0 20 20">
+                        <path
+                          d="M5 10.5 8.2 13.7 15.5 6.2"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2.2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                    </span>
 
-                  <span>{{ block.settings.point_1 }}</span>
-                </div>
-              {% endif %}
+                    <span>{{ block.settings.point_1 }}</span>
+                  </div>
+                {% endif %}
 
-              {% if block.settings.point_2 != blank %}
-                <div class="bojax-topic-card__lesson">
-                  <span class="bojax-topic-card__small-check">
-                    <svg viewBox="0 0 20 20" aria-hidden="true">
-                      <path
-                        d="M5 10.5 8.2 13.7 15.5 6.2"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2.2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      />
-                    </svg>
-                  </span>
+                {% if block.settings.point_2 != blank %}
+                  <div class="bojax-topic-card__included-item">
+                    <span class="bojax-topic-card__small-check" aria-hidden="true">
+                      <svg viewBox="0 0 20 20">
+                        <path
+                          d="M5 10.5 8.2 13.7 15.5 6.2"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2.2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                    </span>
 
-                  <span>{{ block.settings.point_2 }}</span>
-                </div>
-              {% endif %}
+                    <span>{{ block.settings.point_2 }}</span>
+                  </div>
+                {% endif %}
 
-              {% if block.settings.point_3 != blank %}
-                <div class="bojax-topic-card__lesson">
-                  <span class="bojax-topic-card__small-check">
-                    <svg viewBox="0 0 20 20" aria-hidden="true">
-                      <path
-                        d="M5 10.5 8.2 13.7 15.5 6.2"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2.2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      />
-                    </svg>
-                  </span>
+                {% if block.settings.point_3 != blank %}
+                  <div class="bojax-topic-card__included-item">
+                    <span class="bojax-topic-card__small-check" aria-hidden="true">
+                      <svg viewBox="0 0 20 20">
+                        <path
+                          d="M5 10.5 8.2 13.7 15.5 6.2"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2.2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                    </span>
 
-                  <span>{{ block.settings.point_3 }}</span>
-                </div>
-              {% endif %}
-
-              {% if block.settings.point_4 != blank %}
-                <div class="bojax-topic-card__lesson">
-                  <span class="bojax-topic-card__small-check">
-                    <svg viewBox="0 0 20 20" aria-hidden="true">
-                      <path
-                        d="M5 10.5 8.2 13.7 15.5 6.2"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2.2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      />
-                    </svg>
-                  </span>
-
-                  <span>{{ block.settings.point_4 }}</span>
-                </div>
-              {% endif %}
-            </div>
+                    <span>{{ block.settings.point_3 }}</span>
+                  </div>
+                {% endif %}
+              </div>
+            {% endif %}
           </article>
         {% endfor %}
       </div>
     {% else %}
       <div class="bojax-curriculum__empty">
-        <h3>Curriculum blocks need to be reloaded</h3>
-
+        <h3>Reload the curriculum section</h3>
         <p>
-          Remove this section from the homepage and add
-          “Bojax course curriculum” again to load every course topic.
+          Remove this section from the homepage and add it again to load all
+          of the preset curriculum topics.
         </p>
       </div>
     {% endif %}
 
-    {% if section.settings.closing_heading != blank %}
-      <div class="bojax-curriculum__closing">
-        <p>{{ section.settings.closing_eyebrow }}</p>
+    <div class="bojax-curriculum__closing">
+      {% if section.settings.closing_eyebrow != blank %}
+        <p class="bojax-curriculum__closing-eyebrow">
+          {{ section.settings.closing_eyebrow }}
+        </p>
+      {% endif %}
 
-        <h3>{{ section.settings.closing_heading }}</h3>
+      {% if section.settings.closing_heading != blank %}
+        <h3 class="bojax-curriculum__closing-heading">
+          {{ section.settings.closing_heading }}
+        </h3>
+      {% endif %}
 
-        {% if section.settings.closing_text != blank %}
-          <div class="bojax-curriculum__closing-text">
-            {{ section.settings.closing_text }}
-          </div>
-        {% endif %}
-      </div>
-    {% endif %}
+      {% if section.settings.closing_text != blank %}
+        <div class="bojax-curriculum__closing-text">
+          {{ section.settings.closing_text }}
+        </div>
+      {% endif %}
+    </div>
 
     {% if section.settings.disclaimer != blank %}
       <p class="bojax-curriculum__disclaimer">
@@ -294,23 +312,24 @@
 {% stylesheet %}
   .bojax-curriculum {
     --bojax-gold: #d8b86a;
-    --bojax-gold-light: #f2dc9d;
-    --bojax-gold-soft: rgba(216, 184, 106, 0.12);
-    --bojax-green: #4ae276;
+    --bojax-gold-light: #f2d995;
+    --bojax-gold-pale: #fff1c4;
+    --bojax-gold-soft: rgba(216, 184, 106, 0.11);
+    --bojax-green: #4ce47a;
 
     position: relative;
     overflow: hidden;
-    padding: 8.5rem 0;
+    padding: 9rem 0;
     background:
       radial-gradient(
         circle at 50% 0,
         rgba(216, 184, 106, 0.12),
-        transparent 33rem
+        transparent 34rem
       ),
       linear-gradient(
         180deg,
-        #050505 0%,
-        #0a0907 47%,
+        #030303 0%,
+        #090806 48%,
         #030303 100%
       );
     color: #ffffff;
@@ -327,42 +346,91 @@
         90deg,
         transparent,
         var(--bojax-gold),
-        #ffffff,
+        rgba(255, 255, 255, 0.85),
         var(--bojax-gold),
         transparent
       );
     content: "";
-    opacity: 0.65;
+    opacity: 0.75;
   }
 
-  .bojax-curriculum__glow {
+  .bojax-curriculum__ambient {
     position: absolute;
-    top: 32rem;
-    right: -18rem;
-    width: 44rem;
-    height: 44rem;
-    border-radius: 50%;
-    background: rgba(216, 184, 106, 0.11);
-    filter: blur(10rem);
+    inset: 0;
+    overflow: hidden;
     pointer-events: none;
+  }
+
+  .bojax-curriculum__ambient-orb {
+    position: absolute;
+    display: block;
+    border-radius: 50%;
+    background: var(--bojax-gold);
+    filter: blur(10rem);
+  }
+
+  .bojax-curriculum__ambient-orb--left {
+    top: 16rem;
+    left: -24rem;
+    width: 48rem;
+    height: 48rem;
+    opacity: 0.12;
+  }
+
+  .bojax-curriculum__ambient-orb--right {
+    right: -25rem;
+    bottom: 35rem;
+    width: 50rem;
+    height: 50rem;
+    opacity: 0.09;
+  }
+
+  .bojax-curriculum__ambient-lines {
+    position: absolute;
+    inset: 0;
+    opacity: 0.06;
+    background-image:
+      linear-gradient(
+        rgba(216, 184, 106, 0.5) 1px,
+        transparent 1px
+      ),
+      linear-gradient(
+        90deg,
+        rgba(216, 184, 106, 0.5) 1px,
+        transparent 1px
+      );
+    background-size: 7rem 7rem;
+    mask-image: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.8),
+      transparent 75%
+    );
+    -webkit-mask-image: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.8),
+      transparent 75%
+    );
   }
 
   .bojax-curriculum__container {
     position: relative;
-    z-index: 1;
+    z-index: 2;
     width: min(calc(100% - 4rem), 122rem);
     margin: 0 auto;
   }
 
   .bojax-curriculum__header {
-    max-width: 88rem;
+    max-width: 90rem;
     margin: 0 auto;
     text-align: center;
   }
 
-  .bojax-curriculum__eyebrow,
-  .bojax-curriculum__intro-eyebrow {
-    margin: 0 0 1.7rem;
+  .bojax-curriculum__eyebrow {
+    display: flex;
+    margin: 0 0 2rem;
+    align-items: center;
+    justify-content: center;
+    gap: 1.2rem;
     color: var(--bojax-gold-light);
     font-size: 1rem;
     font-weight: 850;
@@ -371,21 +439,39 @@
     text-transform: uppercase;
   }
 
+  .bojax-curriculum__eyebrow > span {
+    width: 4rem;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      var(--bojax-gold)
+    );
+  }
+
+  .bojax-curriculum__eyebrow > span:last-child {
+    background: linear-gradient(
+      90deg,
+      var(--bojax-gold),
+      transparent
+    );
+  }
+
   .bojax-curriculum__heading {
     margin: 0;
     color: #ffffff;
     font-family: Georgia, "Times New Roman", serif;
-    font-size: clamp(4.5rem, 7vw, 8rem);
+    font-size: clamp(4.5rem, 7.5vw, 8.2rem);
     font-weight: 500;
-    letter-spacing: -0.06em;
-    line-height: 0.94;
+    letter-spacing: -0.062em;
+    line-height: 0.93;
     text-wrap: balance;
   }
 
   .bojax-curriculum__description {
-    max-width: 74rem;
-    margin: 2.3rem auto 0;
-    color: rgba(255, 255, 255, 0.64);
+    max-width: 76rem;
+    margin: 2.4rem auto 0;
+    color: rgba(255, 255, 255, 0.65);
     font-size: clamp(1.5rem, 2vw, 1.9rem);
     line-height: 1.65;
   }
@@ -397,20 +483,51 @@
     margin: 0;
   }
 
+  .bojax-curriculum__badge {
+    display: inline-flex;
+    max-width: 100%;
+    margin-top: 2.7rem;
+    padding: 1rem 1.5rem;
+    align-items: center;
+    gap: 0.9rem;
+    border: 1px solid rgba(216, 184, 106, 0.26);
+    border-radius: 99rem;
+    background: rgba(216, 184, 106, 0.07);
+    color: rgba(255, 255, 255, 0.83);
+    font-size: 1.13rem;
+    font-weight: 700;
+  }
+
+  .bojax-curriculum__badge-check {
+    display: grid;
+    flex: 0 0 2.1rem;
+    width: 2.1rem;
+    height: 2.1rem;
+    place-items: center;
+    border-radius: 50%;
+    background: var(--bojax-green);
+    color: #031108;
+  }
+
+  .bojax-curriculum__badge-check svg {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+
   /* Statistics */
 
   .bojax-curriculum__stats {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
-    margin-top: 4.8rem;
+    margin-top: 5rem;
     overflow: hidden;
-    border: 1px solid rgba(216, 184, 106, 0.28);
+    border: 1px solid rgba(216, 184, 106, 0.3);
     border-radius: 2.4rem;
     background:
       linear-gradient(
         145deg,
-        rgba(216, 184, 106, 0.09),
-        rgba(255, 255, 255, 0.025)
+        rgba(216, 184, 106, 0.1),
+        rgba(255, 255, 255, 0.02)
       );
     box-shadow:
       0 3rem 9rem rgba(0, 0, 0, 0.38),
@@ -421,7 +538,7 @@
     display: grid;
     min-width: 0;
     min-height: 16rem;
-    padding: 2.5rem 1.2rem;
+    padding: 2.5rem 1.3rem;
     place-content: center;
     gap: 0.9rem;
     text-align: center;
@@ -434,13 +551,13 @@
   .bojax-curriculum__stat strong {
     color: #ffffff;
     font-family: Georgia, "Times New Roman", serif;
-    font-size: clamp(3.5rem, 5vw, 5.4rem);
+    font-size: clamp(3.5rem, 5vw, 5.3rem);
     font-weight: 700;
     letter-spacing: -0.055em;
     line-height: 0.95;
   }
 
-  .bojax-curriculum__stat span {
+  .bojax-curriculum__stat > span {
     color: var(--bojax-gold-light);
     font-size: 0.95rem;
     font-weight: 850;
@@ -455,7 +572,7 @@
     line-height: 1.4;
   }
 
-  /* Curriculum heading */
+  /* Curriculum introduction */
 
   .bojax-curriculum__intro {
     display: flex;
@@ -464,18 +581,28 @@
     align-items: flex-end;
     justify-content: space-between;
     gap: 3rem;
-    border-bottom: 1px solid rgba(216, 184, 106, 0.23);
+    border-bottom: 1px solid rgba(216, 184, 106, 0.25);
   }
 
   .bojax-curriculum__intro-copy {
     max-width: 80rem;
   }
 
+  .bojax-curriculum__intro-eyebrow {
+    margin: 0 0 1.5rem;
+    color: var(--bojax-gold-light);
+    font-size: 1rem;
+    font-weight: 850;
+    letter-spacing: 0.3em;
+    line-height: 1;
+    text-transform: uppercase;
+  }
+
   .bojax-curriculum__intro-heading {
     margin: 0;
     color: #ffffff;
     font-family: Georgia, "Times New Roman", serif;
-    font-size: clamp(3.8rem, 6vw, 6.5rem);
+    font-size: clamp(3.8rem, 6vw, 6.4rem);
     font-weight: 500;
     letter-spacing: -0.055em;
     line-height: 0.98;
@@ -483,43 +610,43 @@
 
   .bojax-curriculum__intro-description {
     max-width: 72rem;
-    margin-top: 1.6rem;
-    color: rgba(255, 255, 255, 0.59);
+    margin-top: 1.7rem;
+    color: rgba(255, 255, 255, 0.6);
     font-size: 1.48rem;
     line-height: 1.65;
   }
 
-  .bojax-curriculum__topic-total {
+  .bojax-curriculum__topic-count {
     display: grid;
     flex: 0 0 auto;
     min-width: 18rem;
-    padding: 1.8rem;
+    padding: 1.7rem;
     gap: 0.5rem;
-    border: 1px solid rgba(216, 184, 106, 0.27);
+    border: 1px solid rgba(216, 184, 106, 0.3);
     border-radius: 1.7rem;
-    background: var(--bojax-gold-soft);
+    background: rgba(216, 184, 106, 0.08);
     text-align: center;
   }
 
-  .bojax-curriculum__topic-total span {
+  .bojax-curriculum__topic-count strong {
     color: #ffffff;
     font-family: Georgia, "Times New Roman", serif;
     font-size: 3.2rem;
-    font-weight: 700;
     line-height: 1;
   }
 
-  .bojax-curriculum__topic-total small {
+  .bojax-curriculum__topic-count span {
     color: var(--bojax-gold-light);
-    font-size: 0.9rem;
-    font-weight: 800;
+    font-size: 0.86rem;
+    font-weight: 850;
     letter-spacing: 0.15em;
+    line-height: 1.3;
     text-transform: uppercase;
   }
 
-  /* Topics */
+  /* Two-column topic grid */
 
-  .bojax-curriculum__topics {
+  .bojax-curriculum__grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     margin-top: 2.2rem;
@@ -537,128 +664,139 @@
       linear-gradient(
         145deg,
         rgba(255, 255, 255, 0.055),
-        rgba(255, 255, 255, 0.015)
+        rgba(255, 255, 255, 0.014)
       );
     box-shadow: 0 2rem 6rem rgba(0, 0, 0, 0.22);
+    transition:
+      border-color 180ms ease,
+      transform 180ms ease,
+      background 180ms ease;
   }
 
-  .bojax-topic-card--featured {
+  .bojax-topic-card:hover {
     border-color: rgba(216, 184, 106, 0.42);
     background:
       linear-gradient(
         145deg,
-        rgba(216, 184, 106, 0.1),
+        rgba(216, 184, 106, 0.085),
+        rgba(255, 255, 255, 0.018)
+      );
+    transform: translateY(-0.25rem);
+  }
+
+  .bojax-topic-card--featured {
+    border-color: rgba(216, 184, 106, 0.48);
+    background:
+      linear-gradient(
+        145deg,
+        rgba(216, 184, 106, 0.11),
         rgba(255, 255, 255, 0.018)
       );
   }
 
-  .bojax-topic-card__header {
-    display: flex;
-    align-items: flex-start;
-    gap: 1.3rem;
+  .bojax-topic-card__top {
+    display: grid;
+    grid-template-columns:
+      3rem minmax(0, 1fr) auto;
+    align-items: start;
+    gap: 1.2rem;
   }
 
-  /* Green is only used for checks */
-
-  .bojax-topic-card__check {
+  .bojax-topic-card__main-check {
     display: grid;
-    flex: 0 0 3rem;
     width: 3rem;
     height: 3rem;
-    margin-top: 0.1rem;
     place-items: center;
     border-radius: 50%;
     background: var(--bojax-green);
-    color: #031008;
-    box-shadow: 0 0 2.2rem rgba(74, 226, 118, 0.18);
+    color: #031108;
+    box-shadow: 0 0 2.3rem rgba(76, 228, 122, 0.2);
   }
 
-  .bojax-topic-card__check svg {
+  .bojax-topic-card__main-check svg {
     width: 1.7rem;
     height: 1.7rem;
   }
 
   .bojax-topic-card__heading {
-    flex: 1 1 auto;
     min-width: 0;
   }
 
   .bojax-topic-card__category {
     margin: 0 0 0.6rem;
     color: var(--bojax-gold-light);
-    font-size: 0.86rem;
+    font-size: 0.85rem;
     font-weight: 850;
-    letter-spacing: 0.18em;
-    line-height: 1;
+    letter-spacing: 0.17em;
+    line-height: 1.2;
     text-transform: uppercase;
   }
 
   .bojax-topic-card__title {
     margin: 0;
     color: #ffffff;
-    font-size: 1.72rem;
+    font-size: 1.75rem;
     font-weight: 850;
-    letter-spacing: -0.025em;
-    line-height: 1.25;
+    letter-spacing: -0.026em;
+    line-height: 1.22;
   }
 
   .bojax-topic-card__lesson-count {
-    flex: 0 0 auto;
-    padding: 0.65rem 0.85rem;
-    border: 1px solid rgba(216, 184, 106, 0.25);
+    padding: 0.62rem 0.8rem;
+    border: 1px solid rgba(216, 184, 106, 0.27);
     border-radius: 99rem;
     background: rgba(216, 184, 106, 0.07);
     color: var(--bojax-gold-light);
-    font-size: 0.8rem;
+    font-size: 0.77rem;
     font-weight: 800;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.07em;
     white-space: nowrap;
     text-transform: uppercase;
   }
 
   .bojax-topic-card__description {
-    margin: 1.4rem 0 0 4.3rem;
-    color: rgba(255, 255, 255, 0.51);
+    margin: 1.35rem 0 0 4.2rem;
+    color: rgba(255, 255, 255, 0.53);
     font-size: 1.27rem;
-    line-height: 1.6;
+    line-height: 1.58;
   }
 
-  .bojax-topic-card__lessons {
+  .bojax-topic-card__included {
     display: grid;
-    margin: 1.7rem 0 0 4.3rem;
-    gap: 1rem;
+    margin: 1.6rem 0 0 4.2rem;
+    gap: 0.95rem;
   }
 
-  .bojax-topic-card__lesson {
+  .bojax-topic-card__included-item {
     display: flex;
     align-items: flex-start;
-    gap: 0.9rem;
+    gap: 0.85rem;
     color: rgba(255, 255, 255, 0.79);
-    font-size: 1.17rem;
-    line-height: 1.45;
+    font-size: 1.16rem;
+    line-height: 1.43;
   }
 
   .bojax-topic-card__small-check {
     display: grid;
-    flex: 0 0 1.8rem;
-    width: 1.8rem;
-    height: 1.8rem;
-    margin-top: 0.05rem;
+    flex: 0 0 1.7rem;
+    width: 1.7rem;
+    height: 1.7rem;
+    margin-top: 0.04rem;
     place-items: center;
     color: var(--bojax-green);
   }
 
   .bojax-topic-card__small-check svg {
-    width: 1.4rem;
-    height: 1.4rem;
+    width: 1.35rem;
+    height: 1.35rem;
   }
 
   .bojax-curriculum__empty {
-    margin-top: 2.5rem;
-    padding: 3rem;
+    margin-top: 2.2rem;
+    padding: 3rem 2rem;
     border: 1px solid rgba(216, 184, 106, 0.35);
     border-radius: 2rem;
-    background: var(--bojax-gold-soft);
+    background: rgba(216, 184, 106, 0.08);
     text-align: center;
   }
 
@@ -672,36 +810,36 @@
     max-width: 60rem;
     margin: 1rem auto 0;
     color: rgba(255, 255, 255, 0.62);
-    font-size: 1.35rem;
+    font-size: 1.3rem;
     line-height: 1.6;
   }
 
   /* Closing */
 
   .bojax-curriculum__closing {
-    margin-top: 4rem;
-    padding: 3.2rem;
-    border: 1px solid rgba(216, 184, 106, 0.3);
+    margin-top: 4.5rem;
+    padding: 3.4rem;
+    border: 1px solid rgba(216, 184, 106, 0.32);
     border-radius: 2.3rem;
     background:
       linear-gradient(
         135deg,
         rgba(216, 184, 106, 0.12),
-        rgba(255, 255, 255, 0.02)
+        rgba(255, 255, 255, 0.018)
       );
     text-align: center;
   }
 
-  .bojax-curriculum__closing > p {
+  .bojax-curriculum__closing-eyebrow {
     margin: 0 0 1.1rem;
     color: var(--bojax-gold-light);
-    font-size: 0.95rem;
+    font-size: 0.94rem;
     font-weight: 850;
     letter-spacing: 0.23em;
     text-transform: uppercase;
   }
 
-  .bojax-curriculum__closing h3 {
+  .bojax-curriculum__closing-heading {
     margin: 0;
     color: #ffffff;
     font-family: Georgia, "Times New Roman", serif;
@@ -722,8 +860,8 @@
   .bojax-curriculum__disclaimer {
     max-width: 84rem;
     margin: 2.7rem auto 0;
-    color: rgba(255, 255, 255, 0.34);
-    font-size: 1.05rem;
+    color: rgba(255, 255, 255, 0.35);
+    font-size: 1.04rem;
     line-height: 1.6;
     text-align: center;
   }
@@ -747,7 +885,7 @@
     background:
       linear-gradient(
         135deg,
-        #f8edd0,
+        var(--bojax-gold-pale),
         #ffffff
       );
     color: #090806;
@@ -758,6 +896,17 @@
     box-shadow:
       0 2rem 5rem rgba(0, 0, 0, 0.35),
       0 0 3.5rem rgba(216, 184, 106, 0.13);
+    transition:
+      box-shadow 180ms ease,
+      transform 180ms ease;
+  }
+
+  .bojax-curriculum__button:hover {
+    color: #090806;
+    box-shadow:
+      0 2.4rem 6rem rgba(0, 0, 0, 0.4),
+      0 0 4.5rem rgba(216, 184, 106, 0.19);
+    transform: translateY(-0.2rem);
   }
 
   .bojax-curriculum__button svg {
@@ -782,182 +931,277 @@
 
   @media screen and (max-width: 749px) {
     .bojax-curriculum {
-      padding: 6.2rem 0;
+      padding: 6.3rem 0;
     }
 
     .bojax-curriculum__container {
-      width: calc(100% - 2.8rem);
+      width: calc(100% - 2rem);
     }
 
-    .bojax-curriculum__eyebrow,
-    .bojax-curriculum__intro-eyebrow {
-      font-size: 0.88rem;
-      letter-spacing: 0.25em;
+    .bojax-curriculum__ambient-lines {
+      background-size: 4.5rem 4.5rem;
+    }
+
+    .bojax-curriculum__eyebrow {
+      gap: 0.7rem;
+      font-size: 0.82rem;
+      letter-spacing: 0.22em;
+    }
+
+    .bojax-curriculum__eyebrow > span {
+      width: 2rem;
     }
 
     .bojax-curriculum__heading {
-      font-size: clamp(4.1rem, 13vw, 5.7rem);
+      font-size: clamp(3.8rem, 12vw, 5.5rem);
     }
 
     .bojax-curriculum__description {
-      margin-top: 1.9rem;
-      font-size: 1.42rem;
+      margin-top: 1.8rem;
+      font-size: 1.38rem;
+    }
+
+    .bojax-curriculum__badge {
+      border-radius: 1.5rem;
+      font-size: 1rem;
+      line-height: 1.4;
+      text-align: left;
     }
 
     .bojax-curriculum__stats {
-      margin-top: 3.7rem;
-      border-radius: 2rem;
+      margin-top: 3.6rem;
+      border-radius: 1.8rem;
     }
 
     .bojax-curriculum__stat {
-      min-height: 12.2rem;
-      padding: 1.7rem 0.6rem;
+      min-height: 11.3rem;
+      padding: 1.5rem 0.5rem;
     }
 
     .bojax-curriculum__stat strong {
-      font-size: clamp(3rem, 10vw, 4rem);
+      font-size: clamp(2.8rem, 9vw, 3.8rem);
     }
 
-    .bojax-curriculum__stat span {
-      font-size: 0.75rem;
-      letter-spacing: 0.12em;
+    .bojax-curriculum__stat > span {
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
     }
 
     .bojax-curriculum__stat small {
-      padding: 0 0.5rem;
-      font-size: 0.86rem;
+      padding: 0 0.3rem;
+      font-size: 0.77rem;
     }
 
     .bojax-curriculum__intro {
       display: grid;
-      margin-top: 5.3rem;
-      padding-bottom: 2.4rem;
-      gap: 2rem;
+      margin-top: 5rem;
+      padding-bottom: 2.2rem;
+      gap: 1.7rem;
+    }
+
+    .bojax-curriculum__intro-eyebrow {
+      font-size: 0.82rem;
+      letter-spacing: 0.22em;
     }
 
     .bojax-curriculum__intro-heading {
-      font-size: 4rem;
+      font-size: 3.7rem;
     }
 
     .bojax-curriculum__intro-description {
-      font-size: 1.34rem;
+      font-size: 1.28rem;
     }
 
-    .bojax-curriculum__topic-total {
+    .bojax-curriculum__topic-count {
       width: 100%;
       min-width: 0;
+      padding: 1.4rem;
     }
 
-    .bojax-curriculum__topics {
-      grid-template-columns: 1fr;
-      margin-top: 1.6rem;
-      gap: 1.1rem;
+    /* Two cards per row on mobile */
+
+    .bojax-curriculum__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      margin-top: 1.4rem;
+      gap: 0.75rem;
     }
 
     .bojax-topic-card {
-      padding: 1.7rem 1.4rem;
-      border-radius: 1.7rem;
+      padding: 1.15rem 0.9rem;
+      border-radius: 1.35rem;
     }
 
-    .bojax-topic-card__header {
-      gap: 1rem;
+    .bojax-topic-card__top {
+      grid-template-columns:
+        2.25rem minmax(0, 1fr);
+      gap: 0.65rem;
     }
 
-    .bojax-topic-card__check {
-      flex-basis: 2.7rem;
-      width: 2.7rem;
-      height: 2.7rem;
+    .bojax-topic-card__main-check {
+      width: 2.25rem;
+      height: 2.25rem;
+    }
+
+    .bojax-topic-card__main-check svg {
+      width: 1.3rem;
+      height: 1.3rem;
+    }
+
+    .bojax-topic-card__category {
+      margin-bottom: 0.38rem;
+      font-size: 0.56rem;
+      letter-spacing: 0.1em;
     }
 
     .bojax-topic-card__title {
-      font-size: 1.48rem;
+      font-size: 1.12rem;
+      line-height: 1.17;
     }
 
     .bojax-topic-card__lesson-count {
-      padding: 0.5rem 0.65rem;
-      font-size: 0.68rem;
-    }
-
-    .bojax-topic-card__description,
-    .bojax-topic-card__lessons {
-      margin-left: 3.7rem;
+      grid-column: 2;
+      justify-self: start;
+      margin-top: 0.55rem;
+      padding: 0.42rem 0.55rem;
+      font-size: 0.56rem;
+      letter-spacing: 0.04em;
     }
 
     .bojax-topic-card__description {
-      font-size: 1.18rem;
+      margin: 0.85rem 0 0;
+      font-size: 0.88rem;
+      line-height: 1.4;
     }
 
-    .bojax-topic-card__lesson {
-      font-size: 1.08rem;
+    .bojax-topic-card__included {
+      margin: 0.9rem 0 0;
+      gap: 0.58rem;
+    }
+
+    .bojax-topic-card__included-item {
+      gap: 0.45rem;
+      font-size: 0.8rem;
+      line-height: 1.3;
+    }
+
+    .bojax-topic-card__small-check {
+      flex-basis: 1.3rem;
+      width: 1.3rem;
+      height: 1.3rem;
+    }
+
+    .bojax-topic-card__small-check svg {
+      width: 1.08rem;
+      height: 1.08rem;
     }
 
     .bojax-curriculum__closing {
-      padding: 2.5rem 1.6rem;
+      margin-top: 3.5rem;
+      padding: 2.4rem 1.4rem;
+      border-radius: 1.8rem;
+    }
+
+    .bojax-curriculum__closing-heading {
+      font-size: 3.4rem;
+    }
+
+    .bojax-curriculum__closing-text {
+      font-size: 1.25rem;
     }
 
     .bojax-curriculum__button {
       width: 100%;
     }
   }
+
+  @media screen and (max-width: 380px) {
+    .bojax-topic-card {
+      padding: 1rem 0.75rem;
+    }
+
+    .bojax-topic-card__title {
+      font-size: 1.02rem;
+    }
+
+    .bojax-topic-card__description {
+      font-size: 0.82rem;
+    }
+
+    .bojax-topic-card__included-item {
+      font-size: 0.75rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .bojax-topic-card,
+    .bojax-curriculum__button {
+      transition: none;
+    }
+  }
 {% endstylesheet %}
 
 <script>
   (() => {
-    const initializeCurriculum = (section) => {
-      if (!section || section.dataset.bojaxReady === 'true') return;
+    const initializeBojaxCurriculum = (section) => {
+      if (!section || section.dataset.bojaxCurriculumReady === 'true') {
+        return;
+      }
 
-      section.dataset.bojaxReady = 'true';
+      section.dataset.bojaxCurriculumReady = 'true';
 
-      const stats = section.querySelector('[data-bojax-stats]');
+      const stats = section.querySelector(
+        '[data-bojax-curriculum-stats]'
+      );
+
       const counters = Array.from(
         section.querySelectorAll('[data-counter-target]')
       );
 
       if (!stats || counters.length === 0) return;
 
-      let hasRun = false;
+      let hasAnimated = false;
 
-      const animateOneCounter = (counter) => {
-        const target = parseInt(
-          counter.getAttribute('data-counter-target'),
-          10
+      const animateCounter = (counter) => {
+        const target = Number(
+          counter.getAttribute('data-counter-target')
         ) || 0;
 
         const suffix =
           counter.getAttribute('data-counter-suffix') || '';
 
-        const duration = 1600;
-        const start = performance.now();
+        const duration = 1650;
+        const startTime = performance.now();
 
-        const frame = (time) => {
-          const progress = Math.min((time - start) / duration, 1);
+        const update = (currentTime) => {
+          const elapsed = currentTime - startTime;
+          const progress = Math.min(elapsed / duration, 1);
           const eased = 1 - Math.pow(1 - progress, 4);
           const value = Math.round(target * eased);
 
-          counter.textContent = value + suffix;
+          counter.textContent = `${value}${suffix}`;
 
           if (progress < 1) {
-            requestAnimationFrame(frame);
+            window.requestAnimationFrame(update);
           } else {
-            counter.textContent = target + suffix;
+            counter.textContent = `${target}${suffix}`;
           }
         };
 
-        requestAnimationFrame(frame);
+        window.requestAnimationFrame(update);
       };
 
-      const begin = () => {
-        if (hasRun) return;
+      const beginAnimation = () => {
+        if (hasAnimated) return;
 
-        hasRun = true;
+        hasAnimated = true;
 
         counters.forEach((counter) => {
-          animateOneCounter(counter);
+          animateCounter(counter);
         });
       };
 
       if (!('IntersectionObserver' in window)) {
-        begin();
+        beginAnimation();
         return;
       }
 
@@ -966,7 +1210,7 @@
           entries.forEach((entry) => {
             if (!entry.isIntersecting) return;
 
-            begin();
+            beginAnimation();
             observer.disconnect();
           });
         },
@@ -978,30 +1222,33 @@
       observer.observe(stats);
     };
 
-    const initializeAll = (root = document) => {
+    const initializeAllBojaxCurriculums = (root = document) => {
       if (
         root.matches &&
         root.matches('[data-bojax-curriculum]')
       ) {
-        initializeCurriculum(root);
+        initializeBojaxCurriculum(root);
       }
 
       root
         .querySelectorAll?.('[data-bojax-curriculum]')
-        .forEach(initializeCurriculum);
+        .forEach(initializeBojaxCurriculum);
     };
 
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', () => {
-        initializeAll(document);
+        initializeAllBojaxCurriculums(document);
       });
     } else {
-      initializeAll(document);
+      initializeAllBojaxCurriculums(document);
     }
 
-    document.addEventListener('shopify:section:load', (event) => {
-      initializeAll(event.target);
-    });
+    document.addEventListener(
+      'shopify:section:load',
+      (event) => {
+        initializeAllBojaxCurriculums(event.target);
+      }
+    );
   })();
 </script>
 
@@ -1010,7 +1257,7 @@
   "name": "Bojax course curriculum",
   "tag": "section",
   "class": "bojax-course-curriculum-section",
-  "max_blocks": 24,
+  "max_blocks": 20,
   "settings": [
     {
       "type": "text",
@@ -1028,11 +1275,23 @@
       "type": "richtext",
       "id": "description",
       "label": "Description",
-      "default": "<p>A detailed looksmaxxing system covering foundational improvements, advanced appearance strategies, physique development, skincare and professional options.</p>"
+      "default": "<p>A complete looksmaxxing curriculum covering foundational improvements, advanced appearance strategies, physique development, skincare, performance enhancement education and professional options.</p>"
+    },
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Badge beneath description",
+      "default": "Structured lessons, advanced education and practical action plans"
     },
     {
       "type": "header",
-      "content": "Course statistics"
+      "content": "Animated statistics"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_stats",
+      "label": "Show statistics",
+      "default": true
     },
     {
       "type": "number",
@@ -1080,7 +1339,7 @@
       "type": "text",
       "id": "lesson_note",
       "label": "Lesson note",
-      "default": "Detailed step-by-step explanations"
+      "default": "Detailed step-by-step education"
     },
     {
       "type": "text",
@@ -1098,7 +1357,7 @@
       "type": "text",
       "id": "access_note",
       "label": "Access note",
-      "default": "Start immediately after purchase"
+      "default": "Start immediately after checkout"
     },
     {
       "type": "text",
@@ -1116,11 +1375,11 @@
       "type": "text",
       "id": "updates_note",
       "label": "Updates note",
-      "default": "Receive newly added course material"
+      "default": "Receive newly added material"
     },
     {
       "type": "header",
-      "content": "Curriculum"
+      "content": "Curriculum heading"
     },
     {
       "type": "text",
@@ -1138,7 +1397,7 @@
       "type": "richtext",
       "id": "curriculum_description",
       "label": "Curriculum description",
-      "default": "<p>Every major looksmaxxing category is organized into focused lessons so students can understand what matters and build a practical improvement plan.</p>"
+      "default": "<p>Every major looksmaxxing category is organized into focused lessons so you can understand what matters and build a practical personal plan.</p>"
     },
     {
       "type": "header",
@@ -1160,13 +1419,13 @@
       "type": "richtext",
       "id": "closing_text",
       "label": "Closing text",
-      "default": "<p>No more piecing together random advice from hundreds of videos. The course organizes the full system into clear categories and lessons.</p>"
+      "default": "<p>Stop piecing together random advice from hundreds of videos. The Bojax Method organizes the complete system into clear categories and lessons.</p>"
     },
     {
       "type": "textarea",
       "id": "disclaimer",
       "label": "Disclaimer",
-      "default": "Educational information only. Individual results vary. Medical, pharmaceutical and cosmetic treatments should be discussed with qualified professionals."
+      "default": "Educational information only. Individual results vary. Medical, pharmaceutical, performance-enhancing and cosmetic treatments should be discussed with qualified professionals."
     },
     {
       "type": "text",
@@ -1212,27 +1471,22 @@
         {
           "type": "text",
           "id": "point_1",
-          "label": "Lesson detail 1"
+          "label": "Included lesson 1"
         },
         {
           "type": "text",
           "id": "point_2",
-          "label": "Lesson detail 2"
+          "label": "Included lesson 2"
         },
         {
           "type": "text",
           "id": "point_3",
-          "label": "Lesson detail 3"
-        },
-        {
-          "type": "text",
-          "id": "point_4",
-          "label": "Lesson detail 4"
+          "label": "Included lesson 3"
         },
         {
           "type": "checkbox",
           "id": "featured",
-          "label": "Highlight this topic",
+          "label": "Highlight topic",
           "default": false
         }
       ]
@@ -1251,48 +1505,32 @@
             "description": "<p>Build the highest-impact non-invasive improvements before moving into advanced options.</p>",
             "point_1": "Complete appearance assessment",
             "point_2": "Identify your highest-impact priorities",
-            "point_3": "Build daily and weekly routines",
-            "point_4": "Track progress without obsessing",
+            "point_3": "Build a repeatable improvement routine",
             "featured": true
           }
         },
         {
           "type": "topic",
           "settings": {
-            "category": "Skincare",
+            "category": "Advanced skincare",
             "lesson_count": "4 lessons",
-            "title": "Advanced skin protocols",
-            "description": "<p>Understand acne, texture, pigmentation, oil control and professional skincare options.</p>",
-            "point_1": "Cleanser, moisturizer and sunscreen",
-            "point_2": "Retinoids and acne-treatment education",
-            "point_3": "Microneedling and professional procedures",
-            "point_4": "Irritation, pigmentation and scar prevention"
+            "title": "Pharmaceutical skin optimization",
+            "description": "<p>Understand acne, oil control, pigmentation, texture, scarring and dermatologist-managed treatment options.</p>",
+            "point_1": "Retinoids, benzoyl peroxide and azelaic acid",
+            "point_2": "Prescription acne-treatment education",
+            "point_3": "Isotretinoin, monitoring and professional procedures"
           }
         },
         {
           "type": "topic",
           "settings": {
-            "category": "Hair",
+            "category": "Hair optimization",
             "lesson_count": "3 lessons",
             "title": "Hairline and hair-growth protocols",
-            "description": "<p>Improve hairstyle, scalp care and hair presentation while understanding professional options.</p>",
-            "point_1": "Choosing haircuts for your features",
-            "point_2": "Styling and scalp-care routines",
-            "point_3": "Hair-loss treatment education",
-            "point_4": "Hair-restoration options"
-          }
-        },
-        {
-          "type": "topic",
-          "settings": {
-            "category": "Face",
-            "lesson_count": "3 lessons",
-            "title": "Jawline, hyoid and mandibular appearance",
-            "description": "<p>Understand the visual factors that influence the jawline, neck and lower-face presentation.</p>",
-            "point_1": "Posture and neck positioning",
-            "point_2": "Body composition and jaw visibility",
-            "point_3": "Bite and orthodontic considerations",
-            "point_4": "Professional structural options"
+            "description": "<p>Improve hairstyle and hair presentation while understanding evidence-based hair-loss options.</p>",
+            "point_1": "Haircuts and styling for your features",
+            "point_2": "Hair-loss patterns and scalp care",
+            "point_3": "Treatment and restoration education"
           }
         },
         {
@@ -1300,12 +1538,23 @@
           "settings": {
             "category": "Facial structure",
             "lesson_count": "3 lessons",
-            "title": "Bone growth and forward-growth claims",
-            "description": "<p>Learn what influences facial development and separate realistic options from dangerous myths.</p>",
-            "point_1": "Genetics and facial development",
-            "point_2": "Posture, bite and orthodontics",
-            "point_3": "Bonesmashing myths and injury risks",
-            "point_4": "Professional evaluation options"
+            "title": "Jawline, hyoid and mandibular appearance",
+            "description": "<p>Understand the visual factors that affect the neck, jawline and lower-face presentation.</p>",
+            "point_1": "Posture and neck positioning",
+            "point_2": "Body composition and jaw visibility",
+            "point_3": "Bite, orthodontics and professional options"
+          }
+        },
+        {
+          "type": "topic",
+          "settings": {
+            "category": "Bone development",
+            "lesson_count": "3 lessons",
+            "title": "Forward-growth and facial-bone claims",
+            "description": "<p>Separate realistic facial-development concepts from exaggerated or dangerous online claims.</p>",
+            "point_1": "Genetics, puberty and facial development",
+            "point_2": "Posture, bite and orthodontic factors",
+            "point_3": "Bonesmashing myths and injury risks"
           }
         },
         {
@@ -1313,12 +1562,11 @@
           "settings": {
             "category": "Eye area",
             "lesson_count": "2 lessons",
-            "title": "Eye-area improvements",
-            "description": "<p>Improve the appearance of the under-eye area, brows and surrounding facial presentation.</p>",
+            "title": "Eye-area optimization",
+            "description": "<p>Improve the appearance of the eyes, brows and under-eye area through practical strategies.</p>",
             "point_1": "Sleep, allergies and puffiness",
-            "point_2": "Under-eye skincare",
-            "point_3": "Brow shape and grooming",
-            "point_4": "Professional treatment education"
+            "point_2": "Under-eye skincare and brow grooming",
+            "point_3": "Professional treatment education"
           }
         },
         {
@@ -1326,25 +1574,11 @@
           "settings": {
             "category": "Facial details",
             "lesson_count": "2 lessons",
-            "title": "Lashes, brows and lips",
-            "description": "<p>Refine smaller facial details that can noticeably improve overall appearance.</p>",
-            "point_1": "Eyebrow shaping and density",
-            "point_2": "Lash and eye-area grooming",
-            "point_3": "Lip care and presentation",
-            "point_4": "Maintaining natural-looking results"
-          }
-        },
-        {
-          "type": "topic",
-          "settings": {
-            "category": "Facial presentation",
-            "lesson_count": "2 lessons",
-            "title": "Nose appearance and facial balance",
-            "description": "<p>Understand styling, photography and professional options that influence perceived nose balance.</p>",
-            "point_1": "Camera distortion and photo angles",
-            "point_2": "Hair and facial-balance strategies",
-            "point_3": "Contouring and presentation",
-            "point_4": "Professional procedure education"
+            "title": "Lashes, brows, lips and nose balance",
+            "description": "<p>Refine smaller facial details that can noticeably affect overall facial harmony.</p>",
+            "point_1": "Eyebrow, lash and lip presentation",
+            "point_2": "Nose appearance and facial balance",
+            "point_3": "Photography, grooming and professional options"
           }
         },
         {
@@ -1352,25 +1586,11 @@
           "settings": {
             "category": "Symmetry",
             "lesson_count": "2 lessons",
-            "title": "Facial symmetry, exercises and posture",
-            "description": "<p>Understand realistic effects of expression habits, posture and facial movement.</p>",
+            "title": "Facial symmetry, posture and exercises",
+            "description": "<p>Understand realistic effects of expression habits, posture, tension and facial movement.</p>",
             "point_1": "Head, neck and shoulder posture",
             "point_2": "Expression and tension habits",
-            "point_3": "Photo positioning and angles",
-            "point_4": "Realistic facial-exercise expectations"
-          }
-        },
-        {
-          "type": "topic",
-          "settings": {
-            "category": "Presentation",
-            "lesson_count": "2 lessons",
-            "title": "Feature balancing and facial masking",
-            "description": "<p>Use hairstyle, facial hair, glasses and styling to complement your strongest features.</p>",
-            "point_1": "Hair and face-shape balance",
-            "point_2": "Facial-hair placement",
-            "point_3": "Glasses and accessory selection",
-            "point_4": "Building a consistent personal aesthetic"
+            "point_3": "Realistic facial-exercise expectations"
           }
         },
         {
@@ -1379,25 +1599,23 @@
             "category": "Physique",
             "lesson_count": "4 lessons",
             "title": "Physique and proportion development",
-            "description": "<p>Build a stronger frame, improve body composition and develop balanced proportions.</p>",
+            "description": "<p>Build a stronger frame, improve body composition and develop more balanced proportions.</p>",
             "point_1": "Training structure and exercise selection",
             "point_2": "Shoulder-to-waist proportions",
-            "point_3": "Body composition and nutrition",
-            "point_4": "Posture and physical presence",
+            "point_3": "Nutrition, posture and physical presence",
             "featured": true
           }
         },
         {
           "type": "topic",
           "settings": {
-            "category": "Nutrition",
+            "category": "Facial leanness",
             "lesson_count": "3 lessons",
-            "title": "Debloating, fasting and dietary structure",
-            "description": "<p>Understand how hydration, sodium, digestion, sleep and meal timing affect appearance.</p>",
-            "point_1": "Facial puffiness and water retention",
-            "point_2": "Hydration and sodium consistency",
-            "point_3": "Intermittent-fasting education",
-            "point_4": "Avoiding extreme short-term methods"
+            "title": "Debloating, fasting and water retention",
+            "description": "<p>Understand how sleep, hydration, sodium, digestion and meal timing affect facial puffiness.</p>",
+            "point_1": "Water retention and facial puffiness",
+            "point_2": "Hydration, sodium and dietary consistency",
+            "point_3": "Fasting and diuretic risk education"
           }
         },
         {
@@ -1406,50 +1624,59 @@
             "category": "Growth",
             "lesson_count": "3 lessons",
             "title": "Height potential and posture",
-            "description": "<p>Understand growth plates, genetics, puberty, sleep, nutrition and posture.</p>",
+            "description": "<p>Understand genetics, growth plates, puberty, nutrition, sleep and posture.</p>",
             "point_1": "Remaining growth potential",
             "point_2": "Sleep and nutrition fundamentals",
-            "point_3": "Posture and measured height",
-            "point_4": "When professional evaluation may help"
+            "point_3": "Posture and professional evaluation"
           }
         },
         {
           "type": "topic",
           "settings": {
-            "category": "Advanced education",
+            "category": "Performance enhancement",
+            "lesson_count": "4 lessons",
+            "title": "PED and anabolic education",
+            "description": "<p>An advanced overview of commonly discussed performance-enhancing compounds, expected effects and major risks.</p>",
+            "point_1": "Testosterone and anabolic-agent education",
+            "point_2": "Hormonal suppression and fertility concerns",
+            "point_3": "Cardiovascular, liver and blood-pressure risks",
+            "featured": true
+          }
+        },
+        {
+          "type": "topic",
+          "settings": {
+            "category": "Advanced peptides",
+            "lesson_count": "4 lessons",
+            "title": "Peptides and research compounds",
+            "description": "<p>Understand peptide claims, experimental compounds, product-quality concerns and medical oversight.</p>",
+            "point_1": "Approved treatments versus research products",
+            "point_2": "Growth-hormone and recovery-related claims",
+            "point_3": "Purity, contamination and side-effect concerns"
+          }
+        },
+        {
+          "type": "topic",
+          "settings": {
+            "category": "Hormones",
             "lesson_count": "3 lessons",
-            "title": "Peptide and performance-enhancement education",
-            "description": "<p>Understand common enhancement claims, potential risks and the importance of professional supervision.</p>",
-            "point_1": "Approved treatments versus experimental compounds",
-            "point_2": "Purity and contamination concerns",
-            "point_3": "Hormonal and cardiovascular risks",
-            "point_4": "Why licensed supervision matters"
+            "title": "Hormones and physical appearance",
+            "description": "<p>Understand how hormones can influence skin, hair, muscle, body composition and development.</p>",
+            "point_1": "Testosterone, estrogen and DHT fundamentals",
+            "point_2": "Hormones, hair and skin changes",
+            "point_3": "Testing and professional evaluation"
           }
         },
         {
           "type": "topic",
           "settings": {
-            "category": "Advanced education",
+            "category": "Mental performance",
             "lesson_count": "3 lessons",
-            "title": "Hormones, nootropics and diuretics",
-            "description": "<p>An educational overview of commonly discussed compounds and their possible consequences.</p>",
-            "point_1": "Hormone-related claims and risks",
-            "point_2": "Nootropic benefits and limitations",
-            "point_3": "Diuretics, dehydration and electrolyte risk",
-            "point_4": "Interactions and professional guidance"
-          }
-        },
-        {
-          "type": "topic",
-          "settings": {
-            "category": "Supplements",
-            "lesson_count": "2 lessons",
-            "title": "Supplements and product resources",
-            "description": "<p>Learn how to evaluate supplement evidence, labels, quality and marketing claims.</p>",
-            "point_1": "Evidence and ingredient evaluation",
-            "point_2": "Label and dosage review",
-            "point_3": "Quality and sourcing considerations",
-            "point_4": "Avoiding unnecessary products"
+            "title": "Nootropics, focus and confidence",
+            "description": "<p>An educational overview of compounds and habits commonly associated with focus, energy and social performance.</p>",
+            "point_1": "Stimulant and nootropic claims",
+            "point_2": "Sleep, stress and mental performance",
+            "point_3": "Tolerance, dependence and side effects"
           }
         },
         {
@@ -1457,26 +1684,11 @@
           "settings": {
             "category": "Hardmaxxing",
             "lesson_count": "4 lessons",
-            "title": "Professional and cosmetic options",
+            "title": "Cosmetic and professional procedures",
             "description": "<p>A realistic overview of dentistry, dermatology, hair restoration and cosmetic procedures.</p>",
             "point_1": "Dental and orthodontic procedures",
-            "point_2": "Dermatology and cosmetic treatments",
-            "point_3": "Hair-restoration options",
-            "point_4": "Costs, recovery and provider selection"
-          }
-        },
-        {
-          "type": "topic",
-          "settings": {
-            "category": "Action plan",
-            "lesson_count": "3 lessons",
-            "title": "Your personal ascension plan",
-            "description": "<p>Turn the curriculum into a focused plan based on your age, priorities, budget and starting point.</p>",
-            "point_1": "Choose your highest-impact priorities",
-            "point_2": "Create a realistic 30-day plan",
-            "point_3": "Track progress consistently",
-            "point_4": "Adjust your strategy over time",
-            "featured": true
+            "point_2": "Dermatology and hair-restoration options",
+            "point_3": "Costs, recovery, risks and provider selection"
           }
         }
       ]

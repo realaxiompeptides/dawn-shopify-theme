@@ -251,11 +251,68 @@
         "button_text": "Get instant access",
         "button_link": ""
       }
+    },
+    "bojax_transformations_CPURm7": {
+      "type": "bojax-transformations",
+      "blocks": {
+        "transformation_jWL8EC": {
+          "type": "transformation",
+          "settings": {
+            "before_label": "Before",
+            "after_label": "After",
+            "overline": "The Bojax Method • Before — After",
+            "title": "Face Ascension",
+            "text": "<p>Average features → sharper jaw, better skin, improved grooming, stronger overall presence.</p>"
+          }
+        },
+        "transformation_Pcc7Jz": {
+          "type": "transformation",
+          "settings": {
+            "before_label": "Before",
+            "after_label": "After",
+            "overline": "The Bojax Method • Before — After",
+            "title": "Profile Ascension",
+            "text": "<p>Average features → sharper jaw, better skin, improved grooming, stronger overall presence.</p>"
+          }
+        },
+        "transformation_FHXbMM": {
+          "type": "transformation",
+          "settings": {
+            "before_label": "Before",
+            "after_label": "After",
+            "overline": "The Bojax Method • Before — After",
+            "title": "Style + Presence",
+            "text": "<p>Average features → sharper jaw, better skin, improved grooming, stronger overall presence.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "transformation_jWL8EC",
+        "transformation_Pcc7Jz",
+        "transformation_FHXbMM"
+      ],
+      "name": "Bojax transformations",
+      "settings": {
+        "eyebrow": "Social proof",
+        "heading": "The same system Bojax ran for his own face.",
+        "description": "<p>Bojax ran the method on himself first. The proof is in his own face.</p>",
+        "swipe_text": "Swipe to see the transformation →",
+        "stat_1_number": "15.3K",
+        "stat_1_label": "Followers",
+        "stat_2_number": "869.6K",
+        "stat_2_label": "Likes",
+        "stat_3_number": "300K+",
+        "stat_3_label": "Video views",
+        "bottom_note": "Use real and accurate numbers only.",
+        "button_text": "Get instant access",
+        "button_link": ""
+      }
     }
   },
   "order": [
     "bojax_hero",
     "featured_collection",
+    "bojax_transformations_CPURm7",
     "bojax_course_curriculum_nXN9cR"
   ]
 }

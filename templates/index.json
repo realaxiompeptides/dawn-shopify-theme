@@ -100,9 +100,11 @@
         "transformation_Pcc7Jz": {
           "type": "transformation",
           "settings": {
+            "before_image": "shopify://shop_images/IMG_0785.jpg",
+            "after_image": "shopify://shop_images/IMG_0585.jpg",
             "overline": "The Bojax Method • Before — After",
-            "title": "Profile Ascension",
-            "description": "<p>Improved skin, hair, grooming, facial presentation and overall appearance.</p>"
+            "title": "Physique Ascension",
+            "description": "<p>Through improved nutrition, consistent gym training, and the use of performance-enhancing compounds, he built more muscle, improved his proportions, and developed a stronger overall physique.</p>"
           }
         }
       },

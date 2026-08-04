@@ -732,22 +732,14 @@
 
     {% comment %}
       BOJAX CUSTOM STYLES
-
-      These load after Dawn's main styles so the custom design
-      can override Dawn without removing Dawn functionality.
     {% endcomment %}
 
-    {{
-      'bojax-00-variables.css'
-      | asset_url
-      | stylesheet_tag
-    }}
+    {{ 'bojax-00-variables.css' | asset_url | stylesheet_tag }}
+    {{ 'bojax-03-header.css' | asset_url | stylesheet_tag }}
 
-    {{
-      'bojax-03-header.css'
-      | asset_url
-      | stylesheet_tag
-    }}
+    {%- if request.page_type == 'index' -%}
+      {{ 'bojax-04-home.css' | asset_url | stylesheet_tag }}
+    {%- endif -%}
 
     <script>
       if (Shopify.designMode) {

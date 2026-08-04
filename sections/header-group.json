@@ -11,36 +11,51 @@
   "name": "t:sections.header.name",
   "type": "header",
   "sections": {
-    "announcement-bar": {
-      "type": "announcement-bar",
+    "bojax_announcement_marquee_98fbrF": {
+      "type": "bojax-announcement-marquee",
       "blocks": {
-        "announcement-bar-0": {
-          "type": "announcement",
+        "message_UV33ef": {
+          "type": "message",
           "settings": {
-            "text": "Welcome to our store",
+            "text": "Instant course access",
+            "show_dot": true,
             "link": ""
           }
         },
-        "announcement_LJkJDR": {
-          "type": "announcement",
+        "message_Ney4RK": {
+          "type": "message",
           "settings": {
-            "text": "50% off today only",
+            "text": "Built by Bojax",
+            "show_dot": true,
+            "link": ""
+          }
+        },
+        "message_NnXUFt": {
+          "type": "message",
+          "settings": {
+            "text": "Lifetime updates included",
+            "show_dot": true,
+            "link": ""
+          }
+        },
+        "message_PBB9nL": {
+          "type": "message",
+          "settings": {
+            "text": "Start your transformation",
+            "show_dot": true,
             "link": ""
           }
         }
       },
       "block_order": [
-        "announcement-bar-0",
-        "announcement_LJkJDR"
+        "message_UV33ef",
+        "message_Ney4RK",
+        "message_NnXUFt",
+        "message_PBB9nL"
       ],
+      "name": "Bojax moving announcement",
       "settings": {
-        "auto_rotate": false,
-        "change_slides_speed": 3,
-        "color_scheme": "scheme-1",
-        "show_line_separator": true,
-        "show_social": false,
-        "enable_country_selector": false,
-        "enable_language_selector": false
+        "speed": 24
       }
     },
     "header": {
@@ -64,7 +79,7 @@
     }
   },
   "order": [
-    "announcement-bar",
+    "bojax_announcement_marquee_98fbrF",
     "header"
   ]
 }

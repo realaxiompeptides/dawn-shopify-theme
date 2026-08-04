@@ -1,0 +1,315 @@
+/* =========================================================
+   BOJAX COURSE — DAWN HEADER REDESIGN
+   Keeps Dawn functionality and changes its appearance.
+   ========================================================= */
+
+/* Overall header */
+
+.header-wrapper {
+  border-bottom:
+    1px solid rgba(255, 255, 255, 0.09) !important;
+
+  background:
+    rgba(5, 5, 5, 0.78) !important;
+
+  box-shadow:
+    0 10px 40px rgba(0, 0, 0, 0.16);
+
+  backdrop-filter:
+    blur(18px);
+
+  -webkit-backdrop-filter:
+    blur(18px);
+}
+
+/* Sticky header */
+
+.shopify-section-header-sticky .header-wrapper {
+  background:
+    rgba(5, 5, 5, 0.92) !important;
+
+  box-shadow:
+    0 15px 50px rgba(0, 0, 0, 0.34);
+}
+
+/* Header spacing */
+
+.header {
+  min-height: 76px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+/* Text logo when no image logo is uploaded */
+
+.header__heading-link {
+  color: var(--bojax-white) !important;
+
+  font-weight: 900;
+  letter-spacing: -0.045em;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+/* Image logo */
+
+.header__heading-logo-wrapper {
+  transition:
+    transform var(--bojax-transition);
+}
+
+.header__heading-link:hover
+.header__heading-logo-wrapper {
+  transform: scale(1.025);
+}
+
+/* Desktop navigation */
+
+.header__inline-menu {
+  margin-left: 1.5rem;
+}
+
+.header__menu-item {
+  position: relative;
+
+  padding-top: 1.2rem;
+  padding-bottom: 1.2rem;
+
+  color:
+    rgba(255, 255, 255, 0.72) !important;
+
+  font-size: 1.4rem;
+  font-weight: 700;
+  text-decoration: none;
+
+  transition:
+    color var(--bojax-transition);
+}
+
+.header__menu-item:hover,
+.header__active-menu-item {
+  color:
+    var(--bojax-white) !important;
+
+  text-decoration: none !important;
+}
+
+.header__menu-item span {
+  text-decoration: none !important;
+}
+
+/* Navigation underline */
+
+.header__menu-item::after {
+  position: absolute;
+  right: 1.2rem;
+  bottom: 0.6rem;
+  left: 1.2rem;
+
+  height: 2px;
+
+  border-radius:
+    var(--bojax-radius-pill);
+
+  background:
+    var(--bojax-accent);
+
+  content: "";
+
+  opacity: 0;
+
+  transform:
+    scaleX(0);
+
+  transform-origin:
+    center;
+
+  transition:
+    opacity var(--bojax-transition),
+    transform var(--bojax-transition);
+}
+
+.header__menu-item:hover::after,
+.header__active-menu-item::after {
+  opacity: 1;
+
+  transform:
+    scaleX(1);
+}
+
+/* Search, account and cart icons */
+
+.header__icon {
+  color:
+    var(--bojax-white) !important;
+
+  transition:
+    color var(--bojax-transition),
+    transform var(--bojax-transition);
+}
+
+.header__icon:hover {
+  color:
+    var(--bojax-accent) !important;
+
+  transform:
+    translateY(-1px);
+}
+
+.header__icon .icon {
+  width: 2.1rem;
+  height: 2.1rem;
+}
+
+/* Cart quantity bubble */
+
+.cart-count-bubble {
+  background:
+    var(--bojax-accent) !important;
+
+  color:
+    #111111 !important;
+
+  font-weight:
+    900;
+}
+
+/* Header dropdown menus */
+
+.header__submenu,
+.mega-menu__content {
+  border:
+    1px solid var(--bojax-border) !important;
+
+  border-radius:
+    0 0 var(--bojax-radius-medium)
+    var(--bojax-radius-medium);
+
+  background:
+    rgba(11, 11, 13, 0.97) !important;
+
+  box-shadow:
+    var(--bojax-shadow);
+
+  backdrop-filter:
+    blur(20px);
+}
+
+/* Announcement bar */
+
+.announcement-bar-section {
+  position:
+    relative;
+
+  z-index:
+    6;
+}
+
+.announcement-bar {
+  background:
+    var(--bojax-accent) !important;
+
+  color:
+    #111111 !important;
+}
+
+.announcement-bar__message {
+  color:
+    #111111 !important;
+
+  font-size:
+    1.25rem;
+
+  font-weight:
+    850;
+
+  letter-spacing:
+    0.02em;
+}
+
+/* Mobile menu button */
+
+.header__icon--menu {
+  color:
+    var(--bojax-white) !important;
+}
+
+/* Mobile navigation drawer */
+
+.menu-drawer {
+  border-right:
+    1px solid var(--bojax-border);
+
+  background:
+    var(--bojax-black-soft) !important;
+
+  color:
+    var(--bojax-white);
+}
+
+.menu-drawer__menu-item {
+  color:
+    var(--bojax-white) !important;
+
+  font-weight:
+    750;
+}
+
+.menu-drawer__menu-item:hover,
+.menu-drawer__menu-item--active {
+  background:
+    rgba(232, 255, 61, 0.08) !important;
+
+  color:
+    var(--bojax-accent) !important;
+}
+
+.menu-drawer__utility-links {
+  border-top:
+    1px solid var(--bojax-border);
+
+  background:
+    var(--bojax-black) !important;
+}
+
+/* Make header dark on course pages */
+
+body.template-index,
+body.template-product {
+  background:
+    var(--bojax-black);
+
+  color:
+    var(--bojax-text);
+}
+
+/* Mobile */
+
+@media screen and (max-width: 749px) {
+  .header {
+    min-height:
+      68px;
+
+    padding-top:
+      8px;
+
+    padding-bottom:
+      8px;
+  }
+
+  .header__heading-logo {
+    max-height:
+      40px;
+  }
+
+  .announcement-bar__message {
+    padding:
+      9px 10px;
+
+    font-size:
+      1.1rem;
+
+    line-height:
+      1.25;
+  }
+}

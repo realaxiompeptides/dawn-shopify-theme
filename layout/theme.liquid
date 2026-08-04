@@ -735,11 +735,12 @@
     {% endcomment %}
 
     {{ 'bojax-00-variables.css' | asset_url | stylesheet_tag }}
-    {{ 'bojax-03-header.css' | asset_url | stylesheet_tag }}
+{{ 'bojax-03-header.css' | asset_url | stylesheet_tag }}
+{{ 'bojax-06-cart.css' | asset_url | stylesheet_tag }}
 
-    {%- if request.page_type == 'index' -%}
-      {{ 'bojax-04-home.css' | asset_url | stylesheet_tag }}
-    {%- endif -%}
+{%- if request.page_type == 'index' -%}
+  {{ 'bojax-04-home.css' | asset_url | stylesheet_tag }}
+{%- endif -%}
 
     <script>
       if (Shopify.designMode) {

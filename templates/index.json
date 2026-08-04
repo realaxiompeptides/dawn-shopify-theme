@@ -90,52 +90,41 @@
         "transformation_jWL8EC": {
           "type": "transformation",
           "settings": {
-            "before_label": "Before",
-            "after_label": "After",
+            "before_image": "shopify://shop_images/6D05A991-66DB-4EC2-9B2B-19F5847E0641.png",
+            "after_image": "shopify://shop_images/IMG_0784.jpg",
             "overline": "The Bojax Method • Before — After",
             "title": "Face Ascension",
-            "text": "<p>Average features → sharper jaw, better skin, improved grooming, stronger overall presence.</p>"
+            "description": "<p>Improved skin, hair, grooming, facial presentation and overall appearance.</p>"
           }
         },
         "transformation_Pcc7Jz": {
           "type": "transformation",
           "settings": {
-            "before_label": "Before",
-            "after_label": "After",
             "overline": "The Bojax Method • Before — After",
             "title": "Profile Ascension",
-            "text": "<p>Average features → sharper jaw, better skin, improved grooming, stronger overall presence.</p>"
-          }
-        },
-        "transformation_FHXbMM": {
-          "type": "transformation",
-          "settings": {
-            "before_label": "Before",
-            "after_label": "After",
-            "overline": "The Bojax Method • Before — After",
-            "title": "Style + Presence",
-            "text": "<p>Average features → sharper jaw, better skin, improved grooming, stronger overall presence.</p>"
+            "description": "<p>Improved skin, hair, grooming, facial presentation and overall appearance.</p>"
           }
         }
       },
       "block_order": [
         "transformation_jWL8EC",
-        "transformation_Pcc7Jz",
-        "transformation_FHXbMM"
+        "transformation_Pcc7Jz"
       ],
       "name": "Bojax transformations",
       "settings": {
         "eyebrow": "Social proof",
         "heading": "The same system Bojax ran for his own face.",
         "description": "<p>Bojax ran the method on himself first. The proof is in his own face.</p>",
+        "autoplay_speed": 4,
         "swipe_text": "Swipe to see the transformation →",
-        "stat_1_number": "15.3K",
-        "stat_1_label": "Followers",
-        "stat_2_number": "869.6K",
-        "stat_2_label": "Likes",
-        "stat_3_number": "10,000,000+",
-        "stat_3_label": "Video views",
-        "bottom_note": "Use real and accurate numbers only.",
+        "followers": "15.3K",
+        "followers_label": "Followers",
+        "likes": "869.6K",
+        "likes_label": "Likes",
+        "views": "10M+",
+        "views_label": "Video views",
+        "social_note": "Viral appearance-improvement videos across TikTok.",
+        "disclaimer": "Individual results vary. Images do not guarantee that every customer will achieve the same outcome.",
         "button_text": "Get instant access",
         "button_link": ""
       }

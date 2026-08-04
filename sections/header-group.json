@@ -11,51 +11,45 @@
   "name": "t:sections.header.name",
   "type": "header",
   "sections": {
-    "bojax_announcement_marquee_98fbrF": {
+    "bojax_announcement_marquee_NVRHH6": {
       "type": "bojax-announcement-marquee",
       "blocks": {
-        "message_UV33ef": {
-          "type": "message",
+        "announcement_LiCMiP": {
+          "type": "announcement",
           "settings": {
-            "text": "Instant course access",
-            "show_dot": true,
+            "icon": "star",
+            "text": "50% Off Sale Ends Today!",
             "link": ""
           }
         },
-        "message_Ney4RK": {
-          "type": "message",
+        "announcement_LXnEVh": {
+          "type": "announcement",
           "settings": {
-            "text": "Built by Bojax",
-            "show_dot": true,
+            "icon": "bolt",
+            "text": "20M+ views across TikTok",
             "link": ""
           }
         },
-        "message_NnXUFt": {
-          "type": "message",
+        "announcement_HYAMip": {
+          "type": "announcement",
           "settings": {
-            "text": "Lifetime updates included",
-            "show_dot": true,
-            "link": ""
-          }
-        },
-        "message_PBB9nL": {
-          "type": "message",
-          "settings": {
-            "text": "Start your transformation",
-            "show_dot": true,
+            "icon": "diamond",
+            "text": "Created by Bojax",
             "link": ""
           }
         }
       },
       "block_order": [
-        "message_UV33ef",
-        "message_Ney4RK",
-        "message_NnXUFt",
-        "message_PBB9nL"
+        "announcement_LiCMiP",
+        "announcement_LXnEVh",
+        "announcement_HYAMip"
       ],
       "name": "Bojax moving announcement",
       "settings": {
-        "speed": 24
+        "speed": 24,
+        "background_color": "#FFFFFF",
+        "text_color": "#090909",
+        "accent_color": "#C79B3B"
       }
     },
     "header": {
@@ -79,7 +73,7 @@
     }
   },
   "order": [
-    "bojax_announcement_marquee_98fbrF",
+    "bojax_announcement_marquee_NVRHH6",
     "header"
   ]
 }

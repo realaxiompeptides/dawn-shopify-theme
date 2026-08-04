@@ -82,10 +82,155 @@
         "padding_top": 44,
         "padding_bottom": 36
       }
+    },
+    "bojax_course_curriculum_nXN9cR": {
+      "type": "bojax-course-curriculum",
+      "blocks": {
+        "module_TFrD8i": {
+          "type": "module",
+          "settings": {
+            "badge": "Core module",
+            "lesson_count": "5 lessons",
+            "title": "Face and presentation",
+            "description": "<p>Learn how grooming, posture, facial presentation and visual balance affect your appearance.</p>",
+            "point_1": "Facial presentation fundamentals",
+            "point_2": "Profile, posture and photo angles",
+            "point_3": "Bonesmashing myths and injury risks",
+            "featured": true
+          }
+        },
+        "module_UHXmk6": {
+          "type": "module",
+          "settings": {
+            "badge": "Core module",
+            "lesson_count": "6 lessons",
+            "title": "Hair and grooming",
+            "description": "<p>Build a grooming system based on your features, hair type and desired style.</p>",
+            "point_1": "Choosing a flattering hairstyle",
+            "point_2": "Hair maintenance and styling",
+            "point_3": "Facial hair and grooming details",
+            "featured": false
+          }
+        },
+        "module_bwB6BM": {
+          "type": "module",
+          "settings": {
+            "badge": "Core module",
+            "lesson_count": "7 lessons",
+            "title": "Evidence-based skincare",
+            "description": "<p>Create a consistent routine for cleaner, healthier-looking skin without chasing every trend.</p>",
+            "point_1": "Cleanser, moisturizer and sunscreen",
+            "point_2": "Acne and irritation basics",
+            "point_3": "When to see a dermatologist",
+            "featured": false
+          }
+        },
+        "module_bfGb6C": {
+          "type": "module",
+          "settings": {
+            "badge": "Core module",
+            "lesson_count": "5 lessons",
+            "title": "Physique and posture",
+            "description": "<p>Improve the way your frame, posture and proportions contribute to your overall presence.</p>",
+            "point_1": "Posture and body language",
+            "point_2": "Building balanced proportions",
+            "point_3": "Sustainable fitness habits",
+            "featured": false
+          }
+        },
+        "module_LWcAmJ": {
+          "type": "module",
+          "settings": {
+            "badge": "Core module",
+            "lesson_count": "5 lessons",
+            "title": "Style and clothing",
+            "description": "<p>Build a wardrobe that fits properly, complements your features and feels intentional.</p>",
+            "point_1": "Fit and proportions",
+            "point_2": "Color and outfit coordination",
+            "point_3": "Building a personal style",
+            "featured": false
+          }
+        },
+        "module_X4Hh9n": {
+          "type": "module",
+          "settings": {
+            "badge": "Advanced",
+            "lesson_count": "4 lessons",
+            "title": "Lifestyle and facial puffiness",
+            "description": "<p>Understand how sleep, hydration, nutrition and daily habits can affect your appearance.</p>",
+            "point_1": "Sleep and recovery",
+            "point_2": "Hydration and dietary consistency",
+            "point_3": "Avoiding extreme anti-bloat claims",
+            "featured": false
+          }
+        },
+        "module_69rm4m": {
+          "type": "module",
+          "settings": {
+            "badge": "Advanced",
+            "lesson_count": "4 lessons",
+            "title": "Dental and cosmetic options",
+            "description": "<p>Learn what professional options exist, what they can realistically change and who to consult.</p>",
+            "point_1": "Dental appearance and orthodontics",
+            "point_2": "Dermatology and cosmetic procedures",
+            "point_3": "Realistic expectations and risks",
+            "featured": false
+          }
+        },
+        "module_ACqmAX": {
+          "type": "module",
+          "settings": {
+            "badge": "Advanced",
+            "lesson_count": "4 lessons",
+            "title": "Peptides and enhancement claims",
+            "description": "<p>Separate approved treatments from experimental compounds and misleading online claims.</p>",
+            "point_1": "Approved versus experimental products",
+            "point_2": "Quality, contamination and side effects",
+            "point_3": "Why professional supervision matters",
+            "featured": false
+          }
+        },
+        "module_cBAWzG": {
+          "type": "module",
+          "settings": {
+            "badge": "Action plan",
+            "lesson_count": "3 lessons",
+            "title": "Your personal ascension plan",
+            "description": "<p>Turn the entire course into a realistic routine based on your current priorities.</p>",
+            "point_1": "Personal appearance assessment",
+            "point_2": "30-day improvement plan",
+            "point_3": "Tracking progress over time",
+            "featured": false
+          }
+        }
+      },
+      "block_order": [
+        "module_TFrD8i",
+        "module_UHXmk6",
+        "module_bwB6BM",
+        "module_bfGb6C",
+        "module_LWcAmJ",
+        "module_X4Hh9n",
+        "module_69rm4m",
+        "module_ACqmAX",
+        "module_cBAWzG"
+      ],
+      "name": "Bojax course curriculum",
+      "settings": {
+        "eyebrow": "WHAT YOU GET",
+        "heading": "The complete Bojax method",
+        "description": "<p>A complete appearance-improvement system that shows you what to focus on, what to avoid, and how to build your personal plan.</p>",
+        "show_summary": true,
+        "lesson_count": "40+",
+        "footer_text": "Everything is organized into one clear system so you can stop piecing together contradictory advice.",
+        "button_text": "Get instant access",
+        "button_link": ""
+      }
     }
   },
   "order": [
     "bojax_hero",
-    "featured_collection"
+    "featured_collection",
+    "bojax_course_curriculum_nXN9cR"
   ]
 }

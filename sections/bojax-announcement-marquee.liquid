@@ -2,140 +2,140 @@
   id="BojaxAnnouncement-{{ section.id }}"
   class="bojax-announcement"
   style="
-    --bojax-announcement-speed: {{ section.settings.speed }}s;
-    --bojax-announcement-background: {{ section.settings.background }};
-    --bojax-announcement-text: {{ section.settings.text_color }};
-    --bojax-announcement-accent: {{ section.settings.accent_color }};
+    --bojax-marquee-speed: {{ section.settings.speed }}s;
+    --bojax-marquee-background: {{ section.settings.background_color }};
+    --bojax-marquee-text: {{ section.settings.text_color }};
+    --bojax-marquee-gold: {{ section.settings.accent_color }};
   "
   aria-label="Store announcements"
 >
   <div class="bojax-announcement__viewport">
     <div class="bojax-announcement__track">
-      <div class="bojax-announcement__group">
-        {% for block in section.blocks %}
-          <div
-            class="bojax-announcement__item"
-            {{ block.shopify_attributes }}
-          >
-            {% if block.settings.link != blank %}
-              <a href="{{ block.settings.link }}">
-            {% endif %}
-
-            {% case block.settings.icon %}
-              {% when 'star' %}
-                <span class="bojax-announcement__icon" aria-hidden="true">
-                  ★
-                </span>
-
-              {% when 'bolt' %}
-                <span class="bojax-announcement__icon" aria-hidden="true">
-                  ϟ
-                </span>
-
-              {% when 'diamond' %}
-                <span class="bojax-announcement__icon" aria-hidden="true">
-                  ◆
-                </span>
-
-              {% when 'check' %}
-                <span class="bojax-announcement__icon" aria-hidden="true">
-                  ✓
-                </span>
-            {% endcase %}
-
-            <span class="bojax-announcement__text">
-              {{ block.settings.text }}
-            </span>
-
-            {% if block.settings.link != blank %}
-              </a>
-            {% endif %}
-          </div>
-
-          <span
-            class="bojax-announcement__separator"
+      {% for copy_number in (1..2) %}
+        <div
+          class="bojax-announcement__group"
+          {% if copy_number == 2 %}
             aria-hidden="true"
-          ></span>
-        {% endfor %}
-      </div>
+          {% endif %}
+        >
+          {% for block in section.blocks %}
+            <div
+              class="bojax-announcement__item"
+              {% if copy_number == 1 %}
+                {{ block.shopify_attributes }}
+              {% endif %}
+            >
+              {% if block.settings.link != blank and copy_number == 1 %}
+                <a
+                  class="bojax-announcement__link"
+                  href="{{ block.settings.link }}"
+                >
+              {% else %}
+                <div class="bojax-announcement__link">
+              {% endif %}
 
-      <div
-        class="bojax-announcement__group"
-        aria-hidden="true"
-      >
-        {% for block in section.blocks %}
-          <div class="bojax-announcement__item">
-            {% case block.settings.icon %}
-              {% when 'star' %}
-                <span class="bojax-announcement__icon">
-                  ★
+                {% unless block.settings.icon == 'none' %}
+                  <span
+                    class="bojax-announcement__icon"
+                    aria-hidden="true"
+                  >
+                    {% case block.settings.icon %}
+                      {% when 'star' %}
+                        ★
+                      {% when 'bolt' %}
+                        ϟ
+                      {% when 'diamond' %}
+                        ◆
+                      {% when 'check' %}
+                        ✓
+                      {% when 'flame' %}
+                        ✦
+                    {% endcase %}
+                  </span>
+                {% endunless %}
+
+                <span class="bojax-announcement__text">
+                  {{ block.settings.text }}
                 </span>
 
-              {% when 'bolt' %}
-                <span class="bojax-announcement__icon">
-                  ϟ
-                </span>
+              {% if block.settings.link != blank and copy_number == 1 %}
+                </a>
+              {% else %}
+                </div>
+              {% endif %}
+            </div>
 
-              {% when 'diamond' %}
-                <span class="bojax-announcement__icon">
-                  ◆
-                </span>
-
-              {% when 'check' %}
-                <span class="bojax-announcement__icon">
-                  ✓
-                </span>
-            {% endcase %}
-
-            <span class="bojax-announcement__text">
-              {{ block.settings.text }}
-            </span>
-          </div>
-
-          <span class="bojax-announcement__separator"></span>
-        {% endfor %}
-      </div>
+            <span
+              class="bojax-announcement__divider"
+              aria-hidden="true"
+            ></span>
+          {% endfor %}
+        </div>
+      {% endfor %}
     </div>
   </div>
 </section>
 
 {% stylesheet %}
+  .bojax-announcement-section {
+    position: relative !important;
+    z-index: 100001 !important;
+
+    display: block !important;
+    width: 100% !important;
+
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+
   .bojax-announcement {
-    position: sticky;
-    top: 0;
+    position: relative;
     z-index: 100001;
 
     display: block;
     width: 100%;
-    height: 4.4rem;
+    height: 4.5rem;
 
     overflow: hidden;
 
-    border-top: 1px solid rgba(216, 184, 106, 0.22);
-    border-bottom: 1px solid rgba(216, 184, 106, 0.28);
+    border-top: 1px solid var(--bojax-marquee-gold);
+    border-bottom: 1px solid var(--bojax-marquee-gold);
 
-    background:
-      radial-gradient(
-        circle at 50% 0,
-        rgba(216, 184, 106, 0.13),
-        transparent 65%
-      ),
-      linear-gradient(
-        90deg,
-        #050504,
-        var(--bojax-announcement-background),
-        #050504
-      );
-
-    color: var(--bojax-announcement-text);
+    background: var(--bojax-marquee-background);
+    color: var(--bojax-marquee-text);
 
     box-shadow:
-      0 8px 24px rgba(0, 0, 0, 0.32);
+      0 0.5rem 2rem rgba(0, 0, 0, 0.14);
+
+    isolation: isolate;
+  }
+
+  .bojax-announcement::before {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+
+    background:
+      linear-gradient(
+        90deg,
+        rgba(216, 184, 106, 0.06),
+        transparent 24%,
+        transparent 76%,
+        rgba(216, 184, 106, 0.06)
+      );
+
+    content: "";
+    pointer-events: none;
   }
 
   .bojax-announcement__viewport {
+    position: relative;
+    z-index: 1;
+
+    display: block;
     width: 100%;
     height: 100%;
+
     overflow: hidden;
   }
 
@@ -148,80 +148,94 @@
     align-items: center;
 
     animation:
-      bojaxAnnouncementScroll
-      var(--bojax-announcement-speed)
+      bojaxAnnouncementMarquee
+      var(--bojax-marquee-speed)
       linear
       infinite;
 
+    transform: translate3d(0, 0, 0);
     will-change: transform;
   }
 
   .bojax-announcement__group {
     display: flex;
     flex: 0 0 auto;
-    min-width: 50%;
     height: 100%;
 
     align-items: center;
   }
 
   .bojax-announcement__item {
-    display: inline-flex;
+    display: flex;
     flex: 0 0 auto;
     height: 100%;
-    padding: 0 2.8rem;
+    padding: 0 3rem;
 
     align-items: center;
     justify-content: center;
-    gap: 0.85rem;
 
-    color: var(--bojax-announcement-text);
+    white-space: nowrap;
+  }
 
-    font-size: 1rem;
+  .bojax-announcement__link {
+    display: inline-flex;
+    height: 100%;
+
+    align-items: center;
+    justify-content: center;
+    gap: 0.9rem;
+
+    color: var(--bojax-marquee-text) !important;
+
+    font-size: 1.05rem;
     font-weight: 850;
-    letter-spacing: 0.17em;
+    letter-spacing: 0.16em;
     line-height: 1;
+    text-decoration: none;
     text-transform: uppercase;
     white-space: nowrap;
   }
 
-  .bojax-announcement__item a {
-    display: inline-flex;
-    height: 100%;
-
-    align-items: center;
-    gap: 0.85rem;
-
-    color: inherit;
+  a.bojax-announcement__link:hover {
+    color: #000000 !important;
     text-decoration: none;
   }
 
-  .bojax-announcement__icon {
-    color: var(--bojax-announcement-accent);
+  .bojax-announcement__text {
+    display: inline-block;
+    color: inherit;
+  }
 
-    font-size: 1.1rem;
+  .bojax-announcement__icon {
+    display: inline-flex;
+
+    color: var(--bojax-marquee-gold);
+
+    font-size: 1.25rem;
+    font-weight: 900;
     line-height: 1;
   }
 
-  .bojax-announcement__separator {
+  .bojax-announcement__divider {
     display: block;
-    flex: 0 0 1px;
+    flex: 0 0 2px;
 
-    width: 1px;
-    height: 2rem;
+    width: 2px;
+    height: 2.4rem;
 
     background:
       linear-gradient(
         180deg,
-        transparent,
-        var(--bojax-announcement-accent),
-        transparent
+        transparent 0%,
+        var(--bojax-marquee-gold) 22%,
+        var(--bojax-marquee-gold) 78%,
+        transparent 100%
       );
 
-    opacity: 0.8;
+    opacity: 0.95;
   }
 
-  @keyframes bojaxAnnouncementScroll {
+  @keyframes bojaxAnnouncementMarquee {
     from {
       transform: translate3d(0, 0, 0);
     }
@@ -231,30 +245,39 @@
     }
   }
 
+  .bojax-announcement:hover .bojax-announcement__track {
+    animation-play-state: running;
+  }
+
   @media screen and (max-width: 749px) {
     .bojax-announcement {
       height: 4rem;
     }
 
     .bojax-announcement__item {
-      padding: 0 2rem;
-
-      font-size: 0.84rem;
-      letter-spacing: 0.13em;
+      padding: 0 2.1rem;
     }
 
-    .bojax-announcement__separator {
-      height: 1.7rem;
+    .bojax-announcement__link {
+      gap: 0.7rem;
+
+      font-size: 0.86rem;
+      letter-spacing: 0.12em;
     }
 
     .bojax-announcement__icon {
-      font-size: 0.95rem;
+      font-size: 1.05rem;
+    }
+
+    .bojax-announcement__divider {
+      width: 1px;
+      height: 2rem;
     }
   }
 
   @media (prefers-reduced-motion: reduce) {
     .bojax-announcement__track {
-      animation-duration: 90s;
+      animation-duration: 80s;
     }
   }
 {% endstylesheet %}
@@ -277,26 +300,26 @@
       "step": 2,
       "unit": "s",
       "label": "Movement speed",
-      "default": 26,
+      "default": 24,
       "info": "A smaller number moves faster."
     },
     {
       "type": "color",
-      "id": "background",
-      "label": "Background",
-      "default": "#090806"
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#FFFFFF"
     },
     {
       "type": "color",
       "id": "text_color",
-      "label": "Text",
-      "default": "#FFFFFF"
+      "label": "Text color",
+      "default": "#090909"
     },
     {
       "type": "color",
       "id": "accent_color",
       "label": "Icons and dividing lines",
-      "default": "#D8B86A"
+      "default": "#C79B3B"
     }
   ],
   "blocks": [
@@ -327,6 +350,10 @@
               "label": "Check"
             },
             {
+              "value": "flame",
+              "label": "Spark"
+            },
+            {
               "value": "none",
               "label": "No icon"
             }
@@ -335,7 +362,7 @@
         {
           "type": "text",
           "id": "text",
-          "label": "Text",
+          "label": "Announcement text",
           "default": "The complete Bojax Method"
         },
         {

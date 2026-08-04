@@ -1,12 +1,8 @@
 <section
   id="BojaxCurriculum-{{ section.id }}"
   class="bojax-curriculum"
-  data-bojax-curriculum
-  data-autoplay="{{ section.settings.autoplay }}"
-  data-autoplay-speed="{{ section.settings.autoplay_speed | times: 1000 }}"
 >
   <div class="bojax-curriculum__container">
-
     <header class="bojax-curriculum__header">
       {% if section.settings.eyebrow != blank %}
         <p class="bojax-curriculum__eyebrow">
@@ -27,308 +23,179 @@
       {% endif %}
     </header>
 
-    {% if section.settings.show_summary %}
-      <div class="bojax-curriculum__summary">
-        <div class="bojax-curriculum__summary-item">
-          <strong>{{ section.blocks.size }}</strong>
-          <span>Complete modules</span>
+    {% if section.settings.show_stats %}
+      <div class="bojax-curriculum__stats">
+        <div class="bojax-curriculum__stat">
+          <strong>{{ section.settings.module_count }}</strong>
+          <span>{{ section.settings.module_label }}</span>
         </div>
 
-        <div class="bojax-curriculum__summary-item">
+        <div class="bojax-curriculum__stat">
           <strong>{{ section.settings.lesson_count }}</strong>
-          <span>Step-by-step lessons</span>
+          <span>{{ section.settings.lesson_label }}</span>
         </div>
 
-        <div class="bojax-curriculum__summary-item">
-          <strong>∞</strong>
-          <span>Lifetime access</span>
+        <div class="bojax-curriculum__stat">
+          <strong>{{ section.settings.access_value }}</strong>
+          <span>{{ section.settings.access_label }}</span>
+        </div>
+
+        <div class="bojax-curriculum__stat">
+          <strong>{{ section.settings.updates_value }}</strong>
+          <span>{{ section.settings.updates_label }}</span>
         </div>
       </div>
     {% endif %}
 
-    <div class="bojax-included">
-      <div class="bojax-included__header">
+    <div class="bojax-curriculum__included">
+      <div class="bojax-curriculum__included-header">
         {% if section.settings.included_eyebrow != blank %}
-          <p class="bojax-included__eyebrow">
+          <p class="bojax-curriculum__included-eyebrow">
             {{ section.settings.included_eyebrow }}
           </p>
         {% endif %}
 
         {% if section.settings.included_heading != blank %}
-          <h3 class="bojax-included__heading">
+          <h3 class="bojax-curriculum__included-heading">
             {{ section.settings.included_heading }}
           </h3>
         {% endif %}
 
         {% if section.settings.included_description != blank %}
-          <p class="bojax-included__description">
+          <div class="bojax-curriculum__included-description">
             {{ section.settings.included_description }}
-          </p>
+          </div>
         {% endif %}
       </div>
 
-      <div class="bojax-included__grid">
-        {% for i in (1..8) %}
-          {% assign included_key = 'included_' | append: i %}
-          {% assign included_text = section.settings[included_key] %}
-
-          {% if included_text != blank %}
-            <div class="bojax-included__item">
-              <span class="bojax-included__check" aria-hidden="true">
+      {% if section.blocks.size > 0 %}
+        <div class="bojax-curriculum__list">
+          {% for block in section.blocks %}
+            <article
+              class="bojax-curriculum__item"
+              {{ block.shopify_attributes }}
+            >
+              <span class="bojax-curriculum__check" aria-hidden="true">
                 <svg viewBox="0 0 20 20">
                   <path
-                    d="m5 10.5 3.1 3.1L15.5 6"
+                    d="M5 10.5 8.2 13.7 15.5 6.2"
                     fill="none"
                     stroke="currentColor"
-                    stroke-width="2.2"
+                    stroke-width="2.25"
                     stroke-linecap="round"
                     stroke-linejoin="round"
                   />
                 </svg>
               </span>
 
-              <span>{{ included_text }}</span>
-            </div>
-          {% endif %}
-        {% endfor %}
-      </div>
-    </div>
-
-    <div class="bojax-curriculum__lessons-header">
-      <div>
-        {% if section.settings.lessons_eyebrow != blank %}
-          <p class="bojax-curriculum__lessons-eyebrow">
-            {{ section.settings.lessons_eyebrow }}
-          </p>
-        {% endif %}
-
-        {% if section.settings.lessons_heading != blank %}
-          <h3 class="bojax-curriculum__lessons-heading">
-            {{ section.settings.lessons_heading }}
-          </h3>
-        {% endif %}
-      </div>
-
-      {% if section.blocks.size > 1 %}
-        <div class="bojax-curriculum__controls">
-          <button
-            type="button"
-            class="bojax-curriculum__control"
-            data-curriculum-previous
-            aria-label="Previous course module"
-          >
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path
-                d="m15 5-7 7 7 7"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="1.8"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>
-          </button>
-
-          <button
-            type="button"
-            class="bojax-curriculum__control"
-            data-curriculum-next
-            aria-label="Next course module"
-          >
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path
-                d="m9 5 7 7-7 7"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="1.8"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>
-          </button>
-        </div>
-      {% endif %}
-    </div>
-
-    {% if section.blocks.size > 0 %}
-      <div class="bojax-curriculum__carousel-wrap">
-        <div
-          class="bojax-curriculum__carousel"
-          data-curriculum-carousel
-          tabindex="0"
-          aria-label="Course modules"
-        >
-          {% for block in section.blocks %}
-            <article
-              class="bojax-module-card{% if block.settings.featured %} bojax-module-card--featured{% endif %}"
-              data-curriculum-slide
-              {{ block.shopify_attributes }}
-            >
-              <div class="bojax-module-card__media">
-                {% if block.settings.image != blank %}
-                  {{
-                    block.settings.image
-                    | image_url: width: 1200
-                    | image_tag:
-                      class: 'bojax-module-card__image',
-                      loading: 'lazy',
-                      widths: '360, 540, 750, 1000, 1200',
-                      sizes: '(max-width: 749px) 86vw, (max-width: 989px) 48vw, 36vw',
-                      alt: block.settings.image.alt
-                  }}
-                {% else %}
-                  <div class="bojax-module-card__placeholder">
-                    <span>
-                      {{ forloop.index | prepend: '0' | slice: -2, 2 }}
-                    </span>
-                  </div>
-                {% endif %}
-
-                <div class="bojax-module-card__overlay"></div>
-
-                {% if block.settings.badge != blank %}
-                  <span class="bojax-module-card__badge">
-                    {{ block.settings.badge }}
-                  </span>
-                {% endif %}
-
-                <span class="bojax-module-card__module-number">
-                  Module {{ forloop.index | prepend: '0' | slice: -2, 2 }}
-                </span>
-              </div>
-
-              <div class="bojax-module-card__body">
-                <div class="bojax-module-card__meta">
-                  {% if block.settings.lesson_count != blank %}
-                    <span class="bojax-module-card__lesson-count">
-                      {{ block.settings.lesson_count }}
-                    </span>
-                  {% endif %}
-
-                  {% if block.settings.featured %}
-                    <span class="bojax-module-card__featured-label">
-                      Featured
-                    </span>
-                  {% endif %}
-                </div>
-
+              <div class="bojax-curriculum__item-content">
                 {% if block.settings.title != blank %}
-                  <h4 class="bojax-module-card__title">
+                  <h4 class="bojax-curriculum__item-title">
                     {{ block.settings.title }}
                   </h4>
                 {% endif %}
 
                 {% if block.settings.description != blank %}
-                  <div class="bojax-module-card__description">
+                  <div class="bojax-curriculum__item-description">
                     {{ block.settings.description }}
                   </div>
                 {% endif %}
-
-                <div class="bojax-module-card__lessons">
-                  {% if block.settings.point_1 != blank %}
-                    <div class="bojax-module-card__lesson">
-                      <span class="bojax-module-card__check">
-                        <svg viewBox="0 0 20 20" aria-hidden="true">
-                          <path
-                            d="m5 10.5 3.1 3.1L15.5 6"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2.2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          />
-                        </svg>
-                      </span>
-
-                      <span>{{ block.settings.point_1 }}</span>
-                    </div>
-                  {% endif %}
-
-                  {% if block.settings.point_2 != blank %}
-                    <div class="bojax-module-card__lesson">
-                      <span class="bojax-module-card__check">
-                        <svg viewBox="0 0 20 20" aria-hidden="true">
-                          <path
-                            d="m5 10.5 3.1 3.1L15.5 6"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2.2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          />
-                        </svg>
-                      </span>
-
-                      <span>{{ block.settings.point_2 }}</span>
-                    </div>
-                  {% endif %}
-
-                  {% if block.settings.point_3 != blank %}
-                    <div class="bojax-module-card__lesson">
-                      <span class="bojax-module-card__check">
-                        <svg viewBox="0 0 20 20" aria-hidden="true">
-                          <path
-                            d="m5 10.5 3.1 3.1L15.5 6"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2.2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          />
-                        </svg>
-                      </span>
-
-                      <span>{{ block.settings.point_3 }}</span>
-                    </div>
-                  {% endif %}
-
-                  {% if block.settings.point_4 != blank %}
-                    <div class="bojax-module-card__lesson">
-                      <span class="bojax-module-card__check">
-                        <svg viewBox="0 0 20 20" aria-hidden="true">
-                          <path
-                            d="m5 10.5 3.1 3.1L15.5 6"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2.2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          />
-                        </svg>
-                      </span>
-
-                      <span>{{ block.settings.point_4 }}</span>
-                    </div>
-                  {% endif %}
-                </div>
               </div>
             </article>
           {% endfor %}
         </div>
+      {% endif %}
+    </div>
 
-        {% if section.blocks.size > 1 %}
-          <div class="bojax-curriculum__dots" data-curriculum-dots>
-            {% for block in section.blocks %}
-              <button
-                type="button"
-                class="bojax-curriculum__dot{% if forloop.first %} is-active{% endif %}"
-                data-curriculum-dot="{{ forloop.index0 }}"
-                aria-label="Go to course module {{ forloop.index }}"
-                aria-current="{% if forloop.first %}true{% else %}false{% endif %}"
-              ></button>
-            {% endfor %}
-          </div>
-        {% endif %}
+    {% if section.settings.feature_heading != blank %}
+      <div class="bojax-curriculum__features">
+        <h3 class="bojax-curriculum__feature-heading">
+          {{ section.settings.feature_heading }}
+        </h3>
 
-        <p class="bojax-curriculum__swipe-hint">
-          Swipe or use the arrows to explore every module
-        </p>
+        <div class="bojax-curriculum__feature-grid">
+          {% if section.settings.feature_1 != blank %}
+            <div class="bojax-curriculum__feature">
+              <span class="bojax-curriculum__check bojax-curriculum__check--small">
+                <svg viewBox="0 0 20 20" aria-hidden="true">
+                  <path
+                    d="M5 10.5 8.2 13.7 15.5 6.2"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.25"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </span>
+
+              <span>{{ section.settings.feature_1 }}</span>
+            </div>
+          {% endif %}
+
+          {% if section.settings.feature_2 != blank %}
+            <div class="bojax-curriculum__feature">
+              <span class="bojax-curriculum__check bojax-curriculum__check--small">
+                <svg viewBox="0 0 20 20" aria-hidden="true">
+                  <path
+                    d="M5 10.5 8.2 13.7 15.5 6.2"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.25"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </span>
+
+              <span>{{ section.settings.feature_2 }}</span>
+            </div>
+          {% endif %}
+
+          {% if section.settings.feature_3 != blank %}
+            <div class="bojax-curriculum__feature">
+              <span class="bojax-curriculum__check bojax-curriculum__check--small">
+                <svg viewBox="0 0 20 20" aria-hidden="true">
+                  <path
+                    d="M5 10.5 8.2 13.7 15.5 6.2"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.25"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </span>
+
+              <span>{{ section.settings.feature_3 }}</span>
+            </div>
+          {% endif %}
+
+          {% if section.settings.feature_4 != blank %}
+            <div class="bojax-curriculum__feature">
+              <span class="bojax-curriculum__check bojax-curriculum__check--small">
+                <svg viewBox="0 0 20 20" aria-hidden="true">
+                  <path
+                    d="M5 10.5 8.2 13.7 15.5 6.2"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.25"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </span>
+
+              <span>{{ section.settings.feature_4 }}</span>
+            </div>
+          {% endif %}
+        </div>
       </div>
     {% endif %}
 
-    {% if section.settings.footer_text != blank %}
-      <p class="bojax-curriculum__footer-text">
-        {{ section.settings.footer_text }}
+    {% if section.settings.disclaimer != blank %}
+      <p class="bojax-curriculum__disclaimer">
+        {{ section.settings.disclaimer }}
       </p>
     {% endif %}
 
@@ -336,20 +203,11 @@
       <div class="bojax-curriculum__actions">
         <a
           class="bojax-curriculum__button"
-          {% if section.settings.button_link != blank %}
-            href="{{ section.settings.button_link }}"
-          {% else %}
-            href="/products/bojax-course"
-          {% endif %}
+          href="{% if section.settings.button_link != blank %}{{ section.settings.button_link }}{% else %}/products/bojax-course{% endif %}"
         >
           <span>{{ section.settings.button_text }}</span>
 
-          <svg
-            aria-hidden="true"
-            viewBox="0 0 20 20"
-            width="20"
-            height="20"
-          >
+          <svg viewBox="0 0 20 20" aria-hidden="true">
             <path
               d="M4 10h11M11 5l5 5-5 5"
               fill="none"
@@ -367,882 +225,425 @@
 
 {% stylesheet %}
   .bojax-curriculum {
-    --bojax-green: #78ff9a;
-    --bojax-green-dark: #31c85c;
-    --bojax-card-width: 38rem;
+    --bojax-check-green: #49d871;
 
     position: relative;
     overflow: hidden;
-    padding: 9rem 0;
+    padding: 8.5rem 0;
     background:
       radial-gradient(
-        circle at 10% 8%,
-        rgba(77, 255, 124, 0.09),
-        transparent 28rem
-      ),
-      radial-gradient(
-        circle at 90% 25%,
-        rgba(255, 255, 255, 0.055),
-        transparent 32rem
+        circle at 50% 0,
+        rgba(255, 255, 255, 0.045),
+        transparent 34rem
       ),
       #030303;
-    color: #fff;
+    color: #ffffff;
   }
 
   .bojax-curriculum::before {
     position: absolute;
-    inset: 0 0 auto;
+    top: 0;
+    right: 0;
+    left: 0;
     height: 1px;
     background:
       linear-gradient(
         90deg,
         transparent,
-        rgba(120, 255, 154, 0.45),
+        rgba(255, 255, 255, 0.17),
         transparent
       );
     content: "";
   }
 
   .bojax-curriculum__container {
-    width: min(calc(100% - 4rem), 122rem);
+    width: min(calc(100% - 4rem), 118rem);
     margin: 0 auto;
   }
 
   .bojax-curriculum__header {
-    max-width: 84rem;
+    max-width: 82rem;
     margin: 0 auto;
     text-align: center;
   }
 
   .bojax-curriculum__eyebrow,
-  .bojax-included__eyebrow,
-  .bojax-curriculum__lessons-eyebrow {
+  .bojax-curriculum__included-eyebrow {
     margin: 0 0 1.6rem;
-    color: var(--bojax-green);
+    color: rgba(255, 255, 255, 0.53);
     font-size: 1.05rem;
-    font-weight: 900;
-    letter-spacing: 0.3em;
+    font-weight: 850;
+    letter-spacing: 0.31em;
     line-height: 1;
     text-transform: uppercase;
   }
 
   .bojax-curriculum__heading {
     margin: 0;
-    color: #fff;
-    font-size: clamp(4.2rem, 7vw, 7.6rem);
-    font-weight: 900;
-    letter-spacing: -0.065em;
-    line-height: 0.94;
-    text-transform: uppercase;
+    color: #ffffff;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(4.2rem, 7vw, 7rem);
+    font-weight: 500;
+    letter-spacing: -0.055em;
+    line-height: 0.98;
     text-wrap: balance;
   }
 
   .bojax-curriculum__description {
     max-width: 70rem;
-    margin: 2.4rem auto 0;
-    color: rgba(255, 255, 255, 0.66);
-    font-size: clamp(1.55rem, 2vw, 1.9rem);
+    margin: 2.2rem auto 0;
+    color: rgba(255, 255, 255, 0.63);
+    font-size: clamp(1.5rem, 2vw, 1.85rem);
     line-height: 1.65;
   }
 
-  .bojax-curriculum__description p {
+  .bojax-curriculum__description p,
+  .bojax-curriculum__included-description p,
+  .bojax-curriculum__item-description p {
     margin: 0;
   }
 
-  .bojax-curriculum__summary {
+  /* Course totals */
+
+  .bojax-curriculum__stats {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    max-width: 76rem;
-    margin: 4rem auto 0;
-    padding: 2.2rem 0;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    margin-top: 4.5rem;
     border-top: 1px solid rgba(255, 255, 255, 0.11);
     border-bottom: 1px solid rgba(255, 255, 255, 0.11);
   }
 
-  .bojax-curriculum__summary-item {
+  .bojax-curriculum__stat {
     display: grid;
-    padding: 0 2rem;
-    gap: 0.7rem;
+    min-width: 0;
+    min-height: 13rem;
+    padding: 2.4rem 1.4rem;
+    place-content: center;
+    gap: 1rem;
     text-align: center;
   }
 
-  .bojax-curriculum__summary-item + .bojax-curriculum__summary-item {
+  .bojax-curriculum__stat + .bojax-curriculum__stat {
     border-left: 1px solid rgba(255, 255, 255, 0.11);
   }
 
-  .bojax-curriculum__summary-item strong {
-    color: var(--bojax-green);
-    font-size: clamp(2.8rem, 4vw, 4rem);
-    font-weight: 900;
-    letter-spacing: -0.05em;
+  .bojax-curriculum__stat strong {
+    color: #ffffff;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(2.8rem, 4vw, 4.2rem);
+    font-weight: 700;
+    letter-spacing: -0.045em;
     line-height: 1;
   }
 
-  .bojax-curriculum__summary-item span {
-    color: rgba(255, 255, 255, 0.52);
-    font-size: 1.15rem;
+  .bojax-curriculum__stat span {
+    color: rgba(255, 255, 255, 0.48);
+    font-size: 1rem;
+    font-weight: 800;
+    letter-spacing: 0.16em;
     line-height: 1.3;
+    text-transform: uppercase;
   }
 
-  .bojax-included {
-    max-width: 104rem;
-    margin: 6rem auto 0;
-    padding: 3.5rem;
-    border: 1px solid rgba(120, 255, 154, 0.18);
+  /* Everything included */
+
+  .bojax-curriculum__included {
+    margin-top: 6rem;
+    padding: 4rem;
+    border: 1px solid rgba(255, 255, 255, 0.11);
     border-radius: 2.6rem;
     background:
       linear-gradient(
         145deg,
-        rgba(120, 255, 154, 0.065),
-        rgba(255, 255, 255, 0.025)
+        rgba(255, 255, 255, 0.055),
+        rgba(255, 255, 255, 0.016)
       );
-    box-shadow: 0 3rem 9rem rgba(0, 0, 0, 0.35);
+    box-shadow: 0 3rem 9rem rgba(0, 0, 0, 0.3);
   }
 
-  .bojax-included__header {
-    max-width: 70rem;
+  .bojax-curriculum__included-header {
+    max-width: 76rem;
   }
 
-  .bojax-included__heading {
+  .bojax-curriculum__included-heading {
     margin: 0;
-    color: #fff;
-    font-size: clamp(3rem, 5vw, 5rem);
-    font-weight: 900;
-    letter-spacing: -0.055em;
+    color: #ffffff;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(3.4rem, 5vw, 5.4rem);
+    font-weight: 500;
+    letter-spacing: -0.05em;
     line-height: 1;
-    text-transform: uppercase;
   }
 
-  .bojax-included__description {
+  .bojax-curriculum__included-description {
     max-width: 68rem;
-    margin: 1.5rem 0 0;
-    color: rgba(255, 255, 255, 0.6);
+    margin-top: 1.5rem;
+    color: rgba(255, 255, 255, 0.57);
     font-size: 1.5rem;
     line-height: 1.6;
   }
 
-  .bojax-included__grid {
+  .bojax-curriculum__list {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    margin-top: 3rem;
-    gap: 1.4rem 2.6rem;
+    margin-top: 3.5rem;
+    gap: 0;
   }
 
-  .bojax-included__item {
+  .bojax-curriculum__item {
     display: flex;
     min-width: 0;
+    padding: 2rem 2rem 2rem 0;
     align-items: flex-start;
-    gap: 1.2rem;
-    color: rgba(255, 255, 255, 0.86);
-    font-size: 1.45rem;
-    font-weight: 650;
-    line-height: 1.45;
+    gap: 1.4rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.09);
   }
 
-  .bojax-included__check,
-  .bojax-module-card__check {
+  .bojax-curriculum__item:nth-child(even) {
+    padding-right: 0;
+    padding-left: 2rem;
+    border-left: 1px solid rgba(255, 255, 255, 0.09);
+  }
+
+  .bojax-curriculum__check {
     display: grid;
-    flex: 0 0 auto;
+    flex: 0 0 2.5rem;
+    width: 2.5rem;
+    height: 2.5rem;
+    margin-top: 0.1rem;
     place-items: center;
+    border: 1px solid rgba(73, 216, 113, 0.38);
     border-radius: 50%;
-    background:
-      linear-gradient(
-        145deg,
-        var(--bojax-green),
-        var(--bojax-green-dark)
-      );
-    color: #051107;
-    box-shadow: 0 0 2.5rem rgba(120, 255, 154, 0.22);
+    background: rgba(73, 216, 113, 0.11);
+    color: var(--bojax-check-green);
   }
 
-  .bojax-included__check {
-    width: 2.4rem;
-    height: 2.4rem;
-    margin-top: 0.05rem;
+  .bojax-curriculum__check svg {
+    width: 1.45rem;
+    height: 1.45rem;
   }
 
-  .bojax-included__check svg {
-    width: 1.35rem;
-    height: 1.35rem;
+  .bojax-curriculum__check--small {
+    flex-basis: 2.1rem;
+    width: 2.1rem;
+    height: 2.1rem;
   }
 
-  .bojax-curriculum__lessons-header {
-    display: flex;
-    margin-top: 7rem;
-    align-items: flex-end;
-    justify-content: space-between;
-    gap: 2rem;
+  .bojax-curriculum__check--small svg {
+    width: 1.2rem;
+    height: 1.2rem;
   }
 
-  .bojax-curriculum__lessons-heading {
-    margin: 0;
-    color: #fff;
-    font-size: clamp(3.4rem, 6vw, 6rem);
-    font-weight: 900;
-    letter-spacing: -0.06em;
-    line-height: 0.96;
-    text-transform: uppercase;
-  }
-
-  .bojax-curriculum__controls {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-  }
-
-  .bojax-curriculum__control {
-    display: grid;
-    width: 5rem;
-    height: 5rem;
-    padding: 0;
-    place-items: center;
-    border: 1px solid rgba(255, 255, 255, 0.16);
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.045);
-    color: #fff;
-    cursor: pointer;
-    transition:
-      border-color 180ms ease,
-      background 180ms ease,
-      transform 180ms ease;
-  }
-
-  .bojax-curriculum__control:hover {
-    border-color: var(--bojax-green);
-    background: rgba(120, 255, 154, 0.1);
-    transform: translateY(-0.2rem);
-  }
-
-  .bojax-curriculum__control svg {
-    width: 2.2rem;
-    height: 2.2rem;
-  }
-
-  .bojax-curriculum__carousel-wrap {
-    margin-top: 2.6rem;
-  }
-
-  .bojax-curriculum__carousel {
-    display: flex;
-    margin-inline: calc((100vw - min(calc(100vw - 4rem), 122rem)) / -2);
-    padding:
-      1rem
-      max(
-        2rem,
-        calc((100vw - 122rem) / 2)
-      )
-      2.2rem;
-    gap: 1.8rem;
-    overflow-x: auto;
-    scroll-behavior: smooth;
-    scroll-snap-type: x mandatory;
-    scroll-padding-inline:
-      max(
-        2rem,
-        calc((100vw - 122rem) / 2)
-      );
-    overscroll-behavior-inline: contain;
-    scrollbar-width: none;
-    -webkit-overflow-scrolling: touch;
-  }
-
-  .bojax-curriculum__carousel::-webkit-scrollbar {
-    display: none;
-  }
-
-  .bojax-module-card {
-    flex: 0 0 var(--bojax-card-width);
+  .bojax-curriculum__item-content {
     min-width: 0;
-    overflow: hidden;
-    scroll-snap-align: start;
-    scroll-snap-stop: always;
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    border-radius: 2.4rem;
-    background:
-      linear-gradient(
-        145deg,
-        rgba(255, 255, 255, 0.075),
-        rgba(255, 255, 255, 0.02)
-      );
-    box-shadow: 0 2.4rem 7rem rgba(0, 0, 0, 0.36);
-    transition:
-      border-color 180ms ease,
-      transform 180ms ease;
   }
 
-  .bojax-module-card:hover {
-    border-color: rgba(120, 255, 154, 0.42);
-    transform: translateY(-0.4rem);
-  }
-
-  .bojax-module-card--featured {
-    border-color: rgba(120, 255, 154, 0.38);
-    box-shadow:
-      0 2.4rem 7rem rgba(0, 0, 0, 0.4),
-      0 0 4rem rgba(120, 255, 154, 0.06);
-  }
-
-  .bojax-module-card__media {
-    position: relative;
-    aspect-ratio: 16 / 10;
-    overflow: hidden;
-    background:
-      linear-gradient(
-        135deg,
-        #1a241c,
-        #070807
-      );
-  }
-
-  .bojax-module-card__image,
-  .bojax-module-card__placeholder {
-    display: block;
-    width: 100%;
-    height: 100%;
-  }
-
-  .bojax-module-card__image {
-    object-fit: cover;
-    transition:
-      filter 300ms ease,
-      transform 450ms ease;
-  }
-
-  .bojax-module-card:hover .bojax-module-card__image {
-    filter: contrast(1.04) brightness(1.03);
-    transform: scale(1.035);
-  }
-
-  .bojax-module-card__placeholder {
-    display: grid;
-    place-items: center;
-    background:
-      radial-gradient(
-        circle at center,
-        rgba(120, 255, 154, 0.14),
-        transparent 55%
-      );
-  }
-
-  .bojax-module-card__placeholder span {
-    color: rgba(120, 255, 154, 0.18);
-    font-size: 9rem;
-    font-weight: 900;
-    letter-spacing: -0.08em;
-  }
-
-  .bojax-module-card__overlay {
-    position: absolute;
-    inset: 0;
-    background:
-      linear-gradient(
-        180deg,
-        transparent 38%,
-        rgba(0, 0, 0, 0.78)
-      );
-    pointer-events: none;
-  }
-
-  .bojax-module-card__badge {
-    position: absolute;
-    top: 1.4rem;
-    left: 1.4rem;
-    z-index: 2;
-    padding: 0.75rem 1.1rem;
-    border: 1px solid rgba(120, 255, 154, 0.42);
-    border-radius: 99rem;
-    background: rgba(5, 15, 8, 0.72);
-    color: var(--bojax-green);
-    font-size: 0.95rem;
-    font-weight: 900;
-    letter-spacing: 0.13em;
-    line-height: 1;
-    text-transform: uppercase;
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-  }
-
-  .bojax-module-card__module-number {
-    position: absolute;
-    right: 1.5rem;
-    bottom: 1.4rem;
-    z-index: 2;
-    color: rgba(255, 255, 255, 0.72);
-    font-size: 1rem;
+  .bojax-curriculum__item-title {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.94);
+    font-size: 1.55rem;
     font-weight: 800;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
+    letter-spacing: -0.015em;
+    line-height: 1.35;
   }
 
-  .bojax-module-card__body {
-    padding: 2.4rem;
+  .bojax-curriculum__item-description {
+    margin-top: 0.6rem;
+    color: rgba(255, 255, 255, 0.49);
+    font-size: 1.27rem;
+    line-height: 1.55;
   }
 
-  .bojax-module-card__meta {
-    display: flex;
-    min-height: 2.3rem;
-    margin-bottom: 1.4rem;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
+  /* Additional access features */
+
+  .bojax-curriculum__features {
+    margin-top: 4rem;
+    padding: 3rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 2rem;
+    background: rgba(255, 255, 255, 0.022);
   }
 
-  .bojax-module-card__lesson-count,
-  .bojax-module-card__featured-label {
-    font-size: 1rem;
+  .bojax-curriculum__feature-heading {
+    margin: 0 0 2.2rem;
+    color: #ffffff;
+    font-size: 2.2rem;
     font-weight: 850;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
+    letter-spacing: -0.035em;
+    line-height: 1.15;
   }
 
-  .bojax-module-card__lesson-count {
-    color: rgba(255, 255, 255, 0.46);
-  }
-
-  .bojax-module-card__featured-label {
-    color: var(--bojax-green);
-  }
-
-  .bojax-module-card__title {
-    margin: 0;
-    color: #fff;
-    font-size: 2.45rem;
-    font-weight: 900;
-    letter-spacing: -0.05em;
-    line-height: 1.06;
-    text-wrap: balance;
-  }
-
-  .bojax-module-card__description {
-    margin-top: 1.2rem;
-    color: rgba(255, 255, 255, 0.6);
-    font-size: 1.4rem;
-    line-height: 1.6;
-  }
-
-  .bojax-module-card__description p {
-    margin: 0;
-  }
-
-  .bojax-module-card__lessons {
+  .bojax-curriculum__feature-grid {
     display: grid;
-    margin-top: 2rem;
-    gap: 1.15rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.4rem 2.5rem;
   }
 
-  .bojax-module-card__lesson {
+  .bojax-curriculum__feature {
     display: flex;
+    min-width: 0;
     align-items: flex-start;
-    gap: 1rem;
-    color: rgba(255, 255, 255, 0.84);
-    font-size: 1.28rem;
-    line-height: 1.45;
-  }
-
-  .bojax-module-card__check {
-    width: 2rem;
-    height: 2rem;
-    margin-top: 0.05rem;
-  }
-
-  .bojax-module-card__check svg {
-    width: 1.15rem;
-    height: 1.15rem;
-  }
-
-  .bojax-curriculum__dots {
-    display: flex;
-    margin-top: 1.4rem;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 0.7rem;
-  }
-
-  .bojax-curriculum__dot {
-    width: 0.8rem;
-    height: 0.8rem;
-    padding: 0;
-    border: 0;
-    border-radius: 99rem;
-    background: rgba(255, 255, 255, 0.22);
-    cursor: pointer;
-    transition:
-      background 180ms ease,
-      transform 180ms ease,
-      width 180ms ease;
-  }
-
-  .bojax-curriculum__dot.is-active {
-    width: 2.8rem;
-    background: var(--bojax-green);
-  }
-
-  .bojax-curriculum__swipe-hint {
-    margin: 1.3rem 0 0;
-    color: rgba(255, 255, 255, 0.42);
-    font-size: 1.1rem;
-    letter-spacing: 0.04em;
-    text-align: center;
-  }
-
-  .bojax-curriculum__footer-text {
-    max-width: 74rem;
-    margin: 4rem auto 0;
-    color: rgba(255, 255, 255, 0.5);
+    gap: 1.1rem;
+    color: rgba(255, 255, 255, 0.73);
     font-size: 1.35rem;
+    font-weight: 650;
+    line-height: 1.5;
+  }
+
+  .bojax-curriculum__disclaimer {
+    max-width: 78rem;
+    margin: 2.8rem auto 0;
+    color: rgba(255, 255, 255, 0.34);
+    font-size: 1.1rem;
     line-height: 1.6;
     text-align: center;
   }
 
   .bojax-curriculum__actions {
     display: flex;
-    margin-top: 2.8rem;
+    margin-top: 3rem;
     justify-content: center;
   }
 
   .bojax-curriculum__button {
     display: inline-flex;
-    width: min(100%, 42rem);
+    width: min(100%, 44rem);
     min-height: 6.2rem;
-    padding: 1.5rem 3rem;
+    padding: 1.5rem 2.8rem;
     align-items: center;
     justify-content: center;
-    gap: 1.1rem;
-    border: 1px solid var(--bojax-green);
+    gap: 1rem;
+    border: 1px solid #ffffff;
     border-radius: 1.5rem;
-    background:
-      linear-gradient(
-        135deg,
-        var(--bojax-green),
-        #d4ffde
-      );
-    color: #051107;
+    background: #f4f1ec;
+    color: #080808;
     font-size: 1.48rem;
     font-weight: 900;
-    letter-spacing: 0.01em;
     line-height: 1;
     text-decoration: none;
-    box-shadow:
-      0 2rem 5rem rgba(120, 255, 154, 0.16);
+    box-shadow: 0 2rem 5rem rgba(255, 255, 255, 0.07);
     transition:
+      background 180ms ease,
       box-shadow 180ms ease,
       transform 180ms ease;
   }
 
   .bojax-curriculum__button:hover {
-    color: #051107;
-    box-shadow:
-      0 2.4rem 6rem rgba(120, 255, 154, 0.25);
-    transform: translateY(-0.25rem);
+    background: #ffffff;
+    color: #080808;
+    box-shadow: 0 2.4rem 6rem rgba(255, 255, 255, 0.12);
+    transform: translateY(-0.2rem);
   }
 
   .bojax-curriculum__button svg {
-    transition: transform 180ms ease;
-  }
-
-  .bojax-curriculum__button:hover svg {
-    transform: translateX(0.4rem);
+    width: 2rem;
+    height: 2rem;
   }
 
   @media screen and (max-width: 749px) {
     .bojax-curriculum {
-      --bojax-card-width: min(86vw, 36rem);
-      padding: 6.5rem 0;
+      padding: 6.2rem 0;
     }
 
     .bojax-curriculum__container {
       width: calc(100% - 2.8rem);
     }
 
-    .bojax-curriculum__eyebrow,
-    .bojax-included__eyebrow,
-    .bojax-curriculum__lessons-eyebrow {
-      margin-bottom: 1.4rem;
-      font-size: 0.95rem;
-      letter-spacing: 0.25em;
-    }
-
     .bojax-curriculum__heading {
-      font-size: clamp(4rem, 12vw, 5.5rem);
+      font-size: clamp(3.8rem, 11vw, 5.2rem);
     }
 
     .bojax-curriculum__description {
-      margin-top: 2rem;
-      font-size: 1.46rem;
+      margin-top: 1.8rem;
+      font-size: 1.42rem;
     }
 
-    .bojax-curriculum__summary {
-      margin-top: 3.2rem;
-      padding: 1.8rem 0;
+    .bojax-curriculum__stats {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      margin-top: 3.5rem;
     }
 
-    .bojax-curriculum__summary-item {
-      padding: 0 0.7rem;
+    .bojax-curriculum__stat {
+      min-height: 10.5rem;
+      padding: 1.8rem 0.8rem;
     }
 
-    .bojax-curriculum__summary-item strong {
-      font-size: 2.5rem;
+    .bojax-curriculum__stat:nth-child(3) {
+      border-left: 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.11);
     }
 
-    .bojax-curriculum__summary-item span {
-      font-size: 0.9rem;
+    .bojax-curriculum__stat:nth-child(4) {
+      border-top: 1px solid rgba(255, 255, 255, 0.11);
     }
 
-    .bojax-included {
+    .bojax-curriculum__stat strong {
+      font-size: 3rem;
+    }
+
+    .bojax-curriculum__stat span {
+      font-size: 0.82rem;
+      letter-spacing: 0.12em;
+    }
+
+    .bojax-curriculum__included {
       margin-top: 4.5rem;
-      padding: 2.4rem 1.8rem;
-      border-radius: 2.2rem;
-    }
-
-    .bojax-included__heading {
-      font-size: 3.4rem;
-    }
-
-    .bojax-included__description {
-      font-size: 1.35rem;
-    }
-
-    .bojax-included__grid {
-      grid-template-columns: 1fr;
-      margin-top: 2.4rem;
-      gap: 1.3rem;
-    }
-
-    .bojax-included__item {
-      font-size: 1.35rem;
-    }
-
-    .bojax-curriculum__lessons-header {
-      margin-top: 5.5rem;
-      align-items: center;
-    }
-
-    .bojax-curriculum__lessons-heading {
-      font-size: 3.7rem;
-    }
-
-    .bojax-curriculum__control {
-      width: 4.4rem;
-      height: 4.4rem;
-    }
-
-    .bojax-curriculum__carousel {
-      margin-inline: -1.4rem;
-      padding: 0.8rem 1.4rem 2rem;
-      scroll-padding-inline: 1.4rem;
-      gap: 1.3rem;
-    }
-
-    .bojax-module-card {
+      padding: 2.5rem 1.7rem;
       border-radius: 2.1rem;
     }
 
-    .bojax-module-card__body {
-      padding: 2rem;
+    .bojax-curriculum__included-heading {
+      font-size: 3.6rem;
     }
 
-    .bojax-module-card__title {
-      font-size: 2.2rem;
+    .bojax-curriculum__included-description {
+      font-size: 1.35rem;
     }
 
-    .bojax-curriculum__footer-text {
-      margin-top: 3.2rem;
-      font-size: 1.25rem;
+    .bojax-curriculum__list {
+      grid-template-columns: 1fr;
+      margin-top: 2.7rem;
+    }
+
+    .bojax-curriculum__item,
+    .bojax-curriculum__item:nth-child(even) {
+      padding: 1.6rem 0;
+      border-left: 0;
+    }
+
+    .bojax-curriculum__item-title {
+      font-size: 1.42rem;
+    }
+
+    .bojax-curriculum__item-description {
+      font-size: 1.2rem;
+    }
+
+    .bojax-curriculum__features {
+      margin-top: 2.7rem;
+      padding: 2.2rem 1.7rem;
+    }
+
+    .bojax-curriculum__feature-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .bojax-curriculum__feature-heading {
+      font-size: 2rem;
     }
 
     .bojax-curriculum__button {
       width: 100%;
     }
   }
-
-  @media (prefers-reduced-motion: reduce) {
-    .bojax-curriculum__carousel {
-      scroll-behavior: auto;
-    }
-  }
 {% endstylesheet %}
-
-<script>
-  (() => {
-    const initializeCurriculum = (section) => {
-      if (!section || section.dataset.curriculumReady === 'true') return;
-
-      const carousel = section.querySelector('[data-curriculum-carousel]');
-      const slides = Array.from(section.querySelectorAll('[data-curriculum-slide]'));
-      const previousButton = section.querySelector('[data-curriculum-previous]');
-      const nextButton = section.querySelector('[data-curriculum-next]');
-      const dots = Array.from(section.querySelectorAll('[data-curriculum-dot]'));
-
-      if (!carousel || slides.length === 0) return;
-
-      section.dataset.curriculumReady = 'true';
-
-      const autoplayEnabled = section.dataset.autoplay === 'true';
-      const autoplaySpeed = Number(section.dataset.autoplaySpeed) || 5000;
-      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-      let activeIndex = 0;
-      let autoplayTimer = null;
-      let scrollTimer = null;
-      let interactionPaused = false;
-
-      const getSlideLeft = (index) => {
-        const slide = slides[index];
-        return slide ? slide.offsetLeft - carousel.offsetLeft : 0;
-      };
-
-      const updateDots = (index) => {
-        activeIndex = Math.max(0, Math.min(index, slides.length - 1));
-
-        dots.forEach((dot, dotIndex) => {
-          const isActive = dotIndex === activeIndex;
-          dot.classList.toggle('is-active', isActive);
-          dot.setAttribute('aria-current', isActive ? 'true' : 'false');
-        });
-      };
-
-      const goToSlide = (index, behavior = 'smooth') => {
-        if (slides.length === 0) return;
-
-        const normalizedIndex =
-          ((index % slides.length) + slides.length) % slides.length;
-
-        carousel.scrollTo({
-          left: getSlideLeft(normalizedIndex),
-          behavior
-        });
-
-        updateDots(normalizedIndex);
-      };
-
-      const findClosestSlide = () => {
-        const carouselLeft = carousel.scrollLeft;
-        let closestIndex = 0;
-        let closestDistance = Infinity;
-
-        slides.forEach((slide, index) => {
-          const slideLeft = slide.offsetLeft - carousel.offsetLeft;
-          const distance = Math.abs(slideLeft - carouselLeft);
-
-          if (distance < closestDistance) {
-            closestDistance = distance;
-            closestIndex = index;
-          }
-        });
-
-        return closestIndex;
-      };
-
-      const stopAutoplay = () => {
-        if (autoplayTimer) {
-          window.clearInterval(autoplayTimer);
-          autoplayTimer = null;
-        }
-      };
-
-      const startAutoplay = () => {
-        stopAutoplay();
-
-        if (
-          !autoplayEnabled ||
-          reducedMotion ||
-          interactionPaused ||
-          slides.length < 2
-        ) {
-          return;
-        }
-
-        autoplayTimer = window.setInterval(() => {
-          goToSlide(activeIndex + 1);
-        }, autoplaySpeed);
-      };
-
-      previousButton?.addEventListener('click', () => {
-        goToSlide(activeIndex - 1);
-        startAutoplay();
-      });
-
-      nextButton?.addEventListener('click', () => {
-        goToSlide(activeIndex + 1);
-        startAutoplay();
-      });
-
-      dots.forEach((dot) => {
-        dot.addEventListener('click', () => {
-          goToSlide(Number(dot.dataset.curriculumDot));
-          startAutoplay();
-        });
-      });
-
-      carousel.addEventListener(
-        'scroll',
-        () => {
-          window.clearTimeout(scrollTimer);
-
-          scrollTimer = window.setTimeout(() => {
-            updateDots(findClosestSlide());
-          }, 100);
-        },
-        { passive: true }
-      );
-
-      const pauseInteraction = () => {
-        interactionPaused = true;
-        stopAutoplay();
-      };
-
-      const resumeInteraction = () => {
-        interactionPaused = false;
-        startAutoplay();
-      };
-
-      carousel.addEventListener('pointerdown', pauseInteraction);
-      carousel.addEventListener('touchstart', pauseInteraction, { passive: true });
-      carousel.addEventListener('focusin', pauseInteraction);
-
-      carousel.addEventListener('pointerup', resumeInteraction);
-      carousel.addEventListener('pointercancel', resumeInteraction);
-      carousel.addEventListener('touchend', resumeInteraction, { passive: true });
-      carousel.addEventListener('focusout', resumeInteraction);
-
-      section.addEventListener('mouseenter', pauseInteraction);
-      section.addEventListener('mouseleave', resumeInteraction);
-
-      window.addEventListener('resize', () => {
-        goToSlide(activeIndex, 'auto');
-      });
-
-      updateDots(0);
-      startAutoplay();
-    };
-
-    const initializeAllCurriculums = (root = document) => {
-      root
-        .querySelectorAll('[data-bojax-curriculum]')
-        .forEach(initializeCurriculum);
-    };
-
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', () => {
-        initializeAllCurriculums();
-      });
-    } else {
-      initializeAllCurriculums();
-    }
-
-    document.addEventListener('shopify:section:load', (event) => {
-      initializeAllCurriculums(event.target);
-    });
-  })();
-</script>
 
 {% schema %}
 {
   "name": "Bojax course curriculum",
   "tag": "section",
   "class": "bojax-curriculum-section",
-  "max_blocks": 16,
+  "max_blocks": 24,
   "settings": [
     {
       "type": "text",
@@ -1254,133 +655,133 @@
       "type": "inline_richtext",
       "id": "heading",
       "label": "Main heading",
-      "default": "From softmaxxing to advanced options"
+      "default": "Everything you need to ascend"
     },
     {
       "type": "richtext",
       "id": "description",
       "label": "Description",
-      "default": "<p>A complete appearance-improvement curriculum covering grooming, skincare, physique, remaining height potential, facial structure, professional procedures and advanced enhancement topics.</p>"
+      "default": "<p>A structured appearance-improvement system covering foundational softmaxxing, advanced strategies and professional options.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Course totals"
     },
     {
       "type": "checkbox",
-      "id": "show_summary",
-      "label": "Show course summary",
+      "id": "show_stats",
+      "label": "Show course totals",
       "default": true
+    },
+    {
+      "type": "text",
+      "id": "module_count",
+      "label": "Module count",
+      "default": "15+"
+    },
+    {
+      "type": "text",
+      "id": "module_label",
+      "label": "Module label",
+      "default": "Detailed modules"
     },
     {
       "type": "text",
       "id": "lesson_count",
-      "label": "Total lesson count",
+      "label": "Lesson count",
       "default": "50+"
     },
     {
+      "type": "text",
+      "id": "lesson_label",
+      "label": "Lesson label",
+      "default": "Video lessons"
+    },
+    {
+      "type": "text",
+      "id": "access_value",
+      "label": "Access value",
+      "default": "Instant"
+    },
+    {
+      "type": "text",
+      "id": "access_label",
+      "label": "Access label",
+      "default": "Digital access"
+    },
+    {
+      "type": "text",
+      "id": "updates_value",
+      "label": "Updates value",
+      "default": "Lifetime"
+    },
+    {
+      "type": "text",
+      "id": "updates_label",
+      "label": "Updates label",
+      "default": "Future updates"
+    },
+    {
       "type": "header",
-      "content": "Main things included"
+      "content": "Everything included"
     },
     {
       "type": "text",
       "id": "included_eyebrow",
-      "label": "Included section small heading",
-      "default": "THE COMPLETE SYSTEM"
+      "label": "Included small heading",
+      "default": "THE COMPLETE CURRICULUM"
     },
     {
-      "type": "text",
+      "type": "inline_richtext",
       "id": "included_heading",
-      "label": "Included section heading",
-      "default": "Everything included"
+      "label": "Included heading",
+      "default": "What’s inside the course"
     },
     {
-      "type": "textarea",
+      "type": "richtext",
       "id": "included_description",
-      "label": "Included section description",
-      "default": "The most important areas of appearance improvement organized into one practical system."
-    },
-    {
-      "type": "text",
-      "id": "included_1",
-      "label": "Included item 1",
-      "default": "Softmaxxing fundamentals and daily appearance routines"
-    },
-    {
-      "type": "text",
-      "id": "included_2",
-      "label": "Included item 2",
-      "default": "Advanced skincare and dermatologist-guided treatment education"
-    },
-    {
-      "type": "text",
-      "id": "included_3",
-      "label": "Included item 3",
-      "default": "Hair, grooming, facial hair and personal styling"
-    },
-    {
-      "type": "text",
-      "id": "included_4",
-      "label": "Included item 4",
-      "default": "Physique, posture, proportions and body presentation"
-    },
-    {
-      "type": "text",
-      "id": "included_5",
-      "label": "Included item 5",
-      "default": "Remaining height potential, posture and medical evaluation"
-    },
-    {
-      "type": "text",
-      "id": "included_6",
-      "label": "Included item 6",
-      "default": "Facial structure, dental options and professional treatments"
-    },
-    {
-      "type": "text",
-      "id": "included_7",
-      "label": "Included item 7",
-      "default": "Hardmaxxing procedures, risks, recovery and provider selection"
-    },
-    {
-      "type": "text",
-      "id": "included_8",
-      "label": "Included item 8",
-      "default": "Peptides, pharmaceuticals and enhancement-claim education"
+      "label": "Included description",
+      "default": "<p>Everything is organized into detailed lessons so you know what to improve, why it matters and how to build your personal plan.</p>"
     },
     {
       "type": "header",
-      "content": "Lesson carousel"
+      "content": "Access features"
     },
     {
       "type": "text",
-      "id": "lessons_eyebrow",
-      "label": "Lessons small heading",
-      "default": "EXPLORE THE CURRICULUM"
+      "id": "feature_heading",
+      "label": "Feature heading",
+      "default": "Also included with your purchase"
     },
     {
       "type": "text",
-      "id": "lessons_heading",
-      "label": "Lessons heading",
-      "default": "Inside every module"
-    },
-    {
-      "type": "checkbox",
-      "id": "autoplay",
-      "label": "Automatically move through modules",
-      "default": true
-    },
-    {
-      "type": "range",
-      "id": "autoplay_speed",
-      "min": 3,
-      "max": 10,
-      "step": 1,
-      "unit": "s",
-      "label": "Time before next module",
-      "default": 6
+      "id": "feature_1",
+      "label": "Feature 1",
+      "default": "Immediate access after purchase"
     },
     {
       "type": "text",
-      "id": "footer_text",
-      "label": "Text beneath modules",
-      "default": "Educational information only. Results vary, and medical or cosmetic treatments should be discussed with qualified professionals."
+      "id": "feature_2",
+      "label": "Feature 2",
+      "default": "Watch on your phone, tablet or computer"
+    },
+    {
+      "type": "text",
+      "id": "feature_3",
+      "label": "Feature 3",
+      "default": "New lessons and future course updates"
+    },
+    {
+      "type": "text",
+      "id": "feature_4",
+      "label": "Feature 4",
+      "default": "Structured action plans and product resources"
+    },
+    {
+      "type": "textarea",
+      "id": "disclaimer",
+      "label": "Disclaimer",
+      "default": "Educational information only. Individual results vary. Medical, pharmaceutical and cosmetic treatments should be discussed with qualified professionals."
     },
     {
       "type": "text",
@@ -1396,67 +797,20 @@
   ],
   "blocks": [
     {
-      "type": "module",
-      "name": "Course module",
+      "type": "included_item",
+      "name": "Included course topic",
       "settings": [
-        {
-          "type": "image_picker",
-          "id": "image",
-          "label": "Module preview image"
-        },
-        {
-          "type": "text",
-          "id": "badge",
-          "label": "Badge",
-          "default": "Core module"
-        },
-        {
-          "type": "text",
-          "id": "lesson_count",
-          "label": "Lesson count",
-          "default": "5 lessons"
-        },
         {
           "type": "text",
           "id": "title",
-          "label": "Module title",
-          "default": "Softmaxxing foundations"
+          "label": "Topic title",
+          "default": "Course topic"
         },
         {
           "type": "richtext",
           "id": "description",
-          "label": "Module description",
-          "default": "<p>Build the highest-impact non-invasive foundation before considering advanced options.</p>"
-        },
-        {
-          "type": "text",
-          "id": "point_1",
-          "label": "Lesson 1",
-          "default": "Appearance assessment and priority setting"
-        },
-        {
-          "type": "text",
-          "id": "point_2",
-          "label": "Lesson 2",
-          "default": "Hair, skin, teeth and grooming"
-        },
-        {
-          "type": "text",
-          "id": "point_3",
-          "label": "Lesson 3",
-          "default": "Physique, posture and clothing"
-        },
-        {
-          "type": "text",
-          "id": "point_4",
-          "label": "Lesson 4",
-          "default": "Building a repeatable daily routine"
-        },
-        {
-          "type": "checkbox",
-          "id": "featured",
-          "label": "Highlight this module",
-          "default": false
+          "label": "Short description",
+          "default": "<p>A detailed explanation of what this section covers.</p>"
         }
       ]
     }
@@ -1466,121 +820,129 @@
       "name": "Bojax course curriculum",
       "blocks": [
         {
-          "type": "module",
+          "type": "included_item",
           "settings": {
-            "badge": "Foundation",
-            "lesson_count": "6 lessons",
-            "title": "Softmaxxing foundations",
-            "description": "<p>Build the highest-impact non-invasive appearance improvements into a clear daily system.</p>",
-            "point_1": "Personal appearance assessment",
-            "point_2": "Hair, grooming and hygiene",
-            "point_3": "Teeth, style and presentation",
-            "point_4": "Your daily improvement routine",
-            "featured": true
+            "title": "Peptide and performance-enhancement education",
+            "description": "<p>Educational coverage of peptide and PED claims, risks, side effects and professional supervision.</p>"
           }
         },
         {
-          "type": "module",
+          "type": "included_item",
           "settings": {
-            "badge": "Skincare",
-            "lesson_count": "8 lessons",
-            "title": "Advanced skin optimization",
-            "description": "<p>Understand evidence-based acne, pigmentation, texture and scarring options from basic routines through prescription care.</p>",
-            "point_1": "Cleanser, moisturizer and sunscreen",
-            "point_2": "Retinoids, benzoyl peroxide and azelaic acid",
-            "point_3": "Prescription acne-treatment education",
-            "point_4": "When to consult a dermatologist"
+            "title": "Advanced skin protocols",
+            "description": "<p>Skincare routines, acne treatment education, texture, pigmentation, microneedling and professional options.</p>"
           }
         },
         {
-          "type": "module",
+          "type": "included_item",
           "settings": {
-            "badge": "Structure",
-            "lesson_count": "6 lessons",
-            "title": "Facial structure and balance",
-            "description": "<p>Learn what affects facial presentation, what can change naturally and when professional evaluation may help.</p>",
-            "point_1": "Facial balance and profile assessment",
-            "point_2": "Bite, teeth and orthodontic options",
-            "point_3": "Posture, body fat and presentation",
-            "point_4": "Bonesmashing myths and injury risks"
+            "title": "Hormones, nootropics and diuretics",
+            "description": "<p>An overview of common claims, potential risks and why medical guidance matters.</p>"
           }
         },
         {
-          "type": "module",
+          "type": "included_item",
           "settings": {
-            "badge": "Growth",
-            "lesson_count": "5 lessons",
+            "title": "Supplements and product resources",
+            "description": "<p>Organized information covering supplements, product categories and purchasing considerations.</p>"
+          }
+        },
+        {
+          "type": "included_item",
+          "settings": {
+            "title": "Hairline and hair-growth protocols",
+            "description": "<p>Hair styling, scalp care, hair-loss treatment education and professional restoration options.</p>"
+          }
+        },
+        {
+          "type": "included_item",
+          "settings": {
+            "title": "Debloating methods",
+            "description": "<p>Sleep, hydration, diet consistency, sodium balance and realistic ways to reduce facial puffiness.</p>"
+          }
+        },
+        {
+          "type": "included_item",
+          "settings": {
             "title": "Height potential and posture",
-            "description": "<p>Understand genetics, growth plates, sleep, nutrition, posture and when medical evaluation may be appropriate.</p>",
-            "point_1": "Growth plates and puberty",
-            "point_2": "Sleep and nutrition fundamentals",
-            "point_3": "Posture and measured height",
-            "point_4": "When to see an endocrinologist"
+            "description": "<p>Growth plates, genetics, sleep, nutrition, posture and when medical evaluation may be appropriate.</p>"
           }
         },
         {
-          "type": "module",
+          "type": "included_item",
           "settings": {
-            "badge": "Physique",
-            "lesson_count": "6 lessons",
-            "title": "Physique and proportions",
-            "description": "<p>Build a frame and posture that improve your overall silhouette, presence and clothing fit.</p>",
-            "point_1": "Balanced muscle development",
-            "point_2": "Body composition fundamentals",
-            "point_3": "Posture and body language",
-            "point_4": "Sustainable training habits"
+            "title": "Bone growth and forward-growth claims",
+            "description": "<p>Facial development, posture, orthodontics and separating realistic options from unsafe internet myths.</p>"
           }
         },
         {
-          "type": "module",
+          "type": "included_item",
           "settings": {
-            "badge": "Style",
-            "lesson_count": "5 lessons",
-            "title": "Hair, grooming and style",
-            "description": "<p>Choose hair, facial hair, clothing and grooming details that complement your individual features.</p>",
-            "point_1": "Hairstyles for your features",
-            "point_2": "Facial hair and eyebrow grooming",
-            "point_3": "Fit, color and proportions",
-            "point_4": "Building a personal aesthetic"
+            "title": "Jawline, hyoid and mandibular appearance",
+            "description": "<p>Body composition, posture, bite alignment, grooming and professional structural options.</p>"
           }
         },
         {
-          "type": "module",
+          "type": "included_item",
           "settings": {
-            "badge": "Hardmaxxing",
-            "lesson_count": "7 lessons",
-            "title": "Cosmetic and professional options",
-            "description": "<p>A realistic overview of professional treatments, provider selection, costs, recovery and possible complications.</p>",
-            "point_1": "Dental and orthodontic procedures",
-            "point_2": "Dermatology and cosmetic treatments",
-            "point_3": "Hair-restoration options",
-            "point_4": "Surgical risks and realistic outcomes"
+            "title": "Eye-area improvements",
+            "description": "<p>Sleep, allergies, skincare, eyebrows, under-eye appearance and professional treatment education.</p>"
           }
         },
         {
-          "type": "module",
+          "type": "included_item",
           "settings": {
-            "badge": "Advanced",
-            "lesson_count": "6 lessons",
-            "title": "Peptides and pharmaceutical claims",
-            "description": "<p>Separate approved medical treatments from experimental compounds and misleading enhancement claims.</p>",
-            "point_1": "Approved versus experimental products",
-            "point_2": "Purity, contamination and dosing uncertainty",
-            "point_3": "Side effects and interactions",
-            "point_4": "Why licensed supervision matters"
+            "title": "Facial exercises, symmetry and posture",
+            "description": "<p>Presentation habits, posture, expression, photo angles and realistic expectations.</p>"
           }
         },
         {
-          "type": "module",
+          "type": "included_item",
           "settings": {
-            "badge": "Action plan",
-            "lesson_count": "4 lessons",
-            "title": "Your personal ascension plan",
-            "description": "<p>Turn every module into a focused plan based on your priorities, budget, age and current starting point.</p>",
-            "point_1": "Choose your highest-impact priorities",
-            "point_2": "Create a realistic 30-day plan",
-            "point_3": "Track progress consistently",
-            "point_4": "Adjust your plan over time"
+            "title": "Facial masking and presentation",
+            "description": "<p>Hair, styling, facial hair, accessories and visual strategies that complement your features.</p>"
+          }
+        },
+        {
+          "type": "included_item",
+          "settings": {
+            "title": "Intermittent fasting and nutrition",
+            "description": "<p>Meal timing, body composition, dietary consistency and avoiding extreme approaches.</p>"
+          }
+        },
+        {
+          "type": "included_item",
+          "settings": {
+            "title": "Lashes, brows and lips",
+            "description": "<p>Grooming, shaping, skincare and non-invasive ways to improve facial details.</p>"
+          }
+        },
+        {
+          "type": "included_item",
+          "settings": {
+            "title": "Changing nose appearance",
+            "description": "<p>Contouring, styling, photography, professional procedures and realistic structural limitations.</p>"
+          }
+        },
+        {
+          "type": "included_item",
+          "settings": {
+            "title": "Natural anabolic support",
+            "description": "<p>Training, protein, sleep, recovery and evidence-based habits that support muscle development.</p>"
+          }
+        },
+        {
+          "type": "included_item",
+          "settings": {
+            "title": "Softmaxxing fundamentals",
+            "description": "<p>Skincare, hair, grooming, teeth, physique, posture, clothing and personal presentation.</p>"
+          }
+        },
+        {
+          "type": "included_item",
+          "settings": {
+            "title": "Hardmaxxing and professional procedures",
+            "description": "<p>Dental work, orthodontics, dermatology, hair restoration, cosmetic procedures, risks and recovery.</p>"
           }
         }
       ]

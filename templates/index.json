@@ -51,8 +51,8 @@
         "button_text": "GET INSTANT ACCESS",
         "button_link": "shopify://collections/all",
         "payment_note": "One-time payment • Instant access",
-        "show_stars": false,
-        "proof_text": "Built by Bojax"
+        "show_stars": true,
+        "proof_text": "650+ students"
       }
     },
     "featured_collection": {

@@ -9,125 +9,177 @@
   "
   aria-label="Store announcements"
 >
-  <div class="bojax-announcement__track">
-    <div class="bojax-announcement__group">
-      {% for block in section.blocks %}
-        <div
-          class="bojax-announcement__item"
-          {{ block.shopify_attributes }}
-        >
-          {% if block.settings.link != blank %}
-            <a href="{{ block.settings.link }}">
-          {% endif %}
+  <div class="bojax-announcement__viewport">
+    <div class="bojax-announcement__track">
+      <div class="bojax-announcement__group">
+        {% for block in section.blocks %}
+          <div
+            class="bojax-announcement__item"
+            {{ block.shopify_attributes }}
+          >
+            {% if block.settings.link != blank %}
+              <a href="{{ block.settings.link }}">
+            {% endif %}
 
-          {% if block.settings.icon == 'star' %}
-            <span class="bojax-announcement__icon" aria-hidden="true">★</span>
-          {% elsif block.settings.icon == 'bolt' %}
-            <span class="bojax-announcement__icon" aria-hidden="true">ϟ</span>
-          {% elsif block.settings.icon == 'diamond' %}
-            <span class="bojax-announcement__icon" aria-hidden="true">◆</span>
-          {% elsif block.settings.icon == 'check' %}
-            <span class="bojax-announcement__icon" aria-hidden="true">✓</span>
-          {% endif %}
+            {% case block.settings.icon %}
+              {% when 'star' %}
+                <span class="bojax-announcement__icon" aria-hidden="true">
+                  ★
+                </span>
 
-          <span>{{ block.settings.text }}</span>
+              {% when 'bolt' %}
+                <span class="bojax-announcement__icon" aria-hidden="true">
+                  ϟ
+                </span>
 
-          {% if block.settings.link != blank %}
-            </a>
-          {% endif %}
-        </div>
+              {% when 'diamond' %}
+                <span class="bojax-announcement__icon" aria-hidden="true">
+                  ◆
+                </span>
 
-        <span class="bojax-announcement__separator" aria-hidden="true">
-          ✦
-        </span>
-      {% endfor %}
-    </div>
+              {% when 'check' %}
+                <span class="bojax-announcement__icon" aria-hidden="true">
+                  ✓
+                </span>
+            {% endcase %}
 
-    <div class="bojax-announcement__group" aria-hidden="true">
-      {% for block in section.blocks %}
-        <div class="bojax-announcement__item">
-          {% if block.settings.icon == 'star' %}
-            <span class="bojax-announcement__icon">★</span>
-          {% elsif block.settings.icon == 'bolt' %}
-            <span class="bojax-announcement__icon">ϟ</span>
-          {% elsif block.settings.icon == 'diamond' %}
-            <span class="bojax-announcement__icon">◆</span>
-          {% elsif block.settings.icon == 'check' %}
-            <span class="bojax-announcement__icon">✓</span>
-          {% endif %}
+            <span class="bojax-announcement__text">
+              {{ block.settings.text }}
+            </span>
 
-          <span>{{ block.settings.text }}</span>
-        </div>
+            {% if block.settings.link != blank %}
+              </a>
+            {% endif %}
+          </div>
 
-        <span class="bojax-announcement__separator">
-          ✦
-        </span>
-      {% endfor %}
+          <span
+            class="bojax-announcement__separator"
+            aria-hidden="true"
+          ></span>
+        {% endfor %}
+      </div>
+
+      <div
+        class="bojax-announcement__group"
+        aria-hidden="true"
+      >
+        {% for block in section.blocks %}
+          <div class="bojax-announcement__item">
+            {% case block.settings.icon %}
+              {% when 'star' %}
+                <span class="bojax-announcement__icon">
+                  ★
+                </span>
+
+              {% when 'bolt' %}
+                <span class="bojax-announcement__icon">
+                  ϟ
+                </span>
+
+              {% when 'diamond' %}
+                <span class="bojax-announcement__icon">
+                  ◆
+                </span>
+
+              {% when 'check' %}
+                <span class="bojax-announcement__icon">
+                  ✓
+                </span>
+            {% endcase %}
+
+            <span class="bojax-announcement__text">
+              {{ block.settings.text }}
+            </span>
+          </div>
+
+          <span class="bojax-announcement__separator"></span>
+        {% endfor %}
+      </div>
     </div>
   </div>
 </section>
 
 {% stylesheet %}
   .bojax-announcement {
-    position: relative;
-    z-index: 100;
-    width: 100%;
-    overflow: hidden;
-    border-bottom: 1px solid rgba(216, 184, 106, 0.25);
-    background:
-      linear-gradient(
-        90deg,
-        #070604,
-        var(--bojax-announcement-background),
-        #070604
-      );
-    color: var(--bojax-announcement-text);
-  }
+    position: sticky;
+    top: 0;
+    z-index: 100001;
 
-  .bojax-announcement::before {
-    position: absolute;
-    inset: 0;
+    display: block;
+    width: 100%;
+    height: 4.4rem;
+
+    overflow: hidden;
+
+    border-top: 1px solid rgba(216, 184, 106, 0.22);
+    border-bottom: 1px solid rgba(216, 184, 106, 0.28);
+
     background:
       radial-gradient(
         circle at 50% 0,
-        rgba(216, 184, 106, 0.12),
-        transparent 60%
+        rgba(216, 184, 106, 0.13),
+        transparent 65%
+      ),
+      linear-gradient(
+        90deg,
+        #050504,
+        var(--bojax-announcement-background),
+        #050504
       );
-    content: "";
-    pointer-events: none;
+
+    color: var(--bojax-announcement-text);
+
+    box-shadow:
+      0 8px 24px rgba(0, 0, 0, 0.32);
+  }
+
+  .bojax-announcement__viewport {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
   }
 
   .bojax-announcement__track {
-    position: relative;
     display: flex;
     width: max-content;
     min-width: 200%;
+    height: 100%;
+
+    align-items: center;
+
     animation:
       bojaxAnnouncementScroll
       var(--bojax-announcement-speed)
       linear
       infinite;
+
     will-change: transform;
   }
 
   .bojax-announcement__group {
     display: flex;
-    flex-shrink: 0;
+    flex: 0 0 auto;
     min-width: 50%;
+    height: 100%;
+
     align-items: center;
-    justify-content: space-around;
   }
 
   .bojax-announcement__item {
     display: inline-flex;
-    min-height: 4.4rem;
-    padding: 0 2.4rem;
+    flex: 0 0 auto;
+    height: 100%;
+    padding: 0 2.8rem;
+
     align-items: center;
-    gap: 0.8rem;
+    justify-content: center;
+    gap: 0.85rem;
+
     color: var(--bojax-announcement-text);
-    font-size: 1.05rem;
+
+    font-size: 1rem;
     font-weight: 850;
-    letter-spacing: 0.16em;
+    letter-spacing: 0.17em;
     line-height: 1;
     text-transform: uppercase;
     white-space: nowrap;
@@ -135,25 +187,38 @@
 
   .bojax-announcement__item a {
     display: inline-flex;
+    height: 100%;
+
     align-items: center;
-    gap: 0.8rem;
+    gap: 0.85rem;
+
     color: inherit;
     text-decoration: none;
   }
 
-  .bojax-announcement__icon,
-  .bojax-announcement__separator {
-    color: var(--bojax-announcement-accent);
-  }
-
   .bojax-announcement__icon {
-    font-size: 1.15rem;
+    color: var(--bojax-announcement-accent);
+
+    font-size: 1.1rem;
+    line-height: 1;
   }
 
   .bojax-announcement__separator {
-    flex: 0 0 auto;
-    opacity: 0.72;
-    font-size: 0.9rem;
+    display: block;
+    flex: 0 0 1px;
+
+    width: 1px;
+    height: 2rem;
+
+    background:
+      linear-gradient(
+        180deg,
+        transparent,
+        var(--bojax-announcement-accent),
+        transparent
+      );
+
+    opacity: 0.8;
   }
 
   @keyframes bojaxAnnouncementScroll {
@@ -167,21 +232,29 @@
   }
 
   @media screen and (max-width: 749px) {
+    .bojax-announcement {
+      height: 4rem;
+    }
+
     .bojax-announcement__item {
-      min-height: 4rem;
-      padding: 0 1.8rem;
-      font-size: 0.9rem;
+      padding: 0 2rem;
+
+      font-size: 0.84rem;
       letter-spacing: 0.13em;
     }
 
     .bojax-announcement__separator {
-      font-size: 0.75rem;
+      height: 1.7rem;
+    }
+
+    .bojax-announcement__icon {
+      font-size: 0.95rem;
     }
   }
 
   @media (prefers-reduced-motion: reduce) {
     .bojax-announcement__track {
-      animation-duration: 80s;
+      animation-duration: 90s;
     }
   }
 {% endstylesheet %}
@@ -211,7 +284,7 @@
       "type": "color",
       "id": "background",
       "label": "Background",
-      "default": "#0A0907"
+      "default": "#090806"
     },
     {
       "type": "color",
@@ -222,7 +295,7 @@
     {
       "type": "color",
       "id": "accent_color",
-      "label": "Icons and separators",
+      "label": "Icons and dividing lines",
       "default": "#D8B86A"
     }
   ],
@@ -255,7 +328,7 @@
             },
             {
               "value": "none",
-              "label": "None"
+              "label": "No icon"
             }
           ]
         },
@@ -288,7 +361,7 @@
           "type": "announcement",
           "settings": {
             "icon": "bolt",
-            "text": "Viral looksmaxxing education on TikTok"
+            "text": "20M+ views across TikTok"
           }
         },
         {

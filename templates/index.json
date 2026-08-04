@@ -394,6 +394,8 @@
         "eyebrow": "WHAT YOU GET",
         "heading": "Everything inside the Bojax method",
         "description": "<p>A detailed looksmaxxing system covering foundational improvements, advanced appearance strategies, physique development, skincare and professional options.</p>",
+        "badge_text": "Structured lessons, advanced education and practical action plans",
+        "show_stats": true,
         "module_count": 15,
         "module_suffix": "+",
         "module_label": "Detailed modules",
@@ -418,12 +420,45 @@
         "button_text": "Get instant access",
         "button_link": ""
       }
+    },
+    "bojax_pricing_KAYVLp": {
+      "type": "bojax-pricing",
+      "name": "Bojax pricing",
+      "settings": {
+        "product": "",
+        "eyebrow": "ONE-TIME PAYMENT",
+        "heading": "Get the complete Bojax Method",
+        "description": "<p>Unlock the complete course with one payment. No subscription, no monthly billing and no recurring charges.</p>",
+        "offer_label": "PAY ONCE • KEEP ACCESS",
+        "fallback_price": "$29.99",
+        "show_fallback_compare_price": true,
+        "fallback_compare_price": "$59.99",
+        "price_subtext": "One-time purchase • Instant digital delivery • Lifetime course access",
+        "feature_1": "Complete looksmaxxing curriculum",
+        "feature_2": "40+ detailed video lessons",
+        "feature_3": "Instant access after checkout",
+        "feature_4": "Lifetime access to your purchase",
+        "feature_5": "Future course updates included",
+        "button_text": "Get instant access",
+        "non_recurring_text": "$29.99 one-time purchase • Non-recurring • No subscription",
+        "assurance_eyebrow": "SECURE CHECKOUT",
+        "assurance_heading": "Purchase with confidence",
+        "assurance_text": "<p>Your payment is processed through Shopify’s secure checkout.</p>",
+        "assurance_1": "Secure encrypted Shopify checkout",
+        "assurance_2": "Multiple payment methods accepted",
+        "assurance_3": "Lifetime access with one purchase",
+        "assurance_4": "No automatic monthly renewal",
+        "payment_heading": "Accepted payment methods",
+        "payment_note": "Available payment options may vary by location, currency and checkout eligibility.",
+        "legal_note": "<p>By completing your purchase, you agree to the store’s terms and refund policy. Individual results vary.</p>"
+      }
     }
   },
   "order": [
     "bojax_hero",
     "featured_collection",
     "bojax_transformations_CPURm7",
-    "bojax_course_curriculum_C6bCDw"
+    "bojax_course_curriculum_C6bCDw",
+    "bojax_pricing_KAYVLp"
   ]
 }

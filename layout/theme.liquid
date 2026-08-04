@@ -738,6 +738,11 @@
 {{ 'bojax-03-header.css' | asset_url | stylesheet_tag }}
 {{ 'bojax-06-cart.css' | asset_url | stylesheet_tag }}
 
+<script
+  src="{{ 'bojax-course-add-to-cart.js' | asset_url }}"
+  defer="defer"
+></script>
+
 {%- if request.page_type == 'index' -%}
   {{ 'bojax-04-home.css' | asset_url | stylesheet_tag }}
 {%- endif -%}

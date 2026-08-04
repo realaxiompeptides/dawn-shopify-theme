@@ -46,7 +46,6 @@
           }}
         {% endif %}
       </picture>
-
     {% elsif section.settings.desktop_image != blank %}
       {{
         section.settings.desktop_image
@@ -59,7 +58,6 @@
           sizes: '100vw',
           alt: section.settings.desktop_image.alt
       }}
-
     {% else %}
       <div class="bojax-course-hero__placeholder">
         {{ 'lifestyle-1' | placeholder_svg_tag }}
@@ -125,6 +123,21 @@
         </p>
       {% endif %}
 
+      {% if section.settings.proof_text != blank %}
+        <div class="bojax-course-hero__proof">
+          {% if section.settings.show_stars %}
+            <span
+              class="bojax-course-hero__stars"
+              aria-label="Five stars"
+            >
+              ★★★★★
+            </span>
+          {% endif %}
+
+          <span>{{ section.settings.proof_text }}</span>
+        </div>
+      {% endif %}
+
       {% if section.blocks.size > 0 %}
         <div class="bojax-course-hero__trust">
           {% for block in section.blocks %}
@@ -144,7 +157,6 @@
                         stroke-linejoin="round"
                       />
                     </svg>
-
                   {% when 'lock' %}
                     <svg viewBox="0 0 24 24" aria-hidden="true">
                       <rect
@@ -165,7 +177,6 @@
                         stroke-linecap="round"
                       />
                     </svg>
-
                   {% when 'infinity' %}
                     <svg viewBox="0 0 24 24" aria-hidden="true">
                       <path
@@ -177,7 +188,6 @@
                         stroke-linejoin="round"
                       />
                     </svg>
-
                   {% when 'play' %}
                     <svg viewBox="0 0 24 24" aria-hidden="true">
                       <circle
@@ -196,7 +206,6 @@
                         stroke-linejoin="round"
                       />
                     </svg>
-
                   {% when 'star' %}
                     <svg viewBox="0 0 24 24" aria-hidden="true">
                       <path
@@ -207,7 +216,6 @@
                         stroke-linejoin="round"
                       />
                     </svg>
-
                   {% else %}
                     <svg viewBox="0 0 24 24" aria-hidden="true">
                       <circle
@@ -235,21 +243,6 @@
               </span>
             </div>
           {% endfor %}
-        </div>
-      {% endif %}
-
-      {% if section.settings.proof_text != blank %}
-        <div class="bojax-course-hero__proof">
-          {% if section.settings.show_stars %}
-            <span
-              class="bojax-course-hero__stars"
-              aria-label="Five stars"
-            >
-              ★★★★★
-            </span>
-          {% endif %}
-
-          <span>{{ section.settings.proof_text }}</span>
         </div>
       {% endif %}
     </div>
@@ -287,8 +280,7 @@
 
   .bojax-course-hero__image {
     object-fit: cover;
-    object-position:
-      var(--bojax-desktop-position, center center);
+    object-position: var(--bojax-desktop-position, center center);
     filter: grayscale(1) contrast(1.08);
     transform: scale(1.01);
   }
@@ -309,15 +301,15 @@
 
   .bojax-course-hero__brand {
     position: absolute;
-    top: 36px;
+    top: 34px;
     left: 50%;
     z-index: 2;
     margin: 0;
     color: #fff;
     font-family: Georgia, "Times New Roman", serif;
-    font-size: 1.35rem;
-    font-weight: 500;
-    letter-spacing: 0.4em;
+    font-size: 1.65rem;
+    font-weight: 600;
+    letter-spacing: 0.34em;
     line-height: 1;
     text-align: center;
     text-transform: uppercase;
@@ -335,7 +327,7 @@
   .bojax-course-hero__content {
     width: min(100%, 780px);
     margin: 0 auto;
-    padding: 62px 42px 34px;
+    padding: 62px 42px 30px;
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 30px;
     background:
@@ -420,12 +412,30 @@
     letter-spacing: 0.02em;
   }
 
+  .bojax-course-hero__proof {
+    display: flex;
+    margin-top: 12px;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 9px;
+    color: rgba(255, 255, 255, 0.82);
+    font-size: 1.35rem;
+    font-weight: 700;
+  }
+
+  .bojax-course-hero__stars {
+    color: #fff;
+    font-size: 1.35rem;
+    letter-spacing: 0.12em;
+  }
+
   .bojax-course-hero__trust {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     max-width: 650px;
-    margin: 30px auto 0;
-    padding-top: 26px;
+    margin: 18px auto 0;
+    padding-top: 18px;
     border-top: 1px solid rgba(255, 255, 255, 0.11);
   }
 
@@ -463,23 +473,6 @@
     text-align: center;
   }
 
-  .bojax-course-hero__proof {
-    display: flex;
-    margin-top: 24px;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 9px;
-    color: rgba(255, 255, 255, 0.62);
-    font-size: 1.25rem;
-  }
-
-  .bojax-course-hero__stars {
-    color: #fff;
-    font-size: 1.15rem;
-    letter-spacing: 0.08em;
-  }
-
   @media screen and (max-width: 749px) {
     .bojax-course-hero__media {
       height: auto;
@@ -489,15 +482,14 @@
     }
 
     .bojax-course-hero__image {
-      object-position:
-        var(--bojax-mobile-position, center center);
+      object-position: var(--bojax-mobile-position, center center);
     }
 
     .bojax-course-hero__brand {
       top: 24px;
       max-width: calc(100% - 30px);
-      font-size: 1rem;
-      letter-spacing: 0.32em;
+      font-size: 1.18rem;
+      letter-spacing: 0.28em;
     }
 
     .bojax-course-hero__content-wrap {
@@ -506,7 +498,7 @@
     }
 
     .bojax-course-hero__content {
-      padding: 58px 18px 28px;
+      padding: 58px 18px 26px;
       border-radius: 26px;
     }
 
@@ -528,7 +520,24 @@
       font-size: 1.45rem;
     }
 
+    .bojax-course-hero__payment-note {
+      margin-top: 14px;
+      font-size: 1.2rem;
+    }
+
+    .bojax-course-hero__proof {
+      margin-top: 10px;
+      font-size: 1.25rem;
+      gap: 8px;
+    }
+
+    .bojax-course-hero__stars {
+      font-size: 1.2rem;
+    }
+
     .bojax-course-hero__trust {
+      margin-top: 16px;
+      padding-top: 16px;
       gap: 0;
     }
 
@@ -549,6 +558,11 @@
   @media screen and (max-width: 380px) {
     .bojax-course-hero__heading {
       font-size: 4rem;
+    }
+
+    .bojax-course-hero__brand {
+      font-size: 1.05rem;
+      letter-spacing: 0.24em;
     }
   }
 {% endstylesheet %}
@@ -577,26 +591,11 @@
       "label": "Desktop image position",
       "default": "center center",
       "options": [
-        {
-          "value": "center top",
-          "label": "Top"
-        },
-        {
-          "value": "center center",
-          "label": "Center"
-        },
-        {
-          "value": "center bottom",
-          "label": "Bottom"
-        },
-        {
-          "value": "left center",
-          "label": "Left"
-        },
-        {
-          "value": "right center",
-          "label": "Right"
-        }
+        { "value": "center top", "label": "Top" },
+        { "value": "center center", "label": "Center" },
+        { "value": "center bottom", "label": "Bottom" },
+        { "value": "left center", "label": "Left" },
+        { "value": "right center", "label": "Right" }
       ]
     },
     {
@@ -605,26 +604,11 @@
       "label": "Mobile image position",
       "default": "center center",
       "options": [
-        {
-          "value": "center top",
-          "label": "Top"
-        },
-        {
-          "value": "center center",
-          "label": "Center"
-        },
-        {
-          "value": "center bottom",
-          "label": "Bottom"
-        },
-        {
-          "value": "left center",
-          "label": "Left"
-        },
-        {
-          "value": "right center",
-          "label": "Right"
-        }
+        { "value": "center top", "label": "Top" },
+        { "value": "center center", "label": "Center" },
+        { "value": "center bottom", "label": "Bottom" },
+        { "value": "left center", "label": "Left" },
+        { "value": "right center", "label": "Right" }
       ]
     },
     {
@@ -676,13 +660,13 @@
       "type": "checkbox",
       "id": "show_stars",
       "label": "Show five stars",
-      "default": false
+      "default": true
     },
     {
       "type": "text",
       "id": "proof_text",
       "label": "Social proof text",
-      "default": "Built by Bojax",
+      "default": "650+ students",
       "info": "Only use customer or student numbers that are accurate."
     }
   ],
@@ -697,30 +681,12 @@
           "label": "Icon",
           "default": "bolt",
           "options": [
-            {
-              "value": "bolt",
-              "label": "Instant access"
-            },
-            {
-              "value": "lock",
-              "label": "Secure"
-            },
-            {
-              "value": "infinity",
-              "label": "Lifetime"
-            },
-            {
-              "value": "play",
-              "label": "Video"
-            },
-            {
-              "value": "star",
-              "label": "Star"
-            },
-            {
-              "value": "check",
-              "label": "Checkmark"
-            }
+            { "value": "bolt", "label": "Instant access" },
+            { "value": "lock", "label": "Secure" },
+            { "value": "infinity", "label": "Lifetime" },
+            { "value": "play", "label": "Video" },
+            { "value": "star", "label": "Star" },
+            { "value": "check", "label": "Checkmark" }
           ]
         },
         {

@@ -33,7 +33,7 @@
         "announcement_HYAMip": {
           "type": "announcement",
           "settings": {
-            "icon": "diamond",
+            "icon": "check",
             "text": "Created by Bojax",
             "link": ""
           }

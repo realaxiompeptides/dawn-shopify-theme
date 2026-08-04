@@ -9,44 +9,50 @@
  */
 {
   "sections": {
-    "image_banner": {
-      "type": "image-banner",
+    "bojax_hero": {
+      "type": "bojax-home-hero",
       "blocks": {
-        "heading": {
-          "type": "heading",
+        "trust_instant": {
+          "type": "trust_item",
           "settings": {
-            "heading": "<strong>GET THE REAL METHODS TO ASCEND</strong>",
-            "heading_size": "h0"
+            "icon": "bolt",
+            "text": "Instant access"
           }
         },
-        "button": {
-          "type": "buttons",
+        "trust_payment": {
+          "type": "trust_item",
           "settings": {
-            "button_label_1": "Shop all",
-            "button_link_1": "shopify://collections/all",
-            "button_style_secondary_1": true,
-            "button_label_2": "",
-            "button_link_2": "",
-            "button_style_secondary_2": false
+            "icon": "lock",
+            "text": "One-time payment"
+          }
+        },
+        "trust_updates": {
+          "type": "trust_item",
+          "settings": {
+            "icon": "infinity",
+            "text": "Lifetime updates"
           }
         }
       },
       "block_order": [
-        "heading",
-        "button"
+        "trust_instant",
+        "trust_payment",
+        "trust_updates"
       ],
       "settings": {
-        "image": "shopify://shop_images/IMG_3327.jpg",
-        "image_overlay_opacity": 40,
-        "image_height": "large",
-        "image_behavior": "none",
-        "desktop_content_position": "bottom-center",
-        "desktop_content_alignment": "center",
-        "show_text_box": false,
-        "color_scheme": "scheme-3",
-        "stack_images_on_mobile": false,
-        "mobile_content_alignment": "center",
-        "show_text_below": true
+        "desktop_image": "shopify://shop_images/IMG_3327.jpg",
+        "mobile_image": "shopify://shop_images/IMG_3327.jpg",
+        "desktop_image_position": "center center",
+        "mobile_image_position": "center center",
+        "overlay_opacity": 5,
+        "brand_label": "THE BOJAX METHOD",
+        "heading": "GET THE REAL METHODS TO ASCEND",
+        "description": "<p>The step-by-step system for improving your face, hair, style, physique, and overall appearance.</p>",
+        "button_text": "GET INSTANT ACCESS",
+        "button_link": "shopify://collections/all",
+        "payment_note": "One-time payment • Instant access",
+        "show_stars": false,
+        "proof_text": "Built by Bojax"
       }
     },
     "featured_collection": {
@@ -79,7 +85,7 @@
     }
   },
   "order": [
-    "image_banner",
+    "bojax_hero",
     "featured_collection"
   ]
 }

@@ -23,7 +23,22 @@
   data-id="{{ section.id }}"
 >
   <div class="page-width">
-    <div class="cart__footer isolate section-{{ section.id }}-padding">
+    <div class="bojax-cart__checkout-shell section-{{ section.id }}-padding">
+      <div class="bojax-cart__checkout-copy">
+        <p class="bojax-cart__eyebrow">SECURE CHECKOUT</p>
+        <h2>Finish your order</h2>
+        <p>
+          Your course access instructions will be shown immediately after successful payment and sent to your checkout email.
+        </p>
+
+        <div class="bojax-cart__guarantees">
+          <span>Instant access</span>
+          <span>One-time payment</span>
+          <span>Lifetime updates</span>
+        </div>
+      </div>
+
+      <div class="cart__footer isolate">
       {%- if settings.show_cart_note -%}
         <cart-note class="cart__note field">
           <label for="Cart-note">{{ 'sections.cart.note' | t }}</label>
@@ -115,7 +130,7 @@
                   {% endif %}
                   form="cart"
                 >
-                  {{ 'sections.cart.checkout' | t }}
+                  Continue to secure checkout
                 </button>
               </div>
 
@@ -124,6 +139,11 @@
                   {{ content_for_additional_checkout_buttons }}
                 </div>
               {%- endif -%}
+
+              <div class="bojax-cart__secure-note">
+                <span aria-hidden="true">LOCK</span>
+                Secure encrypted checkout. Access is delivered digitally after payment.
+              </div>
           {%- endcase -%}
         {% endfor %}
 

@@ -179,11 +179,10 @@
 
     {% if section.settings.button_text != blank %}
       <div class="bojax-curriculum__actions">
-        <a
+        <button
+          type="button"
           class="bojax-curriculum__button"
-          href="/products/bojax-course"
-          data-bojax-course-add
-          role="button"
+          data-bojax-curriculum-add
           aria-label="Add The Bojax Method to cart"
         >
           <span>{{ section.settings.button_text }}</span>
@@ -198,7 +197,7 @@
               stroke-linejoin="round"
             />
           </svg>
-        </a>
+        </button>
       </div>
     {% endif %}
   </div>
@@ -682,6 +681,9 @@
 
   .bojax-curriculum__button {
     display: inline-flex;
+    appearance: none;
+    font-family: inherit;
+    cursor: pointer;
     width: min(100%, 46rem);
     min-height: 6rem;
     padding: 1.4rem 2.8rem;
@@ -874,6 +876,13 @@
       font-size: 0.72rem;
     }
   }
+
+  .bojax-curriculum__button[aria-busy="true"] {
+    opacity: 0.72;
+    cursor: wait;
+    pointer-events: none;
+  }
+
 {% endstylesheet %}
 
 <script>
@@ -983,6 +992,157 @@
 
     document.addEventListener('shopify:section:load', (event) => {
       initializeAll(event.target);
+    });
+  })();
+</script>
+
+
+<script>
+  (() => {
+    const sectionId = 'BojaxCurriculum-{{ section.id }}';
+
+    const initializeCurriculumCart = () => {
+      const section = document.getElementById(sectionId);
+
+      if (!section || section.dataset.cartReady === 'true') return;
+
+      const button = section.querySelector('[data-bojax-curriculum-add]');
+
+      if (!button) return;
+
+      button.addEventListener('click', async (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+
+        if (button.getAttribute('aria-busy') === 'true') return;
+
+        const originalText = button.querySelector('span')?.textContent || '';
+
+        try {
+          button.setAttribute('aria-busy', 'true');
+
+          const buttonText = button.querySelector('span');
+          if (buttonText) buttonText.textContent = 'Adding to cart...';
+
+          const productResponse = await fetch(
+            `${window.Shopify.routes.root}products/bojax-course.js`,
+            {
+              method: 'GET',
+              headers: {
+                Accept: 'application/json'
+              }
+            }
+          );
+
+          if (!productResponse.ok) {
+            throw new Error('Unable to load the course product.');
+          }
+
+          const product = await productResponse.json();
+          const variant =
+            product.variants.find((item) => item.available) ||
+            product.variants[0];
+
+          if (!variant) {
+            throw new Error('No available course variant was found.');
+          }
+
+          const sections = [
+            'cart-notification-product',
+            'cart-icon-bubble'
+          ];
+
+          const addResponse = await fetch(
+            window.routes?.cart_add_url || '/cart/add.js',
+            {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json'
+              },
+              body: JSON.stringify({
+                items: [
+                  {
+                    id: variant.id,
+                    quantity: 1
+                  }
+                ],
+                sections: sections.join(','),
+                sections_url: window.location.pathname
+              })
+            }
+          );
+
+          const result = await addResponse.json();
+
+          if (!addResponse.ok || result.status) {
+            throw new Error(
+              result.description ||
+              result.message ||
+              'The course could not be added to the cart.'
+            );
+          }
+
+          const cartNotification = document.querySelector('cart-notification');
+
+          if (
+            cartNotification &&
+            typeof cartNotification.renderContents === 'function'
+          ) {
+            cartNotification.renderContents(result);
+          } else {
+            const cartDrawer = document.querySelector('cart-drawer');
+
+            if (
+              cartDrawer &&
+              typeof cartDrawer.renderContents === 'function'
+            ) {
+              cartDrawer.renderContents(result);
+            } else {
+              window.location.href = window.routes?.cart_url || '/cart';
+              return;
+            }
+          }
+
+          if (buttonText) buttonText.textContent = 'Added to cart';
+
+          window.setTimeout(() => {
+            if (buttonText) buttonText.textContent = originalText;
+          }, 1600);
+        } catch (error) {
+          console.error('[Bojax curriculum cart]', error);
+
+          const buttonText = button.querySelector('span');
+          if (buttonText) buttonText.textContent = 'Try again';
+
+          window.setTimeout(() => {
+            if (buttonText) buttonText.textContent = originalText;
+          }, 1800);
+        } finally {
+          button.removeAttribute('aria-busy');
+        }
+      });
+
+      section.dataset.cartReady = 'true';
+    };
+
+    if (document.readyState === 'loading') {
+      document.addEventListener(
+        'DOMContentLoaded',
+        initializeCurriculumCart,
+        { once: true }
+      );
+    } else {
+      initializeCurriculumCart();
+    }
+
+    document.addEventListener('shopify:section:load', (event) => {
+      if (
+        event.target.querySelector &&
+        event.target.querySelector(`#${sectionId}`)
+      ) {
+        initializeCurriculumCart();
+      }
     });
   })();
 </script>

@@ -51,7 +51,7 @@
         "description": "<p>The complete system for improving your facial appearance, physique, skin, hair, style and overall presentation.</p>",
         "button_text": "START YOUR ASCENSION",
         "button_link": "",
-        "payment_note": "$29.99 one-time payment • Lifetime access",
+        "payment_note": "$29.99 one-time payment â¢ Lifetime access",
         "show_stars": true,
         "proof_text": "650+ students"
       }
@@ -64,7 +64,7 @@
           "settings": {
             "before_image": "shopify://shop_images/6D05A991-66DB-4EC2-9B2B-19F5847E0641.png",
             "after_image": "shopify://shop_images/IMG_0784.jpg",
-            "overline": "The Bojax Method • Before — After",
+            "overline": "The Bojax Method â¢ Before â After",
             "title": "Face Ascension",
             "description": "<p>Improved skin, hair, grooming, facial presentation and overall appearance.</p>"
           }
@@ -74,7 +74,7 @@
           "settings": {
             "before_image": "shopify://shop_images/IMG_0785.jpg",
             "after_image": "shopify://shop_images/IMG_0585.jpg",
-            "overline": "The Bojax Method • Before — After",
+            "overline": "The Bojax Method â¢ Before â After",
             "title": "Physique Ascension",
             "description": "<p>Through improved nutrition, consistent gym training and advanced performance education, he built more muscle, improved his proportions and developed a stronger overall physique.</p>"
           }
@@ -90,7 +90,7 @@
         "heading": "The same system Bojax ran for his own transformation.",
         "description": "<p>Bojax applied the methods to himself first. See the progression behind the course.</p>",
         "autoplay_speed": 4,
-        "swipe_text": "Swipe to see the transformation →",
+        "swipe_text": "Swipe to see the transformation â",
         "followers": "15.3K",
         "followers_label": "Followers",
         "likes": "869.6K",
@@ -320,42 +320,123 @@
         "button_link": "/products/bojax-course"
       }
     },
-    "bojax_pricing_card_A4MwBy": {
+    "bojax_price_card_v2": {
       "type": "bojax-pricing-card",
       "name": "Bojax price card",
       "settings": {
-        "product": "",
-        "padding_top": 48,
+        "product": "bojax-course",
+        "padding_top": 40,
         "padding_bottom": 56,
-        "padding_top_mobile": 32,
+        "padding_top_mobile": 28,
         "padding_bottom_mobile": 40,
         "eyebrow": "ONE-TIME PAYMENT",
         "heading": "Get the complete Bojax Method",
-        "description": "<p>Unlock the complete course, member support and live teaching calls with one payment. No monthly billing and no recurring subscription.</p>",
-        "offer_label": "CURRENT MEMBER PRICE",
+        "description": "<p>Unlock the complete course, 24/7 messaging access, member support and live teaching calls with one payment. No monthly billing and no recurring subscription.</p>",
+        "offer_label": "LIMITED-TIME SALE PRICE",
         "fallback_price": "$29.99",
-        "show_compare_price": true,
         "fallback_compare_price": "$59.99",
-        "price_subtext": "One-time purchase • Instant digital delivery • Lifetime course access",
+        "price_subtext": "One-time purchase â¢ Instant digital delivery â¢ Lifetime course access",
         "show_countdown": true,
-        "countdown_heading": "Sale ends after the timer ends",
+        "countdown_heading": "SALE ENDS WHEN THE TIMER REACHES ZERO",
         "minimum_hours": 5.5,
         "maximum_hours": 9,
         "feature_1": "Complete looksmaxxing curriculum",
         "feature_2": "40+ detailed video lessons",
-        "feature_3": "Submit questions to Bojax anytime",
+        "feature_3": "Message Bojax with questions 24/7",
         "feature_4": "Live teaching and member Q&A calls",
         "feature_5": "Instant access immediately after checkout",
         "feature_6": "Lifetime access to the complete course",
         "feature_7": "All future lessons and course updates",
         "feature_8": "Private members-only support access",
         "support_heading": "Direct access to Bojax and live teaching",
-        "support_text": "Members can submit questions at any time and join live group calls where Bojax teaches course topics and answers member questions. Response times and call schedules may vary.",
-        "button_text": "Get Lifetime Access — $29.99",
-        "non_recurring_text": "$29.99 one-time purchase • Non-recurring • No subscription",
+        "support_text": "Message Bojax with questions at any time and join live group calls where he teaches course topics, explains advanced strategies and answers member questions. Response times and call schedules may vary.",
+        "button_text": "Claim the Sale Price â $29.99",
+        "non_recurring_text": "$29.99 one-time purchase â¢ Non-recurring â¢ No subscription",
         "payment_heading": "Accepted payment methods",
-        "payment_note": "Available payment options may vary by location, currency and checkout eligibility.",
-        "legal_note": "<p>By completing your purchase, you agree to the store’s terms and refund policy. Individual results vary.</p>"
+        "payment_note": "Available options may vary by location, currency and checkout eligibility.",
+        "legal_note": "<p>By completing your purchase, you agree to the storeâs terms and refund policy. Individual results vary.</p>",
+        "show_compare_price": true
+      }
+    },
+    "bojax_testimonials_v1": {
+      "type": "bojax-testimonials",
+      "blocks": {
+        "review_1": {
+          "type": "testimonial",
+          "settings": {
+            "image_label": "",
+            "review_title": "Add your strongest genuine review",
+            "review": "Replace this text with the exact words from a real course member.",
+            "name": "Member name or initials",
+            "member_details": "Verified member",
+            "rating": 5,
+            "verified": true,
+            "featured": true
+          }
+        },
+        "review_2": {
+          "type": "testimonial",
+          "settings": {
+            "image_label": "",
+            "review_title": "Show the value of the course",
+            "review": "Replace this text with a genuine review explaining what the member learned or improved.",
+            "name": "Member name or initials",
+            "member_details": "Verified member",
+            "rating": 5,
+            "verified": true,
+            "featured": false
+          }
+        },
+        "review_3": {
+          "type": "testimonial",
+          "settings": {
+            "image_label": "",
+            "review_title": "Answer a common objection",
+            "review": "Replace this text with a genuine review about the course quality, support, or whether it was worth the price.",
+            "name": "Member name or initials",
+            "member_details": "Verified member",
+            "rating": 5,
+            "verified": true,
+            "featured": false
+          }
+        },
+        "review_4": {
+          "type": "testimonial",
+          "settings": {
+            "image_label": "",
+            "review_title": "Describe the member experience",
+            "review": "Replace this text with a genuine review about the lessons, action plan, or direct support.",
+            "name": "Member name or initials",
+            "member_details": "Verified member",
+            "rating": 5,
+            "verified": true,
+            "featured": false
+          }
+        }
+      },
+      "block_order": [
+        "review_1",
+        "review_2",
+        "review_3",
+        "review_4"
+      ],
+      "name": "Bojax testimonials",
+      "settings": {
+        "eyebrow": "REAL MEMBER FEEDBACK",
+        "heading": "What members are saying",
+        "description": "<p>Feedback from members using the Bojax Method to organize their routines, improve their presentation and stop relying on scattered advice.</p>",
+        "autoplay": true,
+        "autoplay_speed": 7,
+        "image_ratio": "landscape",
+        "show_stars": true,
+        "button_text": "Get Instant Access â $29.99",
+        "button_link": "/products/bojax-course",
+        "button_note": "One-time payment â¢ Lifetime access â¢ Start immediately",
+        "disclaimer": "Individual experiences and results vary. Only publish genuine member feedback and images you have permission to use.",
+        "padding_top": 56,
+        "padding_bottom": 64,
+        "padding_top_mobile": 40,
+        "padding_bottom_mobile": 48
       }
     }
   },
@@ -363,6 +444,7 @@
     "bojax_hero",
     "bojax_transformations_CPURm7",
     "bojax_course_curriculum_C6bCDw",
-    "bojax_pricing_card_A4MwBy"
+    "bojax_testimonials_v1",
+    "bojax_price_card_v2"
   ]
 }

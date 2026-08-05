@@ -33,8 +33,7 @@
   assign feature_7 = section.settings.feature_7 | default: 'All future lessons and course updates'
   assign feature_8 = section.settings.feature_8 | default: 'Private members-only support access'
 
-  assign countdown_heading = section.settings.countdown_heading | default: 'Your checkout session is reserved for'
-  assign countdown_note = section.settings.countdown_note | default: 'Your timer stays consistent when this page is refreshed.'
+  assign countdown_heading = section.settings.countdown_heading | default: 'Sale ends when the countdown reaches zero'
   assign minimum_hours = section.settings.minimum_hours | default: 5.25
   assign maximum_hours = section.settings.maximum_hours | default: 8.75
 
@@ -85,9 +84,12 @@
       </div>
     </header>
 
-    <div class="bojax-pricing__offer">
+    <div class="bojax-pricing__offer" data-bojax-offer-card>
       <div class="bojax-pricing__offer-inner">
-        <p class="bojax-pricing__offer-label">
+        <p
+          class="bojax-pricing__offer-label"
+          data-bojax-offer-label
+        >
           {{ section.settings.offer_label | default: 'CURRENT MEMBER PRICE' }}
         </p>
 
@@ -122,7 +124,7 @@
             data-bojax-countdown
             data-min-hours="{{ minimum_hours }}"
             data-max-hours="{{ maximum_hours }}"
-            data-storage-key="bojax-pricing-expiration-{{ section.id }}"
+            data-storage-key="bojax-sale-expiration-{{ section.id }}"
           >
             <div class="bojax-pricing__urgency-heading">
               <span
@@ -130,14 +132,16 @@
                 aria-hidden="true"
               ></span>
 
-              <span>{{ countdown_heading }}</span>
+              <span data-bojax-countdown-heading>
+                {{ countdown_heading }}
+              </span>
             </div>
 
             <div
               class="bojax-pricing__timer"
               role="timer"
               aria-live="off"
-              aria-label="Checkout session countdown"
+              aria-label="Sale countdown"
             >
               <div class="bojax-pricing__time-unit">
                 <strong data-countdown-hours>06</strong>
@@ -170,7 +174,7 @@
             </div>
 
             <p class="bojax-pricing__urgency-note">
-              {{ countdown_note }}
+              Complete checkout before the timer reaches zero to claim the current price.
             </p>
           </div>
         {% endunless %}
@@ -278,12 +282,17 @@
                   type="submit"
                   name="add"
                   class="bojax-pricing__button"
+                  data-bojax-sale-button
+                  data-active-text="{{ button_text | escape }}"
                   {% unless pricing_variant.available %}
                     disabled
                   {% endunless %}
                 >
                   <span class="bojax-pricing__button-content">
-                    <span class="bojax-pricing__button-text">
+                    <span
+                      class="bojax-pricing__button-text"
+                      data-bojax-button-text
+                    >
                       {% if pricing_variant.available %}
                         {{ button_text }}
                       {% else %}
@@ -295,6 +304,7 @@
                       <span
                         class="bojax-pricing__button-arrow"
                         aria-hidden="true"
+                        data-bojax-button-arrow
                       >
                         <svg viewBox="0 0 20 20">
                           <path
@@ -318,15 +328,21 @@
             <a
               class="bojax-pricing__button"
               href="/products/bojax-course"
+              data-bojax-sale-link
+              data-active-text="{{ button_text | escape }}"
             >
               <span class="bojax-pricing__button-content">
-                <span class="bojax-pricing__button-text">
+                <span
+                  class="bojax-pricing__button-text"
+                  data-bojax-button-text
+                >
                   {{ button_text }}
                 </span>
 
                 <span
                   class="bojax-pricing__button-arrow"
                   aria-hidden="true"
+                  data-bojax-button-arrow
                 >
                   <svg viewBox="0 0 20 20">
                     <path
@@ -560,6 +576,16 @@
       0 0 5rem rgba(216, 184, 106, 0.08);
   }
 
+  .bojax-pricing__offer.is-expired {
+    background:
+      linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.19),
+        rgba(255, 255, 255, 0.05),
+        rgba(255, 255, 255, 0.12)
+      );
+  }
+
   .bojax-pricing__offer-inner {
     padding: 4.2rem 4rem 3.6rem;
     border-radius: calc(2.7rem - 1px);
@@ -638,6 +664,11 @@
       0 1.8rem 4rem rgba(0, 0, 0, 0.18);
   }
 
+  .bojax-pricing__urgency.is-expired {
+    border-color: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.04);
+  }
+
   .bojax-pricing__urgency-heading {
     display: flex;
     align-items: center;
@@ -651,6 +682,11 @@
     text-transform: uppercase;
   }
 
+  .bojax-pricing__urgency.is-expired
+  .bojax-pricing__urgency-heading {
+    color: rgba(255, 255, 255, 0.65);
+  }
+
   .bojax-pricing__urgency-dot {
     display: block;
     width: 0.8rem;
@@ -661,6 +697,13 @@
       0 0 0 0.4rem rgba(240, 197, 104, 0.09),
       0 0 1.5rem rgba(240, 197, 104, 0.45);
     animation: bojaxUrgencyPulse 1.8s ease-in-out infinite;
+  }
+
+  .bojax-pricing__urgency.is-expired
+  .bojax-pricing__urgency-dot {
+    background: rgba(255, 255, 255, 0.5);
+    box-shadow: none;
+    animation: none;
   }
 
   .bojax-pricing__timer {
@@ -706,7 +749,7 @@
 
   .bojax-pricing__urgency-note {
     margin: 1.4rem 0 0;
-    color: rgba(255, 255, 255, 0.43);
+    color: rgba(255, 255, 255, 0.48);
     font-size: 1rem;
     line-height: 1.5;
   }
@@ -888,9 +931,14 @@
     transform: translateY(-0.2rem);
   }
 
-  .bojax-pricing__button:disabled {
+  .bojax-pricing__button:disabled,
+  .bojax-pricing__button.is-expired {
+    border-color: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.12);
+    color: rgba(255, 255, 255, 0.5);
     cursor: not-allowed;
-    opacity: 0.55;
+    box-shadow: none;
+    pointer-events: none;
     transform: none;
   }
 
@@ -1197,137 +1245,234 @@
 {% endstylesheet %}
 
 <script>
-  (() => {
-    const activeIntervals = new WeakMap();
+  (function () {
+    var sectionId = 'BojaxPricing-{{ section.id }}';
+    var intervalId = null;
 
-    const initializeBojaxPricing = (section) => {
-      if (!section) return;
+    function getSection() {
+      return document.getElementById(sectionId);
+    }
 
-      const existingInterval = activeIntervals.get(section);
+    function safelyGetStorage(key) {
+      try {
+        return window.localStorage.getItem(key);
+      } catch (error) {
+        return null;
+      }
+    }
 
-      if (existingInterval) {
-        window.clearInterval(existingInterval);
-        activeIntervals.delete(section);
+    function safelySetStorage(key, value) {
+      try {
+        window.localStorage.setItem(key, value);
+      } catch (error) {
+        return;
+      }
+    }
+
+    function createExpiration(minimumHours, maximumHours) {
+      var minimumMilliseconds =
+        minimumHours * 60 * 60 * 1000;
+
+      var maximumMilliseconds =
+        maximumHours * 60 * 60 * 1000;
+
+      var randomMilliseconds =
+        minimumMilliseconds +
+        Math.random() *
+          (maximumMilliseconds - minimumMilliseconds);
+
+      return Date.now() + Math.floor(randomMilliseconds);
+    }
+
+    function expireOffer(section, countdown) {
+      var offerCard = section.querySelector(
+        '[data-bojax-offer-card]'
+      );
+
+      var offerLabel = section.querySelector(
+        '[data-bojax-offer-label]'
+      );
+
+      var heading = section.querySelector(
+        '[data-bojax-countdown-heading]'
+      );
+
+      var hours = section.querySelector(
+        '[data-countdown-hours]'
+      );
+
+      var minutes = section.querySelector(
+        '[data-countdown-minutes]'
+      );
+
+      var seconds = section.querySelector(
+        '[data-countdown-seconds]'
+      );
+
+      var purchaseButton = section.querySelector(
+        '[data-bojax-sale-button]'
+      );
+
+      var purchaseLink = section.querySelector(
+        '[data-bojax-sale-link]'
+      );
+
+      var buttonText = section.querySelector(
+        '[data-bojax-button-text]'
+      );
+
+      var buttonArrow = section.querySelector(
+        '[data-bojax-button-arrow]'
+      );
+
+      if (hours) hours.textContent = '00';
+      if (minutes) minutes.textContent = '00';
+      if (seconds) seconds.textContent = '00';
+
+      if (heading) {
+        heading.textContent = 'This sale has ended';
       }
 
-      const countdown = section.querySelector(
+      if (offerLabel) {
+        offerLabel.textContent = 'SALE ENDED';
+      }
+
+      if (countdown) {
+        countdown.classList.add('is-expired');
+      }
+
+      if (offerCard) {
+        offerCard.classList.add('is-expired');
+      }
+
+      if (buttonText) {
+        buttonText.textContent = 'Sale Ended';
+      }
+
+      if (buttonArrow) {
+        buttonArrow.style.display = 'none';
+      }
+
+      if (purchaseButton) {
+        purchaseButton.disabled = true;
+        purchaseButton.setAttribute('aria-disabled', 'true');
+        purchaseButton.classList.add('is-expired');
+      }
+
+      if (purchaseLink) {
+        purchaseLink.removeAttribute('href');
+        purchaseLink.setAttribute('aria-disabled', 'true');
+        purchaseLink.classList.add('is-expired');
+      }
+
+      if (intervalId) {
+        window.clearInterval(intervalId);
+        intervalId = null;
+      }
+    }
+
+    function initializeCountdown() {
+      var section = getSection();
+
+      if (!section) return;
+
+      var countdown = section.querySelector(
         '[data-bojax-countdown]'
       );
 
       if (!countdown) return;
 
-      const hoursElement = countdown.querySelector(
+      if (intervalId) {
+        window.clearInterval(intervalId);
+        intervalId = null;
+      }
+
+      var hoursElement = countdown.querySelector(
         '[data-countdown-hours]'
       );
 
-      const minutesElement = countdown.querySelector(
+      var minutesElement = countdown.querySelector(
         '[data-countdown-minutes]'
       );
 
-      const secondsElement = countdown.querySelector(
+      var secondsElement = countdown.querySelector(
         '[data-countdown-seconds]'
       );
 
-      let minimumHours =
-        Number.parseFloat(countdown.dataset.minHours);
+      var minimumHours = parseFloat(
+        countdown.getAttribute('data-min-hours')
+      );
 
-      let maximumHours =
-        Number.parseFloat(countdown.dataset.maxHours);
+      var maximumHours = parseFloat(
+        countdown.getAttribute('data-max-hours')
+      );
 
-      if (!Number.isFinite(minimumHours)) {
+      if (!isFinite(minimumHours) || minimumHours < 5) {
         minimumHours = 5.25;
       }
 
-      if (!Number.isFinite(maximumHours)) {
+      if (
+        !isFinite(maximumHours) ||
+        maximumHours <= minimumHours
+      ) {
         maximumHours = 8.75;
       }
 
-      if (minimumHours < 5) {
-        minimumHours = 5;
+      var storageKey = countdown.getAttribute(
+        'data-storage-key'
+      );
+
+      if (!storageKey) {
+        storageKey = 'bojax-sale-expiration';
       }
 
-      if (maximumHours <= minimumHours) {
-        maximumHours = minimumHours + 1;
-      }
+      var storedExpiration = parseInt(
+        safelyGetStorage(storageKey),
+        10
+      );
 
-      const storageKey =
-        countdown.dataset.storageKey ||
-        'bojax-pricing-expiration';
+      var expiration;
 
-      const createExpiration = () => {
-        const minimumMilliseconds =
-          minimumHours * 60 * 60 * 1000;
-
-        const maximumMilliseconds =
-          maximumHours * 60 * 60 * 1000;
-
-        const randomDuration =
-          minimumMilliseconds +
-          Math.random() *
-            (maximumMilliseconds - minimumMilliseconds);
-
-        const expiration =
-          Date.now() + Math.round(randomDuration);
-
-        try {
-          window.localStorage.setItem(
-            storageKey,
-            String(expiration)
-          );
-        } catch (error) {
-          console.warn(
-            '[Bojax pricing] Countdown storage unavailable.',
-            error
-          );
-        }
-
-        return expiration;
-      };
-
-      const getExpiration = () => {
-        try {
-          const savedExpiration = Number(
-            window.localStorage.getItem(storageKey)
-          );
-
-          if (
-            Number.isFinite(savedExpiration) &&
-            savedExpiration > Date.now()
-          ) {
-            return savedExpiration;
-          }
-        } catch (error) {
-          console.warn(
-            '[Bojax pricing] Countdown storage unavailable.',
-            error
-          );
-        }
-
-        return createExpiration();
-      };
-
-      let expiration = getExpiration();
-
-      const renderCountdown = () => {
-        let remaining = expiration - Date.now();
-
-        if (remaining <= 0) {
-          expiration = createExpiration();
-          remaining = expiration - Date.now();
-        }
-
-        const totalSeconds = Math.max(
-          0,
-          Math.floor(remaining / 1000)
+      if (
+        isFinite(storedExpiration) &&
+        storedExpiration > 0
+      ) {
+        expiration = storedExpiration;
+      } else {
+        expiration = createExpiration(
+          minimumHours,
+          maximumHours
         );
 
-        const hours = Math.floor(totalSeconds / 3600);
+        safelySetStorage(
+          storageKey,
+          String(expiration)
+        );
+      }
 
-        const minutes = Math.floor(
+      function updateCountdown() {
+        var remaining =
+          expiration - new Date().getTime();
+
+        if (remaining <= 0) {
+          expireOffer(section, countdown);
+          return;
+        }
+
+        var totalSeconds = Math.floor(
+          remaining / 1000
+        );
+
+        var hours = Math.floor(
+          totalSeconds / 3600
+        );
+
+        var minutes = Math.floor(
           (totalSeconds % 3600) / 60
         );
 
-        const seconds = totalSeconds % 60;
+        var seconds =
+          totalSeconds % 60;
 
         if (hoursElement) {
           hoursElement.textContent =
@@ -1341,4 +1486,326 @@
 
         if (secondsElement) {
           secondsElement.textContent =
-            String(seconds
+            String(seconds).padStart(2, '0');
+        }
+      }
+
+      updateCountdown();
+
+      intervalId = window.setInterval(
+        updateCountdown,
+        1000
+      );
+    }
+
+    function startBojaxPricingTimer() {
+      window.setTimeout(
+        initializeCountdown,
+        50
+      );
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener(
+        'DOMContentLoaded',
+        startBojaxPricingTimer
+      );
+    } else {
+      startBojaxPricingTimer();
+    }
+
+    document.addEventListener(
+      'shopify:section:load',
+      function (event) {
+        var loadedSection =
+          event.target.querySelector
+            ? event.target.querySelector(
+                '#' + sectionId
+              )
+            : null;
+
+        if (
+          event.target.id === sectionId ||
+          loadedSection
+        ) {
+          startBojaxPricingTimer();
+        }
+      }
+    );
+
+    document.addEventListener(
+      'shopify:section:unload',
+      function (event) {
+        if (
+          event.target.id === sectionId &&
+          intervalId
+        ) {
+          window.clearInterval(intervalId);
+          intervalId = null;
+        }
+      }
+    );
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Bojax pricing",
+  "tag": "section",
+  "class": "bojax-pricing-section",
+  "settings": [
+    {
+      "type": "product",
+      "id": "product",
+      "label": "Course product"
+    },
+    {
+      "type": "header",
+      "content": "Section spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 140,
+      "step": 4,
+      "unit": "px",
+      "label": "Desktop top spacing",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 140,
+      "step": 4,
+      "unit": "px",
+      "label": "Desktop bottom spacing",
+      "default": 56
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Mobile top spacing",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Mobile bottom spacing",
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "Heading"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Small heading",
+      "default": "ONE-TIME PAYMENT"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Get the complete Bojax Method"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Unlock the complete course, member support and live teaching calls with one payment. No monthly billing and no recurring subscription.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Price"
+    },
+    {
+      "type": "text",
+      "id": "offer_label",
+      "label": "Price label",
+      "default": "CURRENT MEMBER PRICE"
+    },
+    {
+      "type": "text",
+      "id": "fallback_price",
+      "label": "Fallback price",
+      "default": "$29.99"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_fallback_compare_price",
+      "label": "Show crossed-out fallback price",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "fallback_compare_price",
+      "label": "Fallback crossed-out price",
+      "default": "$59.99"
+    },
+    {
+      "type": "text",
+      "id": "price_subtext",
+      "label": "Text beneath price",
+      "default": "One-time purchase • Instant digital delivery • Lifetime course access"
+    },
+    {
+      "type": "header",
+      "content": "Sale countdown"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_countdown",
+      "label": "Show sale countdown",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "countdown_heading",
+      "label": "Countdown heading",
+      "default": "Sale ends when the countdown reaches zero"
+    },
+    {
+      "type": "range",
+      "id": "minimum_hours",
+      "min": 5,
+      "max": 10,
+      "step": 0.25,
+      "unit": "hr",
+      "label": "Minimum starting time",
+      "default": 5.25
+    },
+    {
+      "type": "range",
+      "id": "maximum_hours",
+      "min": 5.5,
+      "max": 12,
+      "step": 0.25,
+      "unit": "hr",
+      "label": "Maximum starting time",
+      "default": 8.75
+    },
+    {
+      "type": "header",
+      "content": "Included benefits"
+    },
+    {
+      "type": "text",
+      "id": "feature_1",
+      "label": "Benefit 1",
+      "default": "Complete looksmaxxing curriculum"
+    },
+    {
+      "type": "text",
+      "id": "feature_2",
+      "label": "Benefit 2",
+      "default": "40+ detailed video lessons"
+    },
+    {
+      "type": "text",
+      "id": "feature_3",
+      "label": "Benefit 3",
+      "default": "Submit questions to Bojax anytime"
+    },
+    {
+      "type": "text",
+      "id": "feature_4",
+      "label": "Benefit 4",
+      "default": "Live teaching and member Q&A calls"
+    },
+    {
+      "type": "text",
+      "id": "feature_5",
+      "label": "Benefit 5",
+      "default": "Instant access immediately after checkout"
+    },
+    {
+      "type": "text",
+      "id": "feature_6",
+      "label": "Benefit 6",
+      "default": "Lifetime access to the complete course"
+    },
+    {
+      "type": "text",
+      "id": "feature_7",
+      "label": "Benefit 7",
+      "default": "All future lessons and course updates"
+    },
+    {
+      "type": "text",
+      "id": "feature_8",
+      "label": "Benefit 8",
+      "default": "Private members-only support access"
+    },
+    {
+      "type": "header",
+      "content": "Support highlight"
+    },
+    {
+      "type": "text",
+      "id": "support_heading",
+      "label": "Support heading",
+      "default": "Direct access to Bojax and live teaching"
+    },
+    {
+      "type": "textarea",
+      "id": "support_text",
+      "label": "Support description",
+      "default": "Members can submit questions at any time and join live group calls where Bojax teaches course topics and answers member questions. Response times and call schedules may vary."
+    },
+    {
+      "type": "header",
+      "content": "Purchase button"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Purchase button text",
+      "default": "Get Lifetime Access — $29.99"
+    },
+    {
+      "type": "text",
+      "id": "non_recurring_text",
+      "label": "Non-recurring message",
+      "default": "$29.99 one-time purchase • Non-recurring • No subscription"
+    },
+    {
+      "type": "header",
+      "content": "Payment methods"
+    },
+    {
+      "type": "text",
+      "id": "payment_heading",
+      "label": "Payment heading",
+      "default": "Accepted payment methods"
+    },
+    {
+      "type": "text",
+      "id": "payment_note",
+      "label": "Payment note",
+      "default": "Available payment options may vary by location, currency and checkout eligibility."
+    },
+    {
+      "type": "richtext",
+      "id": "legal_note",
+      "label": "Legal note",
+      "default": "<p>By completing your purchase, you agree to the store’s terms and refund policy. Individual results vary.</p>"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Bojax pricing"
+    }
+  ]
+}
+{% endschema %}

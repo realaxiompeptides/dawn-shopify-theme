@@ -250,15 +250,6 @@
             "featured": false
           }
         },
-        "topic_cjMwnN": {
-          "type": "topic",
-          "settings": {
-            "category": "Hardmaxxing",
-            "title": "Professional and cosmetic options",
-            "description": "<p>A realistic overview of dentistry, dermatology, hair restoration and cosmetic procedures.</p>",
-            "featured": false
-          }
-        },
         "topic_R7yRVx": {
           "type": "topic",
           "settings": {
@@ -266,6 +257,15 @@
             "title": "Your personal ascension plan",
             "description": "<p>Turn the curriculum into a focused plan based on your age, priorities, budget and starting point.</p>",
             "featured": true
+          }
+        },
+        "topic_cjMwnN": {
+          "type": "topic",
+          "settings": {
+            "category": "Hardmaxxing",
+            "title": "Professional and cosmetic options",
+            "description": "<p>A realistic overview of dentistry, dermatology, hair restoration and cosmetic procedures.</p>",
+            "featured": false
           }
         }
       },
@@ -286,8 +286,8 @@
         "topic_ydKeaQ",
         "topic_Yy4gFc",
         "topic_3hchdb",
-        "topic_cjMwnN",
-        "topic_R7yRVx"
+        "topic_R7yRVx",
+        "topic_cjMwnN"
       ],
       "name": "Bojax course curriculum",
       "settings": {
@@ -358,10 +358,10 @@
         "legal_note": "<p>By completing your purchase, you agree to the store's terms and refund policy. Individual results vary.</p>"
       }
     },
-    "bojax_faq_C3tBez": {
-      "type": "bojax-faq",
+    "bojax_faq_add_to_cart_qFAqzJ": {
+      "type": "bojax-faq-add-to-cart",
       "blocks": {
-        "faq_CGGfJg": {
+        "faq_GdTcGX": {
           "type": "faq",
           "settings": {
             "question": "What exactly do I get?",
@@ -369,7 +369,7 @@
             "open_by_default": false
           }
         },
-        "faq_kixic6": {
+        "faq_zcqa7D": {
           "type": "faq",
           "settings": {
             "question": "Is this the same method Bojax used himself?",
@@ -377,7 +377,7 @@
             "open_by_default": false
           }
         },
-        "faq_hNEmiA": {
+        "faq_RC97ng": {
           "type": "faq",
           "settings": {
             "question": "How will I receive access?",
@@ -385,7 +385,7 @@
             "open_by_default": false
           }
         },
-        "faq_ygz3Jq": {
+        "faq_KAjabm": {
           "type": "faq",
           "settings": {
             "question": "Can I follow the course on my phone?",
@@ -393,7 +393,7 @@
             "open_by_default": false
           }
         },
-        "faq_xBtHw4": {
+        "faq_iF7GYU": {
           "type": "faq",
           "settings": {
             "question": "Do I need any experience?",
@@ -401,7 +401,7 @@
             "open_by_default": false
           }
         },
-        "faq_dkarya": {
+        "faq_JP4mg4": {
           "type": "faq",
           "settings": {
             "question": "How quickly will I see results?",
@@ -409,7 +409,7 @@
             "open_by_default": false
           }
         },
-        "faq_J6UCwU": {
+        "faq_npEFLg": {
           "type": "faq",
           "settings": {
             "question": "Is this a subscription?",
@@ -417,7 +417,7 @@
             "open_by_default": false
           }
         },
-        "faq_CxFUVB": {
+        "faq_KW4peG": {
           "type": "faq",
           "settings": {
             "question": "Can I ask Bojax questions?",
@@ -425,7 +425,7 @@
             "open_by_default": false
           }
         },
-        "faq_CBhDxx": {
+        "faq_iK8UE3": {
           "type": "faq",
           "settings": {
             "question": "What if the course is not right for me?",
@@ -433,7 +433,7 @@
             "open_by_default": false
           }
         },
-        "faq_MtzQgQ": {
+        "faq_KLrnxf": {
           "type": "faq",
           "settings": {
             "question": "Is this medical advice?",
@@ -443,16 +443,16 @@
         }
       },
       "block_order": [
-        "faq_CGGfJg",
-        "faq_kixic6",
-        "faq_hNEmiA",
-        "faq_ygz3Jq",
-        "faq_xBtHw4",
-        "faq_dkarya",
-        "faq_J6UCwU",
-        "faq_CxFUVB",
-        "faq_CBhDxx",
-        "faq_MtzQgQ"
+        "faq_GdTcGX",
+        "faq_zcqa7D",
+        "faq_RC97ng",
+        "faq_KAjabm",
+        "faq_iF7GYU",
+        "faq_JP4mg4",
+        "faq_npEFLg",
+        "faq_KW4peG",
+        "faq_iK8UE3",
+        "faq_KLrnxf"
       ],
       "name": "Bojax FAQ",
       "settings": {
@@ -462,7 +462,7 @@
         "cta_heading": "Stop Guessing. Start Your Ascension.",
         "cta_text": "<p>Get the complete system and start building a clear appearance-improvement plan today.</p>",
         "button_text": "Get Lifetime Access - $29.99",
-        "button_link": "",
+        "product": "bojax-course",
         "button_note": "One-time payment | Lifetime access | Start immediately",
         "padding_top": 72,
         "padding_bottom": 80,
@@ -476,6 +476,6 @@
     "bojax_transformations_CPURm7",
     "bojax_course_curriculum_C6bCDw",
     "bojax_price_card_v2",
-    "bojax_faq_C3tBez"
+    "bojax_faq_add_to_cart_qFAqzJ"
   ]
 }

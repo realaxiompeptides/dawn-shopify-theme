@@ -358,8 +358,8 @@
         "show_compare_price": true
       }
     },
-    "bojax_testimonials_v1": {
-      "type": "bojax-testimonials",
+    "bojaxmemberreviewsv1": {
+      "type": "bojax-member-reviews",
       "blocks": {
         "review_1": {
           "type": "testimonial",
@@ -420,7 +420,7 @@
         "review_3",
         "review_4"
       ],
-      "name": "Bojax testimonials",
+      "name": "Member reviews",
       "settings": {
         "eyebrow": "REAL MEMBER FEEDBACK",
         "heading": "What members are saying",
@@ -444,7 +444,7 @@
     "bojax_hero",
     "bojax_transformations_CPURm7",
     "bojax_course_curriculum_C6bCDw",
-    "bojax_testimonials_v1",
+    "bojaxmemberreviewsv1",
     "bojax_price_card_v2"
   ]
 }

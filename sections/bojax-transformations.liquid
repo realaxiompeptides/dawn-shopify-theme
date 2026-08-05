@@ -198,7 +198,8 @@
       <div class="bojax-transformations__actions">
         <a
           class="bojax-transformations__button"
-          href="{% if section.settings.button_link != blank %}{{ section.settings.button_link }}{% else %}/products/bojax-course{% endif %}"
+          href="#pricing"
+          data-scroll-to-pricing
         >
           <span>{{ section.settings.button_text }}</span>
 
@@ -871,6 +872,44 @@
       'shopify:section:load',
       (event) => initializeAll(event.target)
     );
+  })();
+</script>
+
+
+<script>
+  (() => {
+    const scrollToPricing = (event) => {
+      const button = event.target.closest('[data-scroll-to-pricing]');
+
+      if (!button) return;
+
+      const pricing = document.getElementById('pricing');
+
+      if (!pricing) return;
+
+      event.preventDefault();
+      event.stopImmediatePropagation();
+
+      pricing.scrollIntoView({
+        behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches
+          ? 'auto'
+          : 'smooth',
+        block: 'start'
+      });
+
+      if (window.history && window.history.replaceState) {
+        window.history.replaceState(null, '', '#pricing');
+      }
+    };
+
+    document.addEventListener('click', scrollToPricing, true);
+
+    document.addEventListener('shopify:section:load', () => {
+      if (window.location.hash === '#pricing') {
+        const pricing = document.getElementById('pricing');
+        if (pricing) pricing.scrollIntoView({ block: 'start' });
+      }
+    });
   })();
 </script>
 

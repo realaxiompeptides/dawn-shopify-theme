@@ -1,4 +1,4 @@
-{%- liquid
+{{%- liquid
   assign pricing_product = section.settings.product
 
   if pricing_product == blank
@@ -33,7 +33,7 @@
   assign feature_7 = section.settings.feature_7 | default: 'All future lessons and course updates'
   assign feature_8 = section.settings.feature_8 | default: 'Private members-only support access'
 
-  assign countdown_heading = section.settings.countdown_heading | default: 'Sale ends when the countdown reaches zero'
+  assign countdown_heading = section.settings.countdown_heading | default: 'Sale ends after the timer ends'
   assign minimum_hours = section.settings.minimum_hours | default: 5.25
   assign maximum_hours = section.settings.maximum_hours | default: 8.75
 
@@ -124,7 +124,7 @@
             data-bojax-countdown
             data-min-hours="{{ minimum_hours }}"
             data-max-hours="{{ maximum_hours }}"
-            data-storage-key="bojax-sale-expiration-{{ section.id }}"
+            data-storage-key="bojax-sale-expiration-v3-{{ section.id }}"
           >
             <div class="bojax-pricing__urgency-heading">
               <span
@@ -1423,7 +1423,7 @@
       );
 
       if (!storageKey) {
-        storageKey = 'bojax-sale-expiration';
+        storageKey = 'bojax-sale-expiration-v3';
       }
 
       var storedExpiration = parseInt(
@@ -1431,11 +1431,12 @@
         10
       );
 
+      var currentTime = Date.now();
       var expiration;
 
       if (
         isFinite(storedExpiration) &&
-        storedExpiration > 0
+        storedExpiration > currentTime
       ) {
         expiration = storedExpiration;
       } else {
@@ -1452,7 +1453,7 @@
 
       function updateCountdown() {
         var remaining =
-          expiration - new Date().getTime();
+          expiration - Date.now();
 
         if (remaining <= 0) {
           expireOffer(section, countdown);
@@ -1673,7 +1674,7 @@
       "type": "text",
       "id": "countdown_heading",
       "label": "Countdown heading",
-      "default": "Sale ends when the countdown reaches zero"
+      "default": "Sale ends after the timer ends"
     },
     {
       "type": "range",

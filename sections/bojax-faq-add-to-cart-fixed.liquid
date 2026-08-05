@@ -1,0 +1,862 @@
+{%- liquid
+  assign faq_heading = section.settings.heading | default: 'Frequently Asked Questions'
+  assign faq_eyebrow = section.settings.eyebrow | default: 'FAQ'
+  assign faq_description = section.settings.description
+  assign faq_product = section.settings.product
+  assign faq_variant = faq_product.selected_or_first_available_variant
+  assign faq_form_id = 'BojaxFaqProductForm-' | append: section.id
+-%}
+
+<section
+  id="BojaxFaq-{{ section.id }}"
+  class="bojax-faq"
+  data-bojax-faq
+  style="
+    --bojax-faq-padding-top: {{ section.settings.padding_top }}px;
+    --bojax-faq-padding-bottom: {{ section.settings.padding_bottom }}px;
+    --bojax-faq-padding-top-mobile: {{ section.settings.padding_top_mobile }}px;
+    --bojax-faq-padding-bottom-mobile: {{ section.settings.padding_bottom_mobile }}px;
+  "
+>
+  <div class="bojax-faq__ambient" aria-hidden="true">
+    <span class="bojax-faq__glow bojax-faq__glow--left"></span>
+    <span class="bojax-faq__glow bojax-faq__glow--right"></span>
+    <span class="bojax-faq__grid"></span>
+  </div>
+
+  <div class="bojax-faq__container">
+    <header class="bojax-faq__header">
+      {% if faq_eyebrow != blank %}
+        <p class="bojax-faq__eyebrow">
+          {{ faq_eyebrow }}
+        </p>
+      {% endif %}
+
+      {% if faq_heading != blank %}
+        <h2 class="bojax-faq__heading">
+          {{ faq_heading }}
+        </h2>
+      {% endif %}
+
+      {% if faq_description != blank %}
+        <div class="bojax-faq__description">
+          {{ faq_description }}
+        </div>
+      {% endif %}
+    </header>
+
+    {% if section.blocks.size > 0 %}
+      <div class="bojax-faq__list">
+        {% for block in section.blocks %}
+          <details
+            class="bojax-faq__item"
+            data-faq-item
+            {% if block.settings.open_by_default and forloop.first %}
+              open
+            {% endif %}
+            {{ block.shopify_attributes }}
+          >
+            <summary class="bojax-faq__question">
+              <span>{{ block.settings.question }}</span>
+
+              <span class="bojax-faq__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <path
+                    d="m7 10 5 5 5-5"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </span>
+            </summary>
+
+            <div class="bojax-faq__answer">
+              <div class="bojax-faq__answer-inner">
+                {{ block.settings.answer }}
+              </div>
+            </div>
+          </details>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    {% if section.settings.button_text != blank %}
+      <div class="bojax-faq__cta">
+        {% if section.settings.cta_heading != blank %}
+          <h3 class="bojax-faq__cta-heading">
+            {{ section.settings.cta_heading }}
+          </h3>
+        {% endif %}
+
+        {% if section.settings.cta_text != blank %}
+          <div class="bojax-faq__cta-text">
+            {{ section.settings.cta_text }}
+          </div>
+        {% endif %}
+
+        {% if faq_product != blank and faq_variant != blank %}
+          {% form 'product', faq_product, id: faq_form_id, class: 'bojax-faq__product-form' %}
+            <input
+              type="hidden"
+              name="id"
+              value="{{ faq_variant.id }}"
+            >
+
+            <input
+              type="hidden"
+              name="quantity"
+              value="1"
+            >
+
+            <button
+              type="submit"
+              name="add"
+              class="bojax-faq__button"
+              {% unless faq_variant.available %}
+                disabled
+              {% endunless %}
+            >
+              <span>
+                {% if faq_variant.available %}
+                  {{ section.settings.button_text }}
+                {% else %}
+                  Sold out
+                {% endif %}
+              </span>
+
+              <svg viewBox="0 0 20 20" aria-hidden="true">
+                <path
+                  d="M4 10h11M11 5l5 5-5 5"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </button>
+          {% endform %}
+        {% else %}
+          <a
+            class="bojax-faq__button"
+            href="/#pricing"
+          >
+            <span>Select the course product</span>
+
+            <svg viewBox="0 0 20 20" aria-hidden="true">
+              <path
+                d="M4 10h11M11 5l5 5-5 5"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </a>
+        {% endif %}
+
+        {% if section.settings.button_note != blank %}
+          <p class="bojax-faq__button-note">
+            {{ section.settings.button_note }}
+          </p>
+        {% endif %}
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{% stylesheet %}
+  .bojax-faq {
+    --bojax-faq-gold: #d8b86a;
+    --bojax-faq-gold-light: #f3d990;
+    --bojax-faq-cream: #fff3d0;
+
+    position: relative;
+    overflow: hidden;
+    padding-top: var(--bojax-faq-padding-top, 72px);
+    padding-bottom: var(--bojax-faq-padding-bottom, 80px);
+    background:
+      radial-gradient(
+        circle at 50% 0,
+        rgba(216, 184, 106, 0.12),
+        transparent 34rem
+      ),
+      linear-gradient(180deg, #060606 0%, #020202 100%);
+    color: #ffffff;
+  }
+
+  .bojax-faq::before {
+    position: absolute;
+    inset: 0 0 auto;
+    height: 1px;
+    background:
+      linear-gradient(
+        90deg,
+        transparent,
+        rgba(216, 184, 106, 0.6),
+        rgba(255, 255, 255, 0.5),
+        rgba(216, 184, 106, 0.6),
+        transparent
+      );
+    content: "";
+  }
+
+  .bojax-faq__ambient {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .bojax-faq__glow {
+    position: absolute;
+    display: block;
+    width: 42rem;
+    height: 42rem;
+    border-radius: 50%;
+    background: var(--bojax-faq-gold);
+    filter: blur(10rem);
+  }
+
+  .bojax-faq__glow--left {
+    top: 8rem;
+    left: -26rem;
+    opacity: 0.06;
+  }
+
+  .bojax-faq__glow--right {
+    right: -24rem;
+    bottom: -8rem;
+    opacity: 0.05;
+  }
+
+  .bojax-faq__grid {
+    position: absolute;
+    inset: 0;
+    opacity: 0.025;
+    background-image:
+      linear-gradient(rgba(216, 184, 106, 0.45) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(216, 184, 106, 0.45) 1px, transparent 1px);
+    background-size: 7rem 7rem;
+    -webkit-mask-image:
+      linear-gradient(180deg, rgba(0, 0, 0, 0.9), transparent 92%);
+    mask-image:
+      linear-gradient(180deg, rgba(0, 0, 0, 0.9), transparent 92%);
+  }
+
+  .bojax-faq__container {
+    position: relative;
+    z-index: 2;
+    width: min(calc(100% - 4rem), 96rem);
+    margin: 0 auto;
+  }
+
+  .bojax-faq__header {
+    max-width: 78rem;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .bojax-faq__eyebrow {
+    margin: 0 0 1.4rem;
+    color: var(--bojax-faq-gold-light);
+    font-size: 0.95rem;
+    font-weight: 850;
+    letter-spacing: 0.3em;
+    line-height: 1;
+    text-transform: uppercase;
+  }
+
+  .bojax-faq__heading {
+    margin: 0;
+    color: #ffffff;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(4rem, 7vw, 7rem);
+    font-weight: 500;
+    letter-spacing: -0.055em;
+    line-height: 0.98;
+    text-wrap: balance;
+  }
+
+  .bojax-faq__description {
+    max-width: 66rem;
+    margin: 2rem auto 0;
+    color: rgba(255, 255, 255, 0.58);
+    font-size: clamp(1.35rem, 2vw, 1.7rem);
+    line-height: 1.65;
+  }
+
+  .bojax-faq__description p {
+    margin: 0;
+  }
+
+  .bojax-faq__list {
+    display: grid;
+    margin-top: 4rem;
+    gap: 1.2rem;
+  }
+
+  .bojax-faq__item {
+    overflow: hidden;
+    border: 1px solid rgba(216, 184, 106, 0.22);
+    border-radius: 1.8rem;
+    background:
+      linear-gradient(
+        145deg,
+        rgba(18, 17, 14, 0.98),
+        rgba(7, 7, 6, 0.99)
+      );
+    box-shadow:
+      0 1.8rem 5rem rgba(0, 0, 0, 0.22),
+      inset 0 1px rgba(255, 255, 255, 0.03);
+    transition:
+      border-color 180ms ease,
+      box-shadow 180ms ease,
+      transform 180ms ease;
+  }
+
+  .bojax-faq__item[open] {
+    border-color: rgba(243, 217, 144, 0.5);
+    box-shadow:
+      0 2.2rem 6rem rgba(0, 0, 0, 0.32),
+      0 0 3rem rgba(216, 184, 106, 0.06),
+      inset 0 1px rgba(255, 255, 255, 0.045);
+  }
+
+  .bojax-faq__question {
+    display: flex;
+    min-height: 8rem;
+    padding: 2rem 2.4rem;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    color: #ffffff;
+    font-size: 1.55rem;
+    font-weight: 820;
+    letter-spacing: -0.02em;
+    line-height: 1.35;
+    cursor: pointer;
+    list-style: none;
+  }
+
+  .bojax-faq__question::-webkit-details-marker {
+    display: none;
+  }
+
+  .bojax-faq__question::marker {
+    display: none;
+    content: "";
+  }
+
+  .bojax-faq__icon {
+    display: grid;
+    flex: 0 0 3.8rem;
+    width: 3.8rem;
+    height: 3.8rem;
+    place-items: center;
+    border: 1px solid rgba(216, 184, 106, 0.22);
+    border-radius: 50%;
+    background: rgba(216, 184, 106, 0.05);
+    color: var(--bojax-faq-gold-light);
+    transition:
+      background 180ms ease,
+      border-color 180ms ease,
+      transform 180ms ease;
+  }
+
+  .bojax-faq__icon svg {
+    width: 1.9rem;
+    height: 1.9rem;
+  }
+
+  .bojax-faq__item[open] .bojax-faq__icon {
+    border-color: rgba(243, 217, 144, 0.5);
+    background: rgba(216, 184, 106, 0.12);
+    transform: rotate(180deg);
+  }
+
+  .bojax-faq__answer {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 220ms ease;
+  }
+
+  .bojax-faq__item[open] .bojax-faq__answer {
+    grid-template-rows: 1fr;
+  }
+
+  .bojax-faq__answer-inner {
+    min-height: 0;
+    overflow: hidden;
+    padding: 0 2.4rem;
+    color: rgba(255, 255, 255, 0.66);
+    font-size: 1.3rem;
+    line-height: 1.72;
+  }
+
+  .bojax-faq__item[open] .bojax-faq__answer-inner {
+    padding-bottom: 2.4rem;
+  }
+
+  .bojax-faq__answer-inner p {
+    margin: 0;
+  }
+
+  .bojax-faq__answer-inner p + p {
+    margin-top: 1rem;
+  }
+
+  .bojax-faq__cta {
+    display: grid;
+    max-width: 72rem;
+    margin: 5.2rem auto 0;
+    gap: 1.4rem;
+    text-align: center;
+  }
+
+  .bojax-faq__cta-heading {
+    margin: 0;
+    color: #ffffff;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(3.4rem, 6vw, 5.5rem);
+    font-weight: 500;
+    letter-spacing: -0.05em;
+    line-height: 1;
+    text-wrap: balance;
+  }
+
+  .bojax-faq__cta-text {
+    color: rgba(255, 255, 255, 0.55);
+    font-size: 1.25rem;
+    line-height: 1.6;
+  }
+
+  .bojax-faq__cta-text p {
+    margin: 0;
+  }
+
+  .bojax-faq__product-form {
+    width: 100%;
+    margin: 0;
+  }
+
+  .bojax-faq__button {
+    display: inline-flex;
+    width: 100%;
+    min-height: 6.4rem;
+    margin-top: 0.8rem;
+    padding: 1.4rem 2.4rem;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    border: 1px solid #ffffff;
+    border-radius: 1.6rem;
+    background:
+      linear-gradient(
+        135deg,
+        #ffffff,
+        var(--bojax-faq-cream)
+      );
+    color: #080704;
+    font-size: 1.45rem;
+    font-weight: 900;
+    line-height: 1.2;
+    text-decoration: none;
+    box-shadow:
+      0 2rem 5rem rgba(0, 0, 0, 0.35),
+      0 0 4rem rgba(216, 184, 106, 0.1);
+    transition:
+      box-shadow 180ms ease,
+      transform 180ms ease;
+  }
+
+  button.bojax-faq__button {
+    appearance: none;
+    font-family: inherit;
+    cursor: pointer;
+  }
+
+  .bojax-faq__button[disabled] {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  .bojax-faq__button:hover {
+    color: #080704;
+    box-shadow:
+      0 2.5rem 6rem rgba(0, 0, 0, 0.43),
+      0 0 5rem rgba(216, 184, 106, 0.18);
+    transform: translateY(-0.2rem);
+  }
+
+  .bojax-faq__button svg {
+    width: 2rem;
+    height: 2rem;
+  }
+
+  .bojax-faq__button-note {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.38);
+    font-size: 1rem;
+    line-height: 1.45;
+  }
+
+  @media screen and (max-width: 749px) {
+    .bojax-faq {
+      padding-top: var(--bojax-faq-padding-top-mobile, 52px);
+      padding-bottom: var(--bojax-faq-padding-bottom-mobile, 60px);
+    }
+
+    .bojax-faq__container {
+      width: calc(100% - 2.8rem);
+    }
+
+    .bojax-faq__eyebrow {
+      margin-bottom: 1rem;
+      font-size: 0.78rem;
+      letter-spacing: 0.22em;
+    }
+
+    .bojax-faq__heading {
+      font-size: clamp(3.6rem, 12vw, 5.1rem);
+    }
+
+    .bojax-faq__description {
+      margin-top: 1.6rem;
+      font-size: 1.22rem;
+    }
+
+    .bojax-faq__list {
+      margin-top: 3rem;
+      gap: 1rem;
+    }
+
+    .bojax-faq__item {
+      border-radius: 1.5rem;
+    }
+
+    .bojax-faq__question {
+      min-height: 7.2rem;
+      padding: 1.7rem 1.6rem;
+      gap: 1.2rem;
+      font-size: 1.28rem;
+    }
+
+    .bojax-faq__icon {
+      flex-basis: 3.4rem;
+      width: 3.4rem;
+      height: 3.4rem;
+    }
+
+    .bojax-faq__answer-inner {
+      padding-right: 1.6rem;
+      padding-left: 1.6rem;
+      font-size: 1.12rem;
+    }
+
+    .bojax-faq__item[open] .bojax-faq__answer-inner {
+      padding-bottom: 1.8rem;
+    }
+
+    .bojax-faq__cta {
+      margin-top: 4rem;
+    }
+
+    .bojax-faq__button {
+      min-height: 6rem;
+      border-radius: 1.4rem;
+      font-size: 1.25rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .bojax-faq__item,
+    .bojax-faq__icon,
+    .bojax-faq__answer,
+    .bojax-faq__button {
+      transition: none;
+    }
+  }
+{% endstylesheet %}
+
+<script>
+  (() => {
+    const initializeBojaxFaq = (section) => {
+      if (!section || section.dataset.faqInitialized === 'true') return;
+
+      const items = Array.from(
+        section.querySelectorAll('[data-faq-item]')
+      );
+
+      items.forEach((item) => {
+        item.addEventListener('toggle', () => {
+          if (!item.open) return;
+
+          items.forEach((otherItem) => {
+            if (otherItem !== item && otherItem.open) {
+              otherItem.removeAttribute('open');
+            }
+          });
+        });
+      });
+
+      section.dataset.faqInitialized = 'true';
+    };
+
+    const initializeAllBojaxFaqs = (root = document) => {
+      if (
+        root.matches &&
+        root.matches('[data-bojax-faq]')
+      ) {
+        initializeBojaxFaq(root);
+      }
+
+      if (root.querySelectorAll) {
+        root
+          .querySelectorAll('[data-bojax-faq]')
+          .forEach(initializeBojaxFaq);
+      }
+    };
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => {
+        initializeAllBojaxFaqs(document);
+      });
+    } else {
+      initializeAllBojaxFaqs(document);
+    }
+
+    document.addEventListener('shopify:section:load', (event) => {
+      initializeAllBojaxFaqs(event.target);
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Bojax FAQ",
+  "tag": "section",
+  "class": "bojax-faq-section",
+  "max_blocks": 20,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section heading"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Small heading",
+      "default": "FAQ"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Frequently Asked Questions"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Everything you need to know before joining the Bojax Method.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Final call to action"
+    },
+    {
+      "type": "text",
+      "id": "cta_heading",
+      "label": "CTA heading",
+      "default": "Stop Guessing. Start Your Ascension."
+    },
+    {
+      "type": "richtext",
+      "id": "cta_text",
+      "label": "CTA description",
+      "default": "<p>Get the complete system and start building a clear appearance-improvement plan today.</p>"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "Get Lifetime Access - $29.99"
+    },
+    {
+      "type": "product",
+      "id": "product",
+      "label": "Course product",
+      "info": "This product will be added to the cart when the FAQ button is pressed."
+    },
+    {
+      "type": "text",
+      "id": "button_note",
+      "label": "Text below button",
+      "default": "One-time payment | Lifetime access | Start immediately"
+    },
+    {
+      "type": "header",
+      "content": "Section spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "Desktop top spacing",
+      "default": 72
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "Desktop bottom spacing",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Mobile top spacing",
+      "default": 52
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Mobile bottom spacing",
+      "default": 60
+    }
+  ],
+  "blocks": [
+    {
+      "type": "faq",
+      "name": "FAQ item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question",
+          "default": "What exactly do I get?"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "Answer",
+          "default": "<p>You receive lifetime access to the complete Bojax Method, including the full course curriculum, 40+ detailed video lessons, future course updates, member support and access to live teaching calls.</p>"
+        },
+        {
+          "type": "checkbox",
+          "id": "open_by_default",
+          "label": "Open this item by default",
+          "default": false
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Bojax FAQ",
+      "blocks": [
+        {
+          "type": "faq",
+          "settings": {
+            "question": "What exactly do I get?",
+            "answer": "<p>You receive lifetime access to the complete Bojax Method, including the full course curriculum, 40+ detailed video lessons, future course updates, member support and access to live teaching calls.</p>",
+            "open_by_default": false
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "Is this the same method Bojax used himself?",
+            "answer": "<p>Yes. The course organizes the principles, routines and appearance-improvement strategies Bojax used during his own transformation so you can follow a structured system instead of piecing together random advice online.</p>",
+            "open_by_default": false
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "How will I receive access?",
+            "answer": "<p>Access is delivered digitally after checkout. Follow the instructions shown after payment and check the email address used during checkout for your course access details.</p>",
+            "open_by_default": false
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "Can I follow the course on my phone?",
+            "answer": "<p>Yes. The course is designed to work on phones, tablets and computers, so you can watch lessons and review the material from whichever device is most convenient.</p>",
+            "open_by_default": false
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "Do I need any experience?",
+            "answer": "<p>No. The Bojax Method begins with foundational appearance-improvement principles and then progresses into more advanced topics. You can start at your current level and focus on the sections most relevant to you.</p>",
+            "open_by_default": false
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "How quickly will I see results?",
+            "answer": "<p>Results depend on your starting point, consistency and the improvements you choose to work on. Some changes in grooming, styling and presentation can be noticeable quickly, while skin, physique and other long-term improvements take more time.</p>",
+            "open_by_default": false
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "Is this a subscription?",
+            "answer": "<p>No. The current offer is a one-time payment. There is no monthly charge or recurring course subscription, and your course access does not expire.</p>",
+            "open_by_default": false
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "Can I ask Bojax questions?",
+            "answer": "<p>Yes. Members can submit questions and access member support. Response times and live call schedules can vary, so the course does not promise an immediate response at every hour of the day.</p>",
+            "open_by_default": false
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "What if the course is not right for me?",
+            "answer": "<p>Please review the store refund policy before purchasing. Any refund request is handled according to the policy displayed on the website and agreed to during checkout.</p>",
+            "open_by_default": false
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "Is this medical advice?",
+            "answer": "<p>No. The Bojax Method is educational content and does not replace personalized medical advice, diagnosis or treatment from a qualified healthcare professional. Speak with an appropriate professional before making medical or health-related decisions.</p>",
+            "open_by_default": false
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

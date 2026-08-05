@@ -111,7 +111,7 @@
             data-bojax-countdown
             data-min-hours="{{ minimum_hours }}"
             data-max-hours="{{ maximum_hours }}"
-            data-storage-key="bojax-sale-expiration-v4-{{ section.id }}"
+            data-storage-key="bojax-sale-expiration-v6-{{ section.id }}"
           >
             <div class="bojax-pricing__urgency-heading">
               <span class="bojax-pricing__urgency-dot" aria-hidden="true"></span>
@@ -367,929 +367,949 @@
 </section>
 
 {% stylesheet %}
-  .bojax-pricing {
-    --bojax-gold: #d8b86a;
-    --bojax-gold-light: #f2d995;
-    --bojax-gold-pale: #fff0c4;
-    --bojax-green: #4ce47a;
-    --bojax-urgent: #f0c568;
-    position: relative;
-    overflow: hidden;
-    padding-top: var(--bojax-pricing-top, 48px);
-    padding-bottom: var(--bojax-pricing-bottom, 56px);
-    background:
-      radial-gradient(circle at 50% 0, rgba(216, 184, 106, 0.17), transparent 36rem),
-      linear-gradient(180deg, #030303 0%, #0a0906 50%, #030303 100%);
-    color: #fff;
+  .bojax-pricing{
+    --bojax-gold:#d8b86a;
+    --bojax-gold-light:#f2d995;
+    --bojax-gold-pale:#fff0c4;
+    --bojax-green:#4ce47a;
+    --bojax-urgent:#f0c568;
+    position:relative;
+    overflow:hidden;
+    padding-top:var(--bojax-pricing-top,48px);
+    padding-bottom:var(--bojax-pricing-bottom,56px);
+    background:radial-gradient(circle at 50% 0,rgba(216,184,106,0.17),transparent 36rem),linear-gradient(180deg,#030303 0%,#0a0906 50%,#030303 100%);
+    color:#fff;
   }
 
-  .bojax-pricing::before {
-    position: absolute;
-    inset: 0 0 auto;
-    height: 1px;
-    background: linear-gradient(
-      90deg,
-      transparent,
-      var(--bojax-gold),
-      rgba(255, 255, 255, 0.82),
-      var(--bojax-gold),
-      transparent
-    );
-    content: "";
-    opacity: 0.78;
+  .bojax-pricing::before{
+    position:absolute;
+    inset:0 0 auto;
+    height:1px;
+    background:linear-gradient(90deg,transparent,var(--bojax-gold),rgba(255,255,255,0.82),var(--bojax-gold),transparent);
+    content:"";
+    opacity:0.78;
   }
 
-  .bojax-pricing__ambient {
-    position: absolute;
-    inset: 0;
-    overflow: hidden;
-    pointer-events: none;
+  .bojax-pricing__ambient{
+    position:absolute;
+    inset:0;
+    overflow:hidden;
+    pointer-events:none;
   }
 
-  .bojax-pricing__orb {
-    position: absolute;
-    display: block;
-    border-radius: 50%;
-    background: var(--bojax-gold);
-    filter: blur(10rem);
+  .bojax-pricing__orb{
+    position:absolute;
+    display:block;
+    border-radius:50%;
+    background:var(--bojax-gold);
+    filter:blur(10rem);
   }
 
-  .bojax-pricing__orb--left {
-    top: 8rem;
-    left: -24rem;
-    width: 46rem;
-    height: 46rem;
-    opacity: 0.11;
+  .bojax-pricing__orb--left{
+    top:8rem;
+    left:-24rem;
+    width:46rem;
+    height:46rem;
+    opacity:0.11;
   }
 
-  .bojax-pricing__orb--right {
-    right: -25rem;
-    bottom: -4rem;
-    width: 48rem;
-    height: 48rem;
-    opacity: 0.08;
+  .bojax-pricing__orb--right{
+    right:-25rem;
+    bottom:-4rem;
+    width:48rem;
+    height:48rem;
+    opacity:0.08;
   }
 
-  .bojax-pricing__lines {
-    position: absolute;
-    inset: 0;
-    opacity: 0.035;
-    background-image:
-      linear-gradient(rgba(216, 184, 106, 0.5) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(216, 184, 106, 0.5) 1px, transparent 1px);
-    background-size: 7rem 7rem;
-    mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.8), transparent 78%);
-    -webkit-mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.8), transparent 78%);
+  .bojax-pricing__lines{
+    position:absolute;
+    inset:0;
+    opacity:0.035;
+    background-image:linear-gradient(rgba(216,184,106,0.5) 1px,transparent 1px),linear-gradient(90deg,rgba(216,184,106,0.5) 1px,transparent 1px);
+    background-size:7rem 7rem;
+    mask-image:linear-gradient(180deg,rgba(0,0,0,0.8),transparent 78%);
+    -webkit-mask-image:linear-gradient(180deg,rgba(0,0,0,0.8),transparent 78%);
   }
 
-  .bojax-pricing__container {
-    position: relative;
-    z-index: 2;
-    width: min(calc(100% - 4rem), 92rem);
-    margin: 0 auto;
+  .bojax-pricing__container{
+    position:relative;
+    z-index:2;
+    width:min(calc(100% - 4rem),92rem);
+    margin:0 auto;
   }
 
-  .bojax-pricing__header {
-    max-width: 78rem;
-    margin: 0 auto;
-    text-align: center;
+  .bojax-pricing__header{
+    max-width:78rem;
+    margin:0 auto;
+    text-align:center;
   }
 
-  .bojax-pricing__eyebrow {
-    margin: 0 0 1.4rem;
-    color: var(--bojax-gold-light);
-    font-size: 1rem;
-    font-weight: 850;
-    letter-spacing: 0.32em;
-    line-height: 1;
-    text-transform: uppercase;
+  .bojax-pricing__eyebrow{
+    margin:0 0 1.4rem;
+    color:var(--bojax-gold-light);
+    font-size:1rem;
+    font-weight:850;
+    letter-spacing:0.32em;
+    line-height:1;
+    text-transform:uppercase;
   }
 
-  .bojax-pricing__heading {
-    margin: 0;
-    color: #fff;
-    font-family: Georgia, "Times New Roman", serif;
-    font-size: clamp(4rem, 7vw, 7rem);
-    font-weight: 500;
-    letter-spacing: -0.06em;
-    line-height: 0.97;
-    text-wrap: balance;
+  .bojax-pricing__heading{
+    margin:0;
+    color:#fff;
+    font-family:Georgia,"Times New Roman",serif;
+    font-size:clamp(4rem,7vw,7rem);
+    font-weight:500;
+    letter-spacing:-0.06em;
+    line-height:0.97;
+    text-wrap:balance;
   }
 
-  .bojax-pricing__description {
-    max-width: 68rem;
-    margin: 2.2rem auto 0;
-    color: rgba(255, 255, 255, 0.66);
-    font-size: clamp(1.5rem, 2vw, 1.85rem);
-    line-height: 1.65;
+  .bojax-pricing__description{
+    max-width:68rem;
+    margin:2.2rem auto 0;
+    color:rgba(255,255,255,0.66);
+    font-size:clamp(1.5rem,2vw,1.85rem);
+    line-height:1.65;
   }
 
   .bojax-pricing__description p,
-  .bojax-pricing__legal p {
-    margin: 0;
+  .bojax-pricing__legal p{
+    margin:0;
   }
 
-  .bojax-pricing__offer {
-    margin-top: 4rem;
-    padding: 1px;
-    border-radius: 2.7rem;
-    background: linear-gradient(
-      135deg,
-      rgba(242, 217, 149, 0.74),
-      rgba(216, 184, 106, 0.13) 44%,
-      rgba(216, 184, 106, 0.53)
-    );
-    box-shadow:
-      0 3rem 9rem rgba(0, 0, 0, 0.46),
-      0 0 5rem rgba(216, 184, 106, 0.08);
+  .bojax-pricing__offer{
+    margin-top:4rem;
+    padding:1px;
+    border-radius:2.7rem;
+    background:linear-gradient(135deg,rgba(242,217,149,0.74),rgba(216,184,106,0.13) 44%,rgba(216,184,106,0.53));
+    box-shadow:0 3rem 9rem rgba(0,0,0,0.46),0 0 5rem rgba(216,184,106,0.08);
   }
 
-  .bojax-pricing__offer.is-expired {
-    background: linear-gradient(
-      135deg,
-      rgba(255, 255, 255, 0.19),
-      rgba(255, 255, 255, 0.05),
-      rgba(255, 255, 255, 0.12)
-    );
+  .bojax-pricing__offer.is-expired{
+    background:linear-gradient(135deg,rgba(255,255,255,0.19),rgba(255,255,255,0.05),rgba(255,255,255,0.12));
   }
 
-  .bojax-pricing__offer-inner {
-    padding: 4.2rem 4rem 3.6rem;
-    border-radius: calc(2.7rem - 1px);
-    background:
-      radial-gradient(circle at 50% 0, rgba(216, 184, 106, 0.17), transparent 34rem),
-      linear-gradient(145deg, rgba(17, 16, 12, 0.99), rgba(4, 4, 4, 0.995));
-    text-align: center;
+  .bojax-pricing__offer-inner{
+    padding:4.2rem 4rem 3.6rem;
+    border-radius:calc(2.7rem - 1px);
+    background:radial-gradient(circle at 50% 0,rgba(216,184,106,0.17),transparent 34rem),linear-gradient(145deg,rgba(17,16,12,0.99),rgba(4,4,4,0.995));
+    text-align:center;
   }
 
-  .bojax-pricing__offer-label {
-    margin: 0;
-    color: var(--bojax-gold-light);
-    font-size: 1rem;
-    font-weight: 850;
-    letter-spacing: 0.27em;
-    line-height: 1;
-    text-transform: uppercase;
+  .bojax-pricing__offer-label{
+    margin:0;
+    color:var(--bojax-gold-light);
+    font-size:1rem;
+    font-weight:850;
+    letter-spacing:0.27em;
+    line-height:1;
+    text-transform:uppercase;
   }
 
-  .bojax-pricing__price-row {
-    display: flex;
-    margin-top: 2.2rem;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 1.5rem;
+  .bojax-pricing__price-row{
+    display:flex;
+    margin-top:2.2rem;
+    align-items:center;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:1.5rem;
   }
 
-  .bojax-pricing__price {
-    color: #fff;
-    font-family: Georgia, "Times New Roman", serif;
-    font-size: clamp(5.5rem, 10vw, 9rem);
-    font-weight: 700;
-    letter-spacing: -0.075em;
-    line-height: 0.9;
-    text-shadow: 0 0 3rem rgba(216, 184, 106, 0.12);
+  .bojax-pricing__price{
+    color:#fff;
+    font-family:Georgia,"Times New Roman",serif;
+    font-size:clamp(5.5rem,10vw,9rem);
+    font-weight:700;
+    letter-spacing:-0.075em;
+    line-height:0.9;
+    text-shadow:0 0 3rem rgba(216,184,106,0.12);
   }
 
-  .bojax-pricing__compare-price {
-    color: rgba(255, 255, 255, 0.31);
-    font-size: clamp(2rem, 3vw, 3rem);
-    line-height: 1;
-    text-decoration-thickness: 0.15rem;
+  .bojax-pricing__compare-price{
+    color:rgba(255,255,255,0.31);
+    font-size:clamp(2rem,3vw,3rem);
+    line-height:1;
+    text-decoration-thickness:0.15rem;
   }
 
-  .bojax-pricing__price-subtext {
-    max-width: 66rem;
-    margin: 2.7rem auto 0;
-    color: rgba(255, 255, 255, 0.62);
-    font-size: 1.35rem;
-    line-height: 1.55;
+  .bojax-pricing__price-subtext{
+    max-width:66rem;
+    margin:2.7rem auto 0;
+    color:rgba(255,255,255,0.62);
+    font-size:1.35rem;
+    line-height:1.55;
   }
 
-  .bojax-pricing__urgency {
-    max-width: 64rem;
-    margin: 2.8rem auto 0;
-    padding: 2rem;
-    border: 1px solid rgba(216, 184, 106, 0.35);
-    border-radius: 1.8rem;
-    background: linear-gradient(
-      135deg,
-      rgba(216, 184, 106, 0.13),
-      rgba(216, 184, 106, 0.035)
-    );
-    box-shadow:
-      inset 0 1px rgba(255, 255, 255, 0.04),
-      0 1.8rem 4rem rgba(0, 0, 0, 0.18);
+  .bojax-pricing__urgency{
+    max-width:64rem;
+    margin:2.8rem auto 0;
+    padding:2rem;
+    border:1px solid rgba(216,184,106,0.35);
+    border-radius:1.8rem;
+    background:linear-gradient(135deg,rgba(216,184,106,0.13),rgba(216,184,106,0.035));
+    box-shadow:inset 0 1px rgba(255,255,255,0.04),0 1.8rem 4rem rgba(0,0,0,0.18);
   }
 
-  .bojax-pricing__urgency.is-expired {
-    border-color: rgba(255, 255, 255, 0.2);
-    background: rgba(255, 255, 255, 0.04);
+  .bojax-pricing__urgency.is-expired{
+    border-color:rgba(255,255,255,0.2);
+    background:rgba(255,255,255,0.04);
   }
 
-  .bojax-pricing__urgency-heading {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.8rem;
-    color: var(--bojax-gold-light);
-    font-size: 0.95rem;
-    font-weight: 850;
-    letter-spacing: 0.18em;
-    line-height: 1.3;
-    text-transform: uppercase;
+  .bojax-pricing__urgency-heading{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:0.8rem;
+    color:var(--bojax-gold-light);
+    font-size:0.95rem;
+    font-weight:850;
+    letter-spacing:0.18em;
+    line-height:1.3;
+    text-transform:uppercase;
   }
 
-  .bojax-pricing__urgency.is-expired .bojax-pricing__urgency-heading {
-    color: rgba(255, 255, 255, 0.65);
+  .bojax-pricing__urgency.is-expired .bojax-pricing__urgency-heading{
+    color:rgba(255,255,255,0.65);
   }
 
-  .bojax-pricing__urgency-dot {
-    display: block;
-    width: 0.8rem;
-    height: 0.8rem;
-    border-radius: 50%;
-    background: var(--bojax-urgent);
-    box-shadow:
-      0 0 0 0.4rem rgba(240, 197, 104, 0.09),
-      0 0 1.5rem rgba(240, 197, 104, 0.45);
-    animation: bojaxUrgencyPulse 1.8s ease-in-out infinite;
+  .bojax-pricing__urgency-dot{
+    display:block;
+    width:0.8rem;
+    height:0.8rem;
+    border-radius:50%;
+    background:var(--bojax-urgent);
+    box-shadow:0 0 0 0.4rem rgba(240,197,104,0.09),0 0 1.5rem rgba(240,197,104,0.45);
+    animation:bojaxUrgencyPulse 1.8s ease-in-out infinite;
   }
 
-  .bojax-pricing__urgency.is-expired .bojax-pricing__urgency-dot {
-    background: rgba(255, 255, 255, 0.5);
-    box-shadow: none;
-    animation: none;
+  .bojax-pricing__urgency.is-expired .bojax-pricing__urgency-dot{
+    background:rgba(255,255,255,0.5);
+    box-shadow:none;
+    animation:none;
   }
 
-  .bojax-pricing__timer {
-    display: flex;
-    margin-top: 1.5rem;
-    align-items: flex-start;
-    justify-content: center;
-    gap: 1rem;
+  .bojax-pricing__timer{
+    display:flex;
+    margin-top:1.5rem;
+    align-items:flex-start;
+    justify-content:center;
+    gap:1rem;
   }
 
-  .bojax-pricing__time-unit {
-    display: grid;
-    min-width: 7.5rem;
-    gap: 0.45rem;
-    text-align: center;
+  .bojax-pricing__time-unit{
+    display:grid;
+    min-width:7.5rem;
+    gap:0.45rem;
+    text-align:center;
   }
 
-  .bojax-pricing__time-unit strong {
-    color: #fff;
-    font-family: Georgia, "Times New Roman", serif;
-    font-size: 3.7rem;
-    font-weight: 700;
-    letter-spacing: -0.04em;
-    line-height: 0.95;
-    font-variant-numeric: tabular-nums;
+  .bojax-pricing__time-unit strong{
+    color:#fff;
+    font-family:Georgia,"Times New Roman",serif;
+    font-size:3.7rem;
+    font-weight:700;
+    letter-spacing:-0.04em;
+    line-height:0.95;
+    font-variant-numeric:tabular-nums;
   }
 
-  .bojax-pricing__time-unit span {
-    color: rgba(255, 255, 255, 0.44);
-    font-size: 0.72rem;
-    font-weight: 800;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
+  .bojax-pricing__time-unit span{
+    color:rgba(255,255,255,0.44);
+    font-size:0.72rem;
+    font-weight:800;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
   }
 
-  .bojax-pricing__time-divider {
-    margin-top: 0.1rem;
-    color: var(--bojax-gold);
-    font-family: Georgia, "Times New Roman", serif;
-    font-size: 3.2rem;
-    line-height: 1;
+  .bojax-pricing__time-divider{
+    margin-top:0.1rem;
+    color:var(--bojax-gold);
+    font-family:Georgia,"Times New Roman",serif;
+    font-size:3.2rem;
+    line-height:1;
   }
 
-  @keyframes bojaxUrgencyPulse {
+  @keyframes bojaxUrgencyPulse{
     0%,
-    100% {
-      opacity: 0.65;
-      transform: scale(0.9);
+    100%{
+      opacity:0.65;
+      transform:scale(0.9);
     }
 
-    50% {
-      opacity: 1;
-      transform: scale(1.1);
+    50%{
+      opacity:1;
+      transform:scale(1.1);
     }
   }
 
-  .bojax-pricing__divider {
-    height: 1px;
-    margin: 3.4rem 0 2.7rem;
-    background: linear-gradient(
-      90deg,
-      transparent,
-      rgba(216, 184, 106, 0.42),
-      transparent
-    );
+  .bojax-pricing__divider{
+    height:1px;
+    margin:3.4rem 0 2.7rem;
+    background:linear-gradient(90deg,transparent,rgba(216,184,106,0.42),transparent);
   }
 
-  .bojax-pricing__included-heading {
-    margin: 0 0 2rem;
-    text-align: center;
+  .bojax-pricing__included-heading{
+    margin:0 0 2rem;
+    text-align:center;
   }
 
-  .bojax-pricing__included-heading p {
-    margin: 0;
-    color: rgba(255, 255, 255, 0.78);
-    font-size: 1.05rem;
-    font-weight: 850;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
+  .bojax-pricing__included-heading p{
+    margin:0;
+    color:rgba(255,255,255,0.78);
+    font-size:1.05rem;
+    font-weight:850;
+    letter-spacing:0.16em;
+    text-transform:uppercase;
   }
 
-  .bojax-pricing__features {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    max-width: 76rem;
-    margin: 0 auto;
-    gap: 1.35rem 2.3rem;
-    text-align: left;
+  .bojax-pricing__features{
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    max-width:76rem;
+    margin:0 auto;
+    gap:1.35rem 2.3rem;
+    text-align:left;
   }
 
-  .bojax-pricing__feature {
-    display: flex;
-    min-width: 0;
-    align-items: flex-start;
-    gap: 1rem;
-    color: rgba(255, 255, 255, 0.84);
-    font-size: 1.3rem;
-    line-height: 1.45;
+  .bojax-pricing__feature{
+    display:flex;
+    min-width:0;
+    align-items:flex-start;
+    gap:1rem;
+    color:rgba(255,255,255,0.84);
+    font-size:1.3rem;
+    line-height:1.45;
   }
 
-  .bojax-pricing__check {
-    display: grid;
-    flex: 0 0 2.25rem;
-    width: 2.25rem;
-    height: 2.25rem;
-    margin-top: 0.05rem;
-    place-items: center;
-    border-radius: 50%;
-    background: var(--bojax-green);
-    color: #031108;
-    box-shadow: 0 0 2rem rgba(76, 228, 122, 0.17);
+  .bojax-pricing__check{
+    display:grid;
+    flex:0 0 2.25rem;
+    width:2.25rem;
+    height:2.25rem;
+    margin-top:0.05rem;
+    place-items:center;
+    border-radius:50%;
+    background:var(--bojax-green);
+    color:#031108;
+    box-shadow:0 0 2rem rgba(76,228,122,0.17);
   }
 
-  .bojax-pricing__check svg {
-    width: 1.3rem;
-    height: 1.3rem;
+  .bojax-pricing__check svg{
+    width:1.3rem;
+    height:1.3rem;
   }
 
-  .bojax-pricing__support-note {
-    display: flex;
-    max-width: 76rem;
-    margin: 3rem auto 0;
-    padding: 1.8rem 1.9rem;
-    align-items: flex-start;
-    gap: 1.3rem;
-    border: 1px solid rgba(216, 184, 106, 0.27);
-    border-radius: 1.7rem;
-    background: linear-gradient(
-      135deg,
-      rgba(216, 184, 106, 0.1),
-      rgba(255, 255, 255, 0.015)
-    );
-    text-align: left;
+  .bojax-pricing__support-note{
+    display:flex;
+    max-width:76rem;
+    margin:3rem auto 0;
+    padding:1.8rem 1.9rem;
+    align-items:flex-start;
+    gap:1.3rem;
+    border:1px solid rgba(216,184,106,0.27);
+    border-radius:1.7rem;
+    background:linear-gradient(135deg,rgba(216,184,106,0.1),rgba(255,255,255,0.015));
+    text-align:left;
   }
 
-  .bojax-pricing__support-icon {
-    display: grid;
-    flex: 0 0 4.3rem;
-    width: 4.3rem;
-    height: 4.3rem;
-    place-items: center;
-    border: 1px solid rgba(216, 184, 106, 0.3);
-    border-radius: 1.2rem;
-    background: rgba(216, 184, 106, 0.1);
-    color: var(--bojax-gold-light);
+  .bojax-pricing__support-icon{
+    display:grid;
+    flex:0 0 4.3rem;
+    width:4.3rem;
+    height:4.3rem;
+    place-items:center;
+    border:1px solid rgba(216,184,106,0.3);
+    border-radius:1.2rem;
+    background:rgba(216,184,106,0.1);
+    color:var(--bojax-gold-light);
   }
 
-  .bojax-pricing__support-icon svg {
-    width: 2.3rem;
-    height: 2.3rem;
+  .bojax-pricing__support-icon svg{
+    width:2.3rem;
+    height:2.3rem;
   }
 
-  .bojax-pricing__support-note strong {
-    display: block;
-    color: #fff;
-    font-size: 1.35rem;
-    font-weight: 850;
-    line-height: 1.3;
+  .bojax-pricing__support-note strong{
+    display:block;
+    color:#fff;
+    font-size:1.35rem;
+    font-weight:850;
+    line-height:1.3;
   }
 
-  .bojax-pricing__support-note p {
-    margin: 0.65rem 0 0;
-    color: rgba(255, 255, 255, 0.55);
-    font-size: 1.13rem;
-    line-height: 1.55;
+  .bojax-pricing__support-note p{
+    margin:0.65rem 0 0;
+    color:rgba(255,255,255,0.55);
+    font-size:1.13rem;
+    line-height:1.55;
   }
 
-  .bojax-pricing__purchase {
-    max-width: 76rem;
-    margin: 3.2rem auto 0;
+  .bojax-pricing__purchase{
+    max-width:76rem;
+    margin:3.2rem auto 0;
   }
 
   .bojax-pricing__product-form,
-  .bojax-pricing__form {
-    display: block;
-    width: 100%;
+  .bojax-pricing__form{
+    display:block;
+    width:100%;
   }
 
-  .bojax-pricing__button {
-    position: relative;
-    display: flex;
-    width: 100%;
-    min-height: 6.8rem;
-    padding: 1.5rem 2.5rem;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    border: 1px solid #fff;
-    border-radius: 99rem;
-    background: linear-gradient(135deg, #fff, var(--bojax-gold-pale));
-    color: #080704;
-    font-size: 1.6rem;
-    font-weight: 900;
-    line-height: 1.2;
-    text-align: center;
-    text-decoration: none;
-    cursor: pointer;
-    box-shadow:
-      0 2rem 5rem rgba(0, 0, 0, 0.36),
-      0 0 4rem rgba(216, 184, 106, 0.14);
-    transition:
-      box-shadow 180ms ease,
-      transform 180ms ease;
+  .bojax-pricing__button{
+    position:relative;
+    display:flex;
+    width:100%;
+    min-height:6.8rem;
+    padding:1.5rem 2.5rem;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+    border:1px solid #fff;
+    border-radius:99rem;
+    background:linear-gradient(135deg,#fff,var(--bojax-gold-pale));
+    color:#080704;
+    font-size:1.6rem;
+    font-weight:900;
+    line-height:1.2;
+    text-align:center;
+    text-decoration:none;
+    cursor:pointer;
+    box-shadow:0 2rem 5rem rgba(0,0,0,0.36),0 0 4rem rgba(216,184,106,0.14);
+    transition:box-shadow 180ms ease,transform 180ms ease;
   }
 
-  .bojax-pricing__button:hover {
-    color: #080704;
-    box-shadow:
-      0 2.5rem 6rem rgba(0, 0, 0, 0.45),
-      0 0 5rem rgba(216, 184, 106, 0.21);
-    transform: translateY(-0.2rem);
+  .bojax-pricing__button:hover{
+    color:#080704;
+    box-shadow:0 2.5rem 6rem rgba(0,0,0,0.45),0 0 5rem rgba(216,184,106,0.21);
+    transform:translateY(-0.2rem);
   }
 
   .bojax-pricing__button:disabled,
-  .bojax-pricing__button.is-expired {
-    border-color: rgba(255, 255, 255, 0.2);
-    background: rgba(255, 255, 255, 0.12);
-    color: rgba(255, 255, 255, 0.5);
-    cursor: not-allowed;
-    box-shadow: none;
-    pointer-events: none;
-    transform: none;
+  .bojax-pricing__button.is-expired{
+    border-color:rgba(255,255,255,0.2);
+    background:rgba(255,255,255,0.12);
+    color:rgba(255,255,255,0.5);
+    cursor:not-allowed;
+    box-shadow:none;
+    pointer-events:none;
+    transform:none;
   }
 
-  .bojax-pricing__button-content {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1.2rem;
+  .bojax-pricing__button-content{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:1.2rem;
   }
 
-  .bojax-pricing__button-arrow {
-    display: inline-grid;
-    width: 2rem;
-    height: 2rem;
-    place-items: center;
+  .bojax-pricing__button-arrow{
+    display:inline-grid;
+    width:2rem;
+    height:2rem;
+    place-items:center;
   }
 
-  .bojax-pricing__button-arrow svg {
-    width: 2rem;
-    height: 2rem;
+  .bojax-pricing__button-arrow svg{
+    width:2rem;
+    height:2rem;
   }
 
-  .bojax-pricing__button .loading__spinner {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+  .bojax-pricing__button .loading__spinner{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
   }
 
-  .bojax-pricing__button.loading .bojax-pricing__button-content {
-    visibility: hidden;
+  .bojax-pricing__button.loading .bojax-pricing__button-content{
+    visibility:hidden;
   }
 
-  .bojax-pricing__non-recurring {
-    margin: 2.2rem 0 0;
-    color: rgba(255, 255, 255, 0.6);
-    font-size: 1.18rem;
-    font-weight: 600;
-    line-height: 1.5;
-    text-align: center;
+  .bojax-pricing__non-recurring{
+    margin:2.2rem 0 0;
+    color:rgba(255,255,255,0.6);
+    font-size:1.18rem;
+    font-weight:600;
+    line-height:1.5;
+    text-align:center;
   }
 
-  .bojax-pricing__payments {
-    margin-top: 2.6rem;
-    padding: 0;
-    border: 0;
-    background: transparent;
-    text-align: center;
+  .bojax-pricing__payments{
+    margin-top:2.6rem;
+    padding:0;
+    border:0;
+    background:transparent;
+    text-align:center;
   }
 
-  .bojax-pricing__payment-heading {
-    margin: 0;
-    color: rgba(255, 255, 255, 0.46);
-    font-size: 0.88rem;
-    font-weight: 850;
-    letter-spacing: 0.2em;
-    line-height: 1.3;
-    text-transform: uppercase;
+  .bojax-pricing__payment-heading{
+    margin:0;
+    color:rgba(255,255,255,0.46);
+    font-size:0.88rem;
+    font-weight:850;
+    letter-spacing:0.2em;
+    line-height:1.3;
+    text-transform:uppercase;
   }
 
-  .bojax-pricing__payment-icons {
-    display: flex;
-    margin: 1.35rem 0 0;
-    padding: 0;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 0.7rem;
-    list-style: none;
+  .bojax-pricing__payment-icons{
+    display:flex;
+    margin:1.35rem 0 0;
+    padding:0;
+    align-items:center;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:0.7rem;
+    list-style:none;
   }
 
-  .bojax-pricing__payment-icon {
-    display: grid;
-    min-width: 4.4rem;
-    height: 2.8rem;
-    padding: 0.2rem 0.3rem;
-    place-items: center;
-    border: 0;
-    background: transparent;
+  .bojax-pricing__payment-icon{
+    display:grid;
+    min-width:4.4rem;
+    height:2.8rem;
+    padding:0.2rem 0.3rem;
+    place-items:center;
+    border:0;
+    background:transparent;
   }
 
-  .bojax-pricing__payment-icon svg {
-    display: block;
-    width: auto;
-    max-width: 4.4rem;
-    height: 2.4rem;
+  .bojax-pricing__payment-icon svg{
+    display:block;
+    width:auto;
+    max-width:4.4rem;
+    height:2.4rem;
   }
 
-  .bojax-pricing__payment-note {
-    max-width: 56rem;
-    margin: 1.3rem auto 0;
-    color: rgba(255, 255, 255, 0.31);
-    font-size: 1rem;
-    line-height: 1.5;
+  .bojax-pricing__payment-note{
+    max-width:56rem;
+    margin:1.3rem auto 0;
+    color:rgba(255,255,255,0.31);
+    font-size:1rem;
+    line-height:1.5;
   }
 
-  .bojax-pricing__legal {
-    max-width: 80rem;
-    margin: 2.2rem auto 0;
-    color: rgba(255, 255, 255, 0.33);
-    font-size: 1.03rem;
-    line-height: 1.6;
-    text-align: center;
+  .bojax-pricing__legal{
+    max-width:80rem;
+    margin:2.2rem auto 0;
+    color:rgba(255,255,255,0.33);
+    font-size:1.03rem;
+    line-height:1.6;
+    text-align:center;
   }
 
-  .bojax-pricing__legal a {
-    color: rgba(255, 255, 255, 0.64);
-    text-underline-offset: 0.3rem;
+  .bojax-pricing__legal a{
+    color:rgba(255,255,255,0.64);
+    text-underline-offset:0.3rem;
   }
 
-  @media screen and (max-width: 749px) {
-    .bojax-pricing {
-      padding-top: var(--bojax-pricing-top-mobile, 32px);
-      padding-bottom: var(--bojax-pricing-bottom-mobile, 40px);
+  @media screen and (max-width:749px){
+    .bojax-pricing{
+      padding-top:var(--bojax-pricing-top-mobile,32px);
+      padding-bottom:var(--bojax-pricing-bottom-mobile,40px);
     }
 
-    .bojax-pricing__container {
-      width: calc(100% - 2.8rem);
+    .bojax-pricing__container{
+      width:calc(100% - 2.8rem);
     }
 
-    .bojax-pricing__eyebrow {
-      margin-bottom: 1.1rem;
-      font-size: 0.84rem;
-      letter-spacing: 0.24em;
+    .bojax-pricing__eyebrow{
+      margin-bottom:1.1rem;
+      font-size:0.84rem;
+      letter-spacing:0.24em;
     }
 
-    .bojax-pricing__heading {
-      font-size: clamp(3.7rem, 12vw, 5.2rem);
+    .bojax-pricing__heading{
+      font-size:clamp(3.7rem,12vw,5.2rem);
     }
 
-    .bojax-pricing__description {
-      margin-top: 1.8rem;
-      font-size: 1.38rem;
+    .bojax-pricing__description{
+      margin-top:1.8rem;
+      font-size:1.38rem;
     }
 
-    .bojax-pricing__offer {
-      margin-top: 3rem;
-      border-radius: 2.1rem;
+    .bojax-pricing__offer{
+      margin-top:3rem;
+      border-radius:2.1rem;
     }
 
-    .bojax-pricing__offer-inner {
-      padding: 2.8rem 1.5rem 2.4rem;
-      border-radius: calc(2.1rem - 1px);
+    .bojax-pricing__offer-inner{
+      padding:2.8rem 1.5rem 2.4rem;
+      border-radius:calc(2.1rem - 1px);
     }
 
-    .bojax-pricing__offer-label {
-      font-size: 0.82rem;
-      letter-spacing: 0.22em;
+    .bojax-pricing__offer-label{
+      font-size:0.82rem;
+      letter-spacing:0.22em;
     }
 
-    .bojax-pricing__price-row {
-      margin-top: 2rem;
-      gap: 1rem;
+    .bojax-pricing__price-row{
+      margin-top:2rem;
+      gap:1rem;
     }
 
-    .bojax-pricing__price {
-      font-size: clamp(5rem, 18vw, 7rem);
+    .bojax-pricing__price{
+      font-size:clamp(5rem,18vw,7rem);
     }
 
-    .bojax-pricing__compare-price {
-      font-size: 2rem;
+    .bojax-pricing__compare-price{
+      font-size:2rem;
     }
 
-    .bojax-pricing__price-subtext {
-      margin-top: 2.4rem;
-      font-size: 1.18rem;
+    .bojax-pricing__price-subtext{
+      margin-top:2.4rem;
+      font-size:1.18rem;
     }
 
-    .bojax-pricing__urgency {
-      margin-top: 2.3rem;
-      padding: 1.6rem 1rem;
-      border-radius: 1.5rem;
+    .bojax-pricing__urgency{
+      margin-top:2.3rem;
+      padding:1.6rem 1rem;
+      border-radius:1.5rem;
     }
 
-    .bojax-pricing__urgency-heading {
-      font-size: 0.75rem;
-      letter-spacing: 0.13em;
+    .bojax-pricing__urgency-heading{
+      font-size:0.75rem;
+      letter-spacing:0.13em;
     }
 
-    .bojax-pricing__timer {
-      margin-top: 1.3rem;
-      gap: 0.45rem;
+    .bojax-pricing__timer{
+      margin-top:1.3rem;
+      gap:0.45rem;
     }
 
-    .bojax-pricing__time-unit {
-      min-width: 5.7rem;
+    .bojax-pricing__time-unit{
+      min-width:5.7rem;
     }
 
-    .bojax-pricing__time-unit strong {
-      font-size: 3rem;
+    .bojax-pricing__time-unit strong{
+      font-size:3rem;
     }
 
-    .bojax-pricing__time-unit span {
-      font-size: 0.58rem;
-      letter-spacing: 0.1em;
+    .bojax-pricing__time-unit span{
+      font-size:0.58rem;
+      letter-spacing:0.1em;
     }
 
-    .bojax-pricing__time-divider {
-      font-size: 2.7rem;
+    .bojax-pricing__time-divider{
+      font-size:2.7rem;
     }
 
-    .bojax-pricing__divider {
-      margin: 2.9rem 0 2.4rem;
+    .bojax-pricing__divider{
+      margin:2.9rem 0 2.4rem;
     }
 
-    .bojax-pricing__included-heading {
-      margin-bottom: 1.8rem;
+    .bojax-pricing__included-heading{
+      margin-bottom:1.8rem;
     }
 
-    .bojax-pricing__included-heading p {
-      font-size: 0.8rem;
-      letter-spacing: 0.13em;
+    .bojax-pricing__included-heading p{
+      font-size:0.8rem;
+      letter-spacing:0.13em;
     }
 
-    .bojax-pricing__features {
-      grid-template-columns: 1fr;
-      gap: 1.15rem;
+    .bojax-pricing__features{
+      grid-template-columns:1fr;
+      gap:1.15rem;
     }
 
-    .bojax-pricing__feature {
-      font-size: 1.18rem;
+    .bojax-pricing__feature{
+      font-size:1.18rem;
     }
 
-    .bojax-pricing__support-note {
-      margin-top: 2.5rem;
-      padding: 1.5rem;
+    .bojax-pricing__support-note{
+      margin-top:2.5rem;
+      padding:1.5rem;
     }
 
-    .bojax-pricing__support-icon {
-      flex-basis: 3.8rem;
-      width: 3.8rem;
-      height: 3.8rem;
+    .bojax-pricing__support-icon{
+      flex-basis:3.8rem;
+      width:3.8rem;
+      height:3.8rem;
     }
 
-    .bojax-pricing__support-note strong {
-      font-size: 1.2rem;
+    .bojax-pricing__support-note strong{
+      font-size:1.2rem;
     }
 
-    .bojax-pricing__support-note p {
-      font-size: 1.02rem;
+    .bojax-pricing__support-note p{
+      font-size:1.02rem;
     }
 
-    .bojax-pricing__purchase {
-      margin-top: 2.7rem;
+    .bojax-pricing__purchase{
+      margin-top:2.7rem;
     }
 
-    .bojax-pricing__button {
-      min-height: 6.2rem;
-      padding: 1.3rem 1.4rem;
-      font-size: 1.32rem;
+    .bojax-pricing__button{
+      min-height:6.2rem;
+      padding:1.3rem 1.4rem;
+      font-size:1.32rem;
     }
 
-    .bojax-pricing__non-recurring {
-      margin-top: 2rem;
-      font-size: 1.03rem;
+    .bojax-pricing__non-recurring{
+      margin-top:2rem;
+      font-size:1.03rem;
     }
 
-    .bojax-pricing__payments {
-      margin-top: 2.2rem;
+    .bojax-pricing__payments{
+      margin-top:2.2rem;
     }
 
-    .bojax-pricing__payment-heading {
-      font-size: 0.72rem;
-      letter-spacing: 0.16em;
+    .bojax-pricing__payment-heading{
+      font-size:0.72rem;
+      letter-spacing:0.16em;
     }
 
-    .bojax-pricing__payment-icons {
-      margin-top: 1.1rem;
-      gap: 0.4rem;
+    .bojax-pricing__payment-icons{
+      margin-top:1.1rem;
+      gap:0.4rem;
     }
 
-    .bojax-pricing__payment-icon {
-      min-width: 3.8rem;
-      height: 2.5rem;
+    .bojax-pricing__payment-icon{
+      min-width:3.8rem;
+      height:2.5rem;
     }
 
-    .bojax-pricing__payment-icon svg {
-      max-width: 3.8rem;
-      height: 2.1rem;
+    .bojax-pricing__payment-icon svg{
+      max-width:3.8rem;
+      height:2.1rem;
     }
 
-    .bojax-pricing__payment-note {
-      font-size: 0.88rem;
+    .bojax-pricing__payment-note{
+      font-size:0.88rem;
     }
 
-    .bojax-pricing__legal {
-      font-size: 0.9rem;
+    .bojax-pricing__legal{
+      font-size:0.9rem;
     }
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    .bojax-pricing__urgency-dot {
-      animation: none;
+  @media (prefers-reduced-motion:reduce){
+    .bojax-pricing__urgency-dot{
+      animation:none;
     }
 
-    .bojax-pricing__button {
-      transition: none;
+    .bojax-pricing__button{
+      transition:none;
     }
   }
 {% endstylesheet %}
 
 <script>
-  (() => {
-    const sectionId = 'BojaxPricing-{{ section.id }}';
-    let intervalId;
+  (function () {
+    var TIMER_SELECTOR = '[data-bojax-countdown]';
 
-    function initializeCountdown() {
-      const section = document.getElementById(sectionId);
-      if (!section) return;
-
-      const countdown = section.querySelector('[data-bojax-countdown]');
-      if (!countdown) return;
-
-      clearInterval(intervalId);
-
-      const hoursElement = countdown.querySelector('[data-countdown-hours]');
-      const minutesElement = countdown.querySelector('[data-countdown-minutes]');
-      const secondsElement = countdown.querySelector('[data-countdown-seconds]');
-      const headingElement = countdown.querySelector('[data-bojax-countdown-heading]');
-
-      let minimumHours = parseFloat(countdown.dataset.minHours);
-      let maximumHours = parseFloat(countdown.dataset.maxHours);
-
-      if (!Number.isFinite(minimumHours) || minimumHours <= 0) {
-        minimumHours = 5.25;
+    function readSavedExpiration(key) {
+      try {
+        return parseInt(window.localStorage.getItem(key), 10);
+      } catch (error) {
+        return NaN;
       }
+    }
 
-      if (!Number.isFinite(maximumHours) || maximumHours <= minimumHours) {
-        maximumHours = minimumHours + 1;
+    function saveExpiration(key, value) {
+      try {
+        window.localStorage.setItem(key, String(value));
+      } catch (error) {
+        /* The countdown still works if localStorage is unavailable. */
       }
+    }
 
-      const storageKey =
-        countdown.dataset.storageKey ||
-        'bojax-sale-expiration-v4-{{ section.id }}';
+    function pad(value) {
+      return value < 10 ? '0' + value : String(value);
+    }
 
-      function createExpiration() {
-        const minimumTime = minimumHours * 60 * 60 * 1000;
-        const maximumTime = maximumHours * 60 * 60 * 1000;
-        return Date.now() + Math.floor(
-          minimumTime + Math.random() * (maximumTime - minimumTime)
+    function createExpiration(minimumHours, maximumHours) {
+      var minimumMilliseconds = minimumHours * 60 * 60 * 1000;
+      var maximumMilliseconds = maximumHours * 60 * 60 * 1000;
+      var duration = minimumMilliseconds;
+
+      if (maximumMilliseconds > minimumMilliseconds) {
+        duration += Math.floor(
+          Math.random() * (maximumMilliseconds - minimumMilliseconds)
         );
       }
 
-      function readExpiration() {
-        try {
-          return parseInt(localStorage.getItem(storageKey), 10);
-        } catch (error) {
-          return NaN;
-        }
+      return Date.now() + duration;
+    }
+
+    function endSale(countdown) {
+      var section = countdown.closest('[data-bojax-pricing]');
+      if (!section) return;
+
+      var hours = countdown.querySelector('[data-countdown-hours]');
+      var minutes = countdown.querySelector('[data-countdown-minutes]');
+      var seconds = countdown.querySelector('[data-countdown-seconds]');
+      var heading = countdown.querySelector('[data-bojax-countdown-heading]');
+      var offerCard = section.querySelector('[data-bojax-offer-card]');
+      var offerLabel = section.querySelector('[data-bojax-offer-label]');
+      var purchaseButton = section.querySelector('[data-bojax-sale-button]');
+      var purchaseLink = section.querySelector('[data-bojax-sale-link]');
+      var buttonText = section.querySelector('[data-bojax-button-text]');
+      var buttonArrow = section.querySelector('[data-bojax-button-arrow]');
+
+      if (countdown.bojaxTimerInterval) {
+        window.clearInterval(countdown.bojaxTimerInterval);
+        countdown.bojaxTimerInterval = null;
       }
 
-      function saveExpiration(value) {
-        try {
-          localStorage.setItem(storageKey, String(value));
-        } catch (error) {
-          // The countdown can still run without localStorage.
-        }
+      if (hours) hours.textContent = '00';
+      if (minutes) minutes.textContent = '00';
+      if (seconds) seconds.textContent = '00';
+      if (heading) heading.textContent = 'The sale has ended';
+      if (offerLabel) offerLabel.textContent = 'SALE ENDED';
+      if (buttonText) buttonText.textContent = 'Sale Ended';
+      if (buttonArrow) buttonArrow.style.display = 'none';
+
+      countdown.classList.add('is-expired');
+
+      if (offerCard) {
+        offerCard.classList.add('is-expired');
       }
 
-      let expiration = readExpiration();
-
-      if (!Number.isFinite(expiration) || expiration <= Date.now()) {
-        expiration = createExpiration();
-        saveExpiration(expiration);
+      if (purchaseButton) {
+        purchaseButton.disabled = true;
+        purchaseButton.setAttribute('aria-disabled', 'true');
+        purchaseButton.classList.add('is-expired');
       }
 
-      function expireSale() {
-        const offerCard = section.querySelector('[data-bojax-offer-card]');
-        const offerLabel = section.querySelector('[data-bojax-offer-label]');
-        const purchaseButton = section.querySelector('[data-bojax-sale-button]');
-        const purchaseLink = section.querySelector('[data-bojax-sale-link]');
-        const buttonText = section.querySelector('[data-bojax-button-text]');
-        const buttonArrow = section.querySelector('[data-bojax-button-arrow]');
+      if (purchaseLink) {
+        purchaseLink.removeAttribute('href');
+        purchaseLink.setAttribute('aria-disabled', 'true');
+        purchaseLink.classList.add('is-expired');
+      }
+    }
 
-        clearInterval(intervalId);
-        intervalId = null;
+    function initializeCountdown(countdown) {
+      if (
+        !countdown ||
+        countdown.getAttribute('data-bojax-timer-ready') === 'true'
+      ) {
+        return;
+      }
 
-        hoursElement.textContent = '00';
-        minutesElement.textContent = '00';
-        secondsElement.textContent = '00';
+      var hoursElement = countdown.querySelector('[data-countdown-hours]');
+      var minutesElement = countdown.querySelector('[data-countdown-minutes]');
+      var secondsElement = countdown.querySelector('[data-countdown-seconds]');
 
-        if (headingElement) headingElement.textContent = 'The sale has ended';
-        if (offerLabel) offerLabel.textContent = 'SALE ENDED';
+      if (!hoursElement || !minutesElement || !secondsElement) {
+        return;
+      }
 
-        countdown.classList.add('is-expired');
-        if (offerCard) offerCard.classList.add('is-expired');
+      countdown.setAttribute('data-bojax-timer-ready', 'true');
 
-        if (buttonText) buttonText.textContent = 'Sale Ended';
-        if (buttonArrow) buttonArrow.style.display = 'none';
+      var minimumHours = parseFloat(
+        countdown.getAttribute('data-min-hours')
+      );
 
-        if (purchaseButton) {
-          purchaseButton.disabled = true;
-          purchaseButton.setAttribute('aria-disabled', 'true');
-          purchaseButton.classList.add('is-expired');
-        }
+      var maximumHours = parseFloat(
+        countdown.getAttribute('data-max-hours')
+      );
 
-        if (purchaseLink) {
-          purchaseLink.removeAttribute('href');
-          purchaseLink.setAttribute('aria-disabled', 'true');
-          purchaseLink.classList.add('is-expired');
-        }
+      var storageKey = countdown.getAttribute('data-storage-key');
+
+      if (!isFinite(minimumHours) || minimumHours <= 0) {
+        minimumHours = 5.25;
+      }
+
+      if (!isFinite(maximumHours) || maximumHours < minimumHours) {
+        maximumHours = minimumHours;
+      }
+
+      if (!storageKey) {
+        storageKey = 'bojax-sale-expiration-v6';
+      }
+
+      var expiration = readSavedExpiration(storageKey);
+
+      /*
+       * Create the expiration only for a visitor who has never received
+       * this v6 timer. After it reaches zero it remains ended on refresh.
+       */
+      if (!isFinite(expiration) || expiration <= 0) {
+        expiration = createExpiration(minimumHours, maximumHours);
+        saveExpiration(storageKey, expiration);
       }
 
       function updateCountdown() {
-        const remaining = expiration - Date.now();
+        var remaining = expiration - Date.now();
 
         if (remaining <= 0) {
-          expireSale();
+          endSale(countdown);
           return;
         }
 
-        const totalSeconds = Math.floor(remaining / 1000);
-        const hours = Math.floor(totalSeconds / 3600);
-        const minutes = Math.floor((totalSeconds % 3600) / 60);
-        const seconds = totalSeconds % 60;
+        var totalSeconds = Math.floor(remaining / 1000);
+        var hours = Math.floor(totalSeconds / 3600);
+        var minutes = Math.floor((totalSeconds % 3600) / 60);
+        var seconds = totalSeconds % 60;
 
-        hoursElement.textContent = String(hours).padStart(2, '0');
-        minutesElement.textContent = String(minutes).padStart(2, '0');
-        secondsElement.textContent = String(seconds).padStart(2, '0');
+        hoursElement.textContent = pad(hours);
+        minutesElement.textContent = pad(minutes);
+        secondsElement.textContent = pad(seconds);
       }
 
       updateCountdown();
-      intervalId = setInterval(updateCountdown, 1000);
+
+      countdown.bojaxTimerInterval = window.setInterval(
+        updateCountdown,
+        1000
+      );
     }
 
-    function startCountdown() {
-      setTimeout(initializeCountdown, 50);
+    function initializeAllCountdowns(root) {
+      var container = root || document;
+      var timers = container.querySelectorAll(TIMER_SELECTOR);
+      var index;
+
+      for (index = 0; index < timers.length; index += 1) {
+        initializeCountdown(timers[index]);
+      }
+
+      if (
+        container.matches &&
+        container.matches(TIMER_SELECTOR)
+      ) {
+        initializeCountdown(container);
+      }
+    }
+
+    function startCountdowns() {
+      initializeAllCountdowns(document);
     }
 
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', startCountdown);
+      document.addEventListener(
+        'DOMContentLoaded',
+        startCountdowns
+      );
     } else {
-      startCountdown();
+      startCountdowns();
     }
 
-    document.addEventListener('shopify:section:load', (event) => {
-      if (
-        event.target.id === sectionId ||
-        event.target.querySelector?.('#' + sectionId)
-      ) {
-        startCountdown();
-      }
-    });
+    window.addEventListener('pageshow', startCountdowns);
 
-    document.addEventListener('shopify:section:unload', (event) => {
-      if (event.target.id === sectionId) {
-        clearInterval(intervalId);
+    document.addEventListener(
+      'shopify:section:load',
+      function (event) {
+        initializeAllCountdowns(event.target);
       }
-    });
+    );
+
+    document.addEventListener(
+      'shopify:section:unload',
+      function (event) {
+        var timers = event.target.querySelectorAll(TIMER_SELECTOR);
+        var index;
+
+        for (index = 0; index < timers.length; index += 1) {
+          if (timers[index].bojaxTimerInterval) {
+            window.clearInterval(
+              timers[index].bojaxTimerInterval
+            );
+          }
+        }
+      }
+    );
   })();
 </script>
 

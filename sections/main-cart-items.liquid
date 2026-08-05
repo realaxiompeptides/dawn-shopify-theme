@@ -1,3 +1,4 @@
+{{ 'bojax-cart-page.css' | asset_url | stylesheet_tag }}
 {{ 'component-cart.css' | asset_url | stylesheet_tag }}
 {{ 'component-cart-items.css' | asset_url | stylesheet_tag }}
 {{ 'component-totals.css' | asset_url | stylesheet_tag }}
@@ -25,17 +26,16 @@
 
 <script src="{{ 'quantity-popover.js' | asset_url }}" defer="defer"></script>
 
-<cart-items
-  class="gradient color-{{ section.settings.color_scheme }} isolate{% if cart == empty %} is-empty{% else %} section-{{ section.id }}-padding{% endif %}"
+<cart-items class="bojax-cart-page bojax-cart-page--items gradient color-{{ section.settings.color_scheme }} isolate{% if cart == empty %} is-empty{% else %} section-{{ section.id }}-padding{% endif %}"
   view-event-payload="{{ cart | standard_event_data: 'view', context: 'page' | escape }}"
 >
   <div class="page-width">
     <div class="bojax-cart__hero">
       <div>
-        <p class="bojax-cart__eyebrow">YOUR ORDER</p>
-        <h1 class="title title--primary">Review your cart</h1>
+        <p class="bojax-cart__eyebrow">YOUR CART</p>
+        <h1 class="title title--primary">Review your order</h1>
         <p class="bojax-cart__intro">
-          Review your items below, then continue to secure checkout.
+          Check your items below, then continue to secure checkout.
         </p>
       </div>
 
@@ -45,31 +45,6 @@
       </a>
     </div>
 
-    {% if cart != empty %}
-      <div class="bojax-cart__benefits" aria-label="Purchase benefits">
-        <div>
-          <span class="bojax-cart__benefit-icon">1</span>
-          <span>
-            <strong>Digital delivery</strong>
-            <small>Access details after checkout</small>
-          </span>
-        </div>
-        <div>
-          <span class="bojax-cart__benefit-icon">2</span>
-          <span>
-            <strong>Secure purchase</strong>
-            <small>Protected checkout</small>
-          </span>
-        </div>
-        <div>
-          <span class="bojax-cart__benefit-icon">3</span>
-          <span>
-            <strong>Easy checkout</strong>
-            <small>Fast and secure payment</small>
-          </span>
-        </div>
-      </div>
-    {% endif %}
 
     <div class="cart__warnings">
       <h1 class="cart__empty-text">{{ 'sections.cart.empty' | t }}</h1>
@@ -179,7 +154,13 @@
                           {{ item.original_price | money }}
                         </div>
                       {%- endif -%}
-{%- if item.product.has_only_default_variant == false
+
+                      <div class="bojax-cart__item-meta" aria-label="Product details">
+                        <span>Digital product</span>
+                        <span>Delivered after checkout</span>
+                      </div>
+
+                      {%- if item.product.has_only_default_variant == false
                         or item.properties.size != 0
                         or item.selling_plan_allocation != null
                       -%}
@@ -214,12 +195,6 @@
 
                         <p class="product-option">{{ item.selling_plan_allocation.selling_plan.name }}</p>
                       {%- endif -%}
-
-                      <div class="bojax-cart__item-meta" aria-label="Product details">
-                        <span>Digital product</span>
-                        <span>Access after checkout</span>
-                        <span>Order support</span>
-                      </div>
 
                       <ul class="discounts list-unstyled" role="list" aria-label="{{ 'customer.order.discount' | t }}">
                         {%- for discount in item.line_level_discount_allocations -%}
@@ -511,6 +486,8 @@
     </form>
   </div>
 </cart-items>
+
+
 
 {% schema %}
 {

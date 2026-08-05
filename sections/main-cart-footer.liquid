@@ -1,3 +1,4 @@
+{{ 'bojax-cart-page.css' | asset_url | stylesheet_tag }}
 {{ 'component-cart.css' | asset_url | stylesheet_tag }}
 {{ 'component-totals.css' | asset_url | stylesheet_tag }}
 {{ 'component-price.css' | asset_url | stylesheet_tag }}
@@ -141,8 +142,16 @@
               {%- endif -%}
 
               <div class="bojax-cart__secure-note">
-                <span aria-hidden="true">LOCK</span>
-                Secure encrypted checkout. Access is delivered digitally after payment.
+                <svg
+                  class="bojax-cart__lock-icon"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                  focusable="false"
+                >
+                  <rect x="5" y="10" width="14" height="10" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/>
+                  <path d="M8 10V7a4 4 0 0 1 8 0v3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                </svg>
+                <span>Secure encrypted checkout. Digital delivery follows payment.</span>
               </div>
           {%- endcase -%}
         {% endfor %}

@@ -334,6 +334,7 @@
         "description": "<p>Unlock the complete course, 24/7 messaging access, member support and live teaching calls with one payment. No monthly billing and no recurring subscription.</p>",
         "offer_label": "LIMITED-TIME SALE PRICE",
         "fallback_price": "$29.99",
+        "show_compare_price": true,
         "fallback_compare_price": "$59.99",
         "price_subtext": "One-time purchase | Instant digital delivery | Lifetime course access",
         "show_countdown": true,
@@ -354,8 +355,119 @@
         "non_recurring_text": "$29.99 one-time purchase | Non-recurring | No subscription",
         "payment_heading": "Accepted payment methods",
         "payment_note": "Available options may vary by location, currency and checkout eligibility.",
-        "legal_note": "<p>By completing your purchase, you agree to the store's terms and refund policy. Individual results vary.</p>",
-        "show_compare_price": true
+        "legal_note": "<p>By completing your purchase, you agree to the store's terms and refund policy. Individual results vary.</p>"
+      }
+    },
+    "bojax_faq_C3tBez": {
+      "type": "bojax-faq",
+      "blocks": {
+        "faq_CGGfJg": {
+          "type": "faq",
+          "settings": {
+            "question": "What exactly do I get?",
+            "answer": "<p>You receive lifetime access to the complete Bojax Method, including the full course curriculum, 40+ detailed video lessons, future course updates, member support and access to live teaching calls.</p>",
+            "open_by_default": false
+          }
+        },
+        "faq_kixic6": {
+          "type": "faq",
+          "settings": {
+            "question": "Is this the same method Bojax used himself?",
+            "answer": "<p>Yes. The course organizes the principles, routines and appearance-improvement strategies Bojax used during his own transformation so you can follow a structured system instead of piecing together random advice online.</p>",
+            "open_by_default": false
+          }
+        },
+        "faq_hNEmiA": {
+          "type": "faq",
+          "settings": {
+            "question": "How will I receive access?",
+            "answer": "<p>Access is delivered digitally after checkout. Follow the instructions shown after payment and check the email address used during checkout for your course access details.</p>",
+            "open_by_default": false
+          }
+        },
+        "faq_ygz3Jq": {
+          "type": "faq",
+          "settings": {
+            "question": "Can I follow the course on my phone?",
+            "answer": "<p>Yes. The course is designed to work on phones, tablets and computers, so you can watch lessons and review the material from whichever device is most convenient.</p>",
+            "open_by_default": false
+          }
+        },
+        "faq_xBtHw4": {
+          "type": "faq",
+          "settings": {
+            "question": "Do I need any experience?",
+            "answer": "<p>No. The Bojax Method begins with foundational appearance-improvement principles and then progresses into more advanced topics. You can start at your current level and focus on the sections most relevant to you.</p>",
+            "open_by_default": false
+          }
+        },
+        "faq_dkarya": {
+          "type": "faq",
+          "settings": {
+            "question": "How quickly will I see results?",
+            "answer": "<p>Results depend on your starting point, consistency and the improvements you choose to work on. Some changes in grooming, styling and presentation can be noticeable quickly, while skin, physique and other long-term improvements take more time.</p>",
+            "open_by_default": false
+          }
+        },
+        "faq_J6UCwU": {
+          "type": "faq",
+          "settings": {
+            "question": "Is this a subscription?",
+            "answer": "<p>No. The current offer is a one-time payment. There is no monthly charge or recurring course subscription, and your course access does not expire.</p>",
+            "open_by_default": false
+          }
+        },
+        "faq_CxFUVB": {
+          "type": "faq",
+          "settings": {
+            "question": "Can I ask Bojax questions?",
+            "answer": "<p>Yes. Members can submit questions and access member support. Response times and live call schedules can vary, so the course does not promise an immediate response at every hour of the day.</p>",
+            "open_by_default": false
+          }
+        },
+        "faq_CBhDxx": {
+          "type": "faq",
+          "settings": {
+            "question": "What if the course is not right for me?",
+            "answer": "<p>Please review the store refund policy before purchasing. Any refund request is handled according to the policy displayed on the website and agreed to during checkout.</p>",
+            "open_by_default": false
+          }
+        },
+        "faq_MtzQgQ": {
+          "type": "faq",
+          "settings": {
+            "question": "Is this medical advice?",
+            "answer": "<p>No. The Bojax Method is educational content and does not replace personalized medical advice, diagnosis or treatment from a qualified healthcare professional. Speak with an appropriate professional before making medical or health-related decisions.</p>",
+            "open_by_default": false
+          }
+        }
+      },
+      "block_order": [
+        "faq_CGGfJg",
+        "faq_kixic6",
+        "faq_hNEmiA",
+        "faq_ygz3Jq",
+        "faq_xBtHw4",
+        "faq_dkarya",
+        "faq_J6UCwU",
+        "faq_CxFUVB",
+        "faq_CBhDxx",
+        "faq_MtzQgQ"
+      ],
+      "name": "Bojax FAQ",
+      "settings": {
+        "eyebrow": "FAQ",
+        "heading": "Frequently Asked Questions",
+        "description": "<p>Everything you need to know before joining the Bojax Method.</p>",
+        "cta_heading": "Stop Guessing. Start Your Ascension.",
+        "cta_text": "<p>Get the complete system and start building a clear appearance-improvement plan today.</p>",
+        "button_text": "Get Lifetime Access - $29.99",
+        "button_link": "",
+        "button_note": "One-time payment | Lifetime access | Start immediately",
+        "padding_top": 72,
+        "padding_bottom": 80,
+        "padding_top_mobile": 52,
+        "padding_bottom_mobile": 60
       }
     }
   },
@@ -363,6 +475,7 @@
     "bojax_hero",
     "bojax_transformations_CPURm7",
     "bojax_course_curriculum_C6bCDw",
-    "bojax_price_card_v2"
+    "bojax_price_card_v2",
+    "bojax_faq_C3tBez"
   ]
 }

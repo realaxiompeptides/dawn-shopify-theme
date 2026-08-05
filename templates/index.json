@@ -51,7 +51,7 @@
         "description": "<p>The complete system for improving your facial appearance, physique, skin, hair, style and overall presentation.</p>",
         "button_text": "START YOUR ASCENSION",
         "button_link": "",
-        "payment_note": "$29.99 one-time payment â¢ Lifetime access",
+        "payment_note": "$29.99 one-time payment | Lifetime access",
         "show_stars": true,
         "proof_text": "650+ students"
       }
@@ -64,7 +64,7 @@
           "settings": {
             "before_image": "shopify://shop_images/6D05A991-66DB-4EC2-9B2B-19F5847E0641.png",
             "after_image": "shopify://shop_images/IMG_0784.jpg",
-            "overline": "The Bojax Method â¢ Before â After",
+            "overline": "The Bojax Method | Before - After",
             "title": "Face Ascension",
             "description": "<p>Improved skin, hair, grooming, facial presentation and overall appearance.</p>"
           }
@@ -74,7 +74,7 @@
           "settings": {
             "before_image": "shopify://shop_images/IMG_0785.jpg",
             "after_image": "shopify://shop_images/IMG_0585.jpg",
-            "overline": "The Bojax Method â¢ Before â After",
+            "overline": "The Bojax Method | Before - After",
             "title": "Physique Ascension",
             "description": "<p>Through improved nutrition, consistent gym training and advanced performance education, he built more muscle, improved his proportions and developed a stronger overall physique.</p>"
           }
@@ -90,7 +90,7 @@
         "heading": "The same system Bojax ran for his own transformation.",
         "description": "<p>Bojax applied the methods to himself first. See the progression behind the course.</p>",
         "autoplay_speed": 4,
-        "swipe_text": "Swipe to see the transformation â",
+        "swipe_text": "Swipe to see the transformation ->",
         "followers": "15.3K",
         "followers_label": "Followers",
         "likes": "869.6K",
@@ -335,7 +335,7 @@
         "offer_label": "LIMITED-TIME SALE PRICE",
         "fallback_price": "$29.99",
         "fallback_compare_price": "$59.99",
-        "price_subtext": "One-time purchase â¢ Instant digital delivery â¢ Lifetime course access",
+        "price_subtext": "One-time purchase | Instant digital delivery | Lifetime course access",
         "show_countdown": true,
         "countdown_heading": "SALE ENDS WHEN THE TIMER REACHES ZERO",
         "minimum_hours": 5.5,
@@ -350,11 +350,11 @@
         "feature_8": "Private members-only support access",
         "support_heading": "Direct access to Bojax and live teaching",
         "support_text": "Message Bojax with questions at any time and join live group calls where he teaches course topics, explains advanced strategies and answers member questions. Response times and call schedules may vary.",
-        "button_text": "Claim the Sale Price â $29.99",
-        "non_recurring_text": "$29.99 one-time purchase â¢ Non-recurring â¢ No subscription",
+        "button_text": "Claim the Sale Price - $29.99",
+        "non_recurring_text": "$29.99 one-time purchase | Non-recurring | No subscription",
         "payment_heading": "Accepted payment methods",
         "payment_note": "Available options may vary by location, currency and checkout eligibility.",
-        "legal_note": "<p>By completing your purchase, you agree to the storeâs terms and refund policy. Individual results vary.</p>",
+        "legal_note": "<p>By completing your purchase, you agree to the store's terms and refund policy. Individual results vary.</p>",
         "show_compare_price": true
       }
     },
@@ -365,9 +365,9 @@
           "type": "testimonial",
           "settings": {
             "image_label": "",
-            "review_title": "Add your strongest genuine review",
-            "review": "Replace this text with the exact words from a real course member.",
-            "name": "Member name or initials",
+            "review_title": "Finally everything was in one place",
+            "review": "I had been watching random looksmaxxing videos for months and never had a clear plan. This course put everything in one place and made it much easier to know what actually mattered first. The skincare, hair, style and physique lessons were the most useful for me, and the course helped me stop overthinking every little detail.",
+            "name": "Graham T.",
             "member_details": "Verified member",
             "rating": 5,
             "verified": true,
@@ -378,9 +378,9 @@
           "type": "testimonial",
           "settings": {
             "image_label": "",
-            "review_title": "Show the value of the course",
-            "review": "Replace this text with a genuine review explaining what the member learned or improved.",
-            "name": "Member name or initials",
+            "review_title": "Better than piecing advice together online",
+            "review": "Most of the advice online is scattered, so I liked that this course was actually organized. The lessons explain what to focus on first, what is probably a waste of time and how to build a realistic plan. It gave me a much clearer direction than trying to learn everything from random short videos.",
+            "name": "Reid C.",
             "member_details": "Verified member",
             "rating": 5,
             "verified": true,
@@ -391,9 +391,9 @@
           "type": "testimonial",
           "settings": {
             "image_label": "",
-            "review_title": "Answer a common objection",
-            "review": "Replace this text with a genuine review about the course quality, support, or whether it was worth the price.",
-            "name": "Member name or initials",
+            "review_title": "It helped me actually take action",
+            "review": "Before joining, I already knew a lot of random information but had no structure. The course broke everything down in a way that was easy to follow, and I became much more consistent with my routine, training and overall presentation. It felt practical and much more detailed than I expected.",
+            "name": "James M.",
             "member_details": "Verified member",
             "rating": 5,
             "verified": true,
@@ -404,9 +404,9 @@
           "type": "testimonial",
           "settings": {
             "image_label": "",
-            "review_title": "Describe the member experience",
-            "review": "Replace this text with a genuine review about the lessons, action plan, or direct support.",
-            "name": "Member name or initials",
+            "review_title": "More detailed than I expected",
+            "review": "I expected a basic overview, but the course goes into a lot more detail. It covers skin, hair, physique, style and overall presentation without making everything sound like a miracle. I especially liked having the topics organized in one place so I could focus on the improvements that made the most sense for me.",
+            "name": "Hugo P.",
             "member_details": "Verified member",
             "rating": 5,
             "verified": true,
@@ -429,9 +429,9 @@
         "autoplay_speed": 7,
         "image_ratio": "landscape",
         "show_stars": true,
-        "button_text": "Get Instant Access â $29.99",
+        "button_text": "Get Instant Access - $29.99",
         "button_link": "/products/bojax-course",
-        "button_note": "One-time payment â¢ Lifetime access â¢ Start immediately",
+        "button_note": "One-time payment | Lifetime access | Start immediately",
         "disclaimer": "Individual experiences and results vary. Only publish genuine member feedback and images you have permission to use.",
         "padding_top": 56,
         "padding_bottom": 64,

@@ -8,6 +8,443 @@
  * ------------------------------------------------------------
  */
 {
-  "sections": {},
-  "order": []
+  "sections": {
+    "bojax_hero": {
+      "type": "bojax-home-hero",
+      "blocks": {
+        "trust_instant": {
+          "type": "trust_item",
+          "settings": {
+            "icon": "play",
+            "text": "40+ video lessons"
+          }
+        },
+        "trust_payment": {
+          "type": "trust_item",
+          "settings": {
+            "icon": "check",
+            "text": "Message Bojax 24/7"
+          }
+        },
+        "trust_updates": {
+          "type": "trust_item",
+          "settings": {
+            "icon": "infinity",
+            "text": "Lifetime access"
+          }
+        }
+      },
+      "block_order": [
+        "trust_instant",
+        "trust_payment",
+        "trust_updates"
+      ],
+      "settings": {
+        "product": "bojax-course",
+        "desktop_image": "shopify://shop_images/IMG_3327.jpg",
+        "mobile_image": "shopify://shop_images/IMG_3327.jpg",
+        "desktop_image_position": "center center",
+        "mobile_image_position": "center center",
+        "overlay_opacity": 0,
+        "brand_label": "THE BOJAX METHOD",
+        "heading": "GET THE REAL METHODS TO ASCEND",
+        "description": "<p>The complete system for improving your facial appearance, physique, skin, hair, style and overall presentation.</p>",
+        "button_text": "START YOUR ASCENSION",
+        "button_link": "",
+        "payment_note": "$29.99 one-time payment | Lifetime access",
+        "show_stars": true,
+        "proof_text": "650+ students"
+      }
+    },
+    "bojax_transformations_CPURm7": {
+      "type": "bojax-transformations",
+      "blocks": {
+        "transformation_jWL8EC": {
+          "type": "transformation",
+          "settings": {
+            "before_image": "shopify://shop_images/6D05A991-66DB-4EC2-9B2B-19F5847E0641.png",
+            "after_image": "shopify://shop_images/IMG_0784.jpg",
+            "overline": "The Bojax Method | Before - After",
+            "title": "Face Ascension",
+            "description": "<p>Improved skin, hair, grooming, facial presentation and overall appearance.</p>"
+          }
+        },
+        "transformation_Pcc7Jz": {
+          "type": "transformation",
+          "settings": {
+            "before_image": "shopify://shop_images/IMG_0785.jpg",
+            "after_image": "shopify://shop_images/IMG_0585.jpg",
+            "overline": "The Bojax Method | Before - After",
+            "title": "Physique Ascension",
+            "description": "<p>Through improved nutrition, consistent gym training and advanced performance education, he built more muscle, improved his proportions and developed a stronger overall physique.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "transformation_jWL8EC",
+        "transformation_Pcc7Jz"
+      ],
+      "name": "Bojax transformations",
+      "settings": {
+        "eyebrow": "",
+        "heading": "The same system Bojax ran for his own transformation.",
+        "description": "<p>Bojax applied the methods to himself first. See the progression behind the course.</p>",
+        "autoplay_speed": 4,
+        "swipe_text": "Swipe to see the transformation ->",
+        "followers": "15.3K",
+        "followers_label": "Followers",
+        "likes": "869.6K",
+        "likes_label": "Likes",
+        "views": "10M+",
+        "views_label": "Video views",
+        "social_note": "",
+        "disclaimer": "",
+        "button_text": "See the Full Method",
+        "button_link": "/#pricing"
+      }
+    },
+    "bojax_course_curriculum_C6bCDw": {
+      "type": "bojax-course-curriculum",
+      "blocks": {
+        "topic_xdWKJV": {
+          "type": "topic",
+          "settings": {
+            "category": "Foundation",
+            "title": "Softmaxxing fundamentals",
+            "description": "<p>Build the highest-impact non-invasive improvements before moving into advanced options.</p>",
+            "featured": true
+          }
+        },
+        "topic_LEFagp": {
+          "type": "topic",
+          "settings": {
+            "category": "Skincare",
+            "title": "Advanced skin protocols",
+            "description": "<p>Understand acne, texture, pigmentation, oil control and professional skincare options.</p>",
+            "featured": false
+          }
+        },
+        "topic_kWUmhi": {
+          "type": "topic",
+          "settings": {
+            "category": "Hair",
+            "title": "Hairline and hair-growth protocols",
+            "description": "<p>Improve hairstyle, scalp care and hair presentation while understanding professional options.</p>",
+            "featured": false
+          }
+        },
+        "topic_tJ7cJT": {
+          "type": "topic",
+          "settings": {
+            "category": "Face",
+            "title": "Jawline, hyoid and mandibular appearance",
+            "description": "<p>Understand the visual factors that influence the jawline, neck and lower-face presentation.</p>",
+            "featured": false
+          }
+        },
+        "topic_eAjdBF": {
+          "type": "topic",
+          "settings": {
+            "category": "Facial structure",
+            "title": "Bone growth and forward-growth education",
+            "description": "<p>Learn what influences facial development and separate realistic options from dangerous myths.</p>",
+            "featured": false
+          }
+        },
+        "topic_VDxAMJ": {
+          "type": "topic",
+          "settings": {
+            "category": "Eye area",
+            "title": "Eye-area improvements",
+            "description": "<p>Improve the appearance of the under-eye area, brows and surrounding facial presentation.</p>",
+            "featured": false
+          }
+        },
+        "topic_Xpt8QW": {
+          "type": "topic",
+          "settings": {
+            "category": "Facial details",
+            "title": "Lashes, brows and lips",
+            "description": "<p>Refine smaller facial details that can noticeably improve overall appearance.</p>",
+            "featured": false
+          }
+        },
+        "topic_GbWHcg": {
+          "type": "topic",
+          "settings": {
+            "category": "Facial presentation",
+            "title": "Nose appearance and facial balance",
+            "description": "<p>Understand styling, photography and professional options that influence perceived facial balance.</p>",
+            "featured": false
+          }
+        },
+        "topic_eNCmXK": {
+          "type": "topic",
+          "settings": {
+            "category": "Symmetry",
+            "title": "Facial symmetry, exercises and posture",
+            "description": "<p>Understand realistic effects of expression habits, posture and facial movement.</p>",
+            "featured": false
+          }
+        },
+        "topic_nfgrtk": {
+          "type": "topic",
+          "settings": {
+            "category": "Presentation",
+            "title": "Feature balancing and facial masking",
+            "description": "<p>Use hairstyle, facial hair, glasses and styling to complement your strongest features.</p>",
+            "featured": false
+          }
+        },
+        "topic_MVPWrw": {
+          "type": "topic",
+          "settings": {
+            "category": "Physique",
+            "title": "Physique and proportion development",
+            "description": "<p>Build a stronger frame, improve body composition and develop balanced proportions.</p>",
+            "featured": true
+          }
+        },
+        "topic_T4KQYQ": {
+          "type": "topic",
+          "settings": {
+            "category": "Nutrition",
+            "title": "Debloating, fasting and dietary structure",
+            "description": "<p>Understand how hydration, sodium, digestion, sleep and meal timing affect appearance.</p>",
+            "featured": false
+          }
+        },
+        "topic_Ex99cg": {
+          "type": "topic",
+          "settings": {
+            "category": "Growth",
+            "title": "Height potential and posture",
+            "description": "<p>Understand growth plates, genetics, puberty, sleep, nutrition and posture.</p>",
+            "featured": false
+          }
+        },
+        "topic_ydKeaQ": {
+          "type": "topic",
+          "settings": {
+            "category": "Advanced education",
+            "title": "Peptide and performance-enhancement education",
+            "description": "<p>Understand common enhancement claims, potential risks and the importance of professional supervision.</p>",
+            "featured": false
+          }
+        },
+        "topic_Yy4gFc": {
+          "type": "topic",
+          "settings": {
+            "category": "Advanced education",
+            "title": "Hormones, nootropics and diuretics",
+            "description": "<p>An educational overview of commonly discussed compounds and their possible consequences.</p>",
+            "featured": false
+          }
+        },
+        "topic_3hchdb": {
+          "type": "topic",
+          "settings": {
+            "category": "Supplements",
+            "title": "Supplements and product resources",
+            "description": "<p>Learn how to evaluate supplement evidence, labels, quality and marketing claims.</p>",
+            "featured": false
+          }
+        },
+        "topic_cjMwnN": {
+          "type": "topic",
+          "settings": {
+            "category": "Hardmaxxing",
+            "title": "Professional and cosmetic options",
+            "description": "<p>A realistic overview of dentistry, dermatology, hair restoration and cosmetic procedures.</p>",
+            "featured": false
+          }
+        },
+        "topic_R7yRVx": {
+          "type": "topic",
+          "settings": {
+            "category": "Action plan",
+            "title": "Your personal ascension plan",
+            "description": "<p>Turn the curriculum into a focused plan based on your age, priorities, budget and starting point.</p>",
+            "featured": true
+          }
+        }
+      },
+      "block_order": [
+        "topic_xdWKJV",
+        "topic_LEFagp",
+        "topic_kWUmhi",
+        "topic_tJ7cJT",
+        "topic_eAjdBF",
+        "topic_VDxAMJ",
+        "topic_Xpt8QW",
+        "topic_GbWHcg",
+        "topic_eNCmXK",
+        "topic_nfgrtk",
+        "topic_MVPWrw",
+        "topic_T4KQYQ",
+        "topic_Ex99cg",
+        "topic_ydKeaQ",
+        "topic_Yy4gFc",
+        "topic_3hchdb",
+        "topic_cjMwnN",
+        "topic_R7yRVx"
+      ],
+      "name": "Bojax course curriculum",
+      "settings": {
+        "padding_top": 28,
+        "padding_bottom": 64,
+        "heading_gap": 16,
+        "stats_gap": 30,
+        "list_gap": 38,
+        "card_gap": 10,
+        "eyebrow": "WHAT YOU GET",
+        "heading": "Everything inside the Bojax Method",
+        "description": "<p>A detailed appearance-optimization system covering foundational improvements, advanced strategies, physique development, skincare, hair, nutrition and professional options.</p>",
+        "show_stats": true,
+        "module_count": 15,
+        "module_suffix": "+",
+        "module_label": "Detailed modules",
+        "lesson_count": 40,
+        "lesson_suffix": "+",
+        "lesson_label": "Video lessons",
+        "access_value": "24/7",
+        "access_label": "Message Bojax",
+        "updates_value": "Live Calls",
+        "updates_label": "Group teaching",
+        "included_eyebrow": "EVERYTHING INCLUDED",
+        "included_heading": "Every major topic covered",
+        "included_description": "<p>Focused lessons covering foundational softmaxxing, advanced education and professional appearance-improvement options.</p>",
+        "closing_text": "No more piecing together random advice from hundreds of videos. The course organizes the full system into clear categories and lessons.",
+        "disclaimer": "",
+        "button_text": "Unlock the Full Curriculum",
+        "button_link": "/#pricing"
+      }
+    },
+    "bojax_price_card_v2": {
+      "type": "bojax-pricing-card",
+      "name": "Bojax price card",
+      "settings": {
+        "product": "bojax-course",
+        "padding_top": 40,
+        "padding_bottom": 56,
+        "padding_top_mobile": 28,
+        "padding_bottom_mobile": 40,
+        "eyebrow": "ONE-TIME PAYMENT",
+        "heading": "Get the complete Bojax Method",
+        "description": "<p>Unlock the complete course, 24/7 messaging access, member support and live teaching calls with one payment. No monthly billing and no recurring subscription.</p>",
+        "offer_label": "LIMITED-TIME SALE PRICE",
+        "fallback_price": "$29.99",
+        "fallback_compare_price": "$59.99",
+        "price_subtext": "One-time purchase | Instant digital delivery | Lifetime course access",
+        "show_countdown": true,
+        "countdown_heading": "SALE ENDS WHEN THE TIMER REACHES ZERO",
+        "minimum_hours": 5.5,
+        "maximum_hours": 9,
+        "feature_1": "Complete looksmaxxing curriculum",
+        "feature_2": "40+ detailed video lessons",
+        "feature_3": "Message Bojax with questions 24/7",
+        "feature_4": "Live teaching and member Q&A calls",
+        "feature_5": "Instant access immediately after checkout",
+        "feature_6": "Lifetime access to the complete course",
+        "feature_7": "All future lessons and course updates",
+        "feature_8": "Private members-only support access",
+        "support_heading": "Direct access to Bojax and live teaching",
+        "support_text": "Message Bojax with questions at any time and join live group calls where he teaches course topics, explains advanced strategies and answers member questions. Response times and call schedules may vary.",
+        "button_text": "Claim the Sale Price - $29.99",
+        "non_recurring_text": "$29.99 one-time purchase | Non-recurring | No subscription",
+        "payment_heading": "Accepted payment methods",
+        "payment_note": "Available options may vary by location, currency and checkout eligibility.",
+        "legal_note": "<p>By completing your purchase, you agree to the store's terms and refund policy. Individual results vary.</p>",
+        "show_compare_price": true
+      }
+    },
+    "bojaxmemberreviewsv1": {
+      "type": "bojax-member-reviews",
+      "blocks": {
+        "review_1": {
+          "type": "testimonial",
+          "settings": {
+            "image_label": "",
+            "review_title": "Finally everything was in one place",
+            "review": "I had been watching random looksmaxxing videos for months and never had a clear plan. This course put everything in one place and made it much easier to know what actually mattered first. The skincare, hair, style and physique lessons were the most useful for me, and the course helped me stop overthinking every little detail.",
+            "name": "Graham T.",
+            "member_details": "Verified member",
+            "rating": 5,
+            "verified": true,
+            "featured": true
+          }
+        },
+        "review_2": {
+          "type": "testimonial",
+          "settings": {
+            "image_label": "",
+            "review_title": "Better than piecing advice together online",
+            "review": "Most of the advice online is scattered, so I liked that this course was actually organized. The lessons explain what to focus on first, what is probably a waste of time and how to build a realistic plan. It gave me a much clearer direction than trying to learn everything from random short videos.",
+            "name": "Reid C.",
+            "member_details": "Verified member",
+            "rating": 5,
+            "verified": true,
+            "featured": false
+          }
+        },
+        "review_3": {
+          "type": "testimonial",
+          "settings": {
+            "image_label": "",
+            "review_title": "It helped me actually take action",
+            "review": "Before joining, I already knew a lot of random information but had no structure. The course broke everything down in a way that was easy to follow, and I became much more consistent with my routine, training and overall presentation. It felt practical and much more detailed than I expected.",
+            "name": "James M.",
+            "member_details": "Verified member",
+            "rating": 5,
+            "verified": true,
+            "featured": false
+          }
+        },
+        "review_4": {
+          "type": "testimonial",
+          "settings": {
+            "image_label": "",
+            "review_title": "More detailed than I expected",
+            "review": "I expected a basic overview, but the course goes into a lot more detail. It covers skin, hair, physique, style and overall presentation without making everything sound like a miracle. I especially liked having the topics organized in one place so I could focus on the improvements that made the most sense for me.",
+            "name": "Hugo P.",
+            "member_details": "Verified member",
+            "rating": 5,
+            "verified": true,
+            "featured": false
+          }
+        }
+      },
+      "block_order": [
+        "review_1",
+        "review_2",
+        "review_3",
+        "review_4"
+      ],
+      "name": "Member reviews",
+      "settings": {
+        "eyebrow": "REAL MEMBER FEEDBACK",
+        "heading": "What members are saying",
+        "description": "<p>Feedback from members using the Bojax Method to organize their routines, improve their presentation and stop relying on scattered advice.</p>",
+        "autoplay": true,
+        "autoplay_speed": 7,
+        "image_ratio": "landscape",
+        "show_stars": true,
+        "button_text": "Get Instant Access - $29.99",
+        "button_link": "/#pricing",
+        "button_note": "One-time payment | Lifetime access | Start immediately",
+        "disclaimer": "Individual experiences and results vary. Only publish genuine member feedback and images you have permission to use.",
+        "padding_top": 56,
+        "padding_bottom": 64,
+        "padding_top_mobile": 40,
+        "padding_bottom_mobile": 48
+      }
+    }
+  },
+  "order": [
+    "bojax_hero",
+    "bojax_transformations_CPURm7",
+    "bojax_course_curriculum_C6bCDw",
+    "bojaxmemberreviewsv1",
+    "bojax_price_card_v2"
+  ]
 }

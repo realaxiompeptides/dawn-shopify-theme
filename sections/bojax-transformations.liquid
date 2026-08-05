@@ -198,8 +198,10 @@
       <div class="bojax-transformations__actions">
         <a
           class="bojax-transformations__button"
-          href="#pricing"
-          data-scroll-to-pricing
+          href="/products/bojax-course"
+          data-bojax-course-add
+          role="button"
+          aria-label="Add The Bojax Method to cart"
         >
           <span>{{ section.settings.button_text }}</span>
 
@@ -872,44 +874,6 @@
       'shopify:section:load',
       (event) => initializeAll(event.target)
     );
-  })();
-</script>
-
-
-<script>
-  (() => {
-    const scrollToPricing = (event) => {
-      const button = event.target.closest('[data-scroll-to-pricing]');
-
-      if (!button) return;
-
-      const pricing = document.getElementById('pricing');
-
-      if (!pricing) return;
-
-      event.preventDefault();
-      event.stopImmediatePropagation();
-
-      pricing.scrollIntoView({
-        behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches
-          ? 'auto'
-          : 'smooth',
-        block: 'start'
-      });
-
-      if (window.history && window.history.replaceState) {
-        window.history.replaceState(null, '', '#pricing');
-      }
-    };
-
-    document.addEventListener('click', scrollToPricing, true);
-
-    document.addEventListener('shopify:section:load', () => {
-      if (window.location.hash === '#pricing') {
-        const pricing = document.getElementById('pricing');
-        if (pricing) pricing.scrollIntoView({ block: 'start' });
-      }
-    });
   })();
 </script>
 

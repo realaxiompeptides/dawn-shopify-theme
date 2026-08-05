@@ -1,660 +1,1483 @@
-<section id="BojaxPricing-{{ section.id }}" class="bojax-pricing-section">
-  <div class="page-width">
-    <div class="bojax-pricing">
+{%- liquid
+  assign pricing_product = section.settings.product
+
+  if pricing_product == blank
+    assign pricing_product = all_products['bojax-course']
+  endif
+
+  assign pricing_variant = pricing_product.selected_or_first_available_variant
+  assign pricing_form_id = 'BojaxPricingForm-' | append: section.id
+
+  if pricing_product != blank and pricing_variant != blank
+    assign displayed_price = pricing_variant.price | money
+    assign displayed_compare_price = pricing_variant.compare_at_price | money
+  else
+    assign displayed_price = section.settings.fallback_price
+    assign displayed_compare_price = section.settings.fallback_compare_price
+  endif
+-%}
+
+<script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
+
+<section
+  id="BojaxPricing-{{ section.id }}"
+  class="bojax-pricing"
+  data-bojax-pricing
+  style="
+    --bojax-pricing-top: {{ section.settings.padding_top }}px;
+    --bojax-pricing-bottom: {{ section.settings.padding_bottom }}px;
+    --bojax-pricing-top-mobile: {{ section.settings.padding_top_mobile }}px;
+    --bojax-pricing-bottom-mobile: {{ section.settings.padding_bottom_mobile }}px;
+  "
+>
+  <div class="bojax-pricing__ambient" aria-hidden="true">
+    <span class="bojax-pricing__orb bojax-pricing__orb--left"></span>
+    <span class="bojax-pricing__orb bojax-pricing__orb--right"></span>
+    <span class="bojax-pricing__lines"></span>
+  </div>
+
+  <div class="bojax-pricing__container">
+    <header class="bojax-pricing__header">
       {% if section.settings.eyebrow != blank %}
-        <p class="bojax-pricing__eyebrow">{{ section.settings.eyebrow }}</p>
+        <p class="bojax-pricing__eyebrow">
+          {{ section.settings.eyebrow }}
+        </p>
       {% endif %}
 
       {% if section.settings.heading != blank %}
-        <h2 class="bojax-pricing__heading">{{ section.settings.heading }}</h2>
+        <h2 class="bojax-pricing__heading">
+          {{ section.settings.heading }}
+        </h2>
       {% endif %}
 
       {% if section.settings.description != blank %}
-        <div class="bojax-pricing__description rte">
+        <div class="bojax-pricing__description">
           {{ section.settings.description }}
         </div>
       {% endif %}
+    </header>
 
-      <div class="bojax-pricing__card">
-        <div class="bojax-pricing__card-inner">
-          {% if section.settings.price_eyebrow != blank %}
-            <p class="bojax-pricing__card-eyebrow">{{ section.settings.price_eyebrow }}</p>
+    <div class="bojax-pricing__offer">
+      <div class="bojax-pricing__offer-inner">
+        {% if section.settings.offer_label != blank %}
+          <p class="bojax-pricing__offer-label">
+            {{ section.settings.offer_label }}
+          </p>
+        {% endif %}
+
+        <div class="bojax-pricing__price-row">
+          <span class="bojax-pricing__price">
+            {{ displayed_price }}
+          </span>
+
+          {% if pricing_variant != blank
+            and pricing_variant.compare_at_price > pricing_variant.price
+          %}
+            <s class="bojax-pricing__compare-price">
+              {{ displayed_compare_price }}
+            </s>
+          {% elsif section.settings.show_fallback_compare_price
+            and section.settings.fallback_compare_price != blank
+          %}
+            <s class="bojax-pricing__compare-price">
+              {{ section.settings.fallback_compare_price }}
+            </s>
           {% endif %}
+        </div>
 
-          <div class="bojax-pricing__price-row">
-            <div class="bojax-pricing__price-main">
-              {{ section.settings.price }}
+        {% if section.settings.price_subtext != blank %}
+          <p class="bojax-pricing__price-subtext">
+            {{ section.settings.price_subtext }}
+          </p>
+        {% endif %}
+
+        {% if section.settings.show_countdown %}
+          <div
+            class="bojax-pricing__urgency"
+            data-bojax-countdown
+            data-min-hours="{{ section.settings.minimum_hours }}"
+            data-max-hours="{{ section.settings.maximum_hours }}"
+            data-storage-key="bojax-pricing-expiration-{{ section.id }}"
+          >
+            <div class="bojax-pricing__urgency-heading">
+              <span class="bojax-pricing__urgency-dot" aria-hidden="true"></span>
+
+              <span>
+                {{ section.settings.countdown_heading }}
+              </span>
             </div>
 
-            {% if section.settings.compare_price != blank %}
-              <div class="bojax-pricing__price-compare">
-                {{ section.settings.compare_price }}
+            <div
+              class="bojax-pricing__timer"
+              role="timer"
+              aria-live="off"
+              aria-label="Checkout session countdown"
+            >
+              <div class="bojax-pricing__time-unit">
+                <strong data-countdown-hours>06</strong>
+                <span>Hours</span>
               </div>
-            {% endif %}
-          </div>
 
-          {% if section.settings.subtext != blank %}
-            <p class="bojax-pricing__subtext">
-              {{ section.settings.subtext }}
-            </p>
-          {% endif %}
+              <span class="bojax-pricing__time-divider" aria-hidden="true">
+                :
+              </span>
 
-          <div class="bojax-pricing__countdown-wrap">
-            {% if section.settings.countdown_label != blank %}
-              <p class="bojax-pricing__countdown-label">
-                {{ section.settings.countdown_label }}
+              <div class="bojax-pricing__time-unit">
+                <strong data-countdown-minutes>00</strong>
+                <span>Minutes</span>
+              </div>
+
+              <span class="bojax-pricing__time-divider" aria-hidden="true">
+                :
+              </span>
+
+              <div class="bojax-pricing__time-unit">
+                <strong data-countdown-seconds>00</strong>
+                <span>Seconds</span>
+              </div>
+            </div>
+
+            {% if section.settings.countdown_note != blank %}
+              <p class="bojax-pricing__urgency-note">
+                {{ section.settings.countdown_note }}
               </p>
             {% endif %}
-            <div
-              class="bojax-pricing__countdown"
-              data-minutes="{{ section.settings.countdown_minutes }}"
-              data-storage-key="bojax-pricing-countdown-{{ section.id }}"
-            >
-              <span class="bojax-pricing__countdown-time">15:00</span>
-            </div>
           </div>
+        {% endif %}
 
-          <ul class="bojax-pricing__benefits" role="list">
-            <li>
-              <span class="bojax-pricing__check">✓</span>
-              <span>Complete looksmaxxing curriculum</span>
-            </li>
-            <li>
-              <span class="bojax-pricing__check">✓</span>
-              <span>40+ detailed video lessons</span>
-            </li>
-            <li>
-              <span class="bojax-pricing__check">✓</span>
-              <span>24/7 access to message Bojax with questions</span>
-            </li>
-            <li>
-              <span class="bojax-pricing__check">✓</span>
-              <span>Live calls where Bojax teaches advanced topics</span>
-            </li>
-            <li>
-              <span class="bojax-pricing__check">✓</span>
-              <span>Instant access after checkout</span>
-            </li>
-            <li>
-              <span class="bojax-pricing__check">✓</span>
-              <span>Lifetime access to your purchase</span>
-            </li>
-            <li>
-              <span class="bojax-pricing__check">✓</span>
-              <span>Future course updates included</span>
-            </li>
-          </ul>
+        <div class="bojax-pricing__divider"></div>
 
-          {% assign pricing_product = all_products[section.settings.product_handle] %}
-          {% if pricing_product != blank and pricing_product.selected_or_first_available_variant != blank %}
-            <form class="bojax-pricing__form" data-bojax-atc-form>
-              <input
-                type="hidden"
-                name="id"
-                value="{{ pricing_product.selected_or_first_available_variant.id }}"
-              >
-              <button type="submit" class="bojax-pricing__button">
-                <span>{{ section.settings.button_text }}</span>
-                <span class="bojax-pricing__button-arrow">→</span>
-              </button>
-            </form>
+        <div class="bojax-pricing__features">
+          {% for i in (1..8) %}
+            {% assign feature_key = 'feature_' | append: i %}
+            {% assign feature_text = section.settings[feature_key] %}
+
+            {% if feature_text != blank %}
+              <div class="bojax-pricing__feature">
+                <span class="bojax-pricing__check" aria-hidden="true">
+                  <svg viewBox="0 0 20 20">
+                    <path
+                      d="M5 10.5 8.2 13.7 15.5 6.2"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.35"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </span>
+
+                <span>{{ feature_text }}</span>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+
+        <div class="bojax-pricing__support-note">
+          <span class="bojax-pricing__support-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+              <path
+                d="M5 5.5h14v10H9l-4 3v-13Z"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.7"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M8 9h8M8 12h5"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.7"
+                stroke-linecap="round"
+              />
+            </svg>
+          </span>
+
+          <div>
+            <strong>{{ section.settings.support_heading }}</strong>
+
+            {% if section.settings.support_text != blank %}
+              <p>{{ section.settings.support_text }}</p>
+            {% endif %}
+          </div>
+        </div>
+
+        <div class="bojax-pricing__purchase">
+          {% if pricing_product != blank and pricing_variant != blank %}
+            <product-form
+              class="bojax-pricing__product-form"
+              data-section-id="{{ section.id }}"
+              data-hide-errors="false"
+            >
+              {% form 'product',
+                pricing_product,
+                id: pricing_form_id,
+                class: 'bojax-pricing__form',
+                novalidate: 'novalidate',
+                data-type: 'add-to-cart-form'
+              %}
+                <input
+                  type="hidden"
+                  name="id"
+                  value="{{ pricing_variant.id }}"
+                  class="product-variant-id"
+                >
+
+                <button
+                  type="submit"
+                  name="add"
+                  class="bojax-pricing__button"
+                  {% unless pricing_variant.available %}
+                    disabled
+                  {% endunless %}
+                >
+                  <span class="bojax-pricing__button-content">
+                    <span class="bojax-pricing__button-text">
+                      {% if pricing_variant.available %}
+                        {{ section.settings.button_text }}
+                      {% else %}
+                        Sold out
+                      {% endif %}
+                    </span>
+
+                    {% if pricing_variant.available %}
+                      <span
+                        class="bojax-pricing__button-arrow"
+                        aria-hidden="true"
+                      >
+                        <svg viewBox="0 0 20 20">
+                          <path
+                            d="M4 10h11M11 5l5 5-5 5"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.8"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          />
+                        </svg>
+                      </span>
+                    {% endif %}
+                  </span>
+
+                  {% render 'loading-spinner' %}
+                </button>
+              {% endform %}
+            </product-form>
           {% else %}
-            <div class="bojax-pricing__button bojax-pricing__button--disabled">
-              <span>Select a product in the section settings</span>
-            </div>
-          {% endif %}
+            <a
+              class="bojax-pricing__button"
+              href="/products/bojax-course"
+            >
+              <span class="bojax-pricing__button-content">
+                <span class="bojax-pricing__button-text">
+                  {{ section.settings.button_text }}
+                </span>
 
-          {% if section.settings.purchase_note != blank %}
-            <p class="bojax-pricing__purchase-note">
-              {{ section.settings.purchase_note }}
+                <span
+                  class="bojax-pricing__button-arrow"
+                  aria-hidden="true"
+                >
+                  <svg viewBox="0 0 20 20">
+                    <path
+                      d="M4 10h11M11 5l5 5-5 5"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.8"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </span>
+              </span>
+            </a>
+          {% endif %}
+        </div>
+
+        {% if section.settings.non_recurring_text != blank %}
+          <p class="bojax-pricing__non-recurring">
+            {{ section.settings.non_recurring_text }}
+          </p>
+        {% endif %}
+
+        <div class="bojax-pricing__payments">
+          {% if section.settings.payment_heading != blank %}
+            <p class="bojax-pricing__payment-heading">
+              {{ section.settings.payment_heading }}
             </p>
           {% endif %}
 
           {% if shop.enabled_payment_types.size > 0 %}
-            <div class="bojax-pricing__payments">
-              {% if section.settings.payment_heading != blank %}
-                <p class="bojax-pricing__payments-heading">{{ section.settings.payment_heading }}</p>
-              {% endif %}
+            <ul
+              class="bojax-pricing__payment-icons"
+              role="list"
+              aria-label="Accepted payment methods"
+            >
+              {% for type in shop.enabled_payment_types %}
+                <li class="bojax-pricing__payment-icon">
+                  {{ type | payment_type_svg_tag }}
+                </li>
+              {% endfor %}
+            </ul>
+          {% endif %}
 
-              <div class="bojax-pricing__payment-icons">
-                {% for type in shop.enabled_payment_types %}
-                  <span class="bojax-pricing__payment-icon">
-                    {{ type | payment_type_svg_tag }}
-                  </span>
-                {% endfor %}
-              </div>
-            </div>
+          {% if section.settings.payment_note != blank %}
+            <p class="bojax-pricing__payment-note">
+              {{ section.settings.payment_note }}
+            </p>
           {% endif %}
         </div>
       </div>
-
-      {% if section.settings.footer_note != blank %}
-        <p class="bojax-pricing__footer-note">{{ section.settings.footer_note }}</p>
-      {% endif %}
     </div>
+
+    {% if section.settings.legal_note != blank %}
+      <div class="bojax-pricing__legal">
+        {{ section.settings.legal_note }}
+      </div>
+    {% endif %}
   </div>
 </section>
 
-<style>
-  #shopify-section-{{ section.id }} {
-    background:
-      radial-gradient(circle at top center, rgba(201, 164, 92, 0.10), transparent 35%),
-      #050505;
-  }
-
-  .bojax-pricing-section {
-    padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px;
-    color: #fff;
-  }
-
+{% stylesheet %}
   .bojax-pricing {
-    max-width: 860px;
+    --bojax-gold: #d8b86a;
+    --bojax-gold-light: #f2d995;
+    --bojax-gold-pale: #fff0c4;
+    --bojax-green: #4ce47a;
+    --bojax-urgent: #f0c568;
+
+    position: relative;
+    overflow: hidden;
+
+    padding-top: var(--bojax-pricing-top, 48px);
+    padding-bottom: var(--bojax-pricing-bottom, 56px);
+
+    background:
+      radial-gradient(
+        circle at 50% 0,
+        rgba(216, 184, 106, 0.16),
+        transparent 36rem
+      ),
+      linear-gradient(
+        180deg,
+        #030303 0%,
+        #0a0906 50%,
+        #030303 100%
+      );
+
+    color: #ffffff;
+  }
+
+  .bojax-pricing::before {
+    position: absolute;
+    inset: 0 0 auto;
+    height: 1px;
+
+    background:
+      linear-gradient(
+        90deg,
+        transparent,
+        var(--bojax-gold),
+        rgba(255, 255, 255, 0.82),
+        var(--bojax-gold),
+        transparent
+      );
+
+    content: "";
+    opacity: 0.78;
+  }
+
+  .bojax-pricing__ambient {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .bojax-pricing__orb {
+    position: absolute;
+    display: block;
+    border-radius: 50%;
+    background: var(--bojax-gold);
+    filter: blur(10rem);
+  }
+
+  .bojax-pricing__orb--left {
+    top: 8rem;
+    left: -24rem;
+    width: 46rem;
+    height: 46rem;
+    opacity: 0.11;
+  }
+
+  .bojax-pricing__orb--right {
+    right: -25rem;
+    bottom: -4rem;
+    width: 48rem;
+    height: 48rem;
+    opacity: 0.08;
+  }
+
+  .bojax-pricing__lines {
+    position: absolute;
+    inset: 0;
+    opacity: 0.035;
+
+    background-image:
+      linear-gradient(
+        rgba(216, 184, 106, 0.5) 1px,
+        transparent 1px
+      ),
+      linear-gradient(
+        90deg,
+        rgba(216, 184, 106, 0.5) 1px,
+        transparent 1px
+      );
+
+    background-size: 7rem 7rem;
+
+    mask-image:
+      linear-gradient(
+        180deg,
+        rgba(0, 0, 0, 0.8),
+        transparent 78%
+      );
+
+    -webkit-mask-image:
+      linear-gradient(
+        180deg,
+        rgba(0, 0, 0, 0.8),
+        transparent 78%
+      );
+  }
+
+  .bojax-pricing__container {
+    position: relative;
+    z-index: 2;
+
+    width: min(calc(100% - 4rem), 92rem);
     margin: 0 auto;
   }
 
+  .bojax-pricing__header {
+    max-width: 78rem;
+    margin: 0 auto;
+    text-align: center;
+  }
+
   .bojax-pricing__eyebrow {
-    margin: 0 0 10px;
-    color: #d7bc7b;
-    font-size: 1.2rem;
-    font-weight: 700;
+    margin: 0 0 1.4rem;
+
+    color: var(--bojax-gold-light);
+
+    font-size: 1rem;
+    font-weight: 850;
     letter-spacing: 0.32em;
     line-height: 1;
     text-transform: uppercase;
-    text-align: center;
   }
 
   .bojax-pricing__heading {
     margin: 0;
-    color: #fff;
+
+    color: #ffffff;
+
     font-family: Georgia, "Times New Roman", serif;
     font-size: clamp(4rem, 7vw, 7rem);
-    font-weight: 700;
-    line-height: 0.95;
-    letter-spacing: -0.04em;
-    text-align: center;
+    font-weight: 500;
+    letter-spacing: -0.06em;
+    line-height: 0.97;
+
     text-wrap: balance;
   }
 
   .bojax-pricing__description {
-    max-width: 760px;
-    margin: 22px auto 0;
-    color: rgba(255,255,255,0.72);
-    font-size: 1.95rem;
-    line-height: 1.7;
-    text-align: center;
+    max-width: 68rem;
+    margin: 2rem auto 0;
+
+    color: rgba(255, 255, 255, 0.63);
+
+    font-size: clamp(1.5rem, 2vw, 1.85rem);
+    line-height: 1.65;
   }
 
-  .bojax-pricing__description p {
+  .bojax-pricing__description p,
+  .bojax-pricing__legal p {
     margin: 0;
   }
 
-  .bojax-pricing__card {
-    margin-top: 34px;
+  .bojax-pricing__offer {
+    margin-top: 3.8rem;
     padding: 1px;
-    border-radius: 32px;
-    background: linear-gradient(135deg, rgba(212, 176, 94, 0.65), rgba(212, 176, 94, 0.14));
-    box-shadow: 0 30px 80px rgba(0,0,0,0.5);
-  }
 
-  .bojax-pricing__card-inner {
-    padding: 34px 28px 28px;
-    border-radius: 31px;
+    border-radius: 2.7rem;
+
     background:
-      radial-gradient(circle at top center, rgba(201,164,92,0.12), transparent 48%),
-      linear-gradient(180deg, rgba(17,17,17,0.98), rgba(5,5,5,0.98));
+      linear-gradient(
+        135deg,
+        rgba(242, 217, 149, 0.7),
+        rgba(216, 184, 106, 0.13) 44%,
+        rgba(216, 184, 106, 0.5)
+      );
+
+    box-shadow:
+      0 3rem 9rem rgba(0, 0, 0, 0.46),
+      0 0 5rem rgba(216, 184, 106, 0.08);
   }
 
-  .bojax-pricing__card-eyebrow {
-    margin: 0 0 18px;
-    color: #edd59a;
-    font-size: 1.2rem;
-    font-weight: 800;
-    letter-spacing: 0.34em;
+  .bojax-pricing__offer-inner {
+    padding: 4rem;
+
+    border-radius: calc(2.7rem - 1px);
+
+    background:
+      radial-gradient(
+        circle at 50% 0,
+        rgba(216, 184, 106, 0.16),
+        transparent 34rem
+      ),
+      linear-gradient(
+        145deg,
+        rgba(17, 16, 12, 0.99),
+        rgba(4, 4, 4, 0.995)
+      );
+
+    text-align: center;
+  }
+
+  .bojax-pricing__offer-label {
+    margin: 0;
+
+    color: var(--bojax-gold-light);
+
+    font-size: 1rem;
+    font-weight: 850;
+    letter-spacing: 0.27em;
     line-height: 1;
     text-transform: uppercase;
-    text-align: center;
   }
 
   .bojax-pricing__price-row {
     display: flex;
-    align-items: baseline;
+    margin-top: 2rem;
+
+    align-items: center;
     justify-content: center;
-    gap: 14px;
     flex-wrap: wrap;
+    gap: 1.5rem;
   }
 
-  .bojax-pricing__price-main {
-    color: #fff;
+  .bojax-pricing__price {
+    color: #ffffff;
+
     font-family: Georgia, "Times New Roman", serif;
-    font-size: clamp(5.4rem, 9vw, 9rem);
+    font-size: clamp(5.5rem, 10vw, 9rem);
     font-weight: 700;
-    line-height: 0.95;
-    letter-spacing: -0.06em;
-    text-align: center;
+    letter-spacing: -0.075em;
+    line-height: 0.9;
+
+    text-shadow:
+      0 0 3rem rgba(216, 184, 106, 0.12);
   }
 
-  .bojax-pricing__price-compare {
-    color: rgba(255,255,255,0.35);
-    font-size: clamp(2rem, 3.5vw, 3.4rem);
-    font-weight: 600;
-    text-decoration: line-through;
+  .bojax-pricing__compare-price {
+    color: rgba(255, 255, 255, 0.3);
+
+    font-size: clamp(2rem, 3vw, 3rem);
     line-height: 1;
+
+    text-decoration-thickness: 0.15rem;
   }
 
-  .bojax-pricing__subtext {
-    max-width: 700px;
-    margin: 28px auto 0;
-    color: rgba(255,255,255,0.72);
-    font-size: 1.8rem;
-    line-height: 1.65;
-    text-align: center;
+  .bojax-pricing__price-subtext {
+    max-width: 66rem;
+    margin: 2.4rem auto 0;
+
+    color: rgba(255, 255, 255, 0.6);
+
+    font-size: 1.35rem;
+    line-height: 1.55;
   }
 
-  .bojax-pricing__countdown-wrap {
-    margin-top: 20px;
-    margin-bottom: 26px;
-    text-align: center;
+  /* Countdown */
+
+  .bojax-pricing__urgency {
+    max-width: 64rem;
+    margin: 2.6rem auto 0;
+    padding: 1.8rem 2rem;
+
+    border: 1px solid rgba(216, 184, 106, 0.32);
+    border-radius: 1.8rem;
+
+    background:
+      linear-gradient(
+        135deg,
+        rgba(216, 184, 106, 0.11),
+        rgba(216, 184, 106, 0.035)
+      );
+
+    box-shadow:
+      inset 0 1px rgba(255, 255, 255, 0.035),
+      0 1.8rem 4rem rgba(0, 0, 0, 0.18);
   }
 
-  .bojax-pricing__countdown-label {
-    margin: 0 0 10px;
-    color: #d7bc7b;
-    font-size: 1.15rem;
-    font-weight: 700;
-    letter-spacing: 0.25em;
+  .bojax-pricing__urgency-heading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+
+    color: var(--bojax-gold-light);
+
+    font-size: 0.95rem;
+    font-weight: 850;
+    letter-spacing: 0.18em;
+    line-height: 1.3;
     text-transform: uppercase;
   }
 
-  .bojax-pricing__countdown {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 144px;
-    min-height: 48px;
-    padding: 10px 18px;
-    border: 1px solid rgba(212,176,94,0.28);
-    border-radius: 999px;
-    background: rgba(212,176,94,0.08);
-    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.02);
+  .bojax-pricing__urgency-dot {
+    display: block;
+    width: 0.8rem;
+    height: 0.8rem;
+
+    border-radius: 50%;
+    background: var(--bojax-urgent);
+
+    box-shadow:
+      0 0 0 0.4rem rgba(240, 197, 104, 0.09),
+      0 0 1.5rem rgba(240, 197, 104, 0.45);
+
+    animation: bojaxUrgencyPulse 1.8s ease-in-out infinite;
   }
 
-  .bojax-pricing__countdown-time {
-    color: #fff;
-    font-size: 2rem;
-    font-weight: 800;
-    letter-spacing: 0.08em;
-    line-height: 1;
+  .bojax-pricing__timer {
+    display: flex;
+    margin-top: 1.4rem;
+
+    align-items: flex-start;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  .bojax-pricing__time-unit {
+    display: grid;
+    min-width: 7.5rem;
+    gap: 0.45rem;
+    text-align: center;
+  }
+
+  .bojax-pricing__time-unit strong {
+    color: #ffffff;
+
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 3.7rem;
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    line-height: 0.95;
+
     font-variant-numeric: tabular-nums;
   }
 
-  .bojax-pricing__benefits {
-    display: grid;
-    gap: 14px;
-    margin: 0;
-    padding: 0;
-    list-style: none;
+  .bojax-pricing__time-unit span {
+    color: rgba(255, 255, 255, 0.44);
+
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
   }
 
-  .bojax-pricing__benefits li {
+  .bojax-pricing__time-divider {
+    margin-top: 0.1rem;
+
+    color: var(--bojax-gold);
+
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 3.2rem;
+    line-height: 1;
+  }
+
+  .bojax-pricing__urgency-note {
+    margin: 1.3rem 0 0;
+
+    color: rgba(255, 255, 255, 0.42);
+
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+
+  @keyframes bojaxUrgencyPulse {
+    0%,
+    100% {
+      opacity: 0.65;
+      transform: scale(0.9);
+    }
+
+    50% {
+      opacity: 1;
+      transform: scale(1.1);
+    }
+  }
+
+  .bojax-pricing__divider {
+    height: 1px;
+    margin: 3.1rem 0;
+
+    background:
+      linear-gradient(
+        90deg,
+        transparent,
+        rgba(216, 184, 106, 0.42),
+        transparent
+      );
+  }
+
+  /* Benefits */
+
+  .bojax-pricing__features {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    max-width: 76rem;
+    margin: 0 auto;
+
+    gap: 1.25rem 2.3rem;
+    text-align: left;
+  }
+
+  .bojax-pricing__feature {
     display: flex;
+    min-width: 0;
+
     align-items: flex-start;
-    gap: 14px;
-    color: #fff;
-    font-size: 1.95rem;
+    gap: 1rem;
+
+    color: rgba(255, 255, 255, 0.82);
+
+    font-size: 1.3rem;
     line-height: 1.45;
   }
 
   .bojax-pricing__check {
-    display: inline-grid;
-    width: 32px;
-    height: 32px;
-    flex: 0 0 32px;
+    display: grid;
+    flex: 0 0 2.25rem;
+
+    width: 2.25rem;
+    height: 2.25rem;
+    margin-top: 0.05rem;
+
     place-items: center;
-    margin-top: 1px;
+
     border-radius: 50%;
-    background: #4fe173;
-    color: #071108;
-    font-size: 1.8rem;
-    font-weight: 900;
-    line-height: 1;
+    background: var(--bojax-green);
+    color: #031108;
+
+    box-shadow:
+      0 0 2rem rgba(76, 228, 122, 0.17);
   }
 
+  .bojax-pricing__check svg {
+    width: 1.3rem;
+    height: 1.3rem;
+  }
+
+  /* Support highlight */
+
+  .bojax-pricing__support-note {
+    display: flex;
+    max-width: 76rem;
+    margin: 2.8rem auto 0;
+    padding: 1.7rem 1.9rem;
+
+    align-items: flex-start;
+    gap: 1.3rem;
+
+    border: 1px solid rgba(216, 184, 106, 0.24);
+    border-radius: 1.7rem;
+
+    background:
+      linear-gradient(
+        135deg,
+        rgba(216, 184, 106, 0.08),
+        rgba(255, 255, 255, 0.015)
+      );
+
+    text-align: left;
+  }
+
+  .bojax-pricing__support-icon {
+    display: grid;
+    flex: 0 0 4.3rem;
+
+    width: 4.3rem;
+    height: 4.3rem;
+
+    place-items: center;
+
+    border: 1px solid rgba(216, 184, 106, 0.27);
+    border-radius: 1.2rem;
+
+    background: rgba(216, 184, 106, 0.08);
+    color: var(--bojax-gold-light);
+  }
+
+  .bojax-pricing__support-icon svg {
+    width: 2.3rem;
+    height: 2.3rem;
+  }
+
+  .bojax-pricing__support-note strong {
+    display: block;
+
+    color: #ffffff;
+
+    font-size: 1.35rem;
+    font-weight: 850;
+    line-height: 1.3;
+  }
+
+  .bojax-pricing__support-note p {
+    margin: 0.55rem 0 0;
+
+    color: rgba(255, 255, 255, 0.52);
+
+    font-size: 1.13rem;
+    line-height: 1.55;
+  }
+
+  /* Purchase button */
+
+  .bojax-pricing__purchase {
+    max-width: 76rem;
+    margin: 3rem auto 0;
+  }
+
+  .bojax-pricing__product-form,
   .bojax-pricing__form {
-    margin-top: 28px;
+    display: block;
+    width: 100%;
   }
 
   .bojax-pricing__button {
-    display: inline-flex;
+    position: relative;
+
+    display: flex;
     width: 100%;
-    min-height: 74px;
-    padding: 18px 26px;
+    min-height: 6.8rem;
+    padding: 1.5rem 2.5rem;
+
     align-items: center;
     justify-content: center;
-    gap: 14px;
-    border: none;
-    border-radius: 999px;
-    background: linear-gradient(180deg, #fffdf8, #efe3bc);
-    color: #090909;
-    font-size: 2.15rem;
-    font-weight: 850;
-    line-height: 1;
+
+    overflow: hidden;
+
+    border: 1px solid #ffffff;
+    border-radius: 99rem;
+
+    background:
+      linear-gradient(
+        135deg,
+        #ffffff,
+        var(--bojax-gold-pale)
+      );
+
+    color: #080704;
+
+    font-size: 1.6rem;
+    font-weight: 900;
+    line-height: 1.2;
     text-align: center;
+    text-decoration: none;
+
     cursor: pointer;
-    box-shadow: 0 20px 44px rgba(212,176,94,0.18);
-    transition: transform 180ms ease, box-shadow 180ms ease, filter 180ms ease;
+
+    box-shadow:
+      0 2rem 5rem rgba(0, 0, 0, 0.36),
+      0 0 4rem rgba(216, 184, 106, 0.14);
+
+    transition:
+      box-shadow 180ms ease,
+      transform 180ms ease;
   }
 
   .bojax-pricing__button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 24px 54px rgba(212,176,94,0.22);
-    filter: brightness(1.02);
+    color: #080704;
+
+    box-shadow:
+      0 2.5rem 6rem rgba(0, 0, 0, 0.45),
+      0 0 5rem rgba(216, 184, 106, 0.21);
+
+    transform: translateY(-0.2rem);
+  }
+
+  .bojax-pricing__button:disabled {
+    cursor: not-allowed;
+    opacity: 0.55;
+    transform: none;
+  }
+
+  .bojax-pricing__button-content {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+    gap: 1.2rem;
   }
 
   .bojax-pricing__button-arrow {
-    font-size: 2.4rem;
-    line-height: 1;
+    display: inline-grid;
+    width: 2rem;
+    height: 2rem;
+    place-items: center;
   }
 
-  .bojax-pricing__button--disabled {
-    margin-top: 28px;
-    opacity: 0.6;
-    cursor: not-allowed;
+  .bojax-pricing__button-arrow svg {
+    width: 2rem;
+    height: 2rem;
   }
 
-  .bojax-pricing__purchase-note {
-    margin: 18px 0 0;
-    color: rgba(255,255,255,0.78);
-    font-size: 1.55rem;
-    line-height: 1.55;
+  .bojax-pricing__button .loading__spinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+  }
+
+  .bojax-pricing__button.loading .bojax-pricing__button-content {
+    visibility: hidden;
+  }
+
+  .bojax-pricing__non-recurring {
+    margin: 2rem 0 0;
+
+    color: rgba(255, 255, 255, 0.57);
+
+    font-size: 1.18rem;
+    font-weight: 600;
+    line-height: 1.5;
     text-align: center;
   }
+
+  /* Payment methods */
 
   .bojax-pricing__payments {
-    margin-top: 18px;
+    margin-top: 2.3rem;
+    padding: 0;
+
+    border: 0;
+    background: transparent;
+
     text-align: center;
   }
 
-  .bojax-pricing__payments-heading {
-    margin: 0 0 10px;
-    color: rgba(255,255,255,0.72);
-    font-size: 1.1rem;
-    font-weight: 700;
-    letter-spacing: 0.24em;
+  .bojax-pricing__payment-heading {
+    margin: 0;
+
+    color: rgba(255, 255, 255, 0.44);
+
+    font-size: 0.88rem;
+    font-weight: 850;
+    letter-spacing: 0.2em;
+    line-height: 1.3;
     text-transform: uppercase;
   }
 
   .bojax-pricing__payment-icons {
     display: flex;
-    flex-wrap: wrap;
+    margin: 1.35rem 0 0;
+    padding: 0;
+
+    align-items: center;
     justify-content: center;
-    gap: 10px 12px;
+    flex-wrap: wrap;
+    gap: 0.7rem;
+
+    list-style: none;
   }
 
   .bojax-pricing__payment-icon {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    color: #fff;
-    opacity: 0.95;
+    display: grid;
+
+    min-width: 4.4rem;
+    height: 2.8rem;
+    padding: 0.2rem 0.3rem;
+
+    place-items: center;
+
+    border: 0;
+    background: transparent;
   }
 
   .bojax-pricing__payment-icon svg {
-    width: 44px;
-    height: auto;
+    display: block;
+
+    width: auto;
+    max-width: 4.4rem;
+    height: 2.4rem;
   }
 
-  .bojax-pricing__footer-note {
-    max-width: 760px;
-    margin: 16px auto 0;
-    color: rgba(255,255,255,0.48);
-    font-size: 1.3rem;
+  .bojax-pricing__payment-note {
+    max-width: 56rem;
+    margin: 1.3rem auto 0;
+
+    color: rgba(255, 255, 255, 0.29);
+
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+
+  .bojax-pricing__legal {
+    max-width: 80rem;
+    margin: 2rem auto 0;
+
+    color: rgba(255, 255, 255, 0.31);
+
+    font-size: 1.03rem;
     line-height: 1.6;
     text-align: center;
   }
 
+  .bojax-pricing__legal a {
+    color: rgba(255, 255, 255, 0.62);
+    text-underline-offset: 0.3rem;
+  }
+
   @media screen and (max-width: 749px) {
-    .bojax-pricing-section {
-      padding: {{ section.settings.padding_top_mobile }}px 0 {{ section.settings.padding_bottom_mobile }}px;
+    .bojax-pricing {
+      padding-top: var(--bojax-pricing-top-mobile, 32px);
+      padding-bottom: var(--bojax-pricing-bottom-mobile, 40px);
+    }
+
+    .bojax-pricing__container {
+      width: calc(100% - 2.8rem);
     }
 
     .bojax-pricing__eyebrow {
-      margin-bottom: 8px;
-      font-size: 1.05rem;
-      letter-spacing: 0.26em;
+      margin-bottom: 1.1rem;
+
+      font-size: 0.84rem;
+      letter-spacing: 0.24em;
     }
 
     .bojax-pricing__heading {
-      font-size: clamp(3.9rem, 11.8vw, 5.8rem);
-      line-height: 0.95;
+      font-size: clamp(3.7rem, 12vw, 5.2rem);
     }
 
     .bojax-pricing__description {
-      margin-top: 18px;
-      font-size: 1.72rem;
-      line-height: 1.65;
+      margin-top: 1.7rem;
+      font-size: 1.38rem;
     }
 
-    .bojax-pricing__card {
-      margin-top: 24px;
-      border-radius: 24px;
+    .bojax-pricing__offer {
+      margin-top: 3rem;
+      border-radius: 2.1rem;
     }
 
-    .bojax-pricing__card-inner {
-      padding: 24px 18px 22px;
-      border-radius: 23px;
+    .bojax-pricing__offer-inner {
+      padding: 2.6rem 1.5rem;
+      border-radius: calc(2.1rem - 1px);
     }
 
-    .bojax-pricing__card-eyebrow {
-      margin-bottom: 14px;
-      font-size: 1rem;
-      letter-spacing: 0.28em;
+    .bojax-pricing__offer-label {
+      font-size: 0.82rem;
+      letter-spacing: 0.22em;
     }
 
     .bojax-pricing__price-row {
-      gap: 8px;
+      gap: 1rem;
     }
 
-    .bojax-pricing__subtext {
-      margin-top: 24px;
-      font-size: 1.62rem;
-      line-height: 1.6;
+    .bojax-pricing__price {
+      font-size: clamp(5rem, 18vw, 7rem);
     }
 
-    .bojax-pricing__countdown-wrap {
-      margin-top: 16px;
-      margin-bottom: 22px;
+    .bojax-pricing__compare-price {
+      font-size: 2rem;
     }
 
-    .bojax-pricing__countdown-label {
-      font-size: 1rem;
+    .bojax-pricing__price-subtext {
+      margin-top: 2.2rem;
+      font-size: 1.18rem;
     }
 
-    .bojax-pricing__countdown {
-      min-width: 126px;
-      min-height: 42px;
-      padding: 8px 14px;
+    .bojax-pricing__urgency {
+      margin-top: 2.1rem;
+      padding: 1.5rem 1rem;
+      border-radius: 1.5rem;
     }
 
-    .bojax-pricing__countdown-time {
-      font-size: 1.8rem;
+    .bojax-pricing__urgency-heading {
+      font-size: 0.75rem;
+      letter-spacing: 0.13em;
     }
 
-    .bojax-pricing__benefits {
-      gap: 12px;
+    .bojax-pricing__timer {
+      margin-top: 1.2rem;
+      gap: 0.45rem;
     }
 
-    .bojax-pricing__benefits li {
-      gap: 12px;
-      font-size: 1.72rem;
-      line-height: 1.45;
+    .bojax-pricing__time-unit {
+      min-width: 5.7rem;
     }
 
-    .bojax-pricing__check {
-      width: 30px;
-      height: 30px;
-      flex-basis: 30px;
-      font-size: 1.7rem;
+    .bojax-pricing__time-unit strong {
+      font-size: 3rem;
     }
 
-    .bojax-pricing__form {
-      margin-top: 24px;
+    .bojax-pricing__time-unit span {
+      font-size: 0.58rem;
+      letter-spacing: 0.1em;
+    }
+
+    .bojax-pricing__time-divider {
+      font-size: 2.7rem;
+    }
+
+    .bojax-pricing__urgency-note {
+      font-size: 0.88rem;
+    }
+
+    .bojax-pricing__divider {
+      margin: 2.7rem 0;
+    }
+
+    .bojax-pricing__features {
+      grid-template-columns: 1fr;
+      gap: 1.05rem;
+    }
+
+    .bojax-pricing__feature {
+      font-size: 1.18rem;
+    }
+
+    .bojax-pricing__support-note {
+      margin-top: 2.3rem;
+      padding: 1.4rem;
+    }
+
+    .bojax-pricing__support-icon {
+      flex-basis: 3.8rem;
+      width: 3.8rem;
+      height: 3.8rem;
+    }
+
+    .bojax-pricing__support-note strong {
+      font-size: 1.2rem;
+    }
+
+    .bojax-pricing__support-note p {
+      font-size: 1.02rem;
     }
 
     .bojax-pricing__button {
-      min-height: 66px;
-      padding: 16px 22px;
-      font-size: 1.92rem;
+      min-height: 6.2rem;
+      padding: 1.3rem 1.4rem;
+      font-size: 1.32rem;
     }
 
-    .bojax-pricing__button-arrow {
-      font-size: 2.2rem;
-    }
-
-    .bojax-pricing__purchase-note {
-      margin-top: 16px;
-      font-size: 1.42rem;
-      line-height: 1.5;
+    .bojax-pricing__non-recurring {
+      margin-top: 1.8rem;
+      font-size: 1.03rem;
     }
 
     .bojax-pricing__payments {
-      margin-top: 16px;
+      margin-top: 2rem;
+    }
+
+    .bojax-pricing__payment-heading {
+      font-size: 0.72rem;
+      letter-spacing: 0.16em;
     }
 
     .bojax-pricing__payment-icons {
-      gap: 8px 10px;
+      margin-top: 1.1rem;
+      gap: 0.4rem;
+    }
+
+    .bojax-pricing__payment-icon {
+      min-width: 3.8rem;
+      height: 2.5rem;
     }
 
     .bojax-pricing__payment-icon svg {
-      width: 40px;
+      max-width: 3.8rem;
+      height: 2.1rem;
     }
 
-    .bojax-pricing__footer-note {
-      font-size: 1.2rem;
-      line-height: 1.55;
+    .bojax-pricing__payment-note {
+      font-size: 0.88rem;
+    }
+
+    .bojax-pricing__legal {
+      font-size: 0.9rem;
     }
   }
-</style>
+
+  @media (prefers-reduced-motion: reduce) {
+    .bojax-pricing__urgency-dot {
+      animation: none;
+    }
+
+    .bojax-pricing__button {
+      transition: none;
+    }
+  }
+{% endstylesheet %}
 
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const section = document.getElementById('BojaxPricing-{{ section.id }}');
-    if (!section) return;
-
-    const countdown = section.querySelector('.bojax-pricing__countdown');
-    if (countdown) {
-      const storageKey = countdown.dataset.storageKey;
-      const minutes = parseInt(countdown.dataset.minutes, 10) || 15;
-      const display = countdown.querySelector('.bojax-pricing__countdown-time');
-
-      function getTargetTime() {
-        const existing = localStorage.getItem(storageKey);
-        const now = Date.now();
-
-        if (existing && parseInt(existing, 10) > now) {
-          return parseInt(existing, 10);
-        }
-
-        const next = now + (minutes * 60 * 1000);
-        localStorage.setItem(storageKey, next.toString());
-        return next;
+  (() => {
+    const initializeBojaxPricing = (section) => {
+      if (
+        !section ||
+        section.dataset.bojaxPricingInitialized === 'true'
+      ) {
+        return;
       }
 
-      let targetTime = getTargetTime();
+      section.dataset.bojaxPricingInitialized = 'true';
 
-      function updateCountdown() {
-        const now = Date.now();
-        let diff = targetTime - now;
+      const countdown = section.querySelector(
+        '[data-bojax-countdown]'
+      );
 
-        if (diff <= 0) {
-          targetTime = now + (minutes * 60 * 1000);
-          localStorage.setItem(storageKey, targetTime.toString());
-          diff = targetTime - now;
-        }
+      if (!countdown) return;
 
-        const totalSeconds = Math.floor(diff / 1000);
-        const mins = Math.floor(totalSeconds / 60);
-        const secs = totalSeconds % 60;
+      const hoursElement = countdown.querySelector(
+        '[data-countdown-hours]'
+      );
 
-        if (display) {
-          display.textContent = String(mins).padStart(2, '0') + ':' + String(secs).padStart(2, '0');
-        }
-      }
+      const minutesElement = countdown.querySelector(
+        '[data-countdown-minutes]'
+      );
 
-      updateCountdown();
-      setInterval(updateCountdown, 1000);
-    }
+      const secondsElement = countdown.querySelector(
+        '[data-countdown-seconds]'
+      );
 
-    const form = section.querySelector('[data-bojax-atc-form]');
-    if (form) {
-      form.addEventListener('submit', async function(e) {
-        e.preventDefault();
+      const minimumHours =
+        parseFloat(countdown.dataset.minHours) || 5.25;
 
-        const button = form.querySelector('button[type="submit"]');
-        const formData = new FormData(form);
+      const maximumHours =
+        parseFloat(countdown.dataset.maxHours) || 8.75;
 
-        if (button) {
-          button.disabled = true;
-          button.style.opacity = '0.7';
-        }
+      const storageKey =
+        countdown.dataset.storageKey ||
+        'bojax-pricing-expiration';
+
+      const createExpiration = () => {
+        const minimumMilliseconds =
+          minimumHours * 60 * 60 * 1000;
+
+        const maximumMilliseconds =
+          maximumHours * 60 * 60 * 1000;
+
+        const randomDuration =
+          minimumMilliseconds +
+          Math.random() *
+            (maximumMilliseconds - minimumMilliseconds);
+
+        const expiration =
+          Date.now() + Math.round(randomDuration);
 
         try {
-          const response = await fetch('/cart/add.js', {
-            method: 'POST',
-            headers: {
-              'Accept': 'application/json'
-            },
-            body: formData
-          });
+          window.localStorage.setItem(
+            storageKey,
+            String(expiration)
+          );
+        } catch (error) {
+          console.warn(
+            '[Bojax pricing] Countdown storage unavailable.',
+            error
+          );
+        }
 
-          if (!response.ok) throw new Error('Add to cart failed');
+        return expiration;
+      };
 
-          await response.json();
+      const getExpiration = () => {
+        try {
+          const savedExpiration = Number(
+            window.localStorage.getItem(storageKey)
+          );
 
-          const cartNotification = document.querySelector('cart-notification');
-          if (cartNotification && typeof cartNotification.renderContents === 'function') {
-            const cartResponse = await fetch('/?sections=cart-notification-product,cart-notification-button,cart-icon-bubble');
-            const cartSectionsText = await cartResponse.text();
-            const parsed = JSON.parse(cartSectionsText);
-
-            cartNotification.renderContents({
-              key: Date.now(),
-              sections: parsed,
-              items: []
-            });
-
-            if (typeof cartNotification.open === 'function') {
-              cartNotification.open();
-            }
-          } else {
-            window.location.href = '/cart';
+          if (
+            Number.isFinite(savedExpiration) &&
+            savedExpiration > Date.now()
+          ) {
+            return savedExpiration;
           }
         } catch (error) {
-          window.location.href = '/cart';
-        } finally {
-          if (button) {
-            button.disabled = false;
-            button.style.opacity = '';
-          }
+          console.warn(
+            '[Bojax pricing] Countdown storage unavailable.',
+            error
+          );
         }
-      });
+
+        return createExpiration();
+      };
+
+      let expiration = getExpiration();
+
+      const renderCountdown = () => {
+        let remaining = expiration - Date.now();
+
+        if (remaining <= 0) {
+          expiration = createExpiration();
+          remaining = expiration - Date.now();
+        }
+
+        const totalSeconds = Math.max(
+          0,
+          Math.floor(remaining / 1000)
+        );
+
+        const hours = Math.floor(totalSeconds / 3600);
+        const minutes = Math.floor(
+          (totalSeconds % 3600) / 60
+        );
+        const seconds = totalSeconds % 60;
+
+        if (hoursElement) {
+          hoursElement.textContent = String(hours).padStart(
+            2,
+            '0'
+          );
+        }
+
+        if (minutesElement) {
+          minutesElement.textContent = String(minutes).padStart(
+            2,
+            '0'
+          );
+        }
+
+        if (secondsElement) {
+          secondsElement.textContent = String(seconds).padStart(
+            2,
+            '0'
+          );
+        }
+      };
+
+      renderCountdown();
+
+      const interval = window.setInterval(
+        renderCountdown,
+        1000
+      );
+
+      section.addEventListener(
+        'shopify:section:unload',
+        () => {
+          window.clearInterval(interval);
+        },
+        {
+          once: true
+        }
+      );
+    };
+
+    const initializeAllBojaxPricing = (root = document) => {
+      if (
+        root.matches &&
+        root.matches('[data-bojax-pricing]')
+      ) {
+        initializeBojaxPricing(root);
+      }
+
+      root
+        .querySelectorAll?.('[data-bojax-pricing]')
+        .forEach(initializeBojaxPricing);
+    };
+
+    if (document.readyState === 'loading') {
+      document.addEventListener(
+        'DOMContentLoaded',
+        () => {
+          initializeAllBojaxPricing(document);
+        }
+      );
+    } else {
+      initializeAllBojaxPricing(document);
     }
-  });
+
+    document.addEventListener(
+      'shopify:section:load',
+      (event) => {
+        initializeAllBojaxPricing(event.target);
+      }
+    );
+  })();
 </script>
 
 {% schema %}
 {
-  "name": "Bojax course pricing",
+  "name": "Bojax pricing",
   "tag": "section",
-  "class": "bojax-course-pricing-section",
+  "class": "bojax-pricing-section",
   "settings": [
     {
-      "type": "text",
-      "id": "eyebrow",
-      "label": "Eyebrow",
-      "default": "One-time payment"
+      "type": "product",
+      "id": "product",
+      "label": "Course product"
+    },
+    {
+      "type": "header",
+      "content": "Section spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 140,
+      "step": 4,
+      "unit": "px",
+      "label": "Desktop top spacing",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 140,
+      "step": 4,
+      "unit": "px",
+      "label": "Desktop bottom spacing",
+      "default": 56
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Mobile top spacing",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Mobile bottom spacing",
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "Heading"
     },
     {
       "type": "text",
+      "id": "eyebrow",
+      "label": "Small heading",
+      "default": "ONE-TIME PAYMENT"
+    },
+    {
+      "type": "inline_richtext",
       "id": "heading",
       "label": "Heading",
       "default": "Get the complete Bojax Method"
@@ -663,65 +1486,171 @@
       "type": "richtext",
       "id": "description",
       "label": "Description",
-      "default": "<p>Unlock the complete course with one payment. No subscription, no monthly billing and no recurring charges.</p>"
+      "default": "<p>Unlock the full course, live teaching calls and member support with one payment. No monthly billing and no recurring subscription.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Price"
     },
     {
       "type": "text",
-      "id": "price_eyebrow",
-      "label": "Price eyebrow",
-      "default": "Today's price • keep access"
+      "id": "offer_label",
+      "label": "Price label",
+      "default": "CURRENT MEMBER PRICE"
     },
     {
       "type": "text",
-      "id": "price",
-      "label": "Main price",
+      "id": "fallback_price",
+      "label": "Fallback price",
       "default": "$29.99"
     },
     {
+      "type": "checkbox",
+      "id": "show_fallback_compare_price",
+      "label": "Show crossed-out fallback price",
+      "default": true
+    },
+    {
       "type": "text",
-      "id": "compare_price",
-      "label": "Compare-at price",
+      "id": "fallback_compare_price",
+      "label": "Fallback crossed-out price",
       "default": "$59.99"
     },
     {
       "type": "text",
-      "id": "subtext",
-      "label": "Text under price",
+      "id": "price_subtext",
+      "label": "Text beneath price",
       "default": "One-time purchase • Instant digital delivery • Lifetime course access"
     },
     {
+      "type": "header",
+      "content": "Checkout countdown"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_countdown",
+      "label": "Show checkout countdown",
+      "default": true
+    },
+    {
       "type": "text",
-      "id": "countdown_label",
-      "label": "Countdown label",
-      "default": "Your price is reserved for this session"
+      "id": "countdown_heading",
+      "label": "Countdown heading",
+      "default": "Your checkout session is reserved for"
     },
     {
       "type": "range",
-      "id": "countdown_minutes",
-      "label": "Countdown minutes",
+      "id": "minimum_hours",
       "min": 5,
-      "max": 60,
-      "step": 1,
-      "default": 15
+      "max": 10,
+      "step": 0.25,
+      "unit": "hr",
+      "label": "Minimum starting time",
+      "default": 5.25
+    },
+    {
+      "type": "range",
+      "id": "maximum_hours",
+      "min": 5.5,
+      "max": 12,
+      "step": 0.25,
+      "unit": "hr",
+      "label": "Maximum starting time",
+      "default": 8.75
+    },
+    {
+      "type": "text",
+      "id": "countdown_note",
+      "label": "Countdown note",
+      "default": "The timer tracks this browser session and remains consistent when the page is refreshed."
+    },
+    {
+      "type": "header",
+      "content": "Included benefits"
+    },
+    {
+      "type": "text",
+      "id": "feature_1",
+      "label": "Benefit 1",
+      "default": "Complete looksmaxxing curriculum"
+    },
+    {
+      "type": "text",
+      "id": "feature_2",
+      "label": "Benefit 2",
+      "default": "40+ detailed video lessons"
+    },
+    {
+      "type": "text",
+      "id": "feature_3",
+      "label": "Benefit 3",
+      "default": "Submit questions to Bojax anytime"
+    },
+    {
+      "type": "text",
+      "id": "feature_4",
+      "label": "Benefit 4",
+      "default": "Live teaching and member Q&A calls"
+    },
+    {
+      "type": "text",
+      "id": "feature_5",
+      "label": "Benefit 5",
+      "default": "Instant access after checkout"
+    },
+    {
+      "type": "text",
+      "id": "feature_6",
+      "label": "Benefit 6",
+      "default": "Lifetime course access"
+    },
+    {
+      "type": "text",
+      "id": "feature_7",
+      "label": "Benefit 7",
+      "default": "Future lessons and updates included"
+    },
+    {
+      "type": "text",
+      "id": "feature_8",
+      "label": "Benefit 8",
+      "default": "Private members-only support access"
+    },
+    {
+      "type": "header",
+      "content": "Support highlight"
+    },
+    {
+      "type": "text",
+      "id": "support_heading",
+      "label": "Support heading",
+      "default": "Direct access to Bojax and live teaching"
+    },
+    {
+      "type": "textarea",
+      "id": "support_text",
+      "label": "Support description",
+      "default": "Members can submit questions at any time and join live group calls where Bojax teaches course topics and answers member questions. Response times and call schedules may vary."
+    },
+    {
+      "type": "header",
+      "content": "Purchase button"
     },
     {
       "type": "text",
       "id": "button_text",
-      "label": "Button text",
+      "label": "Purchase button text",
       "default": "Get Lifetime Access — $29.99"
     },
     {
       "type": "text",
-      "id": "product_handle",
-      "label": "Product handle",
-      "default": "bojax-course",
-      "info": "Example: bojax-course"
+      "id": "non_recurring_text",
+      "label": "Non-recurring message",
+      "default": "$29.99 one-time purchase • Non-recurring • No subscription"
     },
     {
-      "type": "text",
-      "id": "purchase_note",
-      "label": "Purchase note",
-      "default": "$29.99 one-time purchase • Non-recurring • No subscription"
+      "type": "header",
+      "content": "Payment methods"
     },
     {
       "type": "text",
@@ -731,50 +1660,20 @@
     },
     {
       "type": "text",
-      "id": "footer_note",
-      "label": "Footer note",
-      "default": "By completing your purchase, you agree to the store’s terms and refund policy. Individual results vary."
+      "id": "payment_note",
+      "label": "Payment note",
+      "default": "Available options may vary by location, currency and checkout eligibility."
     },
     {
-      "type": "range",
-      "id": "padding_top",
-      "label": "Desktop top padding",
-      "min": 0,
-      "max": 120,
-      "step": 4,
-      "default": 48
-    },
-    {
-      "type": "range",
-      "id": "padding_bottom",
-      "label": "Desktop bottom padding",
-      "min": 0,
-      "max": 120,
-      "step": 4,
-      "default": 48
-    },
-    {
-      "type": "range",
-      "id": "padding_top_mobile",
-      "label": "Mobile top padding",
-      "min": 0,
-      "max": 80,
-      "step": 4,
-      "default": 32
-    },
-    {
-      "type": "range",
-      "id": "padding_bottom_mobile",
-      "label": "Mobile bottom padding",
-      "min": 0,
-      "max": 80,
-      "step": 4,
-      "default": 32
+      "type": "richtext",
+      "id": "legal_note",
+      "label": "Legal note",
+      "default": "<p>By completing your purchase, you agree to the store’s terms and refund policy. Individual results vary.</p>"
     }
   ],
   "presets": [
     {
-      "name": "Bojax course pricing"
+      "name": "Bojax pricing"
     }
   ]
 }

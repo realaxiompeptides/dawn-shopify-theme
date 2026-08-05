@@ -1,0 +1,508 @@
+/* =========================================================
+   BOJAX — PREMIUM CART NOTIFICATION
+   Upper-centered popup with corrected close button
+   ========================================================= */
+
+/* Keep the header and cart notification above the hero */
+.shopify-section-group-header-group,
+.section-header,
+cart-notification,
+.cart-notification-wrapper {
+  z-index: 99999 !important;
+}
+
+/* =========================================================
+   MAIN POPUP
+   ========================================================= */
+
+html body .cart-notification {
+  position: fixed !important;
+  top: 1.6rem !important;
+  right: auto !important;
+  bottom: auto !important;
+  left: 50% !important;
+  z-index: 100000 !important;
+
+  display: block;
+  width: min(calc(100vw - 3rem), 44rem) !important;
+  max-width: 44rem !important;
+  max-height: calc(100svh - 3.2rem) !important;
+
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+
+  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+  border-radius: 2.2rem !important;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(22, 22, 22, 0.995),
+      rgba(3, 3, 3, 0.995)
+    ) !important;
+
+  color: #fff !important;
+
+  box-shadow:
+    0 40px 120px rgba(0, 0, 0, 0.85) !important;
+
+  transform: translateX(-50%) !important;
+
+  backdrop-filter: blur(26px);
+  -webkit-backdrop-filter: blur(26px);
+}
+
+html body .cart-notification.gradient,
+html body .cart-notification.color-background-1,
+html body .cart-notification.color-background-2 {
+  background:
+    linear-gradient(
+      145deg,
+      rgba(22, 22, 22, 0.995),
+      rgba(3, 3, 3, 0.995)
+    ) !important;
+}
+
+/* Keep Dawn's opening animation from changing our position */
+html body .cart-notification.animate,
+html body .cart-notification.active {
+  transform: translateX(-50%) !important;
+}
+
+/* =========================================================
+   POPUP HEADER
+   ========================================================= */
+
+html body .cart-notification__header {
+  position: relative !important;
+
+  display: flex !important;
+  min-height: 6.7rem !important;
+  padding: 1.4rem 1.5rem 1.4rem 1.8rem !important;
+
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 1.5rem !important;
+
+  border-bottom:
+    1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+html body .cart-notification__heading {
+  display: flex !important;
+  flex: 1 1 auto !important;
+  min-width: 0 !important;
+  margin: 0 !important;
+
+  align-items: center !important;
+  gap: 1rem !important;
+
+  color: #fff !important;
+
+  font-size: 1.5rem !important;
+  font-weight: 850 !important;
+  letter-spacing: -0.02em !important;
+  line-height: 1.3 !important;
+}
+
+html body .cart-notification__heading .icon-checkmark {
+  flex: 0 0 auto !important;
+  width: 1.6rem !important;
+  height: 1.6rem !important;
+  margin: 0 !important;
+  color: #fff !important;
+}
+
+html body .cart-notification__heading .svg-wrapper {
+  flex: 0 0 auto !important;
+  margin: 0 !important;
+  color: #fff !important;
+}
+
+/* =========================================================
+   FIXED CLOSE BUTTON
+   The important fix is margin: 0.
+   ========================================================= */
+
+html body button.cart-notification__close,
+html body .cart-notification__close.modal__close-button {
+  position: static !important;
+  inset: auto !important;
+
+  display: grid !important;
+  flex: 0 0 4.2rem !important;
+
+  width: 4.2rem !important;
+  min-width: 4.2rem !important;
+  max-width: 4.2rem !important;
+
+  height: 4.2rem !important;
+  min-height: 4.2rem !important;
+  max-height: 4.2rem !important;
+
+  margin: 0 !important;
+  padding: 0 !important;
+
+  place-items: center !important;
+  align-self: center !important;
+
+  border: 1px solid rgba(255, 255, 255, 0.18) !important;
+  border-radius: 50% !important;
+
+  background: rgba(255, 255, 255, 0.05) !important;
+  color: #fff !important;
+
+  overflow: hidden !important;
+  opacity: 1 !important;
+
+  transform: none !important;
+  translate: none !important;
+
+  cursor: pointer;
+}
+
+html body button.cart-notification__close .svg-wrapper,
+html body .cart-notification__close.modal__close-button .svg-wrapper {
+  display: grid !important;
+  width: 100% !important;
+  height: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  place-items: center !important;
+  transform: none !important;
+}
+
+html body button.cart-notification__close svg,
+html body button.cart-notification__close .icon,
+html body .cart-notification__close.modal__close-button svg {
+  display: block !important;
+  width: 1.8rem !important;
+  height: 1.8rem !important;
+  margin: 0 !important;
+  padding: 0 !important;
+
+  color: #fff !important;
+  stroke: currentColor !important;
+
+  transform: none !important;
+}
+
+html body button.cart-notification__close:hover,
+html body .cart-notification__close.modal__close-button:hover {
+  background: rgba(255, 255, 255, 0.12) !important;
+  transform: scale(1.04) !important;
+}
+
+/* Remove Dawn link underline styling from the close button */
+html body .cart-notification__close.link {
+  text-decoration: none !important;
+}
+
+/* =========================================================
+   PRODUCT ROW
+   ========================================================= */
+
+html body .cart-notification-product {
+  display: grid !important;
+
+  grid-template-columns:
+    7.2rem minmax(0, 1fr) !important;
+
+  min-height: 10.5rem !important;
+  padding: 1.7rem 1.8rem !important;
+
+  align-items: center !important;
+  gap: 1.5rem !important;
+
+  border-bottom:
+    1px solid rgba(255, 255, 255, 0.09) !important;
+}
+
+html body .cart-notification-product__image {
+  display: block !important;
+
+  width: 7.2rem !important;
+  min-width: 7.2rem !important;
+  max-width: 7.2rem !important;
+
+  height: 7.2rem !important;
+  min-height: 7.2rem !important;
+  max-height: 7.2rem !important;
+
+  margin: 0 !important;
+  padding: 0 !important;
+
+  overflow: hidden !important;
+
+  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+  border-radius: 1.2rem !important;
+
+  background: #111 !important;
+  aspect-ratio: 1 / 1 !important;
+}
+
+html body .cart-notification-product__image::after {
+  display: none !important;
+}
+
+html body .cart-notification-product__image img {
+  display: block !important;
+
+  width: 100% !important;
+  min-width: 100% !important;
+  max-width: 100% !important;
+
+  height: 100% !important;
+  min-height: 100% !important;
+  max-height: 100% !important;
+
+  margin: 0 !important;
+  padding: 0 !important;
+
+  border: 0 !important;
+  border-radius: inherit !important;
+
+  object-fit: cover !important;
+  object-position: center !important;
+}
+
+html body .cart-notification-product__title {
+  display: flex !important;
+  margin: 0 0 0.5rem !important;
+  align-items: flex-start !important;
+}
+
+html body .cart-notification-product__name {
+  margin: 0 !important;
+
+  color: #fff !important;
+
+  font-size: 1.65rem !important;
+  font-weight: 850 !important;
+  letter-spacing: -0.03em !important;
+  line-height: 1.2 !important;
+}
+
+html body .cart-notification-product dl,
+html body .cart-notification-product .product-option,
+html body .cart-notification-product__option {
+  margin-top: 0.6rem !important;
+  margin-bottom: 0 !important;
+
+  color: rgba(255, 255, 255, 0.58) !important;
+  font-size: 1.2rem !important;
+}
+
+/* =========================================================
+   LINKS AND BUTTONS
+   ========================================================= */
+
+html body .cart-notification__links {
+  display: grid !important;
+  padding: 1.7rem 1.8rem 1.8rem !important;
+  gap: 1rem !important;
+  text-align: center !important;
+}
+
+html body .cart-notification__links > * {
+  margin: 0 !important;
+}
+
+html body .cart-notification__links .button::before,
+html body .cart-notification__links .button::after {
+  display: none !important;
+}
+
+/* View cart */
+
+html body .cart-notification__links #cart-notification-button,
+html body .cart-notification__links > .button {
+  display: inline-flex !important;
+
+  width: 100% !important;
+  min-height: 5.2rem !important;
+  padding: 1.2rem 2rem !important;
+
+  align-items: center !important;
+  justify-content: center !important;
+
+  border: 1px solid rgba(255, 255, 255, 0.45) !important;
+  border-radius: 1.3rem !important;
+
+  background: rgba(255, 255, 255, 0.025) !important;
+  color: #fff !important;
+
+  font-size: 1.4rem !important;
+  font-weight: 800 !important;
+  letter-spacing: 0 !important;
+  text-decoration: none !important;
+
+  box-shadow: none !important;
+
+  transition:
+    background 180ms ease,
+    border-color 180ms ease,
+    transform 180ms ease;
+}
+
+html body .cart-notification__links #cart-notification-button:hover,
+html body .cart-notification__links > .button:hover {
+  border-color: rgba(255, 255, 255, 0.8) !important;
+  background: rgba(255, 255, 255, 0.09) !important;
+  transform: translateY(-1px) !important;
+}
+
+/* Checkout */
+
+html body .cart-notification__links form {
+  width: 100% !important;
+  margin: 0 !important;
+}
+
+html body .cart-notification__links form .button {
+  display: inline-flex !important;
+
+  width: 100% !important;
+  min-height: 5.2rem !important;
+  padding: 1.2rem 2rem !important;
+
+  align-items: center !important;
+  justify-content: center !important;
+
+  border: 1px solid #fff !important;
+  border-radius: 1.3rem !important;
+
+  background: #fff !important;
+  color: #000 !important;
+
+  font-size: 1.4rem !important;
+  font-weight: 850 !important;
+  letter-spacing: 0 !important;
+
+  box-shadow:
+    0 18px 45px rgba(255, 255, 255, 0.1) !important;
+
+  transition:
+    background 180ms ease,
+    transform 180ms ease,
+    box-shadow 180ms ease;
+}
+
+html body .cart-notification__links form .button:hover {
+  background: #e9e9e9 !important;
+  color: #000 !important;
+  transform: translateY(-1px) !important;
+}
+
+/* Continue shopping */
+
+html body .cart-notification__links .link,
+html body .cart-notification__links button.link {
+  justify-self: center !important;
+
+  margin: 0 !important;
+  padding: 0.5rem 1rem !important;
+
+  border: 0 !important;
+  background: transparent !important;
+  color: rgba(255, 255, 255, 0.63) !important;
+
+  font-size: 1.2rem !important;
+  font-weight: 700 !important;
+  text-underline-offset: 0.4rem !important;
+}
+
+html body .cart-notification__links .link:hover,
+html body .cart-notification__links button.link:hover {
+  color: #fff !important;
+}
+
+/* =========================================================
+   STACKING
+   ========================================================= */
+
+.bojax-premium-hero-section,
+.bojax-course-hero,
+.bojax-course-hero__media,
+.bojax-course-hero__content-wrap,
+.bojax-course-hero__content {
+  z-index: 1 !important;
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media screen and (max-width: 749px) {
+  html body .cart-notification {
+    top: 1rem !important;
+    right: auto !important;
+    left: 50% !important;
+
+    width: calc(100vw - 2rem) !important;
+    max-width: 42rem !important;
+    max-height: calc(100svh - 2rem) !important;
+
+    border-radius: 2rem !important;
+
+    transform: translateX(-50%) !important;
+  }
+
+  html body .cart-notification.animate,
+  html body .cart-notification.active {
+    transform: translateX(-50%) !important;
+  }
+
+  html body .cart-notification__header {
+    min-height: 6.2rem !important;
+    padding: 1.1rem 1.2rem 1.1rem 1.5rem !important;
+  }
+
+  html body .cart-notification__heading {
+    font-size: 1.4rem !important;
+  }
+
+  html body button.cart-notification__close,
+  html body .cart-notification__close.modal__close-button {
+    flex-basis: 4rem !important;
+
+    width: 4rem !important;
+    min-width: 4rem !important;
+    max-width: 4rem !important;
+
+    height: 4rem !important;
+    min-height: 4rem !important;
+    max-height: 4rem !important;
+
+    margin: 0 !important;
+  }
+
+  html body .cart-notification-product {
+    grid-template-columns:
+      6.8rem minmax(0, 1fr) !important;
+
+    min-height: 9.8rem !important;
+    padding: 1.5rem !important;
+    gap: 1.3rem !important;
+  }
+
+  html body .cart-notification-product__image {
+    width: 6.8rem !important;
+    min-width: 6.8rem !important;
+    max-width: 6.8rem !important;
+
+    height: 6.8rem !important;
+    min-height: 6.8rem !important;
+    max-height: 6.8rem !important;
+  }
+
+  html body .cart-notification-product__name {
+    font-size: 1.55rem !important;
+  }
+
+  html body .cart-notification__links {
+    padding: 1.5rem !important;
+  }
+}

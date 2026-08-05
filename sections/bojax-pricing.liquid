@@ -121,7 +121,7 @@
             data-bojax-countdown
             data-min-hours="{{ minimum_hours }}"
             data-max-hours="{{ maximum_hours }}"
-            data-storage-key="bojax-sale-expiration-v8-{{ section.id }}"
+            data-storage-key="bojax-sale-expiration-v9-{{ section.id }}"
           >
             <div class="bojax-pricing__urgency-heading">
               <span
@@ -1131,141 +1131,70 @@
 
       if (countdown.bojaxCountdownInterval) {
         clearInterval(countdown.bojaxCountdownInterval);
+        countdown.bojaxCountdownInterval = null;
       }
 
-      var hoursElement = countdown.querySelector(
-        '[data-countdown-hours]'
-      );
+      var hoursElement = countdown.querySelector('[data-countdown-hours]');
+      var minutesElement = countdown.querySelector('[data-countdown-minutes]');
+      var secondsElement = countdown.querySelector('[data-countdown-seconds]');
 
-      var minutesElement = countdown.querySelector(
-        '[data-countdown-minutes]'
-      );
-
-      var secondsElement = countdown.querySelector(
-        '[data-countdown-seconds]'
-      );
-
-      if (
-        !hoursElement ||
-        !minutesElement ||
-        !secondsElement
-      ) {
+      if (!hoursElement || !minutesElement || !secondsElement) {
         return;
       }
 
-      var minimumHours = parseFloat(
-        countdown.getAttribute('data-min-hours')
-      );
+      var minimumHours = parseFloat(countdown.getAttribute('data-min-hours'));
+      var maximumHours = parseFloat(countdown.getAttribute('data-max-hours'));
+      var storageKey = countdown.getAttribute('data-storage-key');
 
-      var maximumHours = parseFloat(
-        countdown.getAttribute('data-max-hours')
-      );
-
-      var storageKey = countdown.getAttribute(
-        'data-storage-key'
-      );
-
-      if (
-        !Number.isFinite(minimumHours) ||
-        minimumHours <= 0
-      ) {
+      if (!Number.isFinite(minimumHours) || minimumHours <= 0) {
         minimumHours = 5.25;
       }
 
-      if (
-        !Number.isFinite(maximumHours) ||
-        maximumHours < minimumHours
-      ) {
+      if (!Number.isFinite(maximumHours) || maximumHours < minimumHours) {
         maximumHours = minimumHours;
       }
 
       if (!storageKey) {
-        storageKey = 'bojax-sale-expiration-v8';
+        storageKey = 'bojax-sale-expiration-v9';
       }
 
       function createExpiration() {
-        var minimumSeconds = Math.round(
-          minimumHours * 60 * 60
-        );
-
-        var maximumSeconds = Math.round(
-          maximumHours * 60 * 60
-        );
-
-        var difference =
-          maximumSeconds - minimumSeconds;
-
-        var durationSeconds =
-          minimumSeconds +
-          Math.floor(
-            Math.random() * (difference + 1)
-          );
-
+        var minimumSeconds = Math.round(minimumHours * 60 * 60);
+        var maximumSeconds = Math.round(maximumHours * 60 * 60);
+        var difference = maximumSeconds - minimumSeconds;
+        var durationSeconds = minimumSeconds + Math.floor(Math.random() * (difference + 1));
         return Date.now() + durationSeconds * 1000;
-      }
-
-      function readExpiration() {
-        try {
-          return parseInt(
-            window.localStorage.getItem(storageKey),
-            10
-          );
-        } catch (error) {
-          return 0;
-        }
       }
 
       function saveExpiration(value) {
         try {
-          window.localStorage.setItem(
-            storageKey,
-            String(value)
-          );
+          window.localStorage.setItem(storageKey, String(value));
         } catch (error) {
-          /* Countdown still works without localStorage. */
+          /* Countdown still works without localStorage */
         }
       }
 
       function pad(value) {
-        return value < 10
-          ? '0' + value
-          : String(value);
+        return value < 10 ? '0' + value : String(value);
       }
 
-      var expiration = readExpiration();
-
-      if (
-        !Number.isFinite(expiration) ||
-        expiration <= Date.now()
-      ) {
-        expiration = createExpiration();
-        saveExpiration(expiration);
-      }
+      // Always generate a fresh random duration on every page load
+      // so the timer never gets stuck on a previous value
+      var expiration = createExpiration();
+      saveExpiration(expiration);
 
       function updateCountdown() {
-        var remainingSeconds = Math.ceil(
-          (expiration - Date.now()) / 1000
-        );
+        var remainingSeconds = Math.ceil((expiration - Date.now()) / 1000);
 
         if (remainingSeconds <= 0) {
           expiration = createExpiration();
           saveExpiration(expiration);
-
-          remainingSeconds = Math.ceil(
-            (expiration - Date.now()) / 1000
-          );
+          remainingSeconds = Math.ceil((expiration - Date.now()) / 1000);
         }
 
-        var hours = Math.floor(
-          remainingSeconds / 3600
-        );
-
-        var minutes = Math.floor(
-          (remainingSeconds % 3600) / 60
-        );
-
-        var seconds =
-          remainingSeconds % 60;
+        var hours = Math.floor(remainingSeconds / 3600);
+        var minutes = Math.floor((remainingSeconds % 3600) / 60);
+        var seconds = remainingSeconds % 60;
 
         hoursElement.textContent = pad(hours);
         minutesElement.textContent = pad(minutes);
@@ -1274,61 +1203,34 @@
 
       updateCountdown();
 
-      countdown.bojaxCountdownInterval = setInterval(
-        updateCountdown,
-        1000
-      );
+      countdown.bojaxCountdownInterval = setInterval(updateCountdown, 1000);
     }
 
     initializeBojaxCountdown();
 
     if (document.readyState === 'loading') {
-      document.addEventListener(
-        'DOMContentLoaded',
-        initializeBojaxCountdown,
-        { once: true }
-      );
+      document.addEventListener('DOMContentLoaded', initializeBojaxCountdown, { once: true });
     }
 
-    window.addEventListener(
-      'pageshow',
-      initializeBojaxCountdown
-    );
+    window.addEventListener('pageshow', initializeBojaxCountdown);
 
-    document.addEventListener(
-      'shopify:section:load',
-      function (event) {
-        if (
-          event.target &&
-          event.target.querySelector &&
-          event.target.querySelector(
-            '#' + countdownId
-          )
-        ) {
-          initializeBojaxCountdown();
-        }
+    document.addEventListener('shopify:section:load', function (event) {
+      if (
+        event.target &&
+        event.target.querySelector &&
+        event.target.querySelector('#' + countdownId)
+      ) {
+        initializeBojaxCountdown();
       }
-    );
+    });
 
-    document.addEventListener(
-      'shopify:section:unload',
-      function (event) {
-        var countdown = document.getElementById(
-          countdownId
-        );
-
-        if (
-          countdown &&
-          countdown.bojaxCountdownInterval
-        ) {
-          clearInterval(
-            countdown.bojaxCountdownInterval
-          );
-
-          countdown.bojaxCountdownInterval = null;
-        }
+    document.addEventListener('shopify:section:unload', function () {
+      var countdown = document.getElementById(countdownId);
+      if (countdown && countdown.bojaxCountdownInterval) {
+        clearInterval(countdown.bojaxCountdownInterval);
+        countdown.bojaxCountdownInterval = null;
       }
-    );
+    });
   })();
 </script>
 

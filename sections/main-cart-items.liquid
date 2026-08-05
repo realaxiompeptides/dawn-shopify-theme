@@ -32,15 +32,15 @@
   <div class="page-width">
     <div class="bojax-cart__hero">
       <div>
-        <p class="bojax-cart__eyebrow">YOUR ACCESS IS ALMOST READY</p>
-        <h1 class="title title--primary">Complete your ascension</h1>
+        <p class="bojax-cart__eyebrow">YOUR ORDER</p>
+        <h1 class="title title--primary">Review your cart</h1>
         <p class="bojax-cart__intro">
-          Review your order below, then continue to secure checkout for instant course access.
+          Review your items below, then continue to secure checkout.
         </p>
       </div>
 
       <a href="{{ routes.root_url }}" class="bojax-cart__continue">
-        Continue browsing
+        Continue shopping
         <span aria-hidden="true">-&gt;</span>
       </a>
     </div>
@@ -50,22 +50,22 @@
         <div>
           <span class="bojax-cart__benefit-icon">1</span>
           <span>
-            <strong>Instant digital access</strong>
-            <small>Start immediately after checkout</small>
+            <strong>Digital delivery</strong>
+            <small>Access details after checkout</small>
           </span>
         </div>
         <div>
           <span class="bojax-cart__benefit-icon">2</span>
           <span>
-            <strong>Lifetime course access</strong>
-            <small>No recurring subscription</small>
+            <strong>Secure purchase</strong>
+            <small>Protected checkout</small>
           </span>
         </div>
         <div>
           <span class="bojax-cart__benefit-icon">3</span>
           <span>
-            <strong>Secure checkout</strong>
-            <small>Encrypted payment processing</small>
+            <strong>Easy checkout</strong>
+            <small>Fast and secure payment</small>
           </span>
         </div>
       </div>
@@ -146,8 +146,7 @@
                       {%- endif -%}
 
                       <div class="cart-item__title">
-                        <span class="bojax-cart__product-label">THE BOJAX METHOD</span>
-                        <a href="{{ item.url }}" class="cart-item__name h4 break">{{ item.product.title | escape }}</a>
+<a href="{{ item.url }}" class="cart-item__name h4 break">{{ item.product.title | escape }}</a>
                         {%- assign cart_disclosure_modal_id = 'CartDisclosureModal-cart-' | append: item.key | replace: ':', '-' -%}
                         {%- render 'cart-disclosure-indicator',
                           product: item.product,
@@ -175,16 +174,7 @@
                           {{ item.original_price | money }}
                         </div>
                       {%- endif -%}
-
-                      {% if item.product.handle == 'bojax-course' %}
-                        <ul class="bojax-cart__course-includes" role="list">
-                          <li>40+ detailed video lessons</li>
-                          <li>Lifetime access and future updates</li>
-                          <li>Member support and live teaching</li>
-                        </ul>
-                      {% endif %}
-
-                      {%- if item.product.has_only_default_variant == false
+{%- if item.product.has_only_default_variant == false
                         or item.properties.size != 0
                         or item.selling_plan_allocation != null
                       -%}
@@ -294,7 +284,7 @@
                                 class="quantity__button"
                                 name="minus"
                                 type="button"
-                                {% if can_update_quantity == false or item.product.handle == 'bojax-course' %}
+                                {% if can_update_quantity == false %}
                                   disabled
                                 {% endif %}
                               >
@@ -311,14 +301,12 @@
                                 data-quantity-line-key="{{ item.key }}"
                                 type="number"
                                 name="updates[]"
-                                value="{% if item.product.handle == 'bojax-course' %}1{% else %}{{ item.quantity }}{% endif %}"
+                                value="{{ item.quantity }}"
                                 {% # theme-check-disable %}
                                 data-cart-quantity="{{ cart | item_count_for_variant: item.variant.id }}"
-                                min="{% if item.product.handle == 'bojax-course' %}1{% else %}0{% endif %}"
-                                data-min="{% if item.product.handle == 'bojax-course' %}1{% else %}{{ item.variant.quantity_rule.min }}{% endif %}"
-                                {% if item.product.handle == 'bojax-course' %}
-                                  max="1"
-                                {% elsif item.variant.quantity_rule.max != null %}
+                                min="0"
+                                data-min="{{ item.variant.quantity_rule.min }}"
+                                {% if item.variant.quantity_rule.max != null %}
                                   max="{{ item.variant.quantity_rule.max }}"
                                 {% endif %}
                                 step="{{ item.variant.quantity_rule.increment }}"
@@ -334,7 +322,7 @@
                                 class="quantity__button"
                                 name="plus"
                                 type="button"
-                                {% if can_update_quantity == false or item.product.handle == 'bojax-course' %}
+                                {% if can_update_quantity == false %}
                                   disabled
                                 {% endif %}
                               >
@@ -346,10 +334,7 @@
                                 </span>
                               </button>
                             </quantity-input>
-                            {% if item.product.handle == 'bojax-course' %}
-                              <p class="bojax-cart__license-note">One purchase includes one lifetime-access license.</p>
-                            {% endif %}
-                          </div>
+</div>
                           <cart-remove-button
                             id="Remove-{{ item.index | plus: 1 }}"
                             data-index="{{ item.index | plus: 1 }}"

@@ -319,11 +319,50 @@
         "button_text": "Unlock the Full Curriculum",
         "button_link": "/products/bojax-course"
       }
+    },
+    "bojax_price_card_v2": {
+      "type": "bojax-pricing-card",
+      "name": "Bojax price card",
+      "settings": {
+        "product": "bojax-course",
+        "padding_top": 40,
+        "padding_bottom": 56,
+        "padding_top_mobile": 28,
+        "padding_bottom_mobile": 40,
+        "eyebrow": "ONE-TIME PAYMENT",
+        "heading": "Get the complete Bojax Method",
+        "description": "<p>Unlock the complete course, 24/7 messaging access, member support and live teaching calls with one payment. No monthly billing and no recurring subscription.</p>",
+        "offer_label": "LIMITED-TIME SALE PRICE",
+        "fallback_price": "$29.99",
+        "fallback_compare_price": "$59.99",
+        "price_subtext": "One-time purchase • Instant digital delivery • Lifetime course access",
+        "show_countdown": true,
+        "countdown_heading": "SALE ENDS WHEN THE TIMER REACHES ZERO",
+        "minimum_hours": 5.25,
+        "maximum_hours": 8.75,
+        "feature_1": "Complete looksmaxxing curriculum",
+        "feature_2": "40+ detailed video lessons",
+        "feature_3": "Message Bojax with questions 24/7",
+        "feature_4": "Live teaching and member Q&A calls",
+        "feature_5": "Instant access immediately after checkout",
+        "feature_6": "Lifetime access to the complete course",
+        "feature_7": "All future lessons and course updates",
+        "feature_8": "Private members-only support access",
+        "support_heading": "Direct access to Bojax and live teaching",
+        "support_text": "Message Bojax with questions at any time and join live group calls where he teaches course topics, explains advanced strategies and answers member questions. Response times and call schedules may vary.",
+        "button_text": "Claim the Sale Price — $29.99",
+        "non_recurring_text": "$29.99 one-time purchase • Non-recurring • No subscription",
+        "payment_heading": "Accepted payment methods",
+        "payment_note": "Available options may vary by location, currency and checkout eligibility.",
+        "legal_note": "<p>By completing your purchase, you agree to the store’s terms and refund policy. Individual results vary.</p>",
+        "show_compare_price": true
+      }
     }
   },
   "order": [
     "bojax_hero",
     "bojax_transformations_CPURm7",
-    "bojax_course_curriculum_C6bCDw"
+    "bojax_course_curriculum_C6bCDw",
+    "bojax_price_card_v2"
   ]
 }

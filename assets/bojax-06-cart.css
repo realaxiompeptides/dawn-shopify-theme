@@ -1,531 +1,289 @@
 /* =========================================================
-   BOJAX — PREMIUM CART DRAWER
-   Replaces the old cart-notification styling.
-   Designed for a single digital course.
+   BOJAX — PREMIUM COURSE CART DRAWER
    ========================================================= */
 
-:root {
-  --bojax-cart-gold: #d4af37;
-  --bojax-cart-gold-light: #f1d77a;
-  --bojax-cart-black: #050505;
-  --bojax-cart-panel: #0b0b0b;
-  --bojax-cart-card: #111111;
-  --bojax-cart-white: #ffffff;
-  --bojax-cart-muted: rgba(255, 255, 255, 0.62);
-  --bojax-cart-border: rgba(212, 175, 55, 0.26);
+cart-drawer.drawer {
+  position: fixed;
+  inset: 0;
+  z-index: 100000;
+  visibility: hidden;
 }
 
-/* Keep the drawer above every section. */
-cart-drawer,
-.cart-drawer,
-.drawer,
-#CartDrawer {
-  z-index: 100000 !important;
+cart-drawer.drawer.active {
+  visibility: visible;
 }
 
-/* Overlay */
-html body .cart-drawer__overlay {
-  position: fixed !important;
-  inset: 0 !important;
-  background: rgba(0, 0, 0, 0.72) !important;
-  backdrop-filter: blur(7px) !important;
-  -webkit-backdrop-filter: blur(7px) !important;
-  opacity: 0 !important;
-  transition: opacity 260ms ease !important;
+cart-drawer .cart-drawer {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
 }
 
-html body cart-drawer.active .cart-drawer__overlay {
-  opacity: 1 !important;
+cart-drawer.active .cart-drawer {
+  pointer-events: auto;
 }
 
-/* Main drawer: large, but leaves part of the site visible on the left. */
-html body .drawer__inner {
-  position: fixed !important;
-  top: 0 !important;
-  right: 0 !important;
-  bottom: 0 !important;
-  left: auto !important;
-  width: min(54rem, 92vw) !important;
-  max-width: min(54rem, 92vw) !important;
-  height: 100svh !important;
-  max-height: 100svh !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  overflow: hidden !important;
-  border: 0 !important;
-  border-left: 1px solid var(--bojax-cart-border) !important;
-  border-radius: 2.4rem 0 0 2.4rem !important;
+cart-drawer .cart-drawer__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.68);
+  opacity: 0;
+  transition: opacity 260ms ease;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+cart-drawer.active .cart-drawer__overlay {
+  opacity: 1;
+}
+
+cart-drawer .drawer__inner.bojax-course-drawer {
+  --bojax-gold: #d4af37;
+  --bojax-gold-light: #f4d56c;
+  --bojax-black: #050505;
+  --bojax-panel: #0d0d0d;
+  --bojax-line: rgba(212, 175, 55, 0.2);
+
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  width: min(94vw, 48rem);
+  max-width: none;
+  height: 100dvh;
+  padding: 0;
+  flex-direction: column;
+  overflow: hidden;
+  border: 0;
+  border-left: 1px solid var(--bojax-line);
   background:
-    radial-gradient(circle at 85% 0%, rgba(212, 175, 55, 0.12), transparent 30%),
-    linear-gradient(160deg, #121212 0%, #070707 46%, #020202 100%) !important;
-  color: var(--bojax-cart-white) !important;
-  box-shadow: -3rem 0 9rem rgba(0, 0, 0, 0.72) !important;
-  transform: translateX(105%) !important;
-  transition: transform 320ms cubic-bezier(.2,.8,.2,1) !important;
+    radial-gradient(circle at 80% 0%, rgba(212, 175, 55, 0.12), transparent 30rem),
+    linear-gradient(180deg, #111 0%, var(--bojax-black) 44%, #080808 100%);
+  color: #fff;
+  box-shadow: -3rem 0 8rem rgba(0, 0, 0, 0.65);
+  transform: translateX(102%);
+  transition: transform 320ms cubic-bezier(.22,.8,.3,1);
 }
 
-html body cart-drawer.active .drawer__inner {
-  transform: translateX(0) !important;
+cart-drawer.active .drawer__inner.bojax-course-drawer {
+  transform: translateX(0);
 }
 
-html body .drawer__inner.gradient,
-html body .drawer__inner[class*="color-"] {
-  background:
-    radial-gradient(circle at 85% 0%, rgba(212, 175, 55, 0.12), transparent 30%),
-    linear-gradient(160deg, #121212 0%, #070707 46%, #020202 100%) !important;
+.bojax-course-drawer__header {
+  display: flex;
+  min-height: 9.2rem;
+  padding: max(1.8rem, env(safe-area-inset-top)) 2rem 1.7rem;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.6rem;
+  border-bottom: 1px solid rgba(255,255,255,.09);
+  background: rgba(5,5,5,.76);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
 }
 
-/* Header */
-html body .drawer__header {
-  flex: 0 0 auto !important;
-  min-height: 8rem !important;
-  padding: 1.8rem 2rem !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: space-between !important;
-  gap: 1.5rem !important;
-  border-bottom: 1px solid rgba(255,255,255,.09) !important;
-  background: rgba(0,0,0,.18) !important;
+.bojax-course-drawer__eyebrow {
+  margin: 0 0 .35rem;
+  color: var(--bojax-gold-light);
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: .19em;
 }
 
-html body .drawer__heading {
-  margin: 0 !important;
-  color: #fff !important;
-  font-family: Georgia, 'Times New Roman', serif !important;
-  font-size: clamp(2.2rem, 4vw, 3.1rem) !important;
-  font-weight: 500 !important;
-  line-height: 1.05 !important;
-  letter-spacing: -.035em !important;
+.bojax-course-drawer .drawer__heading {
+  margin: 0;
+  color: #fff;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(2.1rem, 5vw, 2.8rem);
+  font-weight: 500;
+  letter-spacing: -.035em;
+  line-height: 1.05;
 }
 
-html body .drawer__close {
-  position: static !important;
-  inset: auto !important;
-  display: grid !important;
-  flex: 0 0 4.6rem !important;
-  width: 4.6rem !important;
-  min-width: 4.6rem !important;
-  height: 4.6rem !important;
-  min-height: 4.6rem !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  place-items: center !important;
-  border: 1px solid rgba(255,255,255,.18) !important;
-  border-radius: 50% !important;
-  background: rgba(255,255,255,.055) !important;
-  color: #fff !important;
-  box-shadow: none !important;
-  transition: background 180ms ease, border-color 180ms ease, transform 180ms ease !important;
+.bojax-course-drawer__close {
+  position: static;
+  display: grid;
+  width: 4.6rem;
+  min-width: 4.6rem;
+  height: 4.6rem;
+  margin: 0;
+  padding: 0;
+  place-items: center;
+  border: 1px solid rgba(255,255,255,.17);
+  border-radius: 50%;
+  background: rgba(255,255,255,.05);
+  color: #fff;
+  cursor: pointer;
 }
 
-html body .drawer__close:hover {
-  background: rgba(212,175,55,.13) !important;
-  border-color: rgba(212,175,55,.55) !important;
-  transform: scale(1.04) !important;
+.bojax-course-drawer__close:hover { background: rgba(255,255,255,.11); }
+.bojax-course-drawer__close .svg-wrapper { width: 1.9rem; height: 1.9rem; }
+.bojax-course-drawer__close svg { width: 100%; height: 100%; }
+
+.bojax-course-drawer cart-drawer-items {
+  display: block;
+  min-height: 0;
+  flex: 1 1 auto;
+  overflow-y: auto;
+  overscroll-behavior: contain;
 }
 
-html body .drawer__close .svg-wrapper,
-html body .drawer__close svg {
-  width: 1.8rem !important;
-  height: 1.8rem !important;
-  color: #fff !important;
+.bojax-course-drawer__body {
+  padding: 1.8rem 1.8rem 2.4rem;
 }
 
-/* Reserved timer card */
-html body .bojax-cart-reservation {
-  flex: 0 0 auto !important;
-  margin: 1.6rem 2rem 0 !important;
-  padding: 1.5rem 1.6rem !important;
-  display: grid !important;
-  grid-template-columns: minmax(0,1fr) auto !important;
-  align-items: center !important;
-  gap: 1.2rem !important;
-  border: 1px solid var(--bojax-cart-border) !important;
-  border-radius: 1.6rem !important;
-  background: linear-gradient(135deg, rgba(212,175,55,.12), rgba(212,175,55,.035)) !important;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.04) !important;
+.bojax-course-drawer__reservation {
+  display: flex;
+  margin-bottom: 1.6rem;
+  padding: 1.35rem 1.5rem;
+  align-items: center;
+  gap: 1.2rem;
+  border: 1px solid rgba(212,175,55,.38);
+  border-radius: 1.5rem;
+  background: linear-gradient(135deg, rgba(212,175,55,.15), rgba(212,175,55,.045));
 }
 
-html body .bojax-cart-reservation__eyebrow {
-  margin: 0 0 .35rem !important;
-  color: var(--bojax-cart-gold-light) !important;
-  font-size: 1.05rem !important;
-  font-weight: 850 !important;
-  letter-spacing: .13em !important;
-  line-height: 1.2 !important;
-  text-transform: uppercase !important;
+.bojax-course-drawer__reservation-icon {
+  display: grid;
+  width: 3.4rem;
+  height: 3.4rem;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--bojax-gold);
+  color: #080808;
+  font-weight: 900;
 }
 
-html body .bojax-cart-reservation__text {
-  margin: 0 !important;
-  color: rgba(255,255,255,.7) !important;
-  font-size: 1.25rem !important;
-  line-height: 1.4 !important;
+.bojax-course-drawer__reservation-label {
+  display: block;
+  color: rgba(255,255,255,.68);
+  font-size: 1.18rem;
+  letter-spacing: .04em;
 }
 
-html body .bojax-cart-reservation__timer {
-  min-width: 7.6rem !important;
-  color: #fff !important;
-  font-size: 2.2rem !important;
-  font-weight: 900 !important;
-  letter-spacing: .03em !important;
-  line-height: 1 !important;
-  text-align: right !important;
-  font-variant-numeric: tabular-nums !important;
+.bojax-course-drawer__timer {
+  display: block;
+  margin-top: .15rem;
+  color: var(--bojax-gold-light);
+  font-variant-numeric: tabular-nums;
+  font-size: 2.2rem;
+  line-height: 1;
 }
 
-/* Scrollable course area */
-html body cart-drawer-items {
-  flex: 1 1 auto !important;
-  min-height: 0 !important;
-  overflow-y: auto !important;
-  padding: 1.6rem 2rem !important;
-  scrollbar-width: thin !important;
-  scrollbar-color: rgba(212,175,55,.45) transparent !important;
+.bojax-course-drawer__items { display: grid; gap: 1.2rem; }
+
+.bojax-course-drawer__item {
+  display: grid;
+  grid-template-columns: 10.5rem minmax(0, 1fr);
+  gap: 1.5rem;
+  padding: 1.4rem;
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 1.8rem;
+  background: linear-gradient(145deg, rgba(255,255,255,.06), rgba(255,255,255,.018));
 }
 
-html body .drawer__contents,
-html body .drawer__cart-items-wrapper,
-html body .cart-items,
-html body .cart-items tbody {
-  width: 100% !important;
+.bojax-course-drawer__media {
+  width: 10.5rem;
+  height: 10.5rem;
+  overflow: hidden;
+  border: 1px solid rgba(212,175,55,.22);
+  border-radius: 1.35rem;
+  background: #111;
 }
 
-html body .cart-items thead {
-  display: none !important;
+.bojax-course-drawer__media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.bojax-course-drawer__media-placeholder { display:grid; width:100%; height:100%; place-items:center; color:var(--bojax-gold); font-family:Georgia,serif; font-size:3rem; }
+
+.bojax-course-drawer__details { min-width: 0; align-self: center; }
+.bojax-course-drawer__access { margin: 0 0 .4rem; color: var(--bojax-gold-light); font-size: 1.05rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+.bojax-course-drawer__details h3 { margin: 0; color:#fff; font-size:1.8rem; font-weight:800; letter-spacing:-.025em; line-height:1.15; }
+.bojax-course-drawer__variant { margin: .45rem 0 0; color: rgba(255,255,255,.56); font-size:1.2rem; }
+.bojax-course-drawer__price { display:flex; margin-top:.75rem; align-items:center; gap:.7rem; }
+.bojax-course-drawer__price s { color:rgba(255,255,255,.42); font-size:1.2rem; }
+.bojax-course-drawer__price strong { color:#fff; font-size:1.65rem; }
+.bojax-course-drawer__remove { margin-top:.7rem; padding:0; border:0; background:transparent; color:rgba(255,255,255,.52); font:inherit; font-size:1.1rem; text-decoration:underline; cursor:pointer; }
+
+.bojax-course-drawer__included {
+  margin-top: 1.5rem;
+  padding: 1.5rem 1.6rem;
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 1.6rem;
+  background: rgba(255,255,255,.025);
 }
 
-html body .cart-items tbody {
-  display: grid !important;
-  gap: 1.2rem !important;
+.bojax-course-drawer__included h3 { margin:0 0 1rem; color:#fff; font-size:1.35rem; }
+.bojax-course-drawer__included ul { display:grid; margin:0; padding:0; gap:.8rem; list-style:none; }
+.bojax-course-drawer__included li { display:flex; align-items:center; gap:.8rem; color:rgba(255,255,255,.7); font-size:1.22rem; }
+.bojax-course-drawer__included li span { color:var(--bojax-gold-light); font-weight:900; }
+
+.bojax-course-drawer__footer {
+  flex: 0 0 auto;
+  padding: 1.6rem 1.8rem max(1.8rem, env(safe-area-inset-bottom));
+  border-top: 1px solid rgba(255,255,255,.1);
+  background: rgba(7,7,7,.94);
+  box-shadow: 0 -1.5rem 4rem rgba(0,0,0,.36);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
 }
 
-html body .cart-drawer .cart-item {
-  position: relative !important;
-  display: grid !important;
-  grid-template-columns: 9.2rem minmax(0,1fr) auto !important;
-  grid-template-areas:
-    "media details total"
-    "media details remove" !important;
-  column-gap: 1.5rem !important;
-  row-gap: .8rem !important;
-  min-height: 12rem !important;
-  padding: 1.5rem !important;
-  border: 1px solid rgba(255,255,255,.1) !important;
-  border-radius: 1.8rem !important;
-  background: linear-gradient(145deg, rgba(255,255,255,.055), rgba(255,255,255,.02)) !important;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.03) !important;
+.bojax-course-drawer__total { display:flex; margin-bottom:1.25rem; align-items:center; justify-content:space-between; color:rgba(255,255,255,.68); font-size:1.35rem; }
+.bojax-course-drawer__total strong { color:#fff; font-size:2rem; }
+
+.bojax-course-drawer__primary,
+.bojax-course-drawer__primary.button {
+  display:flex;
+  width:100%;
+  min-height:5.8rem;
+  margin:0;
+  padding:1.4rem 2rem;
+  align-items:center;
+  justify-content:center;
+  gap:.8rem;
+  border:1px solid #e8c956;
+  border-radius:1.4rem;
+  background:linear-gradient(180deg, #e6c64f, #c99f24);
+  color:#070707;
+  box-shadow:0 1.2rem 3rem rgba(212,175,55,.18);
+  font-size:1.55rem;
+  font-weight:900;
+  letter-spacing:-.015em;
+  text-decoration:none;
 }
 
-html body .cart-drawer .cart-item__media {
-  grid-area: media !important;
-  width: 9.2rem !important;
-  height: 9.2rem !important;
-  margin: 0 !important;
-  overflow: hidden !important;
-  border: 1px solid rgba(212,175,55,.22) !important;
-  border-radius: 1.4rem !important;
-  background: #0d0d0d !important;
+.bojax-course-drawer__primary::before,
+.bojax-course-drawer__primary::after { display:none !important; }
+.bojax-course-drawer__primary:hover { filter:brightness(1.07); transform:translateY(-1px); }
+
+.bojax-course-drawer__secondary {
+  display:flex;
+  min-height:5rem;
+  margin-top:1rem;
+  align-items:center;
+  justify-content:center;
+  border:1px solid rgba(255,255,255,.2);
+  border-radius:1.4rem;
+  color:#fff;
+  font-size:1.35rem;
+  font-weight:750;
+  text-decoration:none;
 }
 
-html body .cart-drawer .cart-item__image {
-  width: 100% !important;
-  height: 100% !important;
-  max-width: none !important;
-  object-fit: cover !important;
-  object-position: center !important;
+.bojax-course-drawer__secondary:hover { background:rgba(255,255,255,.06); }
+.bojax-course-drawer__secure { display:flex; margin-top:1.1rem; align-items:center; justify-content:center; gap:.55rem; color:rgba(255,255,255,.48); font-size:1.05rem; }
+
+.bojax-course-drawer__empty { display:grid; flex:1; min-height:0; padding:3rem 2rem; place-items:center; }
+.bojax-course-drawer__empty .cart-drawer__empty-content { max-width:32rem; }
+.bojax-course-drawer__empty .cart__empty-text { color:#fff; font-family:Georgia,serif; }
+.bojax-course-drawer__empty p { color:rgba(255,255,255,.62); }
+
+#CartDrawer-CartErrors:not(:empty) { margin-top:1rem; color:#ffb4b4; font-size:1.2rem; }
+
+@media screen and (min-width: 750px) {
+  cart-drawer .drawer__inner.bojax-course-drawer { width:min(46rem, calc(100vw - 6rem)); }
 }
 
-html body .cart-drawer .cart-item__details {
-  grid-area: details !important;
-  min-width: 0 !important;
-  padding: .15rem 0 !important;
-}
-
-html body .cart-drawer .cart-item__name {
-  color: #fff !important;
-  font-size: 1.75rem !important;
-  font-weight: 850 !important;
-  line-height: 1.2 !important;
-  letter-spacing: -.025em !important;
-  text-decoration: none !important;
-}
-
-html body .cart-drawer .cart-item__name:hover {
-  color: var(--bojax-cart-gold-light) !important;
-}
-
-html body .cart-drawer .product-option,
-html body .cart-drawer .cart-item dl,
-html body .cart-drawer .cart-item dd,
-html body .cart-drawer .cart-item dt {
-  margin-top: .55rem !important;
-  color: var(--bojax-cart-muted) !important;
-  font-size: 1.2rem !important;
-  line-height: 1.4 !important;
-}
-
-html body .cart-drawer .cart-item__totals {
-  grid-area: total !important;
-  padding: .15rem 0 0 !important;
-  align-self: start !important;
-}
-
-html body .cart-drawer .price--end,
-html body .cart-drawer .cart-item__price-wrapper {
-  color: #fff !important;
-  font-size: 1.55rem !important;
-  font-weight: 850 !important;
-  white-space: nowrap !important;
-}
-
-/* Course funnel: quantity selector removed, remove button retained. */
-html body .cart-drawer quantity-input,
-html body .cart-drawer .quantity-popover-container,
-html body .cart-drawer .quantity-popover__info-button,
-html body .cart-drawer .quantity-popover__info {
-  display: none !important;
-}
-
-html body .cart-drawer .cart-item__quantity {
-  grid-area: remove !important;
-  width: auto !important;
-  min-width: 0 !important;
-  padding: 0 !important;
-  align-self: end !important;
-  justify-self: end !important;
-}
-
-html body .cart-drawer .cart-item__quantity-wrapper {
-  display: block !important;
-}
-
-html body .cart-drawer cart-remove-button,
-html body .cart-drawer .cart-remove-button {
-  display: inline-flex !important;
-}
-
-html body .cart-drawer .cart-remove-button {
-  min-width: auto !important;
-  min-height: auto !important;
-  padding: .4rem !important;
-  border: 0 !important;
-  background: transparent !important;
-  color: rgba(255,255,255,.42) !important;
-  box-shadow: none !important;
-}
-
-html body .cart-drawer .cart-remove-button:hover {
-  color: var(--bojax-cart-gold-light) !important;
-}
-
-/* Footer */
-html body .drawer__footer {
-  flex: 0 0 auto !important;
-  margin: 0 !important;
-  padding: 1.6rem 2rem max(1.8rem, env(safe-area-inset-bottom)) !important;
-  border-top: 1px solid rgba(255,255,255,.1) !important;
-  background: rgba(4,4,4,.94) !important;
-  box-shadow: 0 -2rem 5rem rgba(0,0,0,.28) !important;
-}
-
-/* Hide cart notes, tax/shipping wording and discount clutter. */
-html body .drawer__footer > details,
-html body .drawer__footer .tax-note,
-html body .drawer__footer .discounts {
-  display: none !important;
-}
-
-/* Fix Dawn's nested footer wrapper in this theme. */
-html body .drawer__footer .cart-drawer__footer {
-  margin: 0 0 1.2rem !important;
-  padding: 0 !important;
-  border: 0 !important;
-  background: transparent !important;
-  box-shadow: none !important;
-}
-
-html body .drawer__footer .totals {
-  display: flex !important;
-  align-items: center !important;
-  justify-content: space-between !important;
-  gap: 1.5rem !important;
-  margin: 0 !important;
-}
-
-html body .drawer__footer .totals__total {
-  margin: 0 !important;
-  color: rgba(255,255,255,.7) !important;
-  font-size: 1.25rem !important;
-  font-weight: 750 !important;
-  letter-spacing: .02em !important;
-}
-
-html body .drawer__footer .totals__total-value {
-  margin: 0 !important;
-  color: #fff !important;
-  font-size: 2rem !important;
-  font-weight: 900 !important;
-}
-
-html body .cart__ctas {
-  display: grid !important;
-  gap: 1rem !important;
-}
-
-html body #CartDrawer-Checkout {
-  width: 100% !important;
-  min-height: 5.8rem !important;
-  margin: 0 !important;
-  padding: 1.35rem 2rem !important;
-  border: 1px solid var(--bojax-cart-gold-light) !important;
-  border-radius: 1.45rem !important;
-  background: linear-gradient(180deg, #edd46e 0%, #c9a62f 100%) !important;
-  color: #090909 !important;
-  font-size: 1.5rem !important;
-  font-weight: 900 !important;
-  letter-spacing: -.01em !important;
-  box-shadow: 0 1.4rem 3.5rem rgba(212,175,55,.2) !important;
-  transition: transform 180ms ease, filter 180ms ease, box-shadow 180ms ease !important;
-}
-
-html body #CartDrawer-Checkout::before,
-html body #CartDrawer-Checkout::after,
-html body .bojax-cart-view-button::before,
-html body .bojax-cart-view-button::after {
-  display: none !important;
-}
-
-html body #CartDrawer-Checkout:hover {
-  filter: brightness(1.06) !important;
-  transform: translateY(-1px) !important;
-  box-shadow: 0 1.8rem 4.2rem rgba(212,175,55,.27) !important;
-}
-
-html body .bojax-cart-view-button {
-  display: inline-flex !important;
-  width: 100% !important;
-  min-height: 5.2rem !important;
-  margin: 0 !important;
-  padding: 1.2rem 2rem !important;
-  align-items: center !important;
-  justify-content: center !important;
-  border: 1px solid rgba(255,255,255,.28) !important;
-  border-radius: 1.4rem !important;
-  background: rgba(255,255,255,.035) !important;
-  color: #fff !important;
-  font-size: 1.35rem !important;
-  font-weight: 800 !important;
-  text-decoration: none !important;
-  box-shadow: none !important;
-  transition: background 180ms ease, border-color 180ms ease, transform 180ms ease !important;
-}
-
-html body .bojax-cart-view-button:hover {
-  background: rgba(255,255,255,.08) !important;
-  border-color: rgba(212,175,55,.6) !important;
-  transform: translateY(-1px) !important;
-}
-
-html body .bojax-cart-secure {
-  margin: .95rem 0 0 !important;
-  color: rgba(255,255,255,.48) !important;
-  font-size: 1.05rem !important;
-  font-weight: 700 !important;
-  letter-spacing: .04em !important;
-  text-align: center !important;
-}
-
-/* Empty drawer */
-html body .drawer__inner-empty {
-  background: transparent !important;
-}
-
-html body .cart-drawer__empty-content {
-  color: #fff !important;
-}
-
-/* Keep hero behind the drawer. */
-.bojax-premium-hero-section,
-.bojax-course-hero,
-.bojax-course-hero__media,
-.bojax-course-hero__content-wrap,
-.bojax-course-hero__content {
-  z-index: 1 !important;
-}
-
-@media screen and (max-width: 749px) {
-  html body .drawer__inner {
-    width: 92vw !important;
-    max-width: 92vw !important;
-    border-radius: 2rem 0 0 2rem !important;
-  }
-
-  html body .drawer__header {
-    min-height: 7.2rem !important;
-    padding: 1.4rem 1.5rem !important;
-  }
-
-  html body .drawer__heading {
-    font-size: 2.35rem !important;
-  }
-
-  html body .drawer__close {
-    flex-basis: 4.2rem !important;
-    width: 4.2rem !important;
-    min-width: 4.2rem !important;
-    height: 4.2rem !important;
-    min-height: 4.2rem !important;
-  }
-
-  html body .bojax-cart-reservation {
-    margin: 1.2rem 1.5rem 0 !important;
-    padding: 1.25rem 1.3rem !important;
-  }
-
-  html body .bojax-cart-reservation__text {
-    font-size: 1.12rem !important;
-  }
-
-  html body .bojax-cart-reservation__timer {
-    min-width: 6.7rem !important;
-    font-size: 1.9rem !important;
-  }
-
-  html body cart-drawer-items {
-    padding: 1.3rem 1.5rem !important;
-  }
-
-  html body .cart-drawer .cart-item {
-    grid-template-columns: 7.4rem minmax(0,1fr) !important;
-    grid-template-areas:
-      "media details"
-      "media total"
-      "media remove" !important;
-    min-height: 10.4rem !important;
-    padding: 1.25rem !important;
-    gap: .45rem 1.15rem !important;
-  }
-
-  html body .cart-drawer .cart-item__media {
-    width: 7.4rem !important;
-    height: 7.4rem !important;
-  }
-
-  html body .cart-drawer .cart-item__name {
-    font-size: 1.5rem !important;
-  }
-
-  html body .cart-drawer .cart-item__totals,
-  html body .cart-drawer .cart-item__quantity {
-    justify-self: start !important;
-  }
-
-  html body .drawer__footer {
-    padding: 1.35rem 1.5rem max(1.5rem, env(safe-area-inset-bottom)) !important;
-  }
-
-  html body #CartDrawer-Checkout {
-    min-height: 5.5rem !important;
-  }
+@media (prefers-reduced-motion: reduce) {
+  cart-drawer .drawer__inner.bojax-course-drawer,
+  cart-drawer .cart-drawer__overlay { transition:none; }
 }

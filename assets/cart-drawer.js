@@ -11,18 +11,14 @@ class CartDrawer extends HTMLElement {
     const overlay = this.querySelector('#CartDrawer-Overlay');
 
     if (overlay) {
-      overlay.addEventListener(
-        'click',
-        this.close.bind(this)
-      );
+      overlay.addEventListener('click', this.close.bind(this));
     }
 
     this.setHeaderCartIconAccessibility();
   }
 
   setHeaderCartIconAccessibility() {
-    const cartLink =
-      document.querySelector('#cart-icon-bubble');
+    const cartLink = document.querySelector('#cart-icon-bubble');
 
     if (!cartLink) {
       return;
@@ -37,10 +33,7 @@ class CartDrawer extends HTMLElement {
     });
 
     cartLink.addEventListener('keydown', (event) => {
-      if (
-        event.code.toUpperCase() === 'SPACE' ||
-        event.code.toUpperCase() === 'ENTER'
-      ) {
+      if (event.code.toUpperCase() === 'SPACE') {
         event.preventDefault();
         this.open(cartLink);
       }
@@ -48,56 +41,149 @@ class CartDrawer extends HTMLElement {
   }
 
   open(triggeredBy) {
+    if (this.classList.contains('active')) {
+      return;
+    }
+
     if (triggeredBy) {
       this.setActiveElement(triggeredBy);
     }
 
-    window.setTimeout(() => {
+    const cartDrawerNote = this.querySelector(
+      '[id^="Details-"] summary'
+    );
+
+    if (
+      cartDrawerNote &&
+      !cartDrawerNote.hasAttribute('role')
+    ) {
+      this.setSummaryAccessibility(cartDrawerNote);
+    }
+
+    setTimeout(() => {
       this.classList.add('animate', 'active');
-    }, 10);
+    });
+
+    this.addEventListener(
+      'transitionend',
+      () => {
+        const containerToTrapFocusOn =
+          this.classList.contains('is-empty')
+            ? this.querySelector('.drawer__inner-empty')
+            : document.getElementById('CartDrawer');
+
+        const focusElement =
+          this.querySelector('.drawer__inner') ||
+          this.querySelector('.drawer__close');
+
+        if (
+          typeof trapFocus === 'function' &&
+          containerToTrapFocusOn
+        ) {
+          trapFocus(
+            containerToTrapFocusOn,
+            focusElement
+          );
+        }
+      },
+      { once: true }
+    );
 
     document.body.classList.add('overflow-hidden');
 
-    window.BojaxCartReservationTimer?.start();
+    this.querySelector(
+      'cart-drawer-items'
+    )?.dispatchViewEvent?.();
   }
 
   close() {
     this.classList.remove('active');
+
+    if (typeof removeTrapFocus === 'function') {
+      removeTrapFocus(this.activeElement);
+    }
+
     document.body.classList.remove('overflow-hidden');
+  }
+
+  setSummaryAccessibility(cartDrawerNote) {
+    cartDrawerNote.setAttribute('role', 'button');
+    cartDrawerNote.setAttribute(
+      'aria-expanded',
+      'false'
+    );
 
     if (
-      typeof removeTrapFocus === 'function'
+      cartDrawerNote.nextElementSibling?.getAttribute(
+        'id'
+      )
     ) {
-      removeTrapFocus(this.activeElement);
+      cartDrawerNote.setAttribute(
+        'aria-controls',
+        cartDrawerNote.nextElementSibling.id
+      );
+    }
+
+    cartDrawerNote.addEventListener(
+      'click',
+      (event) => {
+        event.currentTarget.setAttribute(
+          'aria-expanded',
+          !event.currentTarget
+            .closest('details')
+            .hasAttribute('open')
+        );
+      }
+    );
+
+    if (
+      typeof onKeyUpEscape === 'function'
+    ) {
+      cartDrawerNote.parentElement.addEventListener(
+        'keyup',
+        onKeyUpEscape
+      );
     }
   }
 
   renderContents(parsedState) {
+    const drawerInner =
+      this.querySelector('.drawer__inner');
+
+    if (
+      drawerInner?.classList.contains('is-empty')
+    ) {
+      drawerInner.classList.remove('is-empty');
+    }
+
     this.productId = parsedState.id;
 
-    this.getSectionsToRender().forEach((section) => {
-      const sectionElement = section.selector
-        ? document.querySelector(section.selector)
-        : document.getElementById(section.id);
+    this.getSectionsToRender().forEach(
+      (section) => {
+        const sectionElement = section.selector
+          ? document.querySelector(section.selector)
+          : document.getElementById(section.id);
 
-      const sectionHTML =
-        parsedState.sections?.[section.id];
+        const sectionHTML =
+          parsedState.sections?.[section.id];
 
-      if (!sectionElement || !sectionHTML) {
-        return;
+        if (!sectionElement || !sectionHTML) {
+          return;
+        }
+
+        const newHTML =
+          this.getSectionInnerHTML(
+            sectionHTML,
+            section.selector
+          );
+
+        if (newHTML !== null) {
+          sectionElement.innerHTML = newHTML;
+        }
       }
+    );
 
-      const innerHTML = this.getSectionInnerHTML(
-        sectionHTML,
-        section.selector
-      );
-
-      if (innerHTML !== null) {
-        sectionElement.innerHTML = innerHTML;
-      }
-    });
-
-    window.setTimeout(() => {
+    setTimeout(() => {
       const overlay =
         this.querySelector('#CartDrawer-Overlay');
 
@@ -109,22 +195,21 @@ class CartDrawer extends HTMLElement {
       }
 
       this.open();
-      window.BojaxCartReservationTimer?.start();
-    }, 20);
+    });
   }
 
   getSectionInnerHTML(
     html,
     selector = '.shopify-section'
   ) {
-    const documentHTML =
+    const parsedDocument =
       new DOMParser().parseFromString(
         html,
         'text/html'
       );
 
     const element =
-      documentHTML.querySelector(selector);
+      parsedDocument.querySelector(selector);
 
     return element ? element.innerHTML : null;
   }
@@ -139,6 +224,15 @@ class CartDrawer extends HTMLElement {
         id: 'cart-icon-bubble'
       }
     ];
+  }
+
+  getSectionDOM(
+    html,
+    selector = '.shopify-section'
+  ) {
+    return new DOMParser()
+      .parseFromString(html, 'text/html')
+      .querySelector(selector);
   }
 
   setActiveElement(element) {
@@ -179,177 +273,3 @@ if (
     CartDrawerItems
   );
 }
-
-/* =========================================================
-   BOJAX CART RESERVATION TIMER
-   Persistent 15-minute countdown
-   ========================================================= */
-
-(() => {
-  const STORAGE_KEY =
-    'bojax-course-reservation-expiry';
-
-  const DURATION =
-    15 * 60 * 1000;
-
-  let interval = null;
-
-  const getTimerElements = () => {
-    return document.querySelectorAll(
-      '[data-bojax-cart-timer]'
-    );
-  };
-
-  const getStoredExpiry = () => {
-    try {
-      return Number(
-        window.localStorage.getItem(STORAGE_KEY)
-      );
-    } catch (error) {
-      return 0;
-    }
-  };
-
-  const saveExpiry = (expiry) => {
-    try {
-      window.localStorage.setItem(
-        STORAGE_KEY,
-        String(expiry)
-      );
-    } catch (error) {
-      console.warn(
-        '[Bojax timer] Local storage unavailable.',
-        error
-      );
-    }
-  };
-
-  const createExpiry = () => {
-    const expiry =
-      Date.now() + DURATION;
-
-    saveExpiry(expiry);
-
-    return expiry;
-  };
-
-  const getExpiry = () => {
-    const storedExpiry =
-      getStoredExpiry();
-
-    if (
-      Number.isFinite(storedExpiry) &&
-      storedExpiry > Date.now()
-    ) {
-      return storedExpiry;
-    }
-
-    return createExpiry();
-  };
-
-  const formatTime = (milliseconds) => {
-    const totalSeconds =
-      Math.max(
-        0,
-        Math.ceil(milliseconds / 1000)
-      );
-
-    const minutes =
-      Math.floor(totalSeconds / 60);
-
-    const seconds =
-      totalSeconds % 60;
-
-    return (
-      String(minutes).padStart(2, '0') +
-      ':' +
-      String(seconds).padStart(2, '0')
-    );
-  };
-
-  const update = () => {
-    const timerElements =
-      getTimerElements();
-
-    if (!timerElements.length) {
-      return;
-    }
-
-    let expiry =
-      getExpiry();
-
-    let remaining =
-      expiry - Date.now();
-
-    if (remaining <= 0) {
-      expiry =
-        createExpiry();
-
-      remaining =
-        expiry - Date.now();
-    }
-
-    const formatted =
-      formatTime(remaining);
-
-    timerElements.forEach((timer) => {
-      timer.textContent = formatted;
-    });
-  };
-
-  const start = () => {
-    window.clearInterval(interval);
-
-    update();
-
-    interval =
-      window.setInterval(update, 1000);
-  };
-
-  const reset = () => {
-    createExpiry();
-    start();
-  };
-
-  window.BojaxCartReservationTimer = {
-    start,
-    reset,
-    update
-  };
-
-  if (
-    document.readyState === 'loading'
-  ) {
-    document.addEventListener(
-      'DOMContentLoaded',
-      start,
-      { once: true }
-    );
-  } else {
-    start();
-  }
-
-  document.addEventListener(
-    'cart:updated',
-    start
-  );
-
-  const observer =
-    new MutationObserver(() => {
-      if (
-        document.querySelector(
-          '[data-bojax-cart-timer]'
-        )
-      ) {
-        start();
-      }
-    });
-
-  observer.observe(
-    document.documentElement,
-    {
-      childList: true,
-      subtree: true
-    }
-  );
-})();

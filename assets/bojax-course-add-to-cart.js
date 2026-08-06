@@ -1,140 +1,102 @@
 (() => {
-  const COURSE_HANDLE = 'bojax-course';
-  const COURSE_URL_PART = `/products/${COURSE_HANDLE}`;
+  const COURSE_HANDLE =
+    'bojax-course';
 
-  /*
-   * These are the Bojax buttons that should add the course and open
-   * the actual right-side cart drawer.
-   */
+  const COURSE_URL =
+    `/products/${COURSE_HANDLE}`;
+
   const BUTTON_SELECTOR = [
     '[data-bojax-course-add]',
-    `a[href*="${COURSE_URL_PART}"]`,
     '.bojax-course-add-button',
     '.bojax-curriculum__button',
-    '.bojax-transformations__button'
+    '.bojax-transformations__button',
+    `a[href*="${COURSE_URL}"]`
   ].join(',');
 
   let cachedVariantId = null;
   let variantRequest = null;
-  let addRequestRunning = false;
+  let requestRunning = false;
 
-  const getCourseVariantId = async () => {
-    if (cachedVariantId) {
-      return cachedVariantId;
-    }
-
-    if (variantRequest) {
-      return variantRequest;
-    }
-
-    variantRequest = fetch(
-      `${window.Shopify.routes.root}products/${COURSE_HANDLE}.js`,
-      {
-        method: 'GET',
-        headers: {
-          Accept: 'application/json'
-        }
-      }
-    )
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(
-            'The Bojax Course product could not be loaded.'
-          );
-        }
-
-        return response.json();
-      })
-      .then((product) => {
-        const availableVariant =
-          product.variants.find((variant) => variant.available) ||
-          product.variants[0];
-
-        if (!availableVariant) {
-          throw new Error('No course variant was found.');
-        }
-
-        cachedVariantId = availableVariant.id;
-
-        return cachedVariantId;
-      })
-      .finally(() => {
-        variantRequest = null;
-      });
-
-    return variantRequest;
-  };
-
-  const getButtonTextElement = (button) => {
+  const getRoot = () => {
     return (
-      button.querySelector(
-        [
-          '.bojax-course-add-button__text',
-          '.bojax-curriculum__button-text',
-          '.bojax-transformations__button-text'
-        ].join(',')
-      ) || button
+      window.Shopify?.routes?.root ||
+      '/'
     );
   };
 
-  const saveOriginalButtonContent = (button) => {
-    if (!button.dataset.bojaxOriginalHtml) {
-      button.dataset.bojaxOriginalHtml = button.innerHTML;
+  const saveButtonHTML = (button) => {
+    if (
+      !button.dataset.bojaxOriginalHtml
+    ) {
+      button.dataset.bojaxOriginalHtml =
+        button.innerHTML;
     }
   };
 
-  const restoreButtonContent = (button) => {
-    if (button.dataset.bojaxOriginalHtml) {
-      button.innerHTML = button.dataset.bojaxOriginalHtml;
-    }
-  };
-
-  const setButtonLoading = (button, loading) => {
-    saveOriginalButtonContent(button);
-
-    const textElement = getButtonTextElement(button);
-
-    if (loading) {
-      button.classList.add('is-loading');
-      button.setAttribute('aria-busy', 'true');
-      button.setAttribute('aria-disabled', 'true');
-      button.style.pointerEvents = 'none';
-
-      if (textElement === button) {
-        button.innerHTML = `
-          <span class="bojax-course-add-button__loading">
-            <span
-              class="bojax-course-add-button__spinner"
-              aria-hidden="true"
-            ></span>
-
-            <span>Adding to cart</span>
-          </span>
-        `;
-      } else {
-        textElement.textContent = 'Adding to cart';
-      }
-
-      return;
+  const restoreButton = (button) => {
+    if (
+      button.dataset.bojaxOriginalHtml
+    ) {
+      button.innerHTML =
+        button.dataset.bojaxOriginalHtml;
     }
 
-    button.classList.remove('is-loading');
-    button.removeAttribute('aria-busy');
-    button.removeAttribute('aria-disabled');
+    button.classList.remove(
+      'is-loading'
+    );
+
+    button.removeAttribute(
+      'aria-busy'
+    );
+
+    button.removeAttribute(
+      'aria-disabled'
+    );
+
     button.style.pointerEvents = '';
-
-    restoreButtonContent(button);
   };
 
-  const showButtonSuccess = (button) => {
-    saveOriginalButtonContent(button);
+  const setLoading = (button) => {
+    saveButtonHTML(button);
+
+    button.classList.add(
+      'is-loading'
+    );
+
+    button.setAttribute(
+      'aria-busy',
+      'true'
+    );
+
+    button.setAttribute(
+      'aria-disabled',
+      'true'
+    );
+
+    button.style.pointerEvents =
+      'none';
+
+    button.innerHTML = `
+      <span class="bojax-course-add-button__loading">
+        <span
+          class="bojax-course-add-button__spinner"
+          aria-hidden="true"
+        ></span>
+
+        <span>Adding to cart</span>
+      </span>
+    `;
+  };
+
+  const showSuccess = (button) => {
+    restoreButton(button);
+    saveButtonHTML(button);
 
     button.innerHTML = `
       <span class="bojax-course-add-button__success">
         <svg
           viewBox="0 0 20 20"
           aria-hidden="true"
-          focusable="false"
         >
           <path
             d="M5 10.5 8.2 13.7 15.5 6.2"
@@ -151,199 +113,279 @@
     `;
 
     window.setTimeout(() => {
-      restoreButtonContent(button);
-    }, 1600);
+      restoreButton(button);
+    }, 1500);
   };
 
-  const showButtonError = (button) => {
-    saveOriginalButtonContent(button);
+  const showError = (
+    button,
+    error
+  ) => {
+    console.error(
+      '[Bojax cart]',
+      error
+    );
+
+    restoreButton(button);
+    saveButtonHTML(button);
 
     button.innerHTML = `
       <span class="bojax-course-add-button__error">
-        Could not add to cart
+        Try again
       </span>
     `;
 
     window.setTimeout(() => {
-      restoreButtonContent(button);
+      restoreButton(button);
     }, 2200);
   };
 
-  /*
-   * Only use the actual Dawn cart drawer.
-   * The old cart notification is intentionally not used.
-   */
-  const getCartDrawer = () => {
-    return document.querySelector('cart-drawer');
+  const getVariantId = async () => {
+    if (cachedVariantId) {
+      return cachedVariantId;
+    }
+
+    if (variantRequest) {
+      return variantRequest;
+    }
+
+    const productURL =
+      `${getRoot()}products/` +
+      `${COURSE_HANDLE}.js`;
+
+    variantRequest =
+      fetch(productURL, {
+        method: 'GET',
+        headers: {
+          Accept: 'application/json'
+        }
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(
+              `Product request failed: ${response.status}`
+            );
+          }
+
+          return response.json();
+        })
+        .then((product) => {
+          const variant =
+            product.variants?.find(
+              (item) => item.available
+            ) ||
+            product.variants?.[0];
+
+          if (!variant) {
+            throw new Error(
+              'No course variant found.'
+            );
+          }
+
+          cachedVariantId =
+            variant.id;
+
+          return cachedVariantId;
+        })
+        .finally(() => {
+          variantRequest = null;
+        });
+
+    return variantRequest;
   };
 
-  const getCartSections = () => {
-    const cartDrawer = getCartDrawer();
+  const getDrawer = () => {
+    return document.querySelector(
+      'cart-drawer'
+    );
+  };
+
+  const getSectionIds = () => {
+    const drawer = getDrawer();
 
     if (
-      cartDrawer &&
-      typeof cartDrawer.getSectionsToRender === 'function'
+      drawer &&
+      typeof drawer.getSectionsToRender ===
+        'function'
     ) {
-      return cartDrawer
+      return drawer
         .getSectionsToRender()
         .map((section) => section.id);
     }
 
-    /*
-     * Dawn cart-drawer fallback section IDs.
-     */
     return [
       'cart-drawer',
       'cart-icon-bubble'
     ];
   };
 
-  const openCartDrawer = (cartResponse) => {
-    const cartDrawer = getCartDrawer();
+  const openDrawer = (result) => {
+    const drawer = getDrawer();
 
-    if (!cartDrawer) {
+    if (!drawer) {
       console.error(
-        '[Bojax cart] No <cart-drawer> element was found. ' +
-        'Make sure the theme cart type is set to drawer.'
+        '[Bojax cart] cart-drawer was not found.'
       );
 
       return false;
     }
 
-    /*
-     * Dawn normally renders the returned section HTML and then opens
-     * the drawer through renderContents().
-     */
-    if (typeof cartDrawer.renderContents === 'function') {
-      cartDrawer.renderContents(cartResponse);
+    if (
+      typeof drawer.renderContents ===
+        'function'
+    ) {
+      drawer.renderContents(result);
+    } else if (
+      typeof drawer.open === 'function'
+    ) {
+      drawer.open();
+    } else {
+      drawer.classList.add(
+        'animate',
+        'active'
+      );
 
-      window.setTimeout(() => {
-        if (typeof cartDrawer.open === 'function') {
-          cartDrawer.open();
-        }
-      }, 50);
-
-      return true;
+      document.body.classList.add(
+        'overflow-hidden'
+      );
     }
-
-    /*
-     * Fallback opening behavior in case the theme has a customized
-     * cart drawer class without renderContents().
-     */
-    if (typeof cartDrawer.open === 'function') {
-      cartDrawer.open();
-      return true;
-    }
-
-    cartDrawer.classList.add('active', 'animate');
-    document.body.classList.add('overflow-hidden');
 
     return true;
   };
 
-  const addCourseToCart = async (button) => {
+  const addCourse = async (
+    button
+  ) => {
     if (
-      addRequestRunning ||
-      button.dataset.bojaxAdding === 'true'
+      requestRunning ||
+      button.dataset.bojaxAdding ===
+        'true'
     ) {
       return;
     }
 
-    addRequestRunning = true;
-    button.dataset.bojaxAdding = 'true';
+    requestRunning = true;
 
-    setButtonLoading(button, true);
+    button.dataset.bojaxAdding =
+      'true';
+
+    setLoading(button);
 
     try {
-      const variantId = await getCourseVariantId();
-      const sections = getCartSections();
+      const variantId =
+        await getVariantId();
 
-      const formData = new FormData();
+      const sections =
+        getSectionIds();
 
-      formData.append('id', String(variantId));
-      formData.append('quantity', '1');
-      formData.append('sections', sections.join(','));
+      const formData =
+        new FormData();
+
+      formData.append(
+        'id',
+        String(variantId)
+      );
+
+      formData.append(
+        'quantity',
+        '1'
+      );
+
+      formData.append(
+        'sections',
+        sections.join(',')
+      );
+
       formData.append(
         'sections_url',
-        `${window.location.pathname}${window.location.search}`
+        window.location.pathname +
+          window.location.search
       );
 
-      const response = await fetch(
-        `${window.Shopify.routes.root}cart/add.js`,
-        {
-          method: 'POST',
-          headers: {
-            Accept: 'application/json',
-            'X-Requested-With': 'XMLHttpRequest'
-          },
-          body: formData
-        }
-      );
+      const response =
+        await fetch(
+          `${getRoot()}cart/add.js`,
+          {
+            method: 'POST',
+            headers: {
+              Accept:
+                'application/json',
+              'X-Requested-With':
+                'XMLHttpRequest'
+            },
+            body: formData
+          }
+        );
 
-      const result = await response.json();
+      const result =
+        await response.json();
 
-      if (!response.ok || result.status) {
+      if (
+        !response.ok ||
+        result.status
+      ) {
         throw new Error(
           result.description ||
           result.message ||
-          'The course could not be added to your cart.'
+          'Unable to add course.'
         );
       }
 
-      setButtonLoading(button, false);
-      showButtonSuccess(button);
+      showSuccess(button);
 
-      const drawerOpened = openCartDrawer(result);
+      window.BojaxCartReservationTimer
+        ?.start();
+
+      const opened =
+        openDrawer(result);
 
       document.dispatchEvent(
-        new CustomEvent('cart:updated', {
-          bubbles: true,
-          detail: {
-            source: 'bojax-course-button',
-            product: result
+        new CustomEvent(
+          'cart:updated',
+          {
+            bubbles: true,
+            detail: {
+              source:
+                'bojax-course-button',
+              product: result
+            }
           }
-        })
+        )
       );
 
-      /*
-       * Never open the old notification.
-       * If the cart drawer is missing, send the customer to the cart page.
-       */
-      if (!drawerOpened) {
-        window.setTimeout(() => {
-          window.location.href =
-            `${window.Shopify.routes.root}cart`;
-        }, 500);
+      if (!opened) {
+        window.location.href =
+          `${getRoot()}cart`;
       }
     } catch (error) {
-      console.error('[Bojax add to cart]', error);
-
-      setButtonLoading(button, false);
-      showButtonError(button);
+      showError(button, error);
     } finally {
       window.setTimeout(() => {
-        button.dataset.bojaxAdding = 'false';
-        addRequestRunning = false;
+        requestRunning = false;
+
+        button.dataset.bojaxAdding =
+          'false';
       }, 500);
     }
   };
 
-  const findCourseButton = (target) => {
-    if (!(target instanceof Element)) {
+  const findButton = (target) => {
+    if (
+      !(target instanceof Element)
+    ) {
       return null;
     }
 
-    return target.closest(BUTTON_SELECTOR);
+    return target.closest(
+      BUTTON_SELECTOR
+    );
   };
 
-  /*
-   * Capture mode is important. It allows this script to stop Dawn's
-   * product-form.js before it opens the old cart notification.
-   */
   document.addEventListener(
     'click',
     (event) => {
-      const button = findCourseButton(event.target);
+      const button =
+        findButton(event.target);
 
       if (!button) {
         return;
@@ -362,7 +404,7 @@
       event.stopPropagation();
       event.stopImmediatePropagation();
 
-      addCourseToCart(button);
+      addCourse(button);
     },
     true
   );
@@ -370,13 +412,17 @@
   document.addEventListener(
     'keydown',
     (event) => {
-      if (event.key !== 'Enter' && event.key !== ' ') {
+      if (
+        event.key !== 'Enter' &&
+        event.key !== ' '
+      ) {
         return;
       }
 
-      const button = findCourseButton(event.target);
+      const button =
+        findButton(event.target);
 
-      if (!button || button.tagName === 'A') {
+      if (!button) {
         return;
       }
 
@@ -384,8 +430,12 @@
       event.stopPropagation();
       event.stopImmediatePropagation();
 
-      addCourseToCart(button);
+      addCourse(button);
     },
     true
+  );
+
+  console.log(
+    '[Bojax cart] Add-to-cart script loaded.'
   );
 })();

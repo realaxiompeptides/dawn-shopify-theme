@@ -1,6 +1,7 @@
 {% comment %}
-  Bojax course cart drawer.
+  Bojax premium cart drawer.
   Keeps Dawn's required IDs/classes so AJAX add-to-cart and cart updates continue working.
+  Bojax-specific benefits render only inside the bojax-course product card.
 {% endcomment %}
 
 <script src="{{ 'cart.js' | asset_url }}" defer="defer"></script>
@@ -22,8 +23,8 @@
     >
       <div class="drawer__header bojax-course-drawer__header">
         <div>
-          <p class="bojax-course-drawer__eyebrow">THE BOJAX METHOD</p>
-          <h2 class="drawer__heading">Your course is reserved</h2>
+          <p class="bojax-course-drawer__eyebrow">YOUR CART</p>
+          <h2 class="drawer__heading">Your items are reserved</h2>
         </div>
 
         <button
@@ -41,9 +42,9 @@
           <div class="cart-drawer__warnings center">
             <div class="cart-drawer__empty-content">
               <h2 class="cart__empty-text">Your cart is empty</h2>
-              <p>Add The Bojax Method to begin your ascension.</p>
+              <p>Add an item to continue.</p>
               <button class="button bojax-course-drawer__primary" type="button" onclick="this.closest('cart-drawer').close()">
-                Return to the course
+                Continue shopping
               </button>
             </div>
           </div>
@@ -65,49 +66,79 @@
 
               <div class="bojax-course-drawer__items">
                 {%- for item in cart.items -%}
-                  <article id="CartDrawer-Item-{{ item.index | plus: 1 }}" class="bojax-course-drawer__item cart-item">
-                    <div class="bojax-course-drawer__media">
-                      {%- if item.image -%}
-                        <img
-                          src="{{ item.image | image_url: width: 360 }}"
-                          alt="{{ item.image.alt | default: item.product.title | escape }}"
-                          loading="lazy"
-                          width="180"
-                          height="180"
-                        >
-                      {%- else -%}
-                        <div class="bojax-course-drawer__media-placeholder">BJ</div>
-                      {%- endif -%}
-                    </div>
-
-                    <div class="bojax-course-drawer__details">
-                      <p class="bojax-course-drawer__access">Lifetime course access</p>
-                      <h3>{{ item.product.title | escape }}</h3>
-
-                      {%- unless item.product.has_only_default_variant -%}
-                        <p class="bojax-course-drawer__variant">{{ item.variant.title | escape }}</p>
-                      {%- endunless -%}
-
-                      <div class="bojax-course-drawer__price">
-                        {%- if item.original_line_price != item.final_line_price -%}
-                          <s>{{ item.original_line_price | money }}</s>
+                  <article
+                    id="CartDrawer-Item-{{ item.index | plus: 1 }}"
+                    class="bojax-course-drawer__item cart-item{% if item.product.handle == 'bojax-course' %} bojax-course-drawer__item--bojax{% endif %}"
+                  >
+                    <div class="bojax-course-drawer__item-main">
+                      <div class="bojax-course-drawer__media">
+                        {%- if item.image -%}
+                          <img
+                            src="{{ item.image | image_url: width: 360 }}"
+                            alt="{{ item.image.alt | default: item.product.title | escape }}"
+                            loading="lazy"
+                            width="180"
+                            height="180"
+                          >
+                        {%- else -%}
+                          <div class="bojax-course-drawer__media-placeholder">
+                            {{ item.product.title | slice: 0, 2 | upcase }}
+                          </div>
                         {%- endif -%}
-                        <strong>{{ item.final_line_price | money }}</strong>
                       </div>
 
-                      <input type="hidden" name="updates[]" value="{{ item.quantity }}" data-index="{{ item.index | plus: 1 }}">
+                      <div class="bojax-course-drawer__details">
+                        {%- if item.product.handle == 'bojax-course' -%}
+                          <p class="bojax-course-drawer__access">Lifetime course access</p>
+                        {%- endif -%}
 
-                      <cart-remove-button id="CartDrawer-Remove-{{ item.index | plus: 1 }}" data-index="{{ item.index | plus: 1 }}">
-                        <button
-                          type="button"
-                          class="bojax-course-drawer__remove"
-                          aria-label="Remove {{ item.title | escape }}"
-                          data-variant-id="{{ item.variant.id }}"
+                        <h3>{{ item.product.title | escape }}</h3>
+
+                        {%- unless item.product.has_only_default_variant -%}
+                          <p class="bojax-course-drawer__variant">{{ item.variant.title | escape }}</p>
+                        {%- endunless -%}
+
+                        <div class="bojax-course-drawer__price">
+                          {%- if item.original_line_price != item.final_line_price -%}
+                            <s>{{ item.original_line_price | money }}</s>
+                          {%- endif -%}
+                          <strong>{{ item.final_line_price | money }}</strong>
+                        </div>
+
+                        <input
+                          type="hidden"
+                          name="updates[]"
+                          value="{{ item.quantity }}"
+                          data-index="{{ item.index | plus: 1 }}"
                         >
-                          Remove
-                        </button>
-                      </cart-remove-button>
+
+                        <cart-remove-button
+                          id="CartDrawer-Remove-{{ item.index | plus: 1 }}"
+                          data-index="{{ item.index | plus: 1 }}"
+                        >
+                          <button
+                            type="button"
+                            class="bojax-course-drawer__remove"
+                            aria-label="Remove {{ item.title | escape }}"
+                            data-variant-id="{{ item.variant.id }}"
+                          >
+                            Remove
+                          </button>
+                        </cart-remove-button>
+                      </div>
                     </div>
+
+                    {%- if item.product.handle == 'bojax-course' -%}
+                      <div class="bojax-course-drawer__included">
+                        <h3>Included with your access</h3>
+                        <ul>
+                          <li><span aria-hidden="true">✓</span> 40+ detailed video lessons</li>
+                          <li><span aria-hidden="true">✓</span> Instant digital access</li>
+                          <li><span aria-hidden="true">✓</span> Lifetime course updates</li>
+                          <li><span aria-hidden="true">✓</span> Direct access to Bojax</li>
+                        </ul>
+                      </div>
+                    {%- endif -%}
                   </article>
                 {%- endfor -%}
               </div>
@@ -116,16 +147,6 @@
               <p id="CartDrawer-LineItemStatus" class="visually-hidden" aria-hidden="true" role="status">Loading</p>
 
               <div id="CartDrawer-CartErrors" role="alert"></div>
-
-              <div class="bojax-course-drawer__included">
-                <h3>Included with your access</h3>
-                <ul>
-                  <li><span>✓</span> 40+ detailed video lessons</li>
-                  <li><span>✓</span> Instant digital access</li>
-                  <li><span>✓</span> Lifetime course updates</li>
-                  <li><span>✓</span> Direct access to Bojax</li>
-                </ul>
-              </div>
             </div>
           </form>
         </cart-drawer-items>
@@ -148,6 +169,27 @@
           </button>
 
           <a href="{{ routes.cart_url }}" class="bojax-course-drawer__secondary">View cart</a>
+
+          <ul
+            class="bojax-course-drawer__payments"
+            role="list"
+            aria-label="Accepted payment methods"
+          >
+            {%- if shop.enabled_payment_types.size > 0 -%}
+              {%- for type in shop.enabled_payment_types -%}
+                <li class="bojax-course-drawer__payment-icon">
+                  {{ type | payment_type_svg_tag }}
+                </li>
+              {%- endfor -%}
+            {%- else -%}
+              {%- assign fallback_payment_types = 'visa,master,american_express,apple_pay,shopify_pay' | split: ',' -%}
+              {%- for type in fallback_payment_types -%}
+                <li class="bojax-course-drawer__payment-icon">
+                  {{ type | payment_type_svg_tag }}
+                </li>
+              {%- endfor -%}
+            {%- endif -%}
+          </ul>
 
           <div class="bojax-course-drawer__secure">
             <span aria-hidden="true">🔒</span>

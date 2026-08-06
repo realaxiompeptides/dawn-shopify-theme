@@ -1,11 +1,12 @@
 /* =========================================================
-   BOJAX — PREMIUM COURSE CART DRAWER
+   BOJAX — PREMIUM CART DRAWER
+   Safe replacement for assets/bojax-06-cart.css
    ========================================================= */
 
 cart-drawer.drawer {
-  position: fixed;
-  inset: 0;
-  z-index: 100000;
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 100000 !important;
   visibility: hidden;
 }
 
@@ -14,8 +15,8 @@ cart-drawer.drawer.active {
 }
 
 cart-drawer .cart-drawer {
-  position: fixed;
-  inset: 0;
+  position: fixed !important;
+  inset: 0 !important;
   pointer-events: none;
 }
 
@@ -26,11 +27,11 @@ cart-drawer.active .cart-drawer {
 cart-drawer .cart-drawer__overlay {
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.68);
+  background: rgba(0, 0, 0, 0.72);
   opacity: 0;
   transition: opacity 260ms ease;
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
 }
 
 cart-drawer.active .cart-drawer__overlay {
@@ -42,248 +43,726 @@ cart-drawer .drawer__inner.bojax-course-drawer {
   --bojax-gold-light: #f4d56c;
   --bojax-black: #050505;
   --bojax-panel: #0d0d0d;
-  --bojax-line: rgba(212, 175, 55, 0.2);
+  --bojax-line: rgba(212, 175, 55, 0.22);
 
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  display: flex;
-  width: min(94vw, 48rem);
-  max-width: none;
-  height: 100dvh;
-  padding: 0;
-  flex-direction: column;
-  overflow: hidden;
-  border: 0;
-  border-left: 1px solid var(--bojax-line);
+  position: absolute !important;
+  top: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+
+  display: flex !important;
+  width: min(94vw, 58rem) !important;
+  max-width: none !important;
+  height: 100dvh !important;
+  padding: 0 !important;
+
+  flex-direction: column !important;
+  overflow: hidden !important;
+
+  border: 0 !important;
+  border-left: 1px solid var(--bojax-line) !important;
+
   background:
-    radial-gradient(circle at 80% 0%, rgba(212, 175, 55, 0.12), transparent 30rem),
-    linear-gradient(180deg, #111 0%, var(--bojax-black) 44%, #080808 100%);
-  color: #fff;
-  box-shadow: -3rem 0 8rem rgba(0, 0, 0, 0.65);
+    radial-gradient(circle at 78% 0%, rgba(212, 175, 55, 0.13), transparent 31rem),
+    linear-gradient(180deg, #111 0%, var(--bojax-black) 45%, #080808 100%) !important;
+
+  color: #fff !important;
+  box-shadow: -3rem 0 8rem rgba(0, 0, 0, 0.68) !important;
+
   transform: translateX(102%);
-  transition: transform 320ms cubic-bezier(.22,.8,.3,1);
+  transition: transform 320ms cubic-bezier(.22, .8, .3, 1);
 }
 
 cart-drawer.active .drawer__inner.bojax-course-drawer {
   transform: translateX(0);
 }
 
+/* =========================================================
+   HEADER
+   ========================================================= */
+
 .bojax-course-drawer__header {
-  display: flex;
+  display: flex !important;
   min-height: 9.2rem;
-  padding: max(1.8rem, env(safe-area-inset-top)) 2rem 1.7rem;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1.6rem;
-  border-bottom: 1px solid rgba(255,255,255,.09);
-  background: rgba(5,5,5,.76);
+  padding: max(1.8rem, env(safe-area-inset-top)) 2.2rem 1.7rem !important;
+
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 1.6rem !important;
+
+  border-bottom: 1px solid rgba(255, 255, 255, 0.09) !important;
+  background: rgba(5, 5, 5, 0.84) !important;
+
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
 }
 
 .bojax-course-drawer__eyebrow {
-  margin: 0 0 .35rem;
-  color: var(--bojax-gold-light);
-  font-size: 1rem;
-  font-weight: 800;
-  letter-spacing: .19em;
+  margin: 0 0 0.35rem !important;
+  color: var(--bojax-gold-light) !important;
+  font-size: 1rem !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.19em !important;
+  text-transform: uppercase;
 }
 
 .bojax-course-drawer .drawer__heading {
-  margin: 0;
-  color: #fff;
-  font-family: Georgia, 'Times New Roman', serif;
-  font-size: clamp(2.1rem, 5vw, 2.8rem);
-  font-weight: 500;
-  letter-spacing: -.035em;
-  line-height: 1.05;
+  margin: 0 !important;
+  color: #fff !important;
+  font-family: Georgia, 'Times New Roman', serif !important;
+  font-size: clamp(2.1rem, 5vw, 3rem) !important;
+  font-weight: 500 !important;
+  letter-spacing: -0.035em !important;
+  line-height: 1.05 !important;
 }
 
 .bojax-course-drawer__close {
-  position: static;
-  display: grid;
-  width: 4.6rem;
-  min-width: 4.6rem;
-  height: 4.6rem;
-  margin: 0;
-  padding: 0;
-  place-items: center;
-  border: 1px solid rgba(255,255,255,.17);
-  border-radius: 50%;
-  background: rgba(255,255,255,.05);
-  color: #fff;
+  position: static !important;
+  inset: auto !important;
+
+  display: grid !important;
+  width: 4.6rem !important;
+  min-width: 4.6rem !important;
+  height: 4.6rem !important;
+
+  margin: 0 !important;
+  padding: 0 !important;
+  place-items: center !important;
+
+  border: 1px solid rgba(255, 255, 255, 0.17) !important;
+  border-radius: 50% !important;
+
+  background: rgba(255, 255, 255, 0.05) !important;
+  color: #fff !important;
   cursor: pointer;
 }
 
-.bojax-course-drawer__close:hover { background: rgba(255,255,255,.11); }
-.bojax-course-drawer__close .svg-wrapper { width: 1.9rem; height: 1.9rem; }
-.bojax-course-drawer__close svg { width: 100%; height: 100%; }
+.bojax-course-drawer__close:hover {
+  background: rgba(255, 255, 255, 0.11) !important;
+}
+
+.bojax-course-drawer__close .svg-wrapper {
+  width: 1.9rem !important;
+  height: 1.9rem !important;
+}
+
+.bojax-course-drawer__close svg {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* =========================================================
+   SCROLLING BODY
+   ========================================================= */
 
 .bojax-course-drawer cart-drawer-items {
-  display: block;
-  min-height: 0;
-  flex: 1 1 auto;
-  overflow-y: auto;
+  display: block !important;
+  min-height: 0 !important;
+  flex: 1 1 auto !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
   overscroll-behavior: contain;
 }
 
 .bojax-course-drawer__body {
-  padding: 1.8rem 1.8rem 2.4rem;
+  display: block !important;
+  padding: 1.8rem 1.8rem 2.4rem !important;
 }
 
+/* =========================================================
+   RESERVATION TIMER
+   ========================================================= */
+
 .bojax-course-drawer__reservation {
-  display: flex;
-  margin-bottom: 1.6rem;
-  padding: 1.35rem 1.5rem;
-  align-items: center;
-  gap: 1.2rem;
-  border: 1px solid rgba(212,175,55,.38);
-  border-radius: 1.5rem;
-  background: linear-gradient(135deg, rgba(212,175,55,.15), rgba(212,175,55,.045));
+  display: flex !important;
+  width: 100% !important;
+  margin: 0 0 1.6rem !important;
+  padding: 1.35rem 1.5rem !important;
+
+  align-items: center !important;
+  gap: 1.2rem !important;
+
+  border: 1px solid rgba(212, 175, 55, 0.42) !important;
+  border-radius: 1.5rem !important;
+
+  background:
+    linear-gradient(135deg, rgba(212, 175, 55, 0.17), rgba(212, 175, 55, 0.045)) !important;
 }
 
 .bojax-course-drawer__reservation-icon {
-  display: grid;
-  width: 3.4rem;
-  height: 3.4rem;
-  place-items: center;
-  border-radius: 50%;
-  background: var(--bojax-gold);
-  color: #080808;
-  font-weight: 900;
+  display: grid !important;
+  width: 3.4rem !important;
+  min-width: 3.4rem !important;
+  height: 3.4rem !important;
+  place-items: center !important;
+
+  border-radius: 50% !important;
+  background: var(--bojax-gold) !important;
+  color: #080808 !important;
+  font-weight: 900 !important;
 }
 
 .bojax-course-drawer__reservation-label {
-  display: block;
-  color: rgba(255,255,255,.68);
-  font-size: 1.18rem;
-  letter-spacing: .04em;
+  display: block !important;
+  color: rgba(255, 255, 255, 0.68) !important;
+  font-size: 1.18rem !important;
+  letter-spacing: 0.04em !important;
 }
 
 .bojax-course-drawer__timer {
-  display: block;
-  margin-top: .15rem;
-  color: var(--bojax-gold-light);
+  display: block !important;
+  margin-top: 0.15rem !important;
+  color: var(--bojax-gold-light) !important;
   font-variant-numeric: tabular-nums;
-  font-size: 2.2rem;
-  line-height: 1;
+  font-size: 2.2rem !important;
+  font-weight: 850 !important;
+  line-height: 1 !important;
 }
 
-.bojax-course-drawer__items { display: grid; gap: 1.2rem; }
+/* =========================================================
+   CART ITEMS
+   Important: resets Dawn .cart-item grid rules completely.
+   ========================================================= */
 
-.bojax-course-drawer__item {
-  display: grid;
-  grid-template-columns: 10.5rem minmax(0, 1fr);
-  gap: 1.5rem;
-  padding: 1.4rem;
-  border: 1px solid rgba(255,255,255,.1);
-  border-radius: 1.8rem;
-  background: linear-gradient(145deg, rgba(255,255,255,.06), rgba(255,255,255,.018));
+.bojax-course-drawer__items {
+  display: grid !important;
+  width: 100% !important;
+  gap: 1.4rem !important;
+}
+
+.bojax-course-drawer__item.cart-item {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1.08fr) minmax(18rem, 0.92fr) !important;
+  grid-template-rows: auto !important;
+  grid-template-areas: 'product benefits' !important;
+
+  width: 100% !important;
+  min-width: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  gap: 0 !important;
+
+  overflow: hidden !important;
+
+  border: 1px solid rgba(255, 255, 255, 0.11) !important;
+  border-radius: 1.8rem !important;
+
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.018)) !important;
+}
+
+.bojax-course-drawer__item--bojax.cart-item {
+  border-color: rgba(212, 175, 55, 0.3) !important;
+  box-shadow:
+    0 1.6rem 4rem rgba(0, 0, 0, 0.22),
+    0 0 3rem rgba(212, 175, 55, 0.04) !important;
+}
+
+/* Left side: image + product information */
+.bojax-course-drawer__item-main {
+  grid-area: product !important;
+
+  display: grid !important;
+  grid-template-columns: 11.5rem minmax(0, 1fr) !important;
+  grid-template-rows: auto !important;
+
+  min-width: 0 !important;
+  padding: 1.5rem !important;
+  align-items: start !important;
+  gap: 1.5rem !important;
+
+  border-right: 1px solid rgba(212, 175, 55, 0.15) !important;
 }
 
 .bojax-course-drawer__media {
-  width: 10.5rem;
-  height: 10.5rem;
-  overflow: hidden;
-  border: 1px solid rgba(212,175,55,.22);
-  border-radius: 1.35rem;
-  background: #111;
+  display: block !important;
+  width: 11.5rem !important;
+  min-width: 11.5rem !important;
+  height: 11.5rem !important;
+
+  overflow: hidden !important;
+
+  border: 1px solid rgba(212, 175, 55, 0.28) !important;
+  border-radius: 1.35rem !important;
+  background: #111 !important;
 }
 
-.bojax-course-drawer__media img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.bojax-course-drawer__media-placeholder { display:grid; width:100%; height:100%; place-items:center; color:var(--bojax-gold); font-family:Georgia,serif; font-size:3rem; }
+.bojax-course-drawer__media img {
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none !important;
+  object-fit: cover !important;
+}
 
-.bojax-course-drawer__details { min-width: 0; align-self: center; }
-.bojax-course-drawer__access { margin: 0 0 .4rem; color: var(--bojax-gold-light); font-size: 1.05rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
-.bojax-course-drawer__details h3 { margin: 0; color:#fff; font-size:1.8rem; font-weight:800; letter-spacing:-.025em; line-height:1.15; }
-.bojax-course-drawer__variant { margin: .45rem 0 0; color: rgba(255,255,255,.56); font-size:1.2rem; }
-.bojax-course-drawer__price { display:flex; margin-top:.75rem; align-items:center; gap:.7rem; }
-.bojax-course-drawer__price s { color:rgba(255,255,255,.42); font-size:1.2rem; }
-.bojax-course-drawer__price strong { color:#fff; font-size:1.65rem; }
-.bojax-course-drawer__remove { margin-top:.7rem; padding:0; border:0; background:transparent; color:rgba(255,255,255,.52); font:inherit; font-size:1.1rem; text-decoration:underline; cursor:pointer; }
+.bojax-course-drawer__media-placeholder {
+  display: grid !important;
+  width: 100% !important;
+  height: 100% !important;
+  place-items: center !important;
+  color: var(--bojax-gold) !important;
+  font-family: Georgia, serif !important;
+  font-size: 3rem !important;
+}
 
+.bojax-course-drawer__details {
+  display: block !important;
+  min-width: 0 !important;
+  width: 100% !important;
+  align-self: start !important;
+  word-break: normal !important;
+  overflow-wrap: anywhere !important;
+}
+
+.bojax-course-drawer__access {
+  display: block !important;
+  margin: 0 0 0.55rem !important;
+  color: var(--bojax-gold-light) !important;
+  font-size: 1.02rem !important;
+  font-weight: 850 !important;
+  letter-spacing: 0.1em !important;
+  line-height: 1.45 !important;
+  text-transform: uppercase !important;
+}
+
+.bojax-course-drawer__details h3 {
+  display: block !important;
+  width: 100% !important;
+  margin: 0 !important;
+
+  color: #fff !important;
+  font-size: 1.75rem !important;
+  font-weight: 850 !important;
+  letter-spacing: -0.025em !important;
+  line-height: 1.16 !important;
+
+  writing-mode: horizontal-tb !important;
+  white-space: normal !important;
+  word-break: normal !important;
+  overflow-wrap: anywhere !important;
+}
+
+.bojax-course-drawer__variant {
+  margin: 0.45rem 0 0 !important;
+  color: rgba(255, 255, 255, 0.56) !important;
+  font-size: 1.2rem !important;
+}
+
+.bojax-course-drawer__price {
+  display: flex !important;
+  margin-top: 1rem !important;
+  align-items: center !important;
+  flex-wrap: wrap !important;
+  gap: 0.7rem !important;
+}
+
+.bojax-course-drawer__price s {
+  color: rgba(255, 255, 255, 0.42) !important;
+  font-size: 1.2rem !important;
+}
+
+.bojax-course-drawer__price strong {
+  color: #fff !important;
+  font-size: 1.65rem !important;
+  line-height: 1.1 !important;
+}
+
+.bojax-course-drawer__remove {
+  display: inline-block !important;
+  margin-top: 0.9rem !important;
+  padding: 0 !important;
+
+  border: 0 !important;
+  background: transparent !important;
+  color: rgba(255, 255, 255, 0.52) !important;
+
+  font: inherit !important;
+  font-size: 1.1rem !important;
+  text-decoration: underline !important;
+  text-underline-offset: 0.3rem !important;
+  cursor: pointer;
+}
+
+.bojax-course-drawer__remove:hover {
+  color: #fff !important;
+}
+
+/* Right side: Bojax benefits */
 .bojax-course-drawer__included {
-  margin-top: 1.5rem;
-  padding: 1.5rem 1.6rem;
-  border: 1px solid rgba(255,255,255,.08);
-  border-radius: 1.6rem;
-  background: rgba(255,255,255,.025);
+  grid-area: benefits !important;
+
+  display: flex !important;
+  min-width: 0 !important;
+  margin: 0 !important;
+  padding: 1.6rem !important;
+
+  flex-direction: column !important;
+  justify-content: center !important;
+
+  border: 0 !important;
+  border-radius: 0 !important;
+
+  background:
+    linear-gradient(145deg, rgba(212, 175, 55, 0.09), rgba(255, 255, 255, 0.012)) !important;
 }
 
-.bojax-course-drawer__included h3 { margin:0 0 1rem; color:#fff; font-size:1.35rem; }
-.bojax-course-drawer__included ul { display:grid; margin:0; padding:0; gap:.8rem; list-style:none; }
-.bojax-course-drawer__included li { display:flex; align-items:center; gap:.8rem; color:rgba(255,255,255,.7); font-size:1.22rem; }
-.bojax-course-drawer__included li span { color:var(--bojax-gold-light); font-weight:900; }
+.bojax-course-drawer__included h3 {
+  display: block !important;
+  margin: 0 0 1.15rem !important;
+  color: #fff !important;
+  font-size: 1.35rem !important;
+  font-weight: 700 !important;
+  line-height: 1.3 !important;
+  writing-mode: horizontal-tb !important;
+  white-space: normal !important;
+}
+
+.bojax-course-drawer__included ul {
+  display: grid !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  gap: 0.9rem !important;
+  list-style: none !important;
+}
+
+.bojax-course-drawer__included li {
+  display: grid !important;
+  grid-template-columns: 1.8rem minmax(0, 1fr) !important;
+
+  width: 100% !important;
+  min-width: 0 !important;
+  align-items: start !important;
+  gap: 0.65rem !important;
+
+  color: rgba(255, 255, 255, 0.72) !important;
+  font-size: 1.16rem !important;
+  line-height: 1.42 !important;
+
+  writing-mode: horizontal-tb !important;
+  white-space: normal !important;
+  word-break: normal !important;
+  overflow-wrap: anywhere !important;
+}
+
+.bojax-course-drawer__included li span {
+  color: var(--bojax-gold-light) !important;
+  font-weight: 900 !important;
+}
+
+/* Generic products do not have a benefits column. */
+.bojax-course-drawer__item.cart-item:not(.bojax-course-drawer__item--bojax) {
+  grid-template-columns: 1fr !important;
+  grid-template-areas: 'product' !important;
+}
+
+.bojax-course-drawer__item.cart-item:not(.bojax-course-drawer__item--bojax)
+  .bojax-course-drawer__item-main {
+  border-right: 0 !important;
+}
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
 
 .bojax-course-drawer__footer {
-  flex: 0 0 auto;
-  padding: 1.6rem 1.8rem max(1.8rem, env(safe-area-inset-bottom));
-  border-top: 1px solid rgba(255,255,255,.1);
-  background: rgba(7,7,7,.94);
-  box-shadow: 0 -1.5rem 4rem rgba(0,0,0,.36);
+  flex: 0 0 auto !important;
+  padding: 1.6rem 1.8rem max(1.8rem, env(safe-area-inset-bottom)) !important;
+
+  border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+  background: rgba(7, 7, 7, 0.96) !important;
+
+  box-shadow: 0 -1.5rem 4rem rgba(0, 0, 0, 0.36) !important;
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
 }
 
-.bojax-course-drawer__total { display:flex; margin-bottom:1.25rem; align-items:center; justify-content:space-between; color:rgba(255,255,255,.68); font-size:1.35rem; }
-.bojax-course-drawer__total strong { color:#fff; font-size:2rem; }
+.bojax-course-drawer__total {
+  display: flex !important;
+  margin-bottom: 1.25rem !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 1rem !important;
+  color: rgba(255, 255, 255, 0.68) !important;
+  font-size: 1.35rem !important;
+}
+
+.bojax-course-drawer__total strong {
+  color: #fff !important;
+  font-size: 2rem !important;
+  text-align: right !important;
+}
 
 .bojax-course-drawer__primary,
 .bojax-course-drawer__primary.button {
-  display:flex;
-  width:100%;
-  min-height:5.8rem;
-  margin:0;
-  padding:1.4rem 2rem;
-  align-items:center;
-  justify-content:center;
-  gap:.8rem;
-  border:1px solid #e8c956;
-  border-radius:1.4rem;
-  background:linear-gradient(180deg, #e6c64f, #c99f24);
-  color:#070707;
-  box-shadow:0 1.2rem 3rem rgba(212,175,55,.18);
-  font-size:1.55rem;
-  font-weight:900;
-  letter-spacing:-.015em;
-  text-decoration:none;
+  display: flex !important;
+  width: 100% !important;
+  min-height: 5.8rem !important;
+  margin: 0 !important;
+  padding: 1.4rem 2rem !important;
+
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0.8rem !important;
+
+  border: 1px solid #e8c956 !important;
+  border-radius: 1.4rem !important;
+
+  background: linear-gradient(180deg, #ebcf5d, #cda326) !important;
+  color: #070707 !important;
+
+  box-shadow: 0 1.2rem 3rem rgba(212, 175, 55, 0.18) !important;
+
+  font-size: 1.55rem !important;
+  font-weight: 900 !important;
+  letter-spacing: -0.015em !important;
+  text-decoration: none !important;
 }
 
 .bojax-course-drawer__primary::before,
-.bojax-course-drawer__primary::after { display:none !important; }
-.bojax-course-drawer__primary:hover { filter:brightness(1.07); transform:translateY(-1px); }
-
-.bojax-course-drawer__secondary {
-  display:flex;
-  min-height:5rem;
-  margin-top:1rem;
-  align-items:center;
-  justify-content:center;
-  border:1px solid rgba(255,255,255,.2);
-  border-radius:1.4rem;
-  color:#fff;
-  font-size:1.35rem;
-  font-weight:750;
-  text-decoration:none;
+.bojax-course-drawer__primary::after {
+  display: none !important;
 }
 
-.bojax-course-drawer__secondary:hover { background:rgba(255,255,255,.06); }
-.bojax-course-drawer__secure { display:flex; margin-top:1.1rem; align-items:center; justify-content:center; gap:.55rem; color:rgba(255,255,255,.48); font-size:1.05rem; }
+.bojax-course-drawer__primary:hover {
+  filter: brightness(1.07);
+  transform: translateY(-1px);
+}
 
-.bojax-course-drawer__empty { display:grid; flex:1; min-height:0; padding:3rem 2rem; place-items:center; }
-.bojax-course-drawer__empty .cart-drawer__empty-content { max-width:32rem; }
-.bojax-course-drawer__empty .cart__empty-text { color:#fff; font-family:Georgia,serif; }
-.bojax-course-drawer__empty p { color:rgba(255,255,255,.62); }
+.bojax-course-drawer__secondary {
+  display: flex !important;
+  width: 100% !important;
+  min-height: 5rem !important;
+  margin-top: 1rem !important;
 
-#CartDrawer-CartErrors:not(:empty) { margin-top:1rem; color:#ffb4b4; font-size:1.2rem; }
+  align-items: center !important;
+  justify-content: center !important;
+
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  border-radius: 1.4rem !important;
+
+  color: #fff !important;
+  font-size: 1.35rem !important;
+  font-weight: 750 !important;
+  text-decoration: none !important;
+}
+
+.bojax-course-drawer__secondary:hover {
+  background: rgba(255, 255, 255, 0.06) !important;
+}
+
+/* =========================================================
+   PAYMENT ICONS — SAFE HORIZONTAL LAYOUT
+   Supports both payment class names without changing icons
+   ========================================================= */
+
+html body .bojax-cart-payment-icons,
+html body .bojax-course-drawer__payments {
+  display: flex !important;
+  width: 100% !important;
+  max-width: 100% !important;
+
+  margin: 1.25rem 0 0 !important;
+  padding: 0 !important;
+
+  align-items: center !important;
+  justify-content: center !important;
+  flex-direction: row !important;
+  flex-wrap: wrap !important;
+  gap: 0.6rem !important;
+
+  list-style: none !important;
+}
+
+html body .bojax-cart-payment-icons::before,
+html body .bojax-cart-payment-icons::after,
+html body .bojax-course-drawer__payments::before,
+html body .bojax-course-drawer__payments::after,
+html body .bojax-cart-payment-icons__item::before,
+html body .bojax-cart-payment-icons__item::after,
+html body .bojax-course-drawer__payment-icon::before,
+html body .bojax-course-drawer__payment-icon::after {
+  display: none !important;
+  content: none !important;
+}
+
+html body .bojax-cart-payment-icons__item,
+html body .bojax-course-drawer__payment-icon {
+  display: inline-flex !important;
+  flex: 0 0 auto !important;
+
+  width: 4.25rem !important;
+  min-width: 4.25rem !important;
+  max-width: 4.25rem !important;
+
+  height: 2.7rem !important;
+  min-height: 2.7rem !important;
+  max-height: 2.7rem !important;
+
+  margin: 0 !important;
+  padding: 0.25rem 0.4rem !important;
+
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: hidden !important;
+
+  border: 1px solid rgba(255, 255, 255, 0.16) !important;
+  border-radius: 0.55rem !important;
+  background: #fff !important;
+
+  list-style: none !important;
+  line-height: 0 !important;
+
+  box-shadow: 0 0.5rem 1.4rem rgba(0, 0, 0, 0.18) !important;
+}
+
+html body .bojax-cart-payment-icons__item svg,
+html body .bojax-course-drawer__payment-icon svg {
+  display: block !important;
+  width: 100% !important;
+  max-width: 3.75rem !important;
+  height: 2rem !important;
+  max-height: 2rem !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.bojax-course-drawer__secure {
+  display: flex !important;
+  margin-top: 1.1rem !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0.55rem !important;
+  color: rgba(255, 255, 255, 0.48) !important;
+  font-size: 1.05rem !important;
+}
+
+/* =========================================================
+   EMPTY CART / ERRORS
+   ========================================================= */
+
+.bojax-course-drawer__empty {
+  display: grid !important;
+  flex: 1 !important;
+  min-height: 0 !important;
+  padding: 3rem 2rem !important;
+  place-items: center !important;
+}
+
+.bojax-course-drawer__empty .cart-drawer__empty-content {
+  max-width: 32rem !important;
+}
+
+.bojax-course-drawer__empty .cart__empty-text {
+  color: #fff !important;
+  font-family: Georgia, serif !important;
+}
+
+.bojax-course-drawer__empty p {
+  color: rgba(255, 255, 255, 0.62) !important;
+}
+
+#CartDrawer-CartErrors:not(:empty) {
+  margin-top: 1rem !important;
+  color: #ffb4b4 !important;
+  font-size: 1.2rem !important;
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media screen and (max-width: 620px) {
+  cart-drawer .drawer__inner.bojax-course-drawer {
+    width: calc(100vw - 2.4rem) !important;
+  }
+
+  .bojax-course-drawer__header {
+    min-height: 8.4rem;
+    padding-right: 1.5rem !important;
+    padding-left: 1.6rem !important;
+  }
+
+  .bojax-course-drawer__body {
+    padding: 1.5rem 1.4rem 2rem !important;
+  }
+
+  /* On narrow phones, stack benefits under product to preserve readability. */
+  .bojax-course-drawer__item.cart-item {
+    grid-template-columns: 1fr !important;
+    grid-template-areas:
+      'product'
+      'benefits' !important;
+  }
+
+  .bojax-course-drawer__item-main {
+    grid-template-columns: 9.5rem minmax(0, 1fr) !important;
+    padding: 1.3rem !important;
+    gap: 1.25rem !important;
+    border-right: 0 !important;
+  }
+
+  .bojax-course-drawer__media {
+    width: 9.5rem !important;
+    min-width: 9.5rem !important;
+    height: 9.5rem !important;
+  }
+
+  .bojax-course-drawer__included {
+    padding: 1.35rem 1.4rem 1.5rem !important;
+    border-top: 1px solid rgba(212, 175, 55, 0.16) !important;
+  }
+
+  .bojax-course-drawer__included ul {
+    grid-template-columns: 1fr 1fr !important;
+    column-gap: 1rem !important;
+  }
+
+  .bojax-course-drawer__footer {
+    padding-right: 1.4rem !important;
+    padding-left: 1.4rem !important;
+  }
+}
+
+@media screen and (max-width: 420px) {
+  .bojax-course-drawer__item-main {
+    grid-template-columns: 8.2rem minmax(0, 1fr) !important;
+  }
+
+  .bojax-course-drawer__media {
+    width: 8.2rem !important;
+    min-width: 8.2rem !important;
+    height: 8.2rem !important;
+  }
+
+  .bojax-course-drawer__details h3 {
+    font-size: 1.55rem !important;
+  }
+
+  .bojax-course-drawer__included ul {
+    grid-template-columns: 1fr !important;
+  }
+
+  html body .bojax-cart-payment-icons__item,
+  html body .bojax-course-drawer__payment-icon {
+    width: 3.9rem !important;
+    min-width: 3.9rem !important;
+    max-width: 3.9rem !important;
+    height: 2.5rem !important;
+    min-height: 2.5rem !important;
+    max-height: 2.5rem !important;
+  }
+}
 
 @media screen and (min-width: 750px) {
-  cart-drawer .drawer__inner.bojax-course-drawer { width:min(46rem, calc(100vw - 6rem)); }
+  cart-drawer .drawer__inner.bojax-course-drawer {
+    width: min(58rem, calc(100vw - 6rem)) !important;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
   cart-drawer .drawer__inner.bojax-course-drawer,
-  cart-drawer .cart-drawer__overlay { transition:none; }
+  cart-drawer .cart-drawer__overlay {
+    transition: none !important;
+  }
 }
